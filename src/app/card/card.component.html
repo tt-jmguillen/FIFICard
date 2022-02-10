@@ -1,0 +1,7 @@
+<div href="#" class="card card-product-grid">
+    <a href="{{'/card/' + card!.id}}" class="img-wrap"> <img src="{{this.imageURL}}"> </a>
+    <figcaption class="info-wrap">
+        <a href="{{'/card/' + card!.id}}" class="title">{{card!.name}}</a>
+        <div class="price mt-1">{{card!.price | number:'1.2-2'}}</div> <!-- price-wrap.// -->
+    </figcaption>
+</div>

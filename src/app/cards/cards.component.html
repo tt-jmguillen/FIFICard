@@ -1,0 +1,10 @@
+<header class="section-heading">
+    <!--<a href="#" class="btn btn-outline-primary float-end">See all</a>-->
+    <h3 class="section-title">Popular products</h3>
+</header><!-- sect-heading -->
+    
+<div class="row">
+    <div class="col-md-3" *ngFor="let card of cards">
+        <app-card id="{{card.id}}"></app-card>
+    </div>
+</div> <!-- row.// -->
