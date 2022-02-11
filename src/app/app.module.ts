@@ -10,20 +10,33 @@ import { CardsComponent } from './cards/cards.component';
 import { CardComponent } from './card/card.component';
 import { environment } from '../environments/environment';
 import { DetailComponent } from './detail/detail.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button'; 
+import { MatGridListModule } from '@angular/material/grid-list';
+import { OrderComponent } from './order/order.component';
+import { ImagegridComponent } from './modules/imagegrid/imagegrid.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     CardsComponent,
     CardComponent,
-    DetailComponent
+    DetailComponent,
+    OrderComponent,
+    ImagegridComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatGridListModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,92 @@
+<div class="row align-top">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a [routerLink]="['/card', id]">{{card?.name}}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Order</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        <app-imagegrid id="{{id}}"></app-imagegrid>
+
+        <div class="col-12 text-center mainimagediv">
+            <img src="/assets/images/gcash.png" class="mainitem" *ngIf="card">
+        </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        <header class="section-heading">
+            <h3 class="section-title">{{card?.name}}</h3>
+        </header>
+        <section>
+            <p>{{card?.description}}</p>
+        </section>
+        <form [formGroup]="orderForm" (ngSubmit)="submitOrder()">  
+            <section>
+                <span class="text-muted">Sender</span><br/>
+                <div class="col-12 mb-2">
+                    <label for="senderNameFormControl" class="form-label">Sender Name</label>
+                    <input type="text" [ngClass]="validation.sender_name ? 'form-control' : 'form-control invalid'" id="senderNameFormControl" placeholder="Name" formControlName="sender_name">
+                </div>
+                <div class="col-12 mb-2">
+                    <label for="senderNumberFormControl" class="form-label">Sender Phone Number</label>
+                    <input type="text" [ngClass]="validation.sender_phone ? 'form-control' : 'form-control invalid'" class="form-control" id="senderNumberFormControl" placeholder="Phone Number" formControlName="sender_phone">
+                </div>
+                <div class="col-12 mb-2">
+                    <label for="senderEmailFormControl" class="form-label">Sender Email Address</label>
+                    <input type="email" [ngClass]="validation.sender_email ? 'form-control' : 'form-control invalid'" class="form-control" id="senderEmailFormControl" placeholder="Email Address" formControlName="sender_email">
+                </div>
+            </section>
+            <section>
+                <span class="text-muted">Recipient</span><br/>
+                <div class="col-12 mb-2">
+                    <label for="recipientNameFormControl" class="form-label">Recipient Name</label>
+                    <input type="text" [ngClass]="validation.receiver_name ? 'form-control' : 'form-control invalid'"  class="form-control" id="recipientNameFormControl" placeholder="Name" formControlName="receiver_name">
+                </div>
+                <div class="col-12 mb-2">
+                    <label for="recipientNumberFormControl" class="form-label">Recipient Phone Number</label>
+                    <input type="text" [ngClass]="validation.receiver_phone ? 'form-control' : 'form-control invalid'" class="form-control" id="recipientNumberFormControl" placeholder="Phone Number" formControlName="receiver_phone">
+                </div>
+                <div class="col-12 mb-2">
+                    <label for="recipientEmailFormControl" class="form-label">Recipient Email Address</label>
+                    <input type="email" class="form-control" id="recipientEmailFormControl" placeholder="Email Address" formControlName="receiver_email">
+                </div>
+            </section>
+            <section>
+                <div class="col-12 mb-3 mt-3 ml-3 form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="sendAnonymouslyCheck" formControlName="anonymously">
+                    <label class="form-check-label" for="sendAnonymouslyCheck">
+                        Send Anonymously
+                    </label>
+                </div>
+                <div class="col-12 mb-2">
+                    <label class="form-check-label" for="sendToFormControl">
+                        Send To
+                    </label>
+                    <select [ngClass]="validation.sendto ? 'form-select form-control mt-1' : 'form-select form-control mt-1 invalid'" aria-label="Default select example" id="sendToFormControl" formControlName="sendto">
+                        <option selected value="Recipient">Recipient</option>
+                        <option value="Sender">Sender</option>
+                    </select>
+                </div>
+                <div class="col-12 mb-2">
+                    <label for="messageFormControl" class="form-label">Personal Message</label>
+                    <textarea [ngClass]="validation.message ? 'form-control' : 'form-control invalid'" id="messageFormControl" rows="5" formControlName="message"></textarea>
+                </div>
+            </section>
+            <section>
+                <div class="col-12 mb-2">
+                    <input type="hidden" value="{{proof}}">
+                    <label for="formFile" class="form-label">Proof of Payment (Screenshot)</label>
+                    <input [ngClass]="validation.proof ? 'form-control' : 'form-control invalid'" type="file" id="formFile" (change)="uploadFile($event)" [disabled]="isUploading">
+                  </div>
+            </section>
+            <section>
+                <div class="col-12 mb-2">
+                    <button class="submit" type="submit" [disabled]="isUploading">Submit Order</button>
+                </div>
+            </section>
+        </form>
+    </div>
+</div>
+

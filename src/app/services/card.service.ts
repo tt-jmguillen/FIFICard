@@ -29,7 +29,7 @@ export class CardService {
     return docData(data, {idField: 'id'}) as Observable<Card>;
   }
 
-  getImageURL(path: string): Promise<string>{
+  async getImageURL(path: string): Promise<string>{
     const fileRef = ref(this.storage, path);
     return getDownloadURL(fileRef)
   }

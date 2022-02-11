@@ -26,11 +26,13 @@ export class CardComponent implements OnInit {
   }
 
   loadImage(){
-    if (this.card!.images){
-      let image = this.card!.images[0];
-      this.service.getImageURL(image).then(url => {
-        this.imageURL = url;
-      });
+    if(this.card){
+      if (this.card!.images){
+        let image = this.card!.images[0];
+        this.service.getImageURL(image).then(url => {
+          this.imageURL = url;
+        });
+      }
     }
   }
 

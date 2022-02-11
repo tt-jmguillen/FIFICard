@@ -1,0 +1,24 @@
+.mainitem{
+    max-height: 400px;
+}
+
+.item{
+    cursor: pointer;
+}
+
+.item:hover{
+    border-bottom: #000 1px solid
+}
+
+.mainimagediv{
+    height: 400px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.imagediv{
+    margin-bottom: 20px;
+}

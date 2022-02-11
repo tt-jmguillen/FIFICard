@@ -1,0 +1,47 @@
+section{
+    padding-bottom: 10px;
+}
+
+.submit{
+    background-color: #3167eb; 
+    color: #fff; 
+    font-size: 18px;
+    width: 100%;
+    padding-top: 10px; 
+    padding-bottom: 10px;     
+}
+
+.submit:hover{
+    background-color: #6610f2; 
+    font-weight: 500px;
+}
+
+.mainitem{
+    max-height: 500px;
+}
+
+.mainimagediv{
+    height: 500px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.invalid{
+    border-color: #dc3545 !important;
+}
+
+.custom-control-input.ng-invalid.ng-touched + label.custom-control-label{
+    color: #dc3545 !important;
+}
+
+.custom-control-input.ng-invalid.ng-touched + label.custom-control-label:before,
+.custom-control-input.ng-invalid.ng-touched + label.custom-control-label:after
+{
+    border-color: #dc3545 !important;
+}
+.custom-control-input.ng-invalid.ng-touched:focus~label.custom-control-label:before{
+     box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25) !important;
+}

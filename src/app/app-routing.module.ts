@@ -1,3 +1,4 @@
+import { OrderComponent } from './order/order.component';
 import { DetailComponent } from './detail/detail.component';
 import { CardsComponent } from './cards/cards.component';
 import { NgModule } from '@angular/core';
@@ -9,6 +10,9 @@ const routes: Routes = [
   },
   {
     path: 'card/:id', component: DetailComponent
+  },
+  {
+    path: 'order/:id', component: OrderComponent
   },
 ];
 

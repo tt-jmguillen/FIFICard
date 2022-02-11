@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { stringify } from 'querystring';
 import { Card } from '../models/card';
 import { CardService } from '../services/card.service';
 
@@ -16,7 +18,8 @@ export class DetailComponent implements OnInit {
 
   constructor(
     private _activateRoute: ActivatedRoute,
-    private _service: CardService
+    private _service: CardService,
+    private titleService: Title
   ) { 
     this.activateRoute = _activateRoute;
     this.service = _service;
@@ -30,9 +33,9 @@ export class DetailComponent implements OnInit {
   }
 
   loadCard(){
-    this._service.getCard(this.id!).subscribe(data => {
+    this.service.getCard(this.id!).subscribe(data => {
       this.card! = data;
+      this.titleService.setTitle(this.card?.name!);
     });
   }
-
 }
