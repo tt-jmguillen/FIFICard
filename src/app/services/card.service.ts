@@ -18,10 +18,14 @@ export class CardService {
     this.storage = _storage;
   }
 
-  getCards(): Observable<Card[]>{
-    let data = collection(this.store, 'cards');
-    let qry = query(data, where('active', "==", true));
-    return collectionData(qry, { idField: 'id' }) as Observable<Card[]>;
+  getCards(): Promise<Card[]>{
+    return new Promise((resolve, rejects) => {
+      let data = collection(this.store, 'cards');
+      let qry = query(data, where('active', "==", true));
+      (collectionData(qry, { idField: 'id' }) as Observable<Card[]>).subscribe(cards => {
+        resolve(cards);
+      });
+    });
   }
 
   getCard(id: string): Observable<Card>{

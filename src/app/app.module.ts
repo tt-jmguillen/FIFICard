@@ -17,6 +17,9 @@ import { OrderComponent } from './order/order.component';
 import { ImagegridComponent } from './modules/imagegrid/imagegrid.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StatusComponent } from './status/status.component';
+import { CartComponent } from './modules/cart/cart.component';
+import { MenuComponent } from './modules/menu/menu.component';
+import { SearchComponent } from './modules/search/search.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { StatusComponent } from './status/status.component';
     DetailComponent,
     OrderComponent,
     ImagegridComponent,
-    StatusComponent
+    StatusComponent,
+    CartComponent,
+    MenuComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

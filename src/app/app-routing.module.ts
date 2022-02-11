@@ -10,6 +10,12 @@ const routes: Routes = [
     path: '', component: CardsComponent
   },
   {
+    path: 'events/:event', component: CardsComponent
+  },
+  {
+    path: 'search/:search', component: CardsComponent
+  },
+  {
     path: 'card/:id', component: DetailComponent
   },
   {

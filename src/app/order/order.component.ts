@@ -1,12 +1,13 @@
 import { UploadResult } from '@angular/fire/storage';
 import { OrderService } from './../services/order.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Card } from '../models/card';
 import { Order } from '../models/order';
 import { CardService } from '../services/card.service';
+import { Cart } from '../models/cart';
 
 export class Validation{
   public sender_name: boolean = true;
@@ -24,6 +25,7 @@ export class Validation{
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss']
 })
+
 export class OrderComponent implements OnInit {
   id?: string;
   card?: Card;
@@ -48,7 +50,7 @@ export class OrderComponent implements OnInit {
       this.service = _service;
       this.orderService = _orderService;
       this.fb = _fb;
-      this._router = _router;
+      this.router = _router;
     }
 
   ngOnInit(): void {
@@ -88,6 +90,8 @@ export class OrderComponent implements OnInit {
       order.status = "New";
       this.orderService.createOrder(order).then(id => {
         this.orderForm.reset();
+        let cart: Cart= new Cart(id, this.card!.name!);
+        this.addLocalStorage(cart);
         this.router.navigate(['/status/' + id]);
       })
     }
@@ -111,5 +115,18 @@ export class OrderComponent implements OnInit {
       this.validation.proof = this.proof != '';
       this.isUploading = false;
     })
+  }
+
+  addLocalStorage(cart: Cart){
+    let jsonString: string = localStorage.getItem('cart')!;
+    if (jsonString != null){
+      let carts: Cart[] = JSON.parse(jsonString) as Cart[];
+      carts.push(cart);
+      localStorage.setItem("cart", JSON.stringify(carts));
+    }
+    else{
+      let carts: Cart[] = [cart];
+      localStorage.setItem("cart", JSON.stringify(carts));
+    }
   }
 }
