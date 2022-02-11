@@ -16,6 +16,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { OrderComponent } from './order/order.component';
 import { ImagegridComponent } from './modules/imagegrid/imagegrid.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StatusComponent } from './status/status.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CardComponent,
     DetailComponent,
     OrderComponent,
-    ImagegridComponent
+    ImagegridComponent,
+    StatusComponent
   ],
   imports: [
     BrowserModule,

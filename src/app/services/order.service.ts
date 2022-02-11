@@ -20,6 +20,11 @@ export class OrderService {
     this.store = _store;
   }
 
+  getOrder(id: string): Observable<Order>{
+    const data = doc(this.store, 'orders/' + id);
+    return docData(data, {idField: 'id'}) as Observable<Order>;
+  }
+
   getRandomString(): string {
     var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var result = '';

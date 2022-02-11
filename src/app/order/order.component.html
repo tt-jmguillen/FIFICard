@@ -22,6 +22,9 @@
         <section>
             <p>{{card?.description}}</p>
         </section>
+        <section>
+            <h5 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h5>
+        </section>
         <form [formGroup]="orderForm" (ngSubmit)="submitOrder()">  
             <section>
                 <span class="text-muted">Sender</span><br/>

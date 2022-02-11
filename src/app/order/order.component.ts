@@ -3,7 +3,7 @@ import { OrderService } from './../services/order.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Card } from '../models/card';
 import { Order } from '../models/order';
 import { CardService } from '../services/card.service';
@@ -32,6 +32,7 @@ export class OrderComponent implements OnInit {
   service: CardService;
   orderService: OrderService;
   fb: FormBuilder;
+  router: Router;
   orderForm: FormGroup;
   validation: Validation = new Validation();
   isUploading: boolean = false;
@@ -41,11 +42,13 @@ export class OrderComponent implements OnInit {
     private _service: CardService,
     private _orderService: OrderService,
     private _fb: FormBuilder,
+    private _router: Router,
     private titleService: Title) { 
       this.activateRoute = _activateRoute;
       this.service = _service;
       this.orderService = _orderService;
       this.fb = _fb;
+      this._router = _router;
     }
 
   ngOnInit(): void {
@@ -85,7 +88,7 @@ export class OrderComponent implements OnInit {
       order.status = "New";
       this.orderService.createOrder(order).then(id => {
         this.orderForm.reset();
-        console.log(id);
+        this.router.navigate(['/status/' + id]);
       })
     }
     else{
