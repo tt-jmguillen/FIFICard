@@ -28,15 +28,15 @@
                 <section>
                     <h3 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h3>
                     <a class="order" mat-raised-button *ngIf="card" [routerLink]="['/order', id]">Pick this Card</a>
-                    <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping">
+                    <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping"  *ngIf="card">
           
                 </section>
                 <section>
                     <span style="font-weight: 600;" *ngIf="card">Details:</span>
                     <div style="white-space:pre-wrap">{{card?.details}}</div>
-<br/>
-                    <a   href="/"><img src="/assets/images/logo_fifigreetings.png" class="img-fluid" style="max-height:100px;"></a>
-  <br/>
+                    <br/>
+                    <a   href="/"><img src="/assets/images/logo_fifigreetings.png" class="img-fluid" style="max-height:100px;" *ngIf="card"></a>
+                    <br/>
                 </section>
             </div>
         </div>

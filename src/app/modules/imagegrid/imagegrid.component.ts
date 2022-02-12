@@ -20,6 +20,7 @@ export class ImagegridComponent implements OnInit {
   url?: string;
   urls: ItemImage[] = [];
   service: CardService;
+  primary: string = '';
 
   constructor(
     private _service: CardService
@@ -29,6 +30,9 @@ export class ImagegridComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getCard(this.id!).subscribe(data => {
+      if ((data.primary) && (data.primary != '')){
+        this.primary = data.primary;
+      }
       if (data.images){
         if (data.images.length > 0){
           data.images.forEach(image => {
@@ -48,9 +52,16 @@ export class ImagegridComponent implements OnInit {
       if (url.image == _image){
         url.url = _url;
       }
+      if (this.primary != ''){
+        if (this.primary == _image){
+          this.url = _url;
+        }
+      }
     });
-    if (this.urls[0]?.url){
-      this.url = this.urls[0].url;
+    if (this.primary == ''){
+      if (this.urls[0]?.url){
+        this.url = this.urls[0].url;
+      }
     }
   }
 
