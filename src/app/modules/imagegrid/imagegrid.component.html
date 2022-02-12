@@ -2,7 +2,15 @@
     <div class="col-12 text-center mainimagediv">
         <img src="{{url}}" class="mainitem">
     </div>
+    <div class="col-md-12">
+    <div class="card">
+        <div class="card-body">
+             <div class="row">
     <div class="col-2 imagediv" *ngFor="let url of urls">
         <img src="{{url.url}}" class="item img-thumbnail" (click)="changeImage(url)">
     </div>
+</div>
+        </div>
+    </div>
+   </div>
 </div>

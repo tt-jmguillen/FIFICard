@@ -1,34 +1,54 @@
-<div class="row align-top">
+<div class="row align-top mb-5">
     <div class="col-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{card?.name}}</li>
             </ol>
-        </nav>
+        </nav>  
+        <hr/>
     </div>
+  
     <div class="col-lg-6 col-sm-12">
         <app-imagegrid id="{{id}}"></app-imagegrid>
     </div>
     <div class="col-lg-6 col-sm-12">
-        <header class="section-heading">
-            <h3 class="section-title">{{card?.name}}</h3>
-        </header>
-        <section>
-            <p>{{card?.description}}</p>
-        </section>
-        <section>
-            <span class="text-muted">{{card?.event}}</span><br/>
-            <span class="text-muted">{{card?.recipient}}</span>
-        </section>
-        <section>
-            <h3 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h3>
-            <a class="order" mat-raised-button *ngIf="card" [routerLink]="['/order', id]">Pick this Card</a>
-        </section>
-        <section>
-            <span style="font-weight: 600;" *ngIf="card">Details:</span>
-            <div style="white-space:pre-wrap">{{card?.details}}</div>
-        </section>
+        <div class="card">
+            <div class="card-body">
+                <header class="section-heading">
+                    <h3 class="section-title">{{card?.name}}</h3>
+                </header>
+                <section>
+                    <p>{{card?.description}}</p>
+                </section>
+                <section>
+                    <span class="text-muted">{{card?.event}}</span><br/>
+                    <span class="text-muted">{{card?.recipient}}</span>
+                </section>
+                <section>
+                    <h3 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h3>
+                    <a class="order" mat-raised-button *ngIf="card" [routerLink]="['/order', id]">Pick this Card</a>
+                    <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping">
+          
+                </section>
+                <section>
+                    <span style="font-weight: 600;" *ngIf="card">Details:</span>
+                    <div style="white-space:pre-wrap">{{card?.details}}</div>
+<br/>
+                    <a   href="/"><img src="/assets/images/logo_fifigreetings.png" class="img-fluid" style="max-height:100px;"></a>
+  <br/>
+                </section>
+            </div>
+        </div>
+        
     </div>
 </div>
+<style>
+    .icon-free-shipping
+    {
+        display: inline-block;
+        height: 56px;
+        padding-left: 20px;
 
+    }
+</style>
