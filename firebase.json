@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "fifi-greetings",
+    "public": "dist/fificard",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
