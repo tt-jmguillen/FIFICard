@@ -30,18 +30,20 @@ export class ImagegridComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getCard(this.id!).subscribe(data => {
-      if ((data.primary) && (data.primary != '')){
-        this.primary = data.primary;
-      }
-      if (data.images){
-        if (data.images.length > 0){
-          data.images.forEach(image => {
-            let itemImage: ItemImage = new ItemImage(image);
-            this.urls.push(itemImage);
-            this.service.getImageURL(image).then(url => {
-              this.AddURL(image, url);
+      if (this.urls.length == 0){
+        if ((data.primary) && (data.primary != '')){
+          this.primary = data.primary;
+        }
+        if (data.images){
+          if (data.images.length > 0){
+            data.images.forEach(image => {
+              let itemImage: ItemImage = new ItemImage(image);
+              this.urls.push(itemImage);
+              this.service.getImageURL(image).then(url => {
+                this.AddURL(image, url);
+              });
             });
-          });
+          }
         }
       }
     });
