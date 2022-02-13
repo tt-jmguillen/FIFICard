@@ -53,6 +53,7 @@ export class OrderService {
         receiver_name: order.receiver_name,
         receiver_phone: order.receiver_phone,
         receiver_email: order.receiver_email,
+        address: order.address,
         anonymously: order.anonymously,
         sendto: order.sendto,
         message: order.message,
