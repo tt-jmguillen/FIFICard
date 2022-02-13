@@ -2,12 +2,20 @@
     <!--<a href="#" class="btn btn-outline-primary float-end">See all</a>-->
     <h3 class="section-title" *ngIf="caption">{{caption}}</h3>
 </header><!-- sect-heading -->
-    
 <div class="row">
+    <div class="col-md-12">
+        <img src="/assets/images/homepage/home-banner.png" class="img-fluid" style="border-radius:6px;">
+        <br/> <br/>
+    </div>
     <div class="col-md-6">
-
         <img src="/assets/images/homepage/free_shipping_banner.png" class="img-fluid" style="border-radius:6px;">
     </div>
+    <div class="col-md-6">
+        <img src="/assets/images/homepage/free-sticker.png" class="img-fluid" style="border-radius:6px;">
+        <br/> <br/>
+    </div>
+</div>  
+<div class="row">
     <div class="col-md-3" *ngFor="let card of cards">
         <app-card id="{{card?.id}}"></app-card>
     </div>
