@@ -1,3 +1,4 @@
+import { EmailService } from './../services/email.service';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -19,6 +20,7 @@ export class DetailComponent implements OnInit {
   constructor(
     private _activateRoute: ActivatedRoute,
     private _service: CardService,
+    private _emailService: EmailService,
     private titleService: Title
   ) { 
     this.activateRoute = _activateRoute;

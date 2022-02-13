@@ -1,3 +1,4 @@
+import { EmailService } from './../services/email.service';
 import { CardService } from 'src/app/services/card.service';
 import { OrderService } from './../services/order.service';
 import { Component, OnInit } from '@angular/core';

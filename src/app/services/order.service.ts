@@ -40,7 +40,7 @@ export class OrderService {
     return uploadBytes(reference, file);
   }
 
-  async createOrder(order: Order): Promise<string>{
+  async createOrder(order: Order): Promise<Order>{
     return new Promise((resolve, rejects) => {
       const data = collection(this.store, 'orders')
       addDoc(data, {
@@ -63,7 +63,7 @@ export class OrderService {
       }).then(docRef => {
         const data = docData(docRef, {idField: 'id'}) as Observable<Order>;
         data.subscribe(doc => {
-          resolve(doc.id!);
+          resolve(doc);
         });
       }).catch(reason => {
         rejects(reason);

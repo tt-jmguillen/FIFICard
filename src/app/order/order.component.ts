@@ -1,3 +1,4 @@
+import { EmailService } from './../services/email.service';
 import { UploadResult } from '@angular/fire/storage';
 import { OrderService } from './../services/order.service';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -34,6 +35,7 @@ export class OrderComponent implements OnInit {
   activateRoute: ActivatedRoute;
   service: CardService;
   orderService: OrderService;
+  emailService: EmailService;
   fb: FormBuilder;
   router: Router;
   orderForm: FormGroup;
@@ -44,15 +46,18 @@ export class OrderComponent implements OnInit {
     private _activateRoute: ActivatedRoute,
     private _service: CardService,
     private _orderService: OrderService,
+    private _emailService: EmailService,
     private _fb: FormBuilder,
     private _router: Router,
-    private titleService: Title) { 
-      this.activateRoute = _activateRoute;
-      this.service = _service;
-      this.orderService = _orderService;
-      this.fb = _fb;
-      this.router = _router;
-    }
+    private titleService: Title
+  ) { 
+    this.activateRoute = _activateRoute;
+    this.service = _service;
+    this.orderService = _orderService;
+    this.emailService = _emailService;
+    this.fb = _fb;
+    this.router = _router;
+  }
 
   ngOnInit(): void {
     this.activateRoute.params.subscribe(params => {
@@ -90,11 +95,12 @@ export class OrderComponent implements OnInit {
       order.card_price = this.card?.price;
       order.proof = this.proof;
       order.status = "New";
-      this.orderService.createOrder(order).then(id => {
+      this.orderService.createOrder(order).then(order => {
+        this.emailService.sendOrderEmail(order);
         this.orderForm.reset();
-        let cart: Cart= new Cart(id, this.card!.name!);
+        let cart: Cart= new Cart(order.id!, this.card!.name!);
         this.addLocalStorage(cart);
-        this.router.navigate(['/status/' + id]);
+        this.router.navigate(['/status/' + order.id!]);
       })
     }
     else{
