@@ -41,6 +41,10 @@
             <h5>{{order?.receiver_email}}</h5>
         </section>
         <section>
+            <span class="text-muted">Deliver Address: </span><br/>
+            <div style="white-space:pre-wrap; font-weight: 800">{{order?.address}}</div>
+        </section>
+        <section>
             <h5 *ngIf="order?.anonymously">Send Anonymously</h5>
             <span class="text-muted">Send to: </span><br/>
             <h5>{{order?.sendto}}</h5>
