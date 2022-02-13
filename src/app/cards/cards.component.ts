@@ -20,13 +20,13 @@ export class CardsComponent implements OnInit {
 
   constructor(
     private _service: CardService,
-    private _activateRoute: ActivatedRoute) { 
+    private _activateRoute: ActivatedRoute
+  ){ 
     this.service = _service;
     this.activateRoute = _activateRoute;
   }
 
   ngOnInit(): void {
-    console.log(this.activateRoute.params);
     this.activateRoute.params.subscribe(params => {
       this.event = params['event'];
       this.search = params['search'];
@@ -48,8 +48,6 @@ export class CardsComponent implements OnInit {
         this.loadAll();
       }
     });
-
-    
   }
 
   loadAll(){

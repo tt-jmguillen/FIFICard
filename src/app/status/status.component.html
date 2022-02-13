@@ -3,49 +3,53 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{order!.card_name}}</li>
+                <li class="breadcrumb-item active" aria-current="page">{{order?.card_name}}</li>
             </ol>
         </nav>
     </div>
     <div class="col-lg-6 col-sm-12">
-        <app-imagegrid *ngIf="order" id="{{order!.card_id}}"></app-imagegrid>
+        <app-imagegrid *ngIf="order" id="{{order?.card_id}}"></app-imagegrid>
     </div>
     <div class="col-lg-6 col-sm-12">
         <header class="section-heading">
-            <h3 class="section-title">{{order!.card_name}}</h3>
+            <h3 class="section-title">{{order?.card_name}}</h3>
         </header>
         <section>
             <p>{{card?.description}}</p>
         </section>
         <section>
-            <h5 class="section-title" *ngIf="order">₱{{order!.card_price | number:'1.2-2'}}</h5>
+            <h5 class="section-title" *ngIf="order">₱{{order?.card_price | number:'1.2-2'}}</h5>
         </section>
         <section>
             <span class="text-muted">Status: </span><br/>
-            <h5>{{order!.status}}</h5>
+            <h5>{{order?.status}}</h5>
         </section>
         <section>
             <span class="text-muted">Sender Name: </span><br/>
-            <h5>{{order!.sender_name}}</h5>
+            <h5>{{order?.sender_name}}</h5>
             <span class="text-muted">Sender Phone: </span><br/>
-            <h5>{{order!.sender_phone}}</h5>
+            <h5>{{order?.sender_phone}}</h5>
             <span class="text-muted">Sender Email: </span><br/>
-            <h5>{{order!.sender_email}}</h5>
+            <h5>{{order?.sender_email}}</h5>
         </section>
         <section>
             <span class="text-muted">Recipient Name: </span><br/>
-            <h5>{{order!.receiver_name}}</h5>
+            <h5>{{order?.receiver_name}}</h5>
             <span class="text-muted">Recipient Phone: </span><br/>
-            <h5>{{order!.receiver_phone}}</h5>
+            <h5>{{order?.receiver_phone}}</h5>
             <span class="text-muted">Recipient Email: </span><br/>
-            <h5>{{order!.receiver_email}}</h5>
+            <h5>{{order?.receiver_email}}</h5>
         </section>
         <section>
-            <h5 *ngIf="order!.anonymously">Send Anonymously</h5>
+            <span class="text-muted">Deliver Address: </span><br/>
+            <div style="white-space:pre-wrap; font-weight: 800">{{order?.address}}</div>
+        </section>
+        <section>
+            <h5 *ngIf="order?.anonymously">Send Anonymously</h5>
             <span class="text-muted">Send to: </span><br/>
-            <h5>{{order!.sendto}}</h5>
+            <h5>{{order?.sendto}}</h5>
             <span class="text-muted">Personal Message: </span><br/>
-            <div style="white-space:pre-wrap">{{order!.message}}</div>
+            <div style="white-space:pre-wrap">{{order?.message}}</div>
         </section>
     </div>
 </div>

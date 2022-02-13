@@ -15,6 +15,7 @@ export class Validation{
   public sender_email: boolean = true;
   public receiver_name: boolean = true;
   public receiver_phone: boolean = true;
+  public address: boolean = true;
   public sendto: boolean = true;
   public message: boolean = true;
   public proof: boolean = true;
@@ -66,6 +67,7 @@ export class OrderComponent implements OnInit {
       receiver_name: ['', [Validators.required]],
       receiver_phone: ['', [Validators.required]],
       receiver_email: ['',],
+      address: ['', [Validators.required]],
       anonymously: [Boolean(false)],
       sendto: ['Recipient', [Validators.required]],
       message: ['', [Validators.required]]
@@ -101,6 +103,7 @@ export class OrderComponent implements OnInit {
       this.validation.sender_email = this.orderForm.controls['sender_email']['status'] == "VALID";
       this.validation.receiver_name = this.orderForm.controls['receiver_name']['status'] == "VALID";
       this.validation.receiver_phone = this.orderForm.controls['receiver_phone']['status'] == "VALID";
+      this.validation.address = this.orderForm.controls['address']['status'] == "VALID";
       this.validation.sendto = this.orderForm.controls['sendto']['status'] == "VALID";
       this.validation.message = this.orderForm.controls['message']['status'] == "VALID";
       this.validation.proof = this.proof != '';

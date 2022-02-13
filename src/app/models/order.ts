@@ -11,6 +11,7 @@ export class Order {
     public receiver_name? : string;
     public receiver_phone? : string;
     public receiver_email? : string;
+    public address?: string;
     public anonymously? : boolean;
     public sendto? : string;
     public message? : string;

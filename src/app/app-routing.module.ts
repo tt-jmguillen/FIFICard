@@ -1,3 +1,4 @@
+import { PageComponent } from './page/page.component';
 import { StatusComponent } from './status/status.component';
 import { OrderComponent } from './order/order.component';
 import { DetailComponent } from './detail/detail.component';
@@ -23,6 +24,9 @@ const routes: Routes = [
   },
   {
     path: 'status/:id', component: StatusComponent
+  },
+  {
+    path: 'page/:id', component: PageComponent
   },
 ];
 

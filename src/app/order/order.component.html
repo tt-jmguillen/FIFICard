@@ -57,6 +57,12 @@
                 </div>
             </section>
             <section>
+                <div class="col-12 mb-2">
+                    <label for="messageFormControl" class="form-label">Delivery Address</label>
+                    <textarea [ngClass]="validation.address ? 'form-control' : 'form-control invalid'" id="messageFormControl" rows="3" formControlName="address"></textarea>
+                </div>
+            </section>
+            <section>
                 <div class="col-12 mb-3 mt-3 ml-3 form-check">
                     <input class="form-check-input" type="checkbox" value="" id="sendAnonymouslyCheck" formControlName="anonymously">
                     <label class="form-check-label" for="sendAnonymouslyCheck">
@@ -67,7 +73,7 @@
                     <label class="form-check-label" for="sendToFormControl">
                         Send To
                     </label>
-                    <select [ngClass]="validation.sendto ? 'form-select form-control mt-1' : 'form-select form-control mt-1 invalid'" aria-label="Default select example" id="sendToFormControl" formControlName="sendto">
+                    <select [ngClass]="validation.sendto ? 'form-select form-control mt-1' : 'form-select form-control mt-1 invalid'" aria-label="Sent to" id="sendToFormControl" formControlName="sendto">
                         <option selected value="Recipient">Recipient</option>
                         <option value="Sender">Sender</option>
                     </select>
@@ -92,4 +98,66 @@
         </form>
     </div>
 </div>
+<h2>EMAIL</h2>
+<div style="background:#fafafa;padding:5%;font-size:12px">
+    <img src="/assets/images/logo_fifigreetings.png" style="height: 70px;margin:auto;display: block;
+    margin-bottom: 15px;">
+    <div style="width:600px;border:1px solid #ccc; margin:auto; background:white">
+    <div style="padding:20px">
+       
+        <h2>[STATUS]</h2>
+
+        <p><img src="http://via.placeholder.com/550x360"></p>
+        <br/>
+        <div style="display:inline-block;width:250px">
+            <p><b>Sender</b></p>
+            <p> Name: [SenderName]</p>
+            <p> Phone:[DATA HERE]</p>
+            <p>Email Address: [DATA HERE]</p>
+        </div>
+        <div style="display:inline-block;width:250px">
+            <p><b>Receiver</b></p>
+            <p>Name: [SenderName]</p>
+            <p> Phone:[DATA HERE]</p>
+            <p> Email Address: [DATA HERE]</p>
+        </div>
+        <hr/>
+        Your: Personal Message
+        <p><i>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."</i></p>
+    </div>
+    <div  style="padding:20px;border-top:1px solid #ccc">
+
+        <div style="display:inline-block;width:250px;vertical-align:top">
+            <div><a href="/page/ContactUs">Contact Us</a></div>
+            <div><a href="/page/ReviewProduct">Review Product</a></div>
+            <div><a href="/page/AboutUs">About Fifi Greetings</a></div>
+            <div ><a href="/page/PressPage">Press Page</a></div>
+        
+        </div>
+        <div style="display:inline-block;width:250px;vertical-align:top;">
+            <div><a href="/page/ShippingAndDelivery">Shipping and Delivery</a></div>
+        <div><a href="/page/TermsAndCondition">Terms and Condition</a></div>
+        <div><a href="/page/PrivacyPolicy">Privacy Policy</a></div>
+    </div>
+    <div style="text-align: center;">
+        <div>
+        <a href="#"><img src="https://www.egetinnz.com/content/resources/images/EmailTemplate/fg/facebook.png" style="width: 30px;margin-right:5px" title="Facebook" class="ssba ssba-img" alt="Share on Facebook">
+        </a>
+          <a href="#"><img src="https://www.egetinnz.com/content/resources/images/EmailTemplate/fg/instagram.png" style="width: 30px;margin-right:5px" title="instagram" class="ssba ssba-img" alt="Share on instagram">
+        </a>
+        <a href="#"> <img src="https://www.egetinnz.com/content/resources/images/EmailTemplate/fg/pinterest.png" style="width: 30px;margin-right:5px" title="pinterest" class="ssba ssba-img" alt="Share on pinterest">
+        </a>
+        <a href="#"><img src="https://www.egetinnz.com/content/resources/images/EmailTemplate/fg/twitter.png" style="width: 30px;" title="twitter" class="ssba ssba-img" alt="Share on twitter">
+       </a> 
+    </div>
+        <b>
+        <a href="www.fifigreetings.com">
+            www.fifigreetings.com
+        </a>
+    </b>
+       <div> Copyright © 2022 fifigreetings.com</div>
+    </div>
+</div>
+
+
 
