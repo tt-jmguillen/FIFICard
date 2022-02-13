@@ -21,6 +21,7 @@ import { CartComponent } from './modules/cart/cart.component';
 import { MenuComponent } from './modules/menu/menu.component';
 import { SearchComponent } from './modules/search/search.component';
 import { PageComponent } from './page/page.component';
+import { Safe } from './modules/safe';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PageComponent } from './page/page.component';
     CartComponent,
     MenuComponent,
     SearchComponent,
-    PageComponent
+    PageComponent,
+    Safe
   ],
   imports: [
     BrowserModule,

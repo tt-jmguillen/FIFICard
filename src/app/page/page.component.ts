@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-page',
@@ -12,8 +11,7 @@ export class PageComponent implements OnInit {
    htmlString: string;
 
   constructor(
-    private _activateRoute: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private _activateRoute: ActivatedRoute
   ) { 
     this.activateRoute = _activateRoute;
   }
@@ -29,5 +27,4 @@ export class PageComponent implements OnInit {
       })
     });
   }
-
 }
