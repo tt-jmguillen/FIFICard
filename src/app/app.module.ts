@@ -20,6 +20,7 @@ import { StatusComponent } from './status/status.component';
 import { CartComponent } from './modules/cart/cart.component';
 import { MenuComponent } from './modules/menu/menu.component';
 import { SearchComponent } from './modules/search/search.component';
+import { PageComponent } from './page/page.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SearchComponent } from './modules/search/search.component';
     StatusComponent,
     CartComponent,
     MenuComponent,
-    SearchComponent
+    SearchComponent,
+    PageComponent
   ],
   imports: [
     BrowserModule,
