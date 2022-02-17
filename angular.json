@@ -114,10 +114,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "FIFICard:build:production"
+              "browserTarget": "app:build:production"
             },
             "development": {
-              "browserTarget": "FIFICard:build:development"
+              "browserTarget": "app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -155,13 +155,13 @@
         "ionic-cordova-serve": {
           "builder": "@ionic/angular-toolkit:cordova-serve",
           "options": {
-            "cordovaBuildTarget": "FIFICard:ionic-cordova-build",
-            "devServerTarget": "FIFICard:serve"
+            "cordovaBuildTarget": "app:ionic-cordova-build",
+            "devServerTarget": "app:serve"
           },
           "configurations": {
             "production": {
-              "cordovaBuildTarget": "FIFICard:ionic-cordova-build:production",
-              "devServerTarget": "FIFICard:serve:production"
+              "cordovaBuildTarget": "app:ionic-cordova-build:production",
+              "devServerTarget": "app:serve:production"
             }
           }
         },
@@ -179,5 +179,5 @@
       }
     }
   },
-  "defaultProject": "FIFICard"
+  "defaultProject": "app"
 }
