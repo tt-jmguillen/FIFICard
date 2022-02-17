@@ -1,0 +1,7 @@
+{
+  "name": "fifi-greetings",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -22,6 +22,7 @@ import { MenuComponent } from './modules/menu/menu.component';
 import { SearchComponent } from './modules/search/search.component';
 import { PageComponent } from './page/page.component';
 import { Safe } from './modules/safe';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { Safe } from './modules/safe';
     MatGridListModule,
     FormsModule,
     ReactiveFormsModule,
+    IonicModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
