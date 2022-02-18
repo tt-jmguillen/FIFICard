@@ -58,7 +58,23 @@
     </div>
 </div>  
 <div class="row">
-    <div class="col-md-3" *ngFor="let card of cards">
+    <div class="col-md-3" *ngFor="let card of displayCards">
         <app-card id="{{card?.id}}"></app-card>
     </div>
 </div> <!-- row.// -->
+<div class="row">
+    <div class="col-12 text-center">
+        <button class="btn btn-light actionbtn" (click)="clickPrev()" [disabled]="!disablePrev">
+            Prev
+        </button>
+        <select class="form-select custom-select" aria-label="Default select example" (change)="changeSelected($event)">
+            <option *ngFor="let page of pages" [selected]="page.selected == true" value="{{page.index}}">{{page.display}}</option>
+        </select>
+        <button class="btn btn-light actionbtn" (click)="clickNext()" [disabled]="!disableNext">
+            Next
+        </button>
+    </div>
+    <div class="col-12 text-center">
+        <label>{{batchShowing}}</label>
+    </div>
+</div>
