@@ -59,13 +59,13 @@
 </div>  
 <div class="row">
     <div class="col-12 text-center">
-        <button class="btn btn-light actionbtn" (click)="clickPrev()" [disabled]="!disablePrev">
+        <button class="btn btn-light actionbtn" (click)="clickPrev()" [disabled]="!disablePrev" *ngIf="pages.length > 1">
            <i class="fa fa-i fa-angle-left"></i>
         </button>
         <select class="form-select custom-select" aria-label="Default select example" (change)="changeSelected($event)">
             <option *ngFor="let page of pages" [selected]="page.selected == true" value="{{page.index}}">{{page.display}}</option>
         </select>
-        <button class="btn btn-light actionbtn" (click)="clickNext()" [disabled]="!disableNext">
+        <button class="btn btn-light actionbtn" (click)="clickNext()" [disabled]="!disableNext" *ngIf="pages.length > 1">
             <i class="fa fa-i fa-angle-right"></i>
         </button>
     </div>
@@ -83,13 +83,13 @@
 </div> <!-- row.// -->
 <div class="row">
     <div class="col-12 text-center">
-        <button class="btn btn-light actionbtn" (click)="clickPrev()" [disabled]="!disablePrev">
+        <button class="btn btn-light actionbtn" (click)="clickPrev()" [disabled]="!disablePrev" *ngIf="pages.length > 1">
            <i class="fa fa-i fa-angle-left"></i>
         </button>
         <select class="form-select custom-select" aria-label="Default select example" (change)="changeSelected($event)">
             <option *ngFor="let page of pages" [selected]="page.selected == true" value="{{page.index}}">{{page.display}}</option>
         </select>
-        <button class="btn btn-light actionbtn" (click)="clickNext()" [disabled]="!disableNext">
+        <button class="btn btn-light actionbtn" (click)="clickNext()" [disabled]="!disableNext" *ngIf="pages.length > 1">
             <i class="fa fa-i fa-angle-right"></i>
         </button>
     </div>
