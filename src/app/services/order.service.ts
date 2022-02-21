@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { collection, Firestore, doc, addDoc, docData } from '@angular/fire/firestore';
+import { collection, Firestore, doc, addDoc, docData, query, where, collectionData } from '@angular/fire/firestore';
 import { ref, Storage, uploadBytes, UploadResult } from '@angular/fire/storage';
 import { Order } from '../models/order';
 import { Timestamp } from "@angular/fire/firestore";
 import { Observable } from 'rxjs';
+import { Status } from '../models/status';
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +69,20 @@ export class OrderService {
       }).catch(reason => {
         rejects(reason);
       })
+    });
+  }
+
+  async getInitial(): Promise<string>{
+    return new Promise((resolve, rejects) => {
+      let data = collection(this.store, 'status');
+      let qry = query(data, where('initial', "==", true));
+      let colData = collectionData(qry, { idField: 'id' }) as Observable<Status[]>;
+      colData.subscribe(statuses => {
+        if (statuses.length > 0)
+          resolve(statuses[0].name);
+        else
+          resolve("New");
+      });
     });
   }
 }

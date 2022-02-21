@@ -1,5 +1,4 @@
 import { EmailService } from './../services/email.service';
-import { UploadResult } from '@angular/fire/storage';
 import { OrderService } from './../services/order.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -41,6 +40,7 @@ export class OrderComponent implements OnInit {
   orderForm: FormGroup;
   validation: Validation = new Validation();
   isUploading: boolean = false;
+  initialStatus: string;
 
   constructor(
     private _activateRoute: ActivatedRoute,
@@ -65,6 +65,8 @@ export class OrderComponent implements OnInit {
       this.loadCard();
     });
 
+    this.getStatus();
+
     this.orderForm = this.fb.group({
       sender_name: ['', [Validators.required]],
       sender_phone: ['', [Validators.required]],
@@ -77,6 +79,10 @@ export class OrderComponent implements OnInit {
       sendto: ['Recipient', [Validators.required]],
       message: ['', [Validators.required]]
     })
+  }
+
+  getStatus(){
+    this.orderService.getInitial().then(data => { this.initialStatus = data });
   }
 
   loadCard(){
@@ -94,7 +100,7 @@ export class OrderComponent implements OnInit {
       order.card_name = this.card?.name;
       order.card_price = this.card?.price;
       order.proof = this.proof;
-      order.status = "New";
+      order.status = this.initialStatus;
       this.orderService.createOrder(order).then(order => {
         this.emailService.sendOrderEmail(order);
         this.orderForm.reset();
