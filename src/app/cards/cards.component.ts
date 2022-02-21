@@ -85,6 +85,7 @@ export class CardsComponent implements OnInit {
   loadEvent(_event: string){
     this.service.getCards().then(data => {
       data.forEach(card => {
+        console.log(card.event);
         if (card.event){
           card.event.split(",").forEach(event => {
             if (event.trim() == _event){
@@ -92,9 +93,9 @@ export class CardsComponent implements OnInit {
             }
           })
         }
-        this.initializeBatch();
-        this.loadBatch(1);
       });
+      this.initializeBatch();
+      this.loadBatch(1);
     });
   }
 
@@ -135,7 +136,10 @@ export class CardsComponent implements OnInit {
       page.end = i * this.batchLimit;
       if (page.end > this.cards.length)
         page.end = this.cards.length;
-      page.start = page.end - (this.batchLimit - 1);
+      if (this.cards.length > this.batchLimit)
+        page.start = page.end - (this.batchLimit - 1);
+      else
+      page.start = 1;
       page.display = `Page ${i} of ${this.batchCount}`;
       page.showing = `Showing ${page.start} - ${page.end} to ${this.cards.length} items`;
       this.pages.push(page);

@@ -7,7 +7,9 @@ export class Card {
   public details?: string;
   public price?: number;
   public event?: string;
+  public events?: string[];
   public recipient?: string;
+  public recipients?: string[];
   public active?: boolean;
   public created?: Timestamp;
   public modified?: Timestamp;
