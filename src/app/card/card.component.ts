@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Card } from './../models/card';
 import { Component, Input, OnInit } from '@angular/core';
 import { CardService } from '../services/card.service';
@@ -30,14 +31,14 @@ export class CardComponent implements OnInit {
       if (this.card!.images){
         if ((!this.card.primary) || (this.card.primary == '')){
           let image = this.card!.images[0];
-          this.service.getImageURL(image).then(url => {
+          this.getAvailableURL(image).then(url => {
             this.imageURL = url;
           });
         }
         else{
           this.card!.images!.forEach(image => {
             if (image == this.card!.primary!){
-              this.service.getImageURL(image).then(url => {
+              this.getAvailableURL(image).then(url => {
                 this.imageURL = url;
               });
             }
@@ -45,6 +46,18 @@ export class CardComponent implements OnInit {
         }
       }
     }
+  }
+
+  getAvailableURL(image: string): Promise<string>{
+    return new Promise((resolve, rejects) => {
+      this.service.getImageURL(image + environment.imageSize.medium).then(url => {
+        resolve(url);
+      }).catch(err => {
+        this.service.getImageURL(image).then(url => {
+          resolve(url);
+        });
+      });
+    });
   }
 
 }

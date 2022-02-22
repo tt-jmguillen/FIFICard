@@ -22,9 +22,10 @@ export class CardService {
     return new Promise((resolve, rejects) => {
       let data = collection(this.store, 'cards');
       let qry = query(data, where('active', "==", true));
-      (collectionData(qry, { idField: 'id' }) as Observable<Card[]>).subscribe(cards => {
-        resolve(cards);
-      });
+      (collectionData(qry, { idField: 'id' }) as Observable<Card[]>).subscribe(
+        cards => resolve(cards),
+        err => rejects(err)
+      );
     });
   }
 
