@@ -65,7 +65,7 @@ export class EmailService {
           addDoc(data, {
             to: order.sender_email,
             message: {
-              subject: "Fifi Greetings Order Status",
+              subject: "FibeiGreetings Order Status",
               html: html,
             },
           });
