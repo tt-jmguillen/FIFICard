@@ -1,15 +1,21 @@
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+</button>
 <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
         <li *ngFor="let category of categories | slice:0:9" [ngClass]="category.active? 'nav-item active' : 'nav-item'">
             <a class="nav-link" href="{{'/events/' + category.name}}">{{category.name}}</a>
         </li>
         <li class="nav-item dropdown" *ngIf="categories.length > 9">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">More</a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li *ngFor="let category of categories | slice:9" [ngClass]="category.active? 'active' : ''">
-                    <a class="dropdown-item" href="{{'/events/' + category.name}}">{{category.name}}</a>
-                </li>
-            </ul>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                More
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" *ngFor="let category of categories | slice:9"
+                    href="{{'/events/' + category.name}}">{{category.name}}</a>
+            </div>
         </li>
     </ul>
-  </div> <!-- collapse .// -->
+</div>
