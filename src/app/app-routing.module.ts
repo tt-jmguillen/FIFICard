@@ -1,3 +1,5 @@
+import { EventsComponent } from './events/events.component';
+import { HomeComponent } from './home/home.component';
 import { PageComponent } from './page/page.component';
 import { StatusComponent } from './status/status.component';
 import { OrderComponent } from './order/order.component';
@@ -8,10 +10,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '', component: CardsComponent
+    path: '', component: HomeComponent
   },
   {
-    path: 'events/:event', component: CardsComponent
+    path: 'events/:event', component: EventsComponent
   },
   {
     path: 'search/:search', component: CardsComponent

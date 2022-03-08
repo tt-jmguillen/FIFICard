@@ -23,6 +23,8 @@ import { SearchComponent } from './modules/search/search.component';
 import { PageComponent } from './page/page.component';
 import { Safe } from './modules/safe';
 import { IonicModule } from '@ionic/angular';
+import { HomeComponent } from './home/home.component';
+import { EventsComponent } from './events/events.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { IonicModule } from '@ionic/angular';
     MenuComponent,
     SearchComponent,
     PageComponent,
-    Safe
+    Safe,
+    HomeComponent,
+    EventsComponent
   ],
   imports: [
     BrowserModule,
