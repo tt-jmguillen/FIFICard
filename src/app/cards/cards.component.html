@@ -4,14 +4,14 @@
 </header><!-- sect-heading -->
 <div class="row">
     <div class="col-md-12">
-        <img src="/assets/images/homepage/category/{{caption||'All'}}.png" class="img-fluid" style="border-radius:6px;">
+        <img src="/assets/images/event/banner/{{caption||'All'}}-min.png" class="img-fluid" style="border-radius:6px;">
         <br/> <br/>
     </div>
 </div>
-<div class="row">
-    <div class="col-2 imagediv hover-target" *ngFor = "let recipient of recipients" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient.name ? 'blueviolet' : ''}">
-        <p> {{recipient.name}}  </p>
-    </div>
+<div class="my-recipient">
+    <span class=" imagediv hover-target" *ngFor = "let recipient of recipients" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient.name ? 'blueviolet' : ''}">
+        {{recipient.name}}
+    </span>
 </div>
 <!-- <div class="row">
     <div class="col-md-12">
@@ -108,3 +108,12 @@
         <label>{{batchShowing}}</label>
     </div>
 </div>
+<style>
+    .my-recipient span
+    {
+        border:1px solid #ccc;
+        padding:10px 20px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+</style>
