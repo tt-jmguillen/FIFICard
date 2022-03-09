@@ -29,7 +29,8 @@ export class CardsComponent implements OnInit {
   event?: string;
   search?: string;
 
-  caption: string = ''
+  caption: string = '';
+  banner: string = '';
   service: CardService;
   serviceRecipient: RecipientService;
   activateRoute: ActivatedRoute;
@@ -68,6 +69,7 @@ export class CardsComponent implements OnInit {
       if(this.event){
         if (this.event! != 'All'){
           this.caption! = this.event;
+          this.banner = `/assets/images/event/banner/${this.caption.replace(" ","").replace("'","")||'All'}-min.png`;
           this.loadEvent(this.event);
         }
         else{

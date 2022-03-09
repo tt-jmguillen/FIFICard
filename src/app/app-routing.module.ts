@@ -13,7 +13,10 @@ const routes: Routes = [
     path: '', component: HomeComponent
   },
   {
-    path: 'events/:event', component: EventsComponent
+    path: 'events', component: EventsComponent
+  },
+  {
+    path: 'cards/events/:event', component: CardsComponent
   },
   {
     path: 'search/:search', component: CardsComponent

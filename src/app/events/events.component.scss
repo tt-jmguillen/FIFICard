@@ -1,0 +1,22 @@
+.my-event a {
+    opacity: 0.8
+}
+
+.my-event a:hover,
+.my-event a:active {
+    opacity: 1
+}
+
+.my-event a div,
+.my-event a div {
+    text-align: center;
+    background: #000;
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+.my-event a:hover div,
+.my-event a:active div {
+    background: #630ca5;
+}
