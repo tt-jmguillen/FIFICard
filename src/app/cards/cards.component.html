@@ -4,6 +4,17 @@
 </header><!-- sect-heading -->
 <div class="row">
     <div class="col-md-12">
+        <img src="/assets/images/homepage/category/{{caption||'All'}}.png" class="img-fluid" style="border-radius:6px;">
+        <br/> <br/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2 imagediv hover-target" *ngFor = "let recipient of recipients" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient.name ? 'blueviolet' : ''}">
+        <p> {{recipient.name}}  </p>
+    </div>
+</div>
+<!-- <div class="row">
+    <div class="col-md-12">
         <img src="/assets/images/homepage/home-banner.png" class="img-fluid" style="border-radius:6px;">
         <br/> <br/>
     </div>
@@ -56,7 +67,7 @@
         </a>
         <br/> <br/>
     </div>
-</div>  
+</div>   -->
 <div class="row">
     <div class="col-12 text-center">
         <button class="btn btn-light actionbtn" (click)="clickPrev()" [disabled]="!disablePrev" *ngIf="pages.length > 1">

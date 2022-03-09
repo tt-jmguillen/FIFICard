@@ -3,6 +3,8 @@ import { CardService } from './../services/card.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { throws } from 'assert';
+import { Recipient } from '../models/recipient';
+import { RecipientService } from '../services/recipient.service';
 
 export class Page
 {
@@ -29,7 +31,9 @@ export class CardsComponent implements OnInit {
 
   caption: string = ''
   service: CardService;
+  serviceRecipient: RecipientService;
   activateRoute: ActivatedRoute;
+  selectedRecipient: string = ''
 
   cards: Card[] = [];
   displayCards: Card[] = [];
@@ -41,12 +45,15 @@ export class CardsComponent implements OnInit {
   disablePrev: boolean;
   disableNext: boolean;
 
+  recipients: Recipient[] = [];
 
   constructor(
     private _service: CardService,
+    private _serviceRecipient: RecipientService,
     private _activateRoute: ActivatedRoute
   ){ 
     this.service = _service;
+    this.serviceRecipient = _serviceRecipient;
     this.activateRoute = _activateRoute;
   }
 
@@ -54,6 +61,9 @@ export class CardsComponent implements OnInit {
     this.activateRoute.params.subscribe(params => {
       this.event = params['event'];
       this.search = params['search'];
+
+      this.loadRecipients();
+      this.selectedRecipient = 'All';
 
       if(this.event){
         if (this.event! != 'All'){
@@ -74,6 +84,20 @@ export class CardsComponent implements OnInit {
     });
   }
 
+  onRecipientClick(recipient: Recipient){
+    //console.log("onRecipientClick>:" + JSON.stringify(recipient));
+    this.selectedRecipient = recipient.name;
+    this.loadEvent(this.event!);
+  }
+  
+  loadRecipients(){
+    this.serviceRecipient.getRecipients().then(data => {
+      this.recipients = data;
+      this.initializeBatch();
+      this.loadBatch(1);
+    });
+  }
+
   loadAll(){
     this.service.getCards().then(data => {
       this.cards = data;
@@ -84,12 +108,28 @@ export class CardsComponent implements OnInit {
 
   loadEvent(_event: string){
     this.service.getCards().then(data => {
+      this.cards = [];
       data.forEach(card => {
-        console.log(card.event);
         if (card.event){
           card.event.split(",").forEach(event => {
-            if (event.trim() == _event){
+            console.log("event>>" + JSON.stringify(card));
+            console.log("this.selectedRecipient>>" + JSON.stringify(this.selectedRecipient));
+            if(event.trim() == _event){
+                if (event.trim() == _event && this.selectedRecipient == 'All'){
+                this.cards.push(card);
+                }else if(event.trim() == _event && card.recipient!.includes(this.selectedRecipient)){
+                  this.cards.push(card);
+                }else if(event.trim() == _event && card.name!.includes(this.selectedRecipient)){
+                  this.cards.push(card);
+                }
+           }else{
+              if (_event == 'All' && this.selectedRecipient == 'All'){
               this.cards.push(card);
+              }else if(_event== 'All' && card.recipient!.includes(this.selectedRecipient)){
+                this.cards.push(card);
+              }else if(_event == 'All' && card.name!.includes(this.selectedRecipient)){
+                this.cards.push(card);
+              }
             }
           })
         }
