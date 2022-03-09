@@ -28,4 +28,32 @@ export class EventService {
       );
     });
   }
+
+  getEventNonGift(): Promise<Event[]>{
+    return new Promise((resolve, rejects) => {
+      let nonGifts: Event[] = [];
+      this.getEvents().then(events => {
+        events.forEach(event => {
+          if (!event.isGift){
+            nonGifts.push(event);
+          }
+        })
+        resolve(nonGifts);
+      })
+    })
+  }
+
+  getEventGift(): Promise<Event[]>{
+    return new Promise((resolve, rejects) => {
+      let gifts: Event[] = [];
+      this.getEvents().then(events => {
+        events.forEach(event => {
+          if (event.isGift){
+            gifts.push(event);
+          }
+        })
+        resolve(gifts);
+      })
+    })
+  }
 }

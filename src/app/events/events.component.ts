@@ -23,7 +23,7 @@ export class EventsComponent implements OnInit {
   }
 
   loadEvents(){
-    this.service.getEvents().then((data: Event[]) => {
+    this.service.getEventNonGift().then((data: Event[]) => {
       data.forEach(event => {
         if (event.active){
           event.image = `/assets/images/event/thumbnail/${event.name?.replace(' ','').replace("'",'')}-min.png`;
