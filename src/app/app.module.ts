@@ -25,6 +25,7 @@ import { Safe } from './modules/safe';
 import { IonicModule } from '@ionic/angular';
 import { HomeComponent } from './home/home.component';
 import { EventsComponent } from './events/events.component';
+import { GiftsComponent } from './gifts/gifts.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { EventsComponent } from './events/events.component';
     PageComponent,
     Safe,
     HomeComponent,
-    EventsComponent
+    EventsComponent,
+    GiftsComponent
   ],
   imports: [
     BrowserModule,
