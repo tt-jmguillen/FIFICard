@@ -27,7 +27,13 @@ export class EventsComponent implements OnInit {
       data.forEach(event => {
         if (event.active){
           event.image = `/assets/images/event/thumbnail/${event.name?.replace(' ','').replace("'",'')}-min.png`;
-          event.url = `cards/events/${event.name}`;
+          if (event.name?.includes('Easter')){
+            event.url = `cards/events/Easter`;
+          }
+          else{
+            event.url = `cards/events/${event.name}`;
+          }
+          
           if (event.name?.toUpperCase() == 'AK CREATIONS'){
             this.ak = event;
           }
