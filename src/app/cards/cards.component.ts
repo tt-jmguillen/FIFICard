@@ -47,6 +47,8 @@ export class CardsComponent implements OnInit {
   disableNext: boolean;
 
   recipients: Recipient[] = [];
+  recipientsByEvent: string[] = [];
+  recipientsByName: string[] = [];
 
   constructor(
     private _service: CardService,
@@ -63,7 +65,7 @@ export class CardsComponent implements OnInit {
       this.event = params['event'];
       this.search = params['search'];
 
-      this.loadRecipients();
+      this.loadRecipients(this.event||"");
       this.selectedRecipient = 'All';
 
       if(this.event){
@@ -86,18 +88,44 @@ export class CardsComponent implements OnInit {
     });
   }
 
-  onRecipientClick(recipient: Recipient){
+  onRecipientClick(recipient: string){
     //console.log("onRecipientClick>:" + JSON.stringify(recipient));
-    this.selectedRecipient = recipient.name;
+    this.selectedRecipient = recipient;
     this.loadEvent(this.event!);
   }
   
-  loadRecipients(){
-    this.serviceRecipient.getRecipients().then(data => {
-      this.recipients = data;
-      this.initializeBatch();
-      this.loadBatch(1);
+  loadRecipients(_event: string){
+
+     this.serviceRecipient.getRecipients().then(data => {
+       this.recipients = data;
+       data.forEach(r => {
+            if (r.name){
+                this.recipientsByName.push(r.name);
+            }
+       });
+       this.initializeBatch();
+       this.loadBatch(1);
+     });
+
+    this.service.getCards().then(data => {
+      this.recipientsByEvent.push('All');
+      data.forEach(card => {
+        if (card.event){
+            card.event.split(",").forEach(event => {
+              if(event.trim() == _event){
+                  if (card.recipient){
+                    card.recipient.split(",").forEach(recip => {
+                      recip = recip.trim();
+                      if(!this.recipientsByEvent.includes(recip) && recip != 'Any' && this.recipientsByName.includes(recip))
+                      this.recipientsByEvent.push(recip);
+                    });
+                  }
+              }
+            });
+        }
+      });
     });
+
   }
 
   loadAll(){
@@ -114,12 +142,12 @@ export class CardsComponent implements OnInit {
       data.forEach(card => {
         if (card.event){
           card.event.split(",").forEach(event => {
-            console.log("event>>" + JSON.stringify(card));
-            console.log("this.selectedRecipient>>" + JSON.stringify(this.selectedRecipient));
             if(event.trim() == _event){
-                if (event.trim() == _event && this.selectedRecipient == 'All'){
+                console.log("events>>" + JSON.stringify(card.event));
+                console.log("recipients>>" + JSON.stringify(card.recipient));
+                if ((event.trim() == _event && this.selectedRecipient == 'All')){
                 this.cards.push(card);
-                }else if(event.trim() == _event && card.recipient!.includes(this.selectedRecipient)){
+                }else if(event.trim() == _event && (card.recipient!.includes(this.selectedRecipient) || card.recipient!.includes('Any'))){
                   this.cards.push(card);
                 }else if(event.trim() == _event && card.name!.includes(this.selectedRecipient)){
                   this.cards.push(card);
@@ -127,7 +155,7 @@ export class CardsComponent implements OnInit {
            }else{
               if (_event == 'All' && this.selectedRecipient == 'All'){
               this.cards.push(card);
-              }else if(_event== 'All' && card.recipient!.includes(this.selectedRecipient)){
+              }else if(_event== 'All' && (card.recipient!.includes(this.selectedRecipient)|| card.recipient!.includes('Any'))){
                 this.cards.push(card);
               }else if(_event == 'All' && card.name!.includes(this.selectedRecipient)){
                 this.cards.push(card);
