@@ -11,8 +11,8 @@
     </div>
 </div>
 <div class="my-recipient">
-    <span class=" imagediv hover-target" *ngFor = "let recipient of recipients" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient.name ? 'blueviolet' : ''}">
-        {{recipient.name}}
+    <span class=" imagediv hover-target" *ngFor = "let recipient of recipientsByEvent" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient ? 'blueviolet' : ''}">
+        {{recipient}}
     </span>
 </div>
 <!-- <div class="row">
