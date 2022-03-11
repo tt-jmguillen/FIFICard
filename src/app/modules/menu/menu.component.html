@@ -1,8 +1,10 @@
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
-</button>
+</button> 
 <div class="collapse navbar-collapse" id="navbarNav">
+-->
+<div class=" navbar" id="navbarNav">
     <ul class="navbar-nav">
         <li class="nav-item">
             <a href="/events" class="nav-link">Events</a>
@@ -15,3 +17,14 @@
         </li>
     </ul>
 </div>
+<style>
+    /* to not collapse */
+    .navbar-nav
+    {
+    flex-direction: row !Important;
+    }
+    .navbar-nav .nav-link {
+    padding-right: 0.7rem !Important;
+    padding-left: 0.7rem !Important;
+    }
+</style>

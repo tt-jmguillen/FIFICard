@@ -26,7 +26,7 @@ export class GiftsComponent implements OnInit {
     this.service.getEventGift().then((data: Event[]) => {
       data.forEach(event => {
         if (event.active){
-          event.image = `/assets/images/event/thumbnail/${event.name?.replace(' ','').replace("'",'')}-min.png`;
+          event.image = `/assets/images/gift/${event.name?.replace(' ','').replace("'",'')}-min.png`;
           event.url = `cards/events/${event.name}`;
           if (event.name?.toUpperCase() == 'AK CREATIONS'){
             this.ak = event;
