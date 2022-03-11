@@ -1,20 +1,20 @@
-<header class="section-heading">
-    <!--<a href="#" class="btn btn-outline-primary float-end">See all</a>-->
-    <h3 class="section-title" *ngIf="caption">{{caption}}</h3>
-</header><!-- sect-heading -->
+
 <div class="row">
     <div class="col-md-12">
         <img src="{{banner}}" class="img-fluid" style="border-radius:6px;">
         <br/> <br/>
-        <img src="/assets/images/banner-fs-min.png" class="img-fluid" style="border-radius:6px;">
-        <br/> <br/>
     </div>
 </div>
+<header class="section-heading">
+    <!--<a href="#" class="btn btn-outline-primary float-end">See all</a>-->
+    <h3 class="section-title" *ngIf="caption">{{caption}}</h3>
+</header><!-- sect-heading -->
 <div class="my-recipient">
     <span class=" imagediv hover-target" *ngFor = "let recipient of recipientsByEvent" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient ? 'blueviolet' : ''}">
         {{recipient}}
     </span>
 </div>
+
 <!-- <div class="row">
     <div class="col-md-12">
         <img src="/assets/images/homepage/home-banner.png" class="img-fluid" style="border-radius:6px;">
@@ -108,6 +108,13 @@
     </div>
     <div class="col-12 text-center">
         <label>{{batchShowing}}</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <br/> <br/>
+        <img src="/assets/images/banner-fs-min.png" class="img-fluid" style="border-radius:6px;">
+        <br/> <br/>
     </div>
 </div>
 <style>
