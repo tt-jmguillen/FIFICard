@@ -1,0 +1,30 @@
+<h1>Reviews</h1>
+
+<div *ngFor="let rating of ratings">
+ <div class="card">
+      <div class="card-body">
+          <header class="section-heading">
+              <h4 class="section-title">{{rating?.title}}</h4>
+          </header>
+          <section>
+              <td> 
+                  <mat-icon *ngIf="rating.rate>=1">star</mat-icon>
+                  <mat-icon *ngIf="rating.rate>=2">star</mat-icon>
+                  <mat-icon *ngIf="rating.rate>=3">star</mat-icon>
+                  <mat-icon *ngIf="rating.rate>=4">star</mat-icon>
+                  <mat-icon *ngIf="rating.rate>=5">star</mat-icon>
+              </td>
+          </section>
+          <section>
+            <h6 class="section-title">{{rating?.username}}</h6>
+          </section>
+           <section>
+            <h6 class="section-title">{{rating?.created?.toDate()?.toLocaleDateString()}}</h6>
+          </section> 
+          <section>
+            <h6 class="section-title">{{rating?.review}}</h6>
+          </section>
+      </div>
+  </div>
+  
+</div> 
