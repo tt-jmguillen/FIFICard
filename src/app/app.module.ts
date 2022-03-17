@@ -32,6 +32,8 @@ import { GiftsComponent } from './gifts/gifts.component';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { LoginComponent } from './login/login.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { FeedbackComponent } from './modules/feedback/feedback.component';
+import { NgxFeedbackModule } from 'ngx-feedback';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { NgxPayPalModule } from 'ngx-paypal';
     HomeComponent,
     EventsComponent,
     GiftsComponent,
-    LoginComponent
+    LoginComponent,
+    FeedbackComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import { NgxPayPalModule } from 'ngx-paypal';
     ReactiveFormsModule,
     IonicModule.forRoot(),
     NgxAuthFirebaseUIModule.forRoot(environment.firebase),
-    NgxPayPalModule
+    NgxPayPalModule,
+    NgxFeedbackModule
   ],
   providers: [],
   bootstrap: [AppComponent]

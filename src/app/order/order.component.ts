@@ -11,6 +11,7 @@ import { Cart } from '../models/cart';
 import { AppComponent } from '../app.component';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { environment } from 'src/environments/environment';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 export class Validation{
   public sender_name: boolean = true;
@@ -41,11 +42,13 @@ export class OrderComponent implements OnInit {
   fb: FormBuilder;
   router: Router;
   orderForm: FormGroup;
+  orderForm2: FormGroup;
   validation: Validation = new Validation();
   isUploading: boolean = false;
   initialStatus: string;
   isPayPalApproved: boolean = false;
-
+  closeResult = '';
+  
   public payPalConfig?: IPayPalConfig;
   public showSuccess: boolean = false;
   public showCancel: boolean = false;
@@ -59,7 +62,8 @@ export class OrderComponent implements OnInit {
     private _emailService: EmailService,
     private _fb: FormBuilder,
     private _router: Router,
-    private titleService: Title
+    private titleService: Title,
+    private modalService: NgbModal
   ) { 
     this.activateRoute = _activateRoute;
     this.service = _service;
@@ -67,6 +71,24 @@ export class OrderComponent implements OnInit {
     this.emailService = _emailService;
     this.fb = _fb;
     this.router = _router;
+  }
+
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   ngOnInit(): void {
@@ -143,6 +165,8 @@ export class OrderComponent implements OnInit {
         console.log('onClientAuthorization - inform your server about completed transaction at this point', data);
         this.isPayPalApproved = true;
         this.showSuccess = true;
+        this.modalService.dismissAll();
+        this.submitOrder();
       },
       onCancel: (data, actions) => {
         console.log('OnCancel', data, actions);
@@ -205,6 +229,7 @@ export class OrderComponent implements OnInit {
             this.orderForm.reset();
             let cart: Cart= new Cart(order.id!, this.card!.name!);
             this.addLocalStorage(cart);
+            this.modalService.dismissAll();
             this.router.navigate(['/status/' + order.id!]);
           })
         }
@@ -218,6 +243,7 @@ export class OrderComponent implements OnInit {
           this.validation.sendto = this.orderForm.controls['sendto']['status'] == "VALID";
           this.validation.message = this.orderForm.controls['message']['status'] == "VALID";
           this.validation.proof = this.proof != '';
+          //this.modalService.dismissAll();
         }
     }
   }

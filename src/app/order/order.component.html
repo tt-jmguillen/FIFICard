@@ -29,11 +29,11 @@
     <div class="col-lg-6 col-sm-12">
         <app-imagegrid id="{{id}}"></app-imagegrid>
 
-        <div class="col-12 text-center mainimagediv">
+        <!-- <div class="col-12 text-center mainimagediv">
             <img src="/assets/images/gcash.png" class="mainitem" *ngIf="card">
         </div>
 
-        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+        <ngx-paypal [config]="payPalConfig"></ngx-paypal> -->
 
     </div>
     <div class="col-lg-6 col-sm-12">
@@ -46,7 +46,9 @@
         <section>
             <h5 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h5>
         </section>
-        <form [formGroup]="orderForm" (ngSubmit)="submitOrder()">  
+
+        <!-- (ngSubmit)="submitOrder()" -->
+        <form [formGroup]="orderForm" >  
             <section>
                 <span class="text-muted">Sender</span><br/>
                 <div class="col-12 mb-2">
@@ -104,6 +106,49 @@
                     <textarea [ngClass]="validation.message ? 'form-control' : 'form-control invalid'" id="messageFormControl" rows="5" formControlName="message"></textarea>
                 </div>
             </section>
+            <!-- <section>
+                <div class="col-12 mb-2">
+                    <input type="hidden" value="{{proof}}">
+                    <label for="formFile" class="form-label">Proof of Payment (Screenshot)</label>
+                    <input [ngClass]="validation.proof ? 'form-control' : 'form-control invalid'" type="file" id="formFile" (change)="uploadFile($event)" [disabled]="isUploading">
+                  </div>
+            </section> -->
+            <!-- <section *ngIf="isPayPalApproved">
+                <div class="col-12 mb-2">
+                    <label class="form-label" style="color: blue; font-weight: bold;">PayPal Payment Confirmed</label>
+                </div>
+            </section> -->
+            <section>
+                <div class="col-12 mb-2">
+                    <!-- <button class="submit" type="submit" [disabled]="isUploading">Submit Order</button> -->
+                    <button class="submit" (click)="open(content)">Pay Now</button>
+                </div>
+            </section>
+        </form>
+    </div>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">PAY VIA</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <!-- <form>
+        <div class="mb-3">
+          <label for="dateOfBirth">Date of birth</label>
+          <div class="input-group">
+            <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+          </div>
+        </div>
+      </form> -->
+         <div class="mb-3">
+            <div class="col-12 text-center mainimagediv">
+                <img src="/assets/images/gcash.png" class="mainitem" *ngIf="card">
+            </div>
+            <form [formGroup]="orderForm2" >  
             <section>
                 <div class="col-12 mb-2">
                     <input type="hidden" value="{{proof}}">
@@ -111,16 +156,16 @@
                     <input [ngClass]="validation.proof ? 'form-control' : 'form-control invalid'" type="file" id="formFile" (change)="uploadFile($event)" [disabled]="isUploading">
                   </div>
             </section>
-            <section *ngIf="isPayPalApproved">
-                <div class="col-12 mb-2">
-                    <label class="form-label" style="color: blue; font-weight: bold;">PayPal Payment Confirmed</label>
-                </div>
-            </section>
             <section>
                 <div class="col-12 mb-2">
-                    <button class="submit" type="submit" [disabled]="isUploading">Submit Order</button>
+                     <button class="submit" (click)="submitOrder()" [disabled]="isUploading">Submit Order</button>
                 </div>
             </section>
-        </form>
+            </form>
+            <br /><p style=" text-align: center;">___________ OR ___________ </p>
+            <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+         </div>
     </div>
-</div>
+  </ng-template>
+
+  <pre>{{ closeResult }}</pre>

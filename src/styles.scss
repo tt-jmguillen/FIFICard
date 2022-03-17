@@ -29,3 +29,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
  .sign-out-button{
    display: none!important;
  }
+
+.modal-backdrop{
+   z-index: 1!important;
+}
