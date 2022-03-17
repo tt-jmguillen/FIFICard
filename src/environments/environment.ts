@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+  paypalCurrency: 'PHP',
+  paypalClientId: 'AQW1wB3h__RDiIOYHpk_1QLpcrPT5sH0GBWemRc3ycpVohV-dqzNwWtSDuvsaUcVH3Ipam9zwYlNy_nB',
   firebase: {
     projectId: 'fifi-greetings',
     appId: '1:592228815811:web:ae07898d9c86884e7d2376',

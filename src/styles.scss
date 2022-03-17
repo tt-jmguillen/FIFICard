@@ -1,4 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+@import "ngx-material-pages_theme.scss";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.full-width-dialog .mat-dialog-container {
+    max-width: 40vw !important;
+  }
+  
+
+.ng-tns-c298-7 .mat-focus-indicator:nth-child(2){
+    display: none;
+ }
+
+.ng-tns-c298-7 .mat-focus-indicator:nth-child(5){
+    display: none;
+ }
+
+ .ng-tns-c298-7 .mat-focus-indicator:nth-child(6){
+    display: none;
+ }
+
+ .ng-tns-c298-7 .mat-focus-indicator:nth-child(7){
+    display: none;
+ }
+
+
+ .sign-out-button{
+   display: none!important;
+ }

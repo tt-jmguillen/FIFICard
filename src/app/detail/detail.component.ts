@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { stringify } from 'querystring';
 import { Card } from '../models/card';
 import { CardService } from '../services/card.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-detail',
@@ -19,6 +20,7 @@ export class DetailComponent implements OnInit {
 
   constructor(
     private _activateRoute: ActivatedRoute,
+    private appComponent: AppComponent,
     private _service: CardService,
     private _emailService: EmailService,
     private titleService: Title
@@ -39,5 +41,13 @@ export class DetailComponent implements OnInit {
       this.card! = data;
       this.titleService.setTitle(this.card?.name!);
     });
+  }
+
+  
+  checkIfLoggedIn(id: any): void {
+    let userDetails: string = localStorage.getItem('user')!;
+    console.log(userDetails);
+    if(userDetails == null || userDetails.length < 0) this.appComponent.openLoginDialog(id);
+    else window.location.href = "/order/" + id;
   }
 }

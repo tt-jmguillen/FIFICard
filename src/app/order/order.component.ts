@@ -8,6 +8,9 @@ import { Card } from '../models/card';
 import { Order } from '../models/order';
 import { CardService } from '../services/card.service';
 import { Cart } from '../models/cart';
+import { AppComponent } from '../app.component';
+import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
+import { environment } from 'src/environments/environment';
 
 export class Validation{
   public sender_name: boolean = true;
@@ -41,8 +44,15 @@ export class OrderComponent implements OnInit {
   validation: Validation = new Validation();
   isUploading: boolean = false;
   initialStatus: string;
+  isPayPalApproved: boolean = false;
+
+  public payPalConfig?: IPayPalConfig;
+  public showSuccess: boolean = false;
+  public showCancel: boolean = false;
+  public showError: boolean = false;
 
   constructor(
+    private appComponent: AppComponent,
     private _activateRoute: ActivatedRoute,
     private _service: CardService,
     private _orderService: OrderService,
@@ -81,6 +91,88 @@ export class OrderComponent implements OnInit {
     })
   }
 
+
+  private initConfig(price: string, cardName: string): void {
+
+    this.payPalConfig = {
+      currency: environment.paypalCurrency,
+      clientId: environment.paypalClientId,   
+      createOrderOnClient: (data) => <ICreateOrderRequest>{
+        intent: 'CAPTURE',
+        purchase_units: [
+          {
+            amount: {
+              currency_code: environment.paypalCurrency,
+              value: price,
+              breakdown: {
+                item_total: {
+                  currency_code: environment.paypalCurrency,
+                  value: price
+                }
+              }
+            },
+            items: [
+              {
+                name: 'Fibei Greetings: ' + cardName,
+                quantity: '1',
+                category: 'DIGITAL_GOODS',
+                unit_amount: {
+                  currency_code: environment.paypalCurrency,
+                  value: price,
+                },
+              }
+            ]
+          }
+        ]
+      },
+      advanced: {
+        commit: 'true'
+      },
+      style: {
+        label: 'paypal',
+        layout: 'vertical'
+      },
+      onApprove: (data, actions) => {
+        console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        actions.order.get().then((details: any) => {
+          console.log('onApprove - you can get full order details inside onApprove: ', details);
+        });
+
+      },
+      onClientAuthorization: (data) => {
+        console.log('onClientAuthorization - inform your server about completed transaction at this point', data);
+        this.isPayPalApproved = true;
+        this.showSuccess = true;
+      },
+      onCancel: (data, actions) => {
+        console.log('OnCancel', data, actions);
+        this.showCancel = true;
+
+      },
+      onError: err => {
+        console.log('OnError', err);
+        this.showError = true;
+      },
+      onClick: (data, actions) => {
+        console.log('onClick', data, actions);
+        this.resetStatus();
+      },
+      onInit: (data, actions) => {
+        console.log('onInit', data, actions);
+      }
+    };
+  }
+
+  private resetStatus(): void {
+    this.showError = false;
+    this.showSuccess = false;
+    this.showCancel = false;
+  }
+
+  closeShowSuccess(){
+    this.showError = false;
+  }
+
   getStatus(){
     this.orderService.getInitial().then(data => { this.initialStatus = data });
   }
@@ -89,36 +181,44 @@ export class OrderComponent implements OnInit {
     this.service.getCard(this.id!).subscribe(data => {
       this.card! = data;
       this.titleService.setTitle(this.card?.name!);
+
+      console.log("PRICE: " + JSON.stringify(this.card));
+      this.initConfig(String(this.card?.price), String(this.card?.name));
     });
   }
 
   submitOrder(){
-    let order: Order = this.orderForm.value as Order;
-    if (this.orderForm.valid){
-      let order: Order = this.orderForm.value as Order;
-      order.card_id = this.card?.id;
-      order.card_name = this.card?.name;
-      order.card_price = this.card?.price;
-      order.proof = this.proof;
-      order.status = this.initialStatus;
-      this.orderService.createOrder(order).then(order => {
-        this.emailService.sendOrderEmail(order);
-        this.orderForm.reset();
-        let cart: Cart= new Cart(order.id!, this.card!.name!);
-        this.addLocalStorage(cart);
-        this.router.navigate(['/status/' + order.id!]);
-      })
-    }
-    else{
-      this.validation.sender_name = this.orderForm.controls['sender_name']['status'] == "VALID";
-      this.validation.sender_phone = this.orderForm.controls['sender_phone']['status'] == "VALID";
-      this.validation.sender_email = this.orderForm.controls['sender_email']['status'] == "VALID";
-      this.validation.receiver_name = this.orderForm.controls['receiver_name']['status'] == "VALID";
-      this.validation.receiver_phone = this.orderForm.controls['receiver_phone']['status'] == "VALID";
-      this.validation.address = this.orderForm.controls['address']['status'] == "VALID";
-      this.validation.sendto = this.orderForm.controls['sendto']['status'] == "VALID";
-      this.validation.message = this.orderForm.controls['message']['status'] == "VALID";
-      this.validation.proof = this.proof != '';
+    let userDetails: string = localStorage.getItem('user')!;
+    console.log(userDetails);
+    if(userDetails == null || userDetails.length < 0){ this.appComponent.openLoginDialog(null);
+    }else{
+        let order: Order = this.orderForm.value as Order;
+        if (this.orderForm.valid){
+          let order: Order = this.orderForm.value as Order;
+          order.card_id = this.card?.id;
+          order.card_name = this.card?.name;
+          order.card_price = this.card?.price;
+          order.proof = this.proof;
+          order.status = this.initialStatus;
+          this.orderService.createOrder(order).then(order => {
+            this.emailService.sendOrderEmail(order);
+            this.orderForm.reset();
+            let cart: Cart= new Cart(order.id!, this.card!.name!);
+            this.addLocalStorage(cart);
+            this.router.navigate(['/status/' + order.id!]);
+          })
+        }
+        else{
+          this.validation.sender_name = this.orderForm.controls['sender_name']['status'] == "VALID";
+          this.validation.sender_phone = this.orderForm.controls['sender_phone']['status'] == "VALID";
+          this.validation.sender_email = this.orderForm.controls['sender_email']['status'] == "VALID";
+          this.validation.receiver_name = this.orderForm.controls['receiver_name']['status'] == "VALID";
+          this.validation.receiver_phone = this.orderForm.controls['receiver_phone']['status'] == "VALID";
+          this.validation.address = this.orderForm.controls['address']['status'] == "VALID";
+          this.validation.sendto = this.orderForm.controls['sendto']['status'] == "VALID";
+          this.validation.message = this.orderForm.controls['message']['status'] == "VALID";
+          this.validation.proof = this.proof != '';
+        }
     }
   }
 

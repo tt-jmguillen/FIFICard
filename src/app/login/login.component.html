@@ -1,0 +1,19 @@
+<div mat-dialog-actions class="d-flex flex-row-reverse">
+  <button mat-button  (click)="onCloseClick($event)">X</button>
+</div>
+<br />
+<div mat-dialog-content>
+
+    <mat-card>
+        <mat-card-content>
+          <ngx-auth-firebaseui 
+          [providers]="[this.providers.Google, this.providers.Facebook]"
+          (onSuccess)="printUser($event)"
+          (onError)="printError($event)"
+          (selectedTabChange)="onTabChange($event)">
+         </ngx-auth-firebaseui>     
+        </mat-card-content>
+      </mat-card>
+
+</div>
+

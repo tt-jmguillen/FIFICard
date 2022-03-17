@@ -11,8 +11,10 @@ import { CardComponent } from './card/card.component';
 import { environment } from '../environments/environment';
 import { DetailComponent } from './detail/detail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatCardModule} from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button'; 
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
 import { OrderComponent } from './order/order.component';
 import { ImagegridComponent } from './modules/imagegrid/imagegrid.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,6 +28,10 @@ import { IonicModule } from '@ionic/angular';
 import { HomeComponent } from './home/home.component';
 import { EventsComponent } from './events/events.component';
 import { GiftsComponent } from './gifts/gifts.component';
+
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+import { LoginComponent } from './login/login.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   declarations: [
@@ -43,7 +49,8 @@ import { GiftsComponent } from './gifts/gifts.component';
     Safe,
     HomeComponent,
     EventsComponent,
-    GiftsComponent
+    GiftsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -52,11 +59,15 @@ import { GiftsComponent } from './gifts/gifts.component';
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     BrowserAnimationsModule,
+    MatCardModule,
+    MatIconModule,
     MatButtonModule,
     MatGridListModule,
     FormsModule,
     ReactiveFormsModule,
     IonicModule.forRoot(),
+    NgxAuthFirebaseUIModule.forRoot(environment.firebase),
+    NgxPayPalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

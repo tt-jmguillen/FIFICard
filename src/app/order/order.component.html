@@ -1,3 +1,21 @@
+<div class="mt-2" *ngIf="showSuccess">
+    <div class="alert alert-success mt-2">
+       Your <em>PayPal</em> transaction was successful.
+    </div>
+  </div>
+  
+  <div class="mt-2" *ngIf="showError">
+    <div class="alert alert-danger mt-2">
+      Oh no! Your <em>PayPal</em> transaction failed.
+    </div>
+  </div>
+  
+  <div class="mt-2" *ngIf="showCancel">
+    <div class="alert alert-info mt-2">
+      Your <em>PayPal</em> transaction was cancelled.
+    </div>
+  </div>
+
 <div class="row align-top">
     <div class="col-12">
         <nav aria-label="breadcrumb">
@@ -14,6 +32,9 @@
         <div class="col-12 text-center mainimagediv">
             <img src="/assets/images/gcash.png" class="mainitem" *ngIf="card">
         </div>
+
+        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+
     </div>
     <div class="col-lg-6 col-sm-12">
         <header class="section-heading">
@@ -89,6 +110,11 @@
                     <label for="formFile" class="form-label">Proof of Payment (Screenshot)</label>
                     <input [ngClass]="validation.proof ? 'form-control' : 'form-control invalid'" type="file" id="formFile" (change)="uploadFile($event)" [disabled]="isUploading">
                   </div>
+            </section>
+            <section *ngIf="isPayPalApproved">
+                <div class="col-12 mb-2">
+                    <label class="form-label" style="color: blue; font-weight: bold;">PayPal Payment Confirmed</label>
+                </div>
             </section>
             <section>
                 <div class="col-12 mb-2">
