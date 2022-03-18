@@ -1,0 +1,37 @@
+.my-event a {
+    opacity: 0.8
+}
+.my-event a img{
+
+    border-radius: 50%;
+    margin-bottom: 10px;
+    // border:5px solid #fff;
+}
+
+.my-event a:hover,
+.my-event a:active {
+    opacity: 1
+}
+.my-event a:hover img{
+
+    border-style:inset;
+    border-width:5px;
+    border-top-color: #1244bd;
+    border-left-color: #1244bd;
+    border-right-color: #1244bd;
+    border-bottom-color: #1244bd;
+}
+
+.my-event a div,
+.my-event a div {
+    text-align: center;
+    background: #000;
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+.my-event a:hover div,
+.my-event a:active div {
+    background: #630ca5;
+}
