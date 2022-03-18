@@ -34,7 +34,8 @@ export class EventService {
       let nonGifts: Event[] = [];
       this.getEvents().then(events => {
         events.forEach(event => {
-          if (!event.isGift){
+          if (!event.isGift && event.active){
+            console.log(event);
             nonGifts.push(event);
           }
         })
@@ -48,7 +49,7 @@ export class EventService {
       let gifts: Event[] = [];
       this.getEvents().then(events => {
         events.forEach(event => {
-          if (event.isGift){
+          if (event.isGift && event.active){
             gifts.push(event);
           }
         })
