@@ -4,7 +4,7 @@
  <div class="card">
       <div class="card-body">
           <header class="section-heading">
-              <h4 class="section-title">{{rating?.title}}</h4>
+              <h5 class="section-title" style="font-weight: bold;">“{{rating?.title}}”</h5>
           </header>
           <section>
               <td> 
@@ -16,11 +16,8 @@
               </td>
           </section>
           <section>
-            <h6 class="section-title">{{rating?.username}}</h6>
+            <h6 class="section-title">{{rating?.username}} | {{rating?.created?.toDate()?.toLocaleDateString()}}</h6>
           </section>
-           <section>
-            <h6 class="section-title">{{rating?.created?.toDate()?.toLocaleDateString()}}</h6>
-          </section> 
           <section>
             <h6 class="section-title">{{rating?.review}}</h6>
           </section>
