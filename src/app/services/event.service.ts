@@ -34,8 +34,7 @@ export class EventService {
       let nonGifts: Event[] = [];
       this.getEvents().then(events => {
         events.forEach(event => {
-          if (!event.isGift && !event.isCreations && event.active){
-            console.log(event);
+          if (!event.isGift && !event.isCreations && !event.isSticker && event.active){
             nonGifts.push(event);
           }
         })
@@ -68,6 +67,20 @@ export class EventService {
           }
         })
         resolve(creations);
+      })
+    })
+  }
+
+  getEventSticker(): Promise<Event[]>{
+    return new Promise((resolve, rejects) => {
+      let stickers: Event[] = [];
+      this.getEvents().then(events => {
+        events.forEach(event => {
+          if (event.isSticker && event.active){
+            stickers.push(event);
+          }
+        })
+        resolve(stickers);
       })
     })
   }
