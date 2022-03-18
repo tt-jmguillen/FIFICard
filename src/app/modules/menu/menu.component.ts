@@ -29,7 +29,7 @@ export class MenuComponent implements OnInit {
     this.service.getEvents().then((data: Event[]) => {
       data.forEach(event => {
         if (event.active){
-          if (event.name?.toUpperCase() == 'AK CREATIONS'){
+          if (event.name?.toUpperCase() == 'CREATIONS'){
             this.ak = event;
           }
           else{

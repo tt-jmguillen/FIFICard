@@ -34,7 +34,7 @@ export class EventsComponent implements OnInit {
             event.url = `cards/events/${event.name}`;
           }
           
-          if (event.name?.toUpperCase() == 'AK CREATIONS'){
+          if (event.name?.toUpperCase() == 'CREATIONS'){
             this.ak = event;
           }
           else{
