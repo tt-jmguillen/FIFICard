@@ -871,6 +871,12 @@ a[class*=card]:hover .title {
   padding: 18px;
   border-top: 1px solid #e4e4e4;
 }
+
+@media screen and (max-width: 992px) {
+  .card-product-grid .img-wrap {
+    height: 150px;
+  }
+}
 .card-product-grid .topbar {
   position: absolute;
   top: 0;
