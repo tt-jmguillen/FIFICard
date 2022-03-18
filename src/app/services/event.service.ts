@@ -34,7 +34,7 @@ export class EventService {
       let nonGifts: Event[] = [];
       this.getEvents().then(events => {
         events.forEach(event => {
-          if (!event.isGift && event.active){
+          if (!event.isGift && !event.isCreations && event.active){
             console.log(event);
             nonGifts.push(event);
           }
@@ -54,6 +54,20 @@ export class EventService {
           }
         })
         resolve(gifts);
+      })
+    })
+  }
+
+  getEventCreation(): Promise<Event[]>{
+    return new Promise((resolve, rejects) => {
+      let creations: Event[] = [];
+      this.getEvents().then(events => {
+        events.forEach(event => {
+          if (event.isCreations && event.active){
+            creations.push(event);
+          }
+        })
+        resolve(creations);
       })
     })
   }

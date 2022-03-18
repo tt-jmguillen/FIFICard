@@ -30,6 +30,7 @@ export class GiftsComponent implements OnInit {
           event.url = `cards/events/${event.name}`;
           if (event.name?.toUpperCase() == 'CREATIONS'){
             this.ak = event;
+            this.ak.url = "/creations";
           }
           else{
             this.events.push(event);

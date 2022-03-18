@@ -1,3 +1,4 @@
+import { CreationsComponent } from './creations/creations.component';
 import { GiftsComponent } from './gifts/gifts.component';
 import { EventsComponent } from './events/events.component';
 import { HomeComponent } from './home/home.component';
@@ -19,6 +20,9 @@ const routes: Routes = [
   },
   {
     path: 'gifts', component: GiftsComponent
+  },
+  {
+    path: 'creations', component: CreationsComponent
   },
   {
     path: 'cards/events/:event', component: CardsComponent

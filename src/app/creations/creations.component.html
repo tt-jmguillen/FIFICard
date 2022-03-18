@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-md-12">
+        <img src="/assets/images/event/banner/Creations-min.png" class="img-fluid" style="border-radius:6px;">
+        <br/> <br/>
+    </div>
+</div>
+<div class="row my-event">
+    <div class="col-md-3" *ngFor="let event of events">
+        <a href="{{event.url}}">
+            <img src="{{event.image}}" class="img-fluid">
+            <div>{{event.name}}</div>
+        </a>
+        <br/>
+    </div>
+</div>

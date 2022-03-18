@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { EventService } from '../services/event.service';
 import { Event } from '../models/event';
 
+
 @Component({
-  selector: 'app-events',
-  templateUrl: './events.component.html',
-  styleUrls: ['./events.component.scss']
+  selector: 'app-creations',
+  templateUrl: './creations.component.html',
+  styleUrls: ['./creations.component.scss']
 })
-export class EventsComponent implements OnInit {
+export class CreationsComponent implements OnInit {
   service: EventService;
   events: Event[] = [];
   ak: Event;
@@ -23,20 +24,13 @@ export class EventsComponent implements OnInit {
   }
 
   loadEvents(){
-    this.service.getEventNonGift().then((data: Event[]) => {
+    this.service.getEventCreation().then((data: Event[]) => {
       data.forEach(event => {
         if (event.active){
-          event.image = `/assets/images/event/thumbnail/${event.name?.replace(' ','').replace("'",'')}-min.png`;
-          if (event.name?.includes('Easter')){
-            event.url = `cards/events/Easter`;
-          }
-          else{
-            event.url = `cards/events/${event.name}`;
-          }
-          
+          event.image = `/assets/images/gift/${event.name?.replace(' ','').replace("'",'')}-min.png`;
+          event.url = `cards/events/${event.name}`;
           if (event.name?.toUpperCase() == 'CREATIONS'){
             this.ak = event;
-            this.ak.url = "/creations"
           }
           else{
             this.events.push(event);

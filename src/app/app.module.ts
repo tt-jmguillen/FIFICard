@@ -34,6 +34,7 @@ import { LoginComponent } from './login/login.component';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { RatingComponent } from './modules/rating/rating.component';
 import { NgxFeedbackModule } from 'ngx-feedback';
+import { CreationsComponent } from './creations/creations.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { NgxFeedbackModule } from 'ngx-feedback';
     EventsComponent,
     GiftsComponent,
     LoginComponent,
-    RatingComponent
+    RatingComponent,
+    CreationsComponent
   ],
   imports: [
     BrowserModule,

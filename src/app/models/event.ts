@@ -3,6 +3,7 @@ export class Event {
     public name?: string;
     public active?: boolean;
     public isGift?: boolean;
+    public isCreations?: boolean;
     public image?: string;
     public url?: string; 
 }
