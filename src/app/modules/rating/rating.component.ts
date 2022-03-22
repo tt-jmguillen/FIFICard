@@ -21,12 +21,15 @@ export class RatingComponent implements OnInit {
   ngOnInit(): void {
       console.log("RATINGS");
 
-      this.norecords = false;
+      this.norecords = true;
       this.service.getRatings(this.id2!).then(data => {
         console.log(">>>>: " + JSON.stringify(data));
         if (data.length > 0){
           data.forEach(rating => {
+            if(rating.approve){
+            this.norecords = false;
             this.ratings.push(rating);
+            }
           });
         }
 
