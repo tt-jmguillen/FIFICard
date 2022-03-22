@@ -2,6 +2,7 @@ import { environment } from './../../environments/environment';
 import { Card } from './../models/card';
 import { Component, Input, OnInit } from '@angular/core';
 import { CardService } from '../services/card.service';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-card',
@@ -14,6 +15,8 @@ export class CardComponent implements OnInit {
   service: CardService;
   card?: Card;
   imageURL?: string;
+  rateAve:  number;
+  rateCount:  number;
 
   constructor(private _service: CardService) { 
     this.service = _service;
@@ -24,6 +27,10 @@ export class CardComponent implements OnInit {
       this.card = val;
       this.loadImage();
     });
+
+
+    this.rateAve = 4.5;
+    this.rateCount = 99;
   }
 
   loadImage(){

@@ -33,3 +33,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .modal-backdrop{
    z-index: 1!important;
 }
+
+.visually-hidden{
+   display: none!important;
+}
+
+.rate-count{
+   padding-top: 3%;
+}

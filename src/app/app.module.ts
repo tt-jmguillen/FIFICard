@@ -36,6 +36,8 @@ import { RatingComponent } from './modules/rating/rating.component';
 import { NgxFeedbackModule } from 'ngx-feedback';
 import { CreationsComponent } from './creations/creations.component';
 import { StickersComponent } from './stickers/stickers.component';
+import { RatingDecimalComponent } from './modules/rating-decimal/rating-decimal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { StickersComponent } from './stickers/stickers.component';
     LoginComponent,
     RatingComponent,
     CreationsComponent,
-    StickersComponent
+    StickersComponent,
+    RatingDecimalComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +78,8 @@ import { StickersComponent } from './stickers/stickers.component';
     IonicModule.forRoot(),
     NgxAuthFirebaseUIModule.forRoot(environment.firebase),
     NgxPayPalModule,
-    NgxFeedbackModule
+    NgxFeedbackModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
