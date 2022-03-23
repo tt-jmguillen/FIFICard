@@ -10,7 +10,7 @@
         <!-- <a   href="/">FibeiGreetings</a> -->
         <a   href="/"><img src="/assets/images/logo_fibeigreetings.png" class="img-fluid" style="margin-bottom:10px"></a>
       </div>
-      <div class="col-lg-7 col-10">
+      <div class="col-lg-9 col-10">
         <app-search></app-search>
       </div> <!-- col.// -->
       <div class="col-lg-1 col-2">
@@ -20,16 +20,15 @@
               </div>
           </div> <!-- widgets-wrap.// -->
       </div> <!-- col.// -->
-      <div class="col-lg-1 col-2" *ngIf="!isLogIn">
+      <!-- <div class="col-lg-1 col-2" *ngIf="!isLogIn">
         <div class="widgets-wrap float-md-end">
             <div class="widget-header  me-3">
               <h6>Hi! {{this.userDetails?.displayName}}</h6> 
             </div>
-        </div> <!-- widgets-wrap.// -->
-    </div> <!-- col.// -->
+        </div>
+    </div> 
       <div class="col-lg-1 col-sm-2 col-12" *ngIf="isLogIn">
         <button mat-raised-button (click)="openLoginDialog(null)">
-          <mat-icon>power_settings_new</mat-icon>
           Login
         </button>
       </div>
@@ -39,15 +38,15 @@
           <mat-icon>power_settings_new</mat-icon>
           Sign Out
         </button>
-      </div>
+      </div> -->
   </div> <!-- row.// -->
       </div> <!-- container.// -->
   </section> <!-- header-main .// -->
   
   <nav class="navbar navbar-main navbar-expand-lg navbar-light border-bottom">
     <div class="container">
-
-      <app-menu></app-menu>
+      <div class="col-lg-12">  <app-menu></app-menu></div>
+    
   
     </div> <!-- container .// -->
   </nav>

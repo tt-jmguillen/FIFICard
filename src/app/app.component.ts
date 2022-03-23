@@ -33,7 +33,7 @@ export class AppComponent {
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.userDetails = userDetails;
     console.log("userDetails ->",  userDetails);
-    this.isLogIn = userDetails.length < 0 ? true : false;
+    this.isLogIn = userDetails == null || userDetails.length < 0 ? true : false;
     console.log("isLogIn ->",   String(this.isLogIn));
   }
 
