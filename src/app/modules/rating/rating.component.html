@@ -1,4 +1,4 @@
-<h1>Reviews</h1>
+<h1 *ngIf="!norecords">Reviews</h1>
 
 <div *ngFor="let rating of ratings">
  <div class="card">

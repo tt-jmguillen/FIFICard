@@ -20,11 +20,8 @@ export class RatingDecimalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("RATINGS");
-
     this.norecords = true;
     this.service.getRatings(this.cardId!).then(data => {
-      console.log(">>>>: " + JSON.stringify(data));
       if (data.length > 0){
         data.forEach(rating => {
           if(rating.approve){
@@ -34,11 +31,7 @@ export class RatingDecimalComponent implements OnInit {
           this.currentRate = this.currentRate + rating.rate;
           }
         });
-        this.currentRate = this.currentRate / this.rateCount;
       }
-
-      console.log("rateCount " + String(this.rateCount));
-      console.log("currentRate " + String(this.currentRate));
     }).catch(reason => {
       console.log(reason);
       this.norecords = true;

@@ -38,6 +38,8 @@ import { CreationsComponent } from './creations/creations.component';
 import { StickersComponent } from './stickers/stickers.component';
 import { RatingDecimalComponent } from './modules/rating-decimal/rating-decimal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { RatingSummaryComponent } from './modules/rating-summary/rating-summary.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RatingComponent,
     CreationsComponent,
     StickersComponent,
-    RatingDecimalComponent
+    RatingDecimalComponent,
+    RatingSummaryComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +76,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatIconModule,
     MatButtonModule,
     MatGridListModule,
+    MatProgressBarModule,
     FormsModule,
     ReactiveFormsModule,
     IonicModule.forRoot(),
