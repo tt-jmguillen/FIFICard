@@ -1,0 +1,33 @@
+.visually-hidden{
+    display: none!important;
+ }
+
+ .star {
+    position: relative;
+    display: inline-block;
+    font-size: 2.5rem;
+    color: #d3d3d3;
+  }
+  .full {
+    color: darkviolet;
+  }
+  .half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: darkviolet;
+  }
+
+  
+.mat-progress-bar {
+    height: 18px!important;
+    width: 56%!important;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+.progress-bar-span{
+    display: flex!important;
+}
+ 
