@@ -40,7 +40,7 @@ export class CardsComponent implements OnInit {
   displayCards: Card[] = [];
   pages: Page[] = [];
   index: number;
-  batchLimit: number = 40;
+  batchLimit: number = 36;
   batchCount: number = 0;
   batchShowing: string = '';
   disablePrev: boolean;
