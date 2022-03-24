@@ -9,6 +9,8 @@ import { AuthComponent, AuthProcessService, AuthProvider, AuthProvidersComponent
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
+
 export class LoginComponent implements OnInit {  
   isAuthenticated: boolean;
   email: string;
@@ -19,14 +21,13 @@ export class LoginComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<LoginComponent>,
     public authProcess: AuthProcessService,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+    ) {}
     
   ngOnInit(): void {
     //throw new Error('Method not implemented.');
   }
 
   onCloseClick(event: any) {
-    //console.log("onCloseClick event ->", event);
     this.dialogRef.close({
       //isAuthenticated: this.isAuthenticated
     });
