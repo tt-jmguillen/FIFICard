@@ -13,6 +13,30 @@
   <link href="assets/css/all.min.css" rel="stylesheet">
   <script src="assets/js/jquery.min.js" type="text/javascript"></script>
   <script src="assets/js/bootstrap.bundle.min.js" ></script>
+  <script type="text/javascript">
+    function tabclick(tabId)
+    {
+        let ctr = 1;
+        while (ctr < 7)
+         {
+          let currentTab = 'tab-' + ctr;
+          let currentTabSec = 'tab-' + ctr + '-section';
+          if(tabId == 'tab-' + ctr) {
+            var elem = document.getElementById(currentTabSec);
+            elem.classList.add('active', 'active-content'); 
+            elem = document.getElementById(currentTab);
+            console.log(elem);
+            elem.classList.add('active'); 
+          }else{
+             var elem = document.getElementById(currentTabSec);
+             elem.classList.remove('active', 'active-content'); 
+             elem = document.getElementById(currentTab);
+             elem.classList.remove('active'); 
+          }
+          ctr++;
+        }
+    }
+  </script>
 </head>
 <body>
   <app-root></app-root>

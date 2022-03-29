@@ -25,36 +25,12 @@
     </div>
      <div class="col-lg-6" style="display: flex;justify-content: flex-end;">
         <div *ngIf="!isLogIn">
-            <!-- <div class="widgets-wrap float-md-end">
-                <div class="widget-header  me-3">
-                <h6>Hi! {{this.userDetails?.displayName}}</h6> 
-                </div>
-            </div>  -->
-            <!-- <div mdbDropdown class="dropdown">
-                <a
-                  class="btn btn-primary dropdown-toggle"
-                  role="button"
-                  id="dropdownMenuLink"
-                  mdbDropdownToggle
-                  aria-expanded="false"
-                >
-                   {{this.userDetails?.displayName}}
-                </a>
-                <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
-                  <li><a class="dropdown-item" href="#">Communication Preferences</a></li>
-                  <li><a class="dropdown-item" href="#">Shipping Address</a></li>
-                  <li><a class="dropdown-item" href="#">Payment Methods</a></li>
-                  <li><a class="dropdown-item" href="#">My Lists</a></li>
-                  <li><a class="dropdown-item" href="#">Sign Out</a></li>
-                </ul>
-              </div> -->
               <div ngbDropdown class="nav-item dropdown" style="padding-top: 4%;">
                 <a ngbDropdownToggle class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Hi, {{this.userDetails?.displayName}}
                 </a>
                 <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="#">Profile</a>
+                    <a class="dropdown-item" href="/profile">Profile</a>
                     <a class="dropdown-item" href="#">Communication Preferences</a>
                     <a class="dropdown-item" href="#">Shipping Address</a>
                     <a class="dropdown-item" href="#">Payment Methods</a>

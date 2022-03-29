@@ -45,10 +45,12 @@ import { TabGiftsComponent } from './pages/tab-gifts/tab-gifts.component';
 import { TabLoginComponent } from './pages/tab-login/tab-login.component';
 import { TabCreationsComponent } from './pages/tab-creations/tab-creations.component';
 import { TabStickersComponent } from './pages/tab-stickers/tab-stickers.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from './settings/profile/profile.component';
 import { TabProfileComponent } from './pages/tab-profile/tab-profile.component';
 import { RatingSummaryComponent } from './modules/rating-summary/rating-summary.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { PreferencesComponent } from './settings/preferences/preferences.component';
 
 
 @NgModule({
@@ -81,7 +83,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     TabStickersComponent,
     ProfileComponent,
     TabProfileComponent,
-    RatingSummaryComponent
+    RatingSummaryComponent,
+    PreferencesComponent
   ],
   imports: [
     BrowserModule,
@@ -96,6 +99,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatGridListModule,
     MatDialogModule,
     MatProgressBarModule,
+    MatTabsModule,
     FormsModule,
     ReactiveFormsModule,
     IonicModule.forRoot(),

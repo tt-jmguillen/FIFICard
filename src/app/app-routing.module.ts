@@ -18,6 +18,7 @@ import { TabLoginComponent } from './pages/tab-login/tab-login.component';
 import { TabCreationsComponent } from './pages/tab-creations/tab-creations.component';
 import { TabStickersComponent } from './pages/tab-stickers/tab-stickers.component';
 import { TabProfileComponent } from './pages/tab-profile/tab-profile.component';
+import { ProfileComponent } from './settings/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,9 @@ const routes: Routes = [
         path: 'stickers', component: TabStickersComponent
       },
     ]
+  },
+  {
+    path: 'profile', component: ProfileComponent
   },
   {
     path: 'events', component: EventsComponent
