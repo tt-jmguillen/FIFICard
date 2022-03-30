@@ -1,0 +1,21 @@
+<div class="container" ng-app="app">
+    <div class="row center-content"><h5><b>YOU MAY ALSO LIKE</b></h5></div>
+    <div class="row center-content" ng-controller="appController">
+      <div class="col-md-1" *ngIf="!disablePrev">
+        <button class="btn btn-default" (click)="leftClick()">
+          <
+        </button>
+      </div>
+      <div class="col-md-3" *ngFor="let displayCard of displayCards">
+        <img class="img-thumbnail" src="{{displayCard?.imageUrl}}">
+        <h5>{{displayCard?.name}}</h5>
+      </div>
+      <div class="col-md-1" *ngIf="!disableNext">
+        <button class="btn btn-default" (click)="rightClick()">
+          >
+        </button>
+      </div>
+    </div>
+  </div>
+
+  

@@ -51,6 +51,7 @@ import { RatingSummaryComponent } from './modules/rating-summary/rating-summary.
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { PreferencesComponent } from './settings/preferences/preferences.component';
+import { SuggestionListComponent } from './modules/suggestion-list/suggestion-list.component';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { PreferencesComponent } from './settings/preferences/preferences.compone
     ProfileComponent,
     TabProfileComponent,
     RatingSummaryComponent,
-    PreferencesComponent
+    PreferencesComponent,
+    SuggestionListComponent
   ],
   imports: [
     BrowserModule,
