@@ -10,7 +10,10 @@
     <h3 class="section-title" *ngIf="caption">{{caption}}</h3>
 </header><!-- sect-heading -->
 <div class="my-recipient">
-    <span class=" imagediv hover-target" *ngFor = "let recipient of recipientsByEvent" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient ? 'blueviolet' : ''}">
+    <!-- <span class=" imagediv hover-target" *ngFor = "let recipient of recipientsByEvent" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient ? 'blueviolet' : ''}"> 
+        {{recipient}}
+    </span> -->
+    <span class=" imagediv hover-target" *ngFor = "let recipient of recipientsByEvent" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient ? 'blueviolet' : '', 'color': selectedRecipient==recipient ? 'white' : ''}"> 
         {{recipient}}
     </span>
 </div>
