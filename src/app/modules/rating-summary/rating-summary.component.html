@@ -25,12 +25,18 @@
           </div>
         </div>
     </div>
-    <div class="col-lg-6 col-sm-12">
-        <br />
+    <div class="col-lg-6 col-sm-12" style="display: flex;">
+        <div style="width: 90%; padding-top: 5%;">
         <div class="progress-bar-span"><span>5&#9733;&nbsp;&nbsp;</span><mat-progress-bar mode="determinate" value={{calculateRate(rate5)}}></mat-progress-bar><span>&nbsp;&nbsp;{{rate5}}</span></div>
         <div class="progress-bar-span"><span>4&#9733;&nbsp;&nbsp;</span><mat-progress-bar mode="determinate" value={{calculateRate(rate4)}}></mat-progress-bar><span>&nbsp;&nbsp;{{rate4}}</span></div>
         <div class="progress-bar-span"><span>3&#9733;&nbsp;&nbsp;</span><mat-progress-bar mode="determinate" value={{calculateRate(rate3)}}></mat-progress-bar><span>&nbsp;&nbsp;{{rate3}}</span></div>
         <div class="progress-bar-span"><span>2&#9733;&nbsp;&nbsp;</span><mat-progress-bar mode="determinate" value={{calculateRate(rate2)}}></mat-progress-bar><span>&nbsp;&nbsp;{{rate2}}</span></div>
         <div class="progress-bar-span"><span>1&#9733;&nbsp;&nbsp;</span><mat-progress-bar mode="determinate" value={{calculateRate(rate1)}}></mat-progress-bar><span>&nbsp;&nbsp;{{rate1}}</span></div>
+        </div>
+        <div class="center-content" style="padding-top: 10%;" *ngIf="!isLogIn">
+        <button mat-raised-button (click)="writeReviewDialog()">
+          WRITE A REVIEW
+        </button>
+        </div>
     </div>
 </div>

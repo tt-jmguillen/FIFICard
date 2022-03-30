@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { collection, collectionData, doc, docData, Firestore } from '@angular/fire/firestore';
+import { collection, collectionData, doc, docData, Firestore, Timestamp } from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { query, where } from '@firebase/firestore';
 import { Observable } from 'rxjs';
@@ -66,4 +66,23 @@ export class CardService {
     const fileRef = ref(this.storage, path);
     return getDownloadURL(fileRef)
   }
+
+  async addRating(id: string, rating: Rating): Promise<string>{
+    console.log("AddRating id: " + id );
+    console.log("AddRating rating: " + JSON.stringify(rating));
+    return new Promise(resolve => {
+        this.db.collection('cards').doc(id).collection('ratings').add({
+            date: Timestamp.now(),
+            username: rating.username,
+            rate: rating.rate,
+            title: rating.title,
+            review: rating.review,
+            approve: false,
+            created: Timestamp.now()
+        }).then(data => {
+            resolve(data.id);
+        })
+    });
+}
+
 }

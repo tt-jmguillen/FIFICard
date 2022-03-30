@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Rating } from 'src/app/models/rating';
 import { CardService } from 'src/app/services/card.service';
+import { ReviewComponent } from '../review/review.component';
 
 @Component({
   selector: 'app-rating-summary',
@@ -20,11 +23,27 @@ export class RatingSummaryComponent implements OnInit {
   rate3 = 0;
   rate4 = 0;
   rate5 = 0;
-  constructor(private _service: CardService) { 
+  dialogRef: MatDialogRef<ReviewComponent>;
+  snackBar: MatSnackBar;
+  userDetails: any;
+  isLogIn = true;
+  
+  constructor(
+    public dialog: MatDialog,
+    private _service: CardService,
+    private _snackBar: MatSnackBar) { 
     this.service = _service;
+    this.snackBar = _snackBar;
   }
 
   ngOnInit(): void {
+
+    const userDetails = JSON.parse(localStorage.getItem('user')!);
+    this.userDetails = userDetails;
+    console.log("userDetails ->",  userDetails);
+    this.isLogIn = userDetails == null || userDetails.length < 0 ? true : false;
+    console.log("isLogIn ->",   String(this.isLogIn));
+
     this.norecords = true;
     this.service.getRatings(this.cardId!).then(data => {
       //console.log(">>>>: " + JSON.stringify(data));
@@ -71,5 +90,17 @@ export class RatingSummaryComponent implements OnInit {
     // console.log("calculateRate: " + String((rate/this.rateCount)*100));
      return (rate/this.rateCount)*100;
   }
+
+  writeReviewDialog(){
+      const dialogConfig = new MatDialogConfig();
+      this.dialogRef = this.dialog.open(ReviewComponent, dialogConfig);
+  
+      this.dialogRef.afterClosed().subscribe(data => {
+        console.log("rating2: " +  JSON.stringify(data));
+        if(data){
+          this._service.addRating(this.cardId!, data);
+        }
+      });
+    }
 
 }

@@ -36,8 +36,8 @@ export class SuggestionListComponent implements OnInit {
     this.loadEvent();;
 
     const wait2 = window.setTimeout(() => {
-        console.log("3>>>>>loadBatch");
-        console.log("cards: " + JSON.stringify(this.cards));
+        //console.log("3>>>>>loadBatch");
+        //console.log("cards: " + JSON.stringify(this.cards));
         this.cards.sort(() => Math.random() - 0.5)  
         this.randomCards = this.cards.slice(0,12)   
         this.loadBatch(1);
@@ -47,11 +47,11 @@ export class SuggestionListComponent implements OnInit {
   loadEvent(){
     this.service.getCard(this.cardId!).subscribe(val => {
       this.cardEvent = val.event!;
-      console.log("1>>>>cardEvent: " + JSON.stringify(this.cardEvent));
+      //console.log("1>>>>cardEvent: " + JSON.stringify(this.cardEvent));
     });
 
     this.service.getCards().then(data => {
-      console.log("2>>>>>loadEvent");
+      //console.log("2>>>>>loadEvent");
       this.cards = [];
       data.forEach(card => {
         if (card.event){
@@ -64,7 +64,7 @@ export class SuggestionListComponent implements OnInit {
                   return url;
                 });
               }
-               console.log("temp: " + JSON.stringify(this.temp));
+               //console.log("temp: " + JSON.stringify(this.temp));
                card.imageUrl  = this.temp; 
                this.cards.push(card);  
            }

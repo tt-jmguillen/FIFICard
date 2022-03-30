@@ -52,6 +52,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { PreferencesComponent } from './settings/preferences/preferences.component';
 import { SuggestionListComponent } from './modules/suggestion-list/suggestion-list.component';
+import { ReviewComponent } from './modules/review/review.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -86,7 +89,8 @@ import { SuggestionListComponent } from './modules/suggestion-list/suggestion-li
     TabProfileComponent,
     RatingSummaryComponent,
     PreferencesComponent,
-    SuggestionListComponent
+    SuggestionListComponent,
+    ReviewComponent
   ],
   imports: [
     BrowserModule,
@@ -102,6 +106,8 @@ import { SuggestionListComponent } from './modules/suggestion-list/suggestion-li
     MatDialogModule,
     MatProgressBarModule,
     MatTabsModule,
+    MatFormFieldModule,
+    MatInputModule,
     FormsModule,
     ReactiveFormsModule,
     IonicModule.forRoot(),
