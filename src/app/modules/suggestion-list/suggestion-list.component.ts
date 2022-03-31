@@ -76,7 +76,7 @@ export class SuggestionListComponent implements OnInit {
 
   getAvailableURL(image: string): Promise<string>{
     return new Promise((resolve, rejects) => {
-      this.service.getImageURL(image + environment.imageSize.medium).then(url => {
+      this.service.getImageURL(image + environment.imageSize.small).then(url => {
         resolve(url);
       }).catch(err => {
         this.service.getImageURL(image).then(url => {
