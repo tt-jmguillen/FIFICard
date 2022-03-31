@@ -81,5 +81,6 @@ export class AppComponent {
       .signOut()
       .then(() =>this.onSignOut.emit())
       .catch((e) => console.error("An error happened while signing out!", e));
+    window.location.href = "";   
   }
 }

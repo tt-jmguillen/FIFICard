@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { timeStamp } from 'console';
 import { arrayRemove } from 'firebase/firestore';
 import { ref } from 'firebase/storage';
@@ -15,6 +16,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SuggestionListComponent implements OnInit {
   @Input() cardId?: string;
+
   service: CardService;
   cards: Card[] = [];
   randomCards: Card[] = [];
@@ -125,5 +127,7 @@ export class SuggestionListComponent implements OnInit {
     this.page+=1;
     this.loadBatch(this.page);
   }
+
+
 
 }

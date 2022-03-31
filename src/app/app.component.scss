@@ -5,22 +5,42 @@
 .mat-card{
     margin-bottom: 2rem;
   }
+
+  .im-social a 
+  {
+    height: 50px;
+    background: #df18c1;
+    margin: 0px 4px;
+    border-radius: 50%;
+    width: 50px;
+    display: inline-block;
+    padding: 10px;
+    color: #7f0595;
+      }
+      .im-social a:hover
+      {
+        color:white
+      }
   
+ .content{
+        margin-top: 50px;
+  }
 
   @media(min-width: 768px) {
-    header {
+    ion-header {
     display: block;
     }
-    footer {
+    ion-footer {
         display: block;
     }
+  
   }
    
   @media(max-width: 768px) {
-    header {
-    display: none;
+    ion-header {
+       display: none;
     }
-    footer {
+    ion-footer {
         display: none;
     }
   }

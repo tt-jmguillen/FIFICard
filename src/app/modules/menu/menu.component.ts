@@ -90,6 +90,7 @@ export class MenuComponent implements OnInit {
             if(id != null) {
               window.location.href = "/order/" + id;
             }else{
+              console.log("RELOAD");
               window.location.reload();
             }
         }
@@ -107,6 +108,7 @@ export class MenuComponent implements OnInit {
       .signOut()
       .then(() =>this.onSignOut.emit())
       .catch((e) => console.error("An error happened while signing out!", e));
+    window.location.href = "";  
   }
 
 }

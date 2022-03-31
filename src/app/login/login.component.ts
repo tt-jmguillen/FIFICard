@@ -3,6 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTabChangeEvent } from "@angular/material/tabs";
 import { AnyRecordWithTtl } from 'dns';
 import { AuthComponent, AuthProcessService, AuthProvider, AuthProvidersComponent } from 'ngx-auth-firebaseui';
+import { map, take } from 'rxjs';
+import firebase from "firebase/compat/app";
 
 @Component({
   selector: 'app-login',
@@ -28,9 +30,26 @@ export class LoginComponent implements OnInit {
   }
 
   onCloseClick(event: any) {
-    this.dialogRef.close({
-      //isAuthenticated: this.isAuthenticated
-    });
+    try{
+      this.dialogRef.close({
+        //isAuthenticated: this.isAuthenticated
+      });
+    }catch(ex){
+      console.log('Method not implemented.' + ex);
+
+      const _users = this.authProcess.user$.pipe(
+        take(1),
+        map((currentUser: firebase.User | null) => {
+          return currentUser;
+        })
+      );
+
+      _users.subscribe(userDetails => {
+        localStorage.setItem("user", JSON.stringify(userDetails));
+           window.location.href = "/profile";
+        });
+    }
+   
   }
 
   printUser(event: any) {
