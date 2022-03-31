@@ -87,7 +87,11 @@ export class MenuComponent implements OnInit {
 
         if(!this.isLogIn){
         localStorage.setItem("user", JSON.stringify(userDetails));
-        if(id != null) window.location.href = "/order/" + id;
+            if(id != null) {
+              window.location.href = "/order/" + id;
+            }else{
+              window.location.reload();
+            }
         }
 
       });

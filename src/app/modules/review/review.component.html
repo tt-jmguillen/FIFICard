@@ -10,13 +10,9 @@
   
   </div> -->
 
-  <h2 mat-dialog-title>Ratings</h2>
+  <h2 mat-dialog-title>Please share your experience</h2>
 <br />
 <mat-dialog-content [formGroup]="form">
-    <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Username</mat-label>
-        <input matInput placeholder="Username" formControlName="username">
-    </mat-form-field>
     <mat-form-field appearance="fill" class="full-width">
         <mat-label>Rating</mat-label>
         <input matInput hidden="true" formControlName="rating">
@@ -34,6 +30,8 @@
         <mat-label>*Review</mat-label>
         <textarea matInput rows="10" placeholder="Write your review" formControlName="review"></textarea>
     </mat-form-field>
+    <br/>
+    <mat-label>Reviewed By: {{displayName}}</mat-label>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button class="mat-stroked-button mat-basic" (click)="close($event)">Cancel</button>

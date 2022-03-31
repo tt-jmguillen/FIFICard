@@ -13,7 +13,9 @@ export class ReviewComponent implements OnInit {
   rating: number;
   form: FormGroup;
   data: Rating;
- 
+  userDetails: any;
+  displayName: string;
+
   constructor( 
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ReviewComponent>,
@@ -25,6 +27,11 @@ export class ReviewComponent implements OnInit {
     }
 
   ngOnInit(): void {
+
+    const userDetails = JSON.parse(localStorage.getItem('user')!);
+    this.userDetails = userDetails;
+    this.displayName = userDetails?.displayName;
+
     if (this.data){
       this.form = this.fb.group({
         username: [this.data.username, [Validators.required]],
@@ -64,6 +71,7 @@ export class ReviewComponent implements OnInit {
         rating.id = this.data.id;
         rating.rate = this.rating;
         rating.approve = false;
+        rating.username = this.displayName;
         console.log("rating1: " +  JSON.stringify(rating));
       this.dialogRef.close(rating);
     }
