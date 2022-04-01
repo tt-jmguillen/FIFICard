@@ -40,13 +40,7 @@ import { RatingDecimalComponent } from './modules/rating-decimal/rating-decimal.
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TabsComponent } from './pages/tabs/tabs.component';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { TabEventsComponent } from './pages/tab-events/tab-events.component';
-import { TabGiftsComponent } from './pages/tab-gifts/tab-gifts.component';
-import { TabLoginComponent } from './pages/tab-login/tab-login.component';
-import { TabCreationsComponent } from './pages/tab-creations/tab-creations.component';
-import { TabStickersComponent } from './pages/tab-stickers/tab-stickers.component';
 import { ProfileComponent } from './settings/profile/profile.component';
-import { TabProfileComponent } from './pages/tab-profile/tab-profile.component';
 import { RatingSummaryComponent } from './modules/rating-summary/rating-summary.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -80,13 +74,7 @@ import { MatInputModule } from '@angular/material/input';
     StickersComponent,
     RatingDecimalComponent,
     TabsComponent,
-    TabEventsComponent,
-    TabGiftsComponent,
-    TabLoginComponent,
-    TabCreationsComponent,
-    TabStickersComponent,
     ProfileComponent,
-    TabProfileComponent,
     RatingSummaryComponent,
     PreferencesComponent,
     SuggestionListComponent,
