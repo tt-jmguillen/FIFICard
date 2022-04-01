@@ -34,7 +34,7 @@ export class ReviewComponent implements OnInit {
 
     if (this.data){
       this.form = this.fb.group({
-        username: [this.data.username, [Validators.required]],
+        // username: [this.data.username, [Validators.required]],
         date: [this.data.date, [Validators.required]],
         rating: [Number(0)],
         title: [this.data.title, [Validators.required, Validators.maxLength(250)]],
@@ -45,7 +45,7 @@ export class ReviewComponent implements OnInit {
     }
     else{
       this.form = this.fb.group({
-        username: ['', [Validators.required]],
+        // username: ['', [Validators.required]],
         date: [Date, [Validators.required]],
         rating: [Number(0)],
         title: ['', [Validators.required, Validators.maxLength(250)]],
