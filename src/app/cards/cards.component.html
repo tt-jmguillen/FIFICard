@@ -1,137 +1,146 @@
-<!-- <ion-content id="cardsContent" overflow-scroll="true"> -->
-<div class="row">
-    <div class="col-md-12">
-        <img src="{{banner}}" class="img-fluid" style="border-radius:6px;">
-        <br/> <br/>
-    </div>
-</div>
-<header class="section-heading">
-    <!--<a href="#" class="btn btn-outline-primary float-end">See all</a>-->
-    <h3 class="section-title" *ngIf="caption">{{caption}}</h3>
-</header><!-- sect-heading -->
-<div class="my-recipient">
-    <!-- <span class=" imagediv hover-target" *ngFor = "let recipient of recipientsByEvent" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient ? 'blueviolet' : ''}"> 
-        {{recipient}}
-    </span> -->
-    <span class=" imagediv hover-target" *ngFor = "let recipient of recipientsByEvent" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient ? 'blueviolet' : '', 'color': selectedRecipient==recipient ? 'white' : ''}"> 
-        {{recipient}}
-    </span>
-</div>
+<ion-content>
+    <section class="section-name padding-y-sm">
+        <div class="container animate main">
 
-<!-- <div class="row">
-    <div class="col-md-12">
-        <img src="/assets/images/homepage/home-banner.png" class="img-fluid" style="border-radius:6px;">
-        <br/> <br/>
-    </div>
-    <div class="col-md-6">
-        <img src="/assets/images/homepage/free_shipping_banner.png" class="img-fluid" style="border-radius:6px;">
-    </div>
-    <div class="col-md-6">
-        <img src="/assets/images/homepage/free-sticker.png" class="img-fluid" style="border-radius:6px;">
-        <br/> <br/>
-    </div>
-    <div class="col-md-2 col-sm-6 col-6 text-center">
-        <a href="/events/Birthday">
-            <img src="/assets/images/homepage/category/c-birthday.png" alt="birthday" title="birthday">
-            <h4>Birthday</h4>
-        </a>
-        <br/> <br/>
-    </div>
-    <div class="col-md-2 col-sm-6 col-6 text-center">
-        <a href="/events/Thank You">
-            <img src="/assets/images/homepage/category/c-thankyou.png" alt="thankyou" title="thankyou">
-            <h4>Thank You</h4>
-        </a>
-        <br/> <br/>
-    </div>
-    <div class="col-md-2 col-sm-6 col-6 text-center">
-        <a href="/events/Anniversary">
-            <img src="/assets/images/homepage/category/c-anniversary.png" alt="anniversary" title="anniversary">
-            <h4>Anniversary</h4>
-        </a>
-        <br/> <br/>
-    </div>
-    <div class="col-md-2 col-sm-6 col-6 text-center">
-        <a href="/events/Get%20Well">
-            <img src="/assets/images/homepage/category/c-getwell.png" alt="getwell" title="getwell">
-            <h4>Get well</h4>
-        </a>
-        <br/> <br/>
-    </div>
-    <div class="col-md-2 col-sm-6 col-6 text-center">
-        <a href="/events/Sympathy">
-            <img src="/assets/images/homepage/category/c-sympathy.png" alt="sympathy" title="sympathy">
-            <h4>Sympathy</h4>
-        </a>
-        <br/> <br/>
-    </div>
-    <div class="col-md-2 col-sm-6 col-6 text-center">
-        <a href="/events/Love">
-            <img src="/assets/images/homepage/category/c-love.png" alt="love" title="love">
-            <h4>Love</h4>
-        </a>
-        <br/> <br/>
-    </div>
-</div>   -->
-<div class="row">
-    <div class="col-12 text-center">
-        <button class="btn btn-light actionbtn" (click)="clickPrev()" [disabled]="!disablePrev" *ngIf="pages.length > 1">
-           <i class="fa fa-i fa-angle-left"></i>
-        </button>
-        <select class="form-select custom-select" aria-label="Default select example" (change)="changeSelected($event)">
-            <option *ngFor="let page of pages" [selected]="page.selected == true" value="{{page.index}}">{{page.display}}</option>
-        </select>
-        <button class="btn btn-light actionbtn" (click)="clickNext()" [disabled]="!disableNext" *ngIf="pages.length > 1">
-            <i class="fa fa-i fa-angle-right"></i>
-        </button>
-    </div>
-   
-    <div class="col-12 text-center">
-        <label>{{batchShowing}}</label>
-        <br/>
-        <br/>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-6" *ngFor="let card of displayCards">
-        <app-card id="{{card?.id}}"></app-card>
-    </div>
-</div> <!-- row.// -->
-<div class="row">
-    <div class="col-12 text-center">
-        <button class="btn btn-light actionbtn" (click)="clickPrev()" [disabled]="!disablePrev" *ngIf="pages.length > 1">
-           <i class="fa fa-i fa-angle-left"></i>
-        </button>
-        <select class="form-select custom-select" aria-label="Default select example" (change)="changeSelected($event)">
-            <option *ngFor="let page of pages" [selected]="page.selected == true" value="{{page.index}}">{{page.display}}</option>
-        </select>
-        <button class="btn btn-light actionbtn" (click)="clickNext()" [disabled]="!disableNext" *ngIf="pages.length > 1">
-            <i class="fa fa-i fa-angle-right"></i>
-        </button>
-    </div>
-    <div class="col-12 text-center">
-        <label>{{batchShowing}}</label>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <br/> <br/>
-        <img src="/assets/images/banner-fs-min.png" class="img-fluid" style="border-radius:6px;">
-        <br/> <br/>
-    </div>
-</div>
-<!-- </ion-content> -->
+        <div class="row">
+            <div class="col-md-12">
+                <img src="{{banner}}" class="img-fluid" style="border-radius:6px;">
+                <br/> <br/>
+            </div>
+        </div>
+        <header class="section-heading">
+            <!--<a href="#" class="btn btn-outline-primary float-end">See all</a>-->
+            <h3 class="section-title" *ngIf="caption">{{caption}}</h3>
+        </header><!-- sect-heading -->
+        <div class="my-recipient">
+            <!-- <span class=" imagediv hover-target" *ngFor = "let recipient of recipientsByEvent" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient ? 'blueviolet' : ''}"> 
+                {{recipient}}
+            </span> -->
+            <span class=" imagediv hover-target" *ngFor = "let recipient of recipientsByEvent" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient ? 'blueviolet' : '', 'color': selectedRecipient==recipient ? 'white' : ''}"> 
+                {{recipient}}
+            </span>
+        </div>
 
-<style>
-    .my-recipient span
-    {
-        border: 1px solid #ccc;
-        padding: 8px 16px;
-        margin-right: 10px;
-        cursor: pointer;
-        display: inline-block;
-        margin-bottom: 10px;
-        font-size: 12px;
-    }
-  
-</style>
+        <!-- <div class="row">
+            <div class="col-md-12">
+                <img src="/assets/images/homepage/home-banner.png" class="img-fluid" style="border-radius:6px;">
+                <br/> <br/>
+            </div>
+            <div class="col-md-6">
+                <img src="/assets/images/homepage/free_shipping_banner.png" class="img-fluid" style="border-radius:6px;">
+            </div>
+            <div class="col-md-6">
+                <img src="/assets/images/homepage/free-sticker.png" class="img-fluid" style="border-radius:6px;">
+                <br/> <br/>
+            </div>
+            <div class="col-md-2 col-sm-6 col-6 text-center">
+                <a href="/events/Birthday">
+                    <img src="/assets/images/homepage/category/c-birthday.png" alt="birthday" title="birthday">
+                    <h4>Birthday</h4>
+                </a>
+                <br/> <br/>
+            </div>
+            <div class="col-md-2 col-sm-6 col-6 text-center">
+                <a href="/events/Thank You">
+                    <img src="/assets/images/homepage/category/c-thankyou.png" alt="thankyou" title="thankyou">
+                    <h4>Thank You</h4>
+                </a>
+                <br/> <br/>
+            </div>
+            <div class="col-md-2 col-sm-6 col-6 text-center">
+                <a href="/events/Anniversary">
+                    <img src="/assets/images/homepage/category/c-anniversary.png" alt="anniversary" title="anniversary">
+                    <h4>Anniversary</h4>
+                </a>
+                <br/> <br/>
+            </div>
+            <div class="col-md-2 col-sm-6 col-6 text-center">
+                <a href="/events/Get%20Well">
+                    <img src="/assets/images/homepage/category/c-getwell.png" alt="getwell" title="getwell">
+                    <h4>Get well</h4>
+                </a>
+                <br/> <br/>
+            </div>
+            <div class="col-md-2 col-sm-6 col-6 text-center">
+                <a href="/events/Sympathy">
+                    <img src="/assets/images/homepage/category/c-sympathy.png" alt="sympathy" title="sympathy">
+                    <h4>Sympathy</h4>
+                </a>
+                <br/> <br/>
+            </div>
+            <div class="col-md-2 col-sm-6 col-6 text-center">
+                <a href="/events/Love">
+                    <img src="/assets/images/homepage/category/c-love.png" alt="love" title="love">
+                    <h4>Love</h4>
+                </a>
+                <br/> <br/>
+            </div>
+        </div>   -->
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="btn btn-light actionbtn" (click)="clickPrev()" [disabled]="!disablePrev" *ngIf="pages.length > 1">
+                <i class="fa fa-i fa-angle-left"></i>
+                </button>
+                <select class="form-select custom-select" aria-label="Default select example" (change)="changeSelected($event)">
+                    <option *ngFor="let page of pages" [selected]="page.selected == true" value="{{page.index}}">{{page.display}}</option>
+                </select>
+                <button class="btn btn-light actionbtn" (click)="clickNext()" [disabled]="!disableNext" *ngIf="pages.length > 1">
+                    <i class="fa fa-i fa-angle-right"></i>
+                </button>
+            </div>
+        
+            <div class="col-12 text-center">
+                <label>{{batchShowing}}</label>
+                <br/>
+                <br/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-6" *ngFor="let card of displayCards">
+                <app-card id="{{card?.id}}"></app-card>
+            </div>
+        </div> <!-- row.// -->
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="btn btn-light actionbtn" (click)="clickPrev()" [disabled]="!disablePrev" *ngIf="pages.length > 1">
+                <i class="fa fa-i fa-angle-left"></i>
+                </button>
+                <select class="form-select custom-select" aria-label="Default select example" (change)="changeSelected($event)">
+                    <option *ngFor="let page of pages" [selected]="page.selected == true" value="{{page.index}}">{{page.display}}</option>
+                </select>
+                <button class="btn btn-light actionbtn" (click)="clickNext()" [disabled]="!disableNext" *ngIf="pages.length > 1">
+                    <i class="fa fa-i fa-angle-right"></i>
+                </button>
+            </div>
+            <div class="col-12 text-center">
+                <label>{{batchShowing}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <br/> <br/>
+                <img src="/assets/images/banner-fs-min.png" class="img-fluid" style="border-radius:6px;">
+                <br/> <br/>
+            </div>
+        </div>
+
+
+        <style>
+            .my-recipient span
+            {
+                border: 1px solid #ccc;
+                padding: 8px 16px;
+                margin-right: 10px;
+                cursor: pointer;
+                display: inline-block;
+                margin-bottom: 10px;
+                font-size: 12px;
+            }
+        
+        </style>
+
+
+        </div>
+    </section>
+<app-footer></app-footer>
+</ion-content>

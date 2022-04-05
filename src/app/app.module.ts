@@ -49,6 +49,8 @@ import { SuggestionListComponent } from './modules/suggestion-list/suggestion-li
 import { ReviewComponent } from './modules/review/review.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { HeaderComponent } from './pages/header/header.component';
+import { FooterComponent } from './pages/footer/footer.component';
 
 
 @NgModule({
@@ -78,7 +80,9 @@ import { MatInputModule } from '@angular/material/input';
     RatingSummaryComponent,
     PreferencesComponent,
     SuggestionListComponent,
-    ReviewComponent
+    ReviewComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

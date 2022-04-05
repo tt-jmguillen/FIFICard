@@ -1,19 +1,27 @@
-<!-- <ion-content id="giftContent" overflow-scroll="true"> -->
-<div class="row">
-    <div class="col-md-12">
-        <img src="/assets/images/gift/banner-gift.png" class="img-fluid">
-     <br><br> 
-    <h2 class="text-center my-header">SHOP BY CATEGORY</h2>
-    <hr/>
-    </div>
-</div>
-<div class="row my-event">
-    <div class="col-md-3  col-6" *ngFor="let event of events">
-        <a href="{{event.url}}">
-            <img src="{{event.image}}" class="img-fluid">
-            <div>{{event.name}}</div>
-        </a>
-        <br/>
-    </div>
-</div>
-<!-- </ion-content> -->
+<ion-content>
+    <section class="section-name padding-y-sm">
+        <div class="container animate main">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="/assets/images/gift/banner-gift.png" class="img-fluid">
+                <br><br> 
+                <h2 class="text-center my-header">SHOP BY CATEGORY</h2>
+                <hr/>
+                </div>
+            </div>
+            <div class="row my-event">
+                <div class="col-md-3  col-6" *ngFor="let event of events">
+                    <a href="{{event.url}}">
+                        <img src="{{event.image}}" class="img-fluid">
+                        <div>{{event.name}}</div>
+                    </a>
+                    <br/>
+                </div>
+            </div>
+
+        </div>
+    </section>
+<app-footer></app-footer>
+</ion-content>
+

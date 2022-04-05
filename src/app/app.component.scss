@@ -30,9 +30,13 @@
     ion-header {
         display: block;
     }
-    ion-footer {
+    app-footer {
         display: block;
     }
+
+    // .hydrated{
+    //   visibility: hidden!important;
+    // }
   
   }
    
@@ -40,7 +44,11 @@
     ion-header {
        display: none;
     }
-    ion-footer {
+    app-footer {
         display: none;
     }
+
+    // .hydrated{
+    //   visibility: inherit!important;
+    // }
   }

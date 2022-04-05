@@ -27,3 +27,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .center-content{
    justify-content: center;
 }
+
+@media(min-width: 768px) {
+   ion-header {
+       display: block;
+   }
+   app-footer {
+       display: block;
+   }
+
+ }
+  
+ @media(max-width: 768px) {
+   ion-header {
+      display: none;
+   }
+   app-footer {
+       display: none;
+   }
+}
