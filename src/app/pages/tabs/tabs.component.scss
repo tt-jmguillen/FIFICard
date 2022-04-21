@@ -4,9 +4,23 @@
 
 
 
-@media(min-width: 768px) {
+// @media(min-width: 768px) {
+//     ion-tab-bar{
+//       visibility: hidden!important;
+//     }
+  
+//   }
+   
+//   @media(max-width: 768px) {
+//     ion-tab-bar{
+//       visibility: inherit!important;
+//     }
+//   }
+
+  @media(min-width: 768px) {
     ion-tab-bar{
       visibility: hidden!important;
+      display:none;
     }
   
   }

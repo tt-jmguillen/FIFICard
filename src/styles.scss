@@ -40,7 +40,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   
  @media(max-width: 768px) {
    ion-header {
-      display: none;
+      display: block !important;
+   }
+
+   .navbar.navbar-main,
+   .tag-line,
+   .my-cart
+   {
+      display: none !important;
    }
    app-footer {
        display: none;
