@@ -16,6 +16,12 @@ export class UserService {
     this.store = _store;
   }
 
+  subscribeUser(uid: string): Observable<User>
+  {
+    const data = doc(this.store, 'users/' + uid);
+    return docData(data, {idField: 'id'}) as Observable<User>;
+  }
+
   getUser(uid: string): Promise<User>
   {
     return new Promise((resolve) => {
@@ -37,4 +43,6 @@ export class UserService {
       'birthday': user.birthday 
     });
   }
+
+
 }

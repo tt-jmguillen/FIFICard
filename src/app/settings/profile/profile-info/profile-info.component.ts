@@ -72,6 +72,7 @@ export class ProfileInfoComponent implements OnInit {
         this.user.displayName = user.firstname + " " + user.lastname;
         this.user.gender = user.gender;
         this.user.birthday = this.form.value.year + "-" + this.form.value.month + "-" + this.form.value.day;
+        console.log(this.user);
         this.userService.updateUser(this.user);
         this.isEdit = false;
       }

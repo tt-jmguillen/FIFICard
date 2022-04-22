@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { EventService } from './../../services/event.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -8,6 +9,7 @@ import { AuthProcessService } from 'ngx-auth-firebaseui';
 import { LoginComponent } from 'src/app/login/login.component';
 import { map, take } from 'rxjs';
 import firebase from "firebase/compat/app";
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-menu',
@@ -17,21 +19,25 @@ import firebase from "firebase/compat/app";
 
 export class MenuComponent implements OnInit {
   service: EventService;
+  userService: UserService;
   events: Event[] = [];
   ak: Event;
   user: any;
   userDetails: any;
+  userProfile: User;
   isLogIn = false;
   @Output() onSignOut: EventEmitter<void> = new EventEmitter();
 
   constructor(
     private _service: EventService,
     private _activateRoute: ActivatedRoute,
+    private _userService: UserService,
     public dialog: MatDialog,
     public auth: AngularFireAuth,
     public authProcess: AuthProcessService
   ) { 
     this.service = _service;
+    this.userService = _userService;
   }
 
   ngOnInit(): void {
@@ -39,9 +45,18 @@ export class MenuComponent implements OnInit {
 
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.userDetails = userDetails;
-    console.log("userDetails ->",  userDetails);
+    this.getProfile();
+    //console.log("userDetails ->",  userDetails);
     this.isLogIn = userDetails == null || userDetails.length < 0 ? true : false;
-    console.log("isLogIn ->",   String(this.isLogIn));
+    //console.log("isLogIn ->",   String(this.isLogIn));
+  }
+
+  getProfile(){
+    if (this.userDetails){
+      this.userService.subscribeUser(this.userDetails.uid).subscribe(user => {
+        this.userProfile = user;
+      })
+    }
   }
 
   loadEvents(){
@@ -67,7 +82,7 @@ export class MenuComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
+      //console.log('The dialog was closed', result);
   
      const _users = this.authProcess.user$.pipe(
         take(1),
@@ -78,19 +93,19 @@ export class MenuComponent implements OnInit {
 
       _users.subscribe(userDetails => {
         this.userDetails = userDetails;
-        console.log("displayName ->",  userDetails?.displayName);
-        console.log("emailVerified ->",  userDetails?.emailVerified);
-        console.log("IdToken ->",  userDetails?.getIdToken());
+        //console.log("displayName ->",  userDetails?.displayName);
+        //console.log("emailVerified ->",  userDetails?.emailVerified);
+        //console.log("IdToken ->",  userDetails?.getIdToken());
 
         this.isLogIn = userDetails == null  ? true : false;
-        console.log("isLogIn ->",  String(this.isLogIn));
+        //console.log("isLogIn ->",  String(this.isLogIn));
 
         if(!this.isLogIn){
         localStorage.setItem("user", JSON.stringify(userDetails));
             if(id != null) {
               window.location.href = "/order/" + id;
             }else{
-              console.log("RELOAD");
+              //console.log("RELOAD");
               window.location.reload();
             }
         }
@@ -101,7 +116,7 @@ export class MenuComponent implements OnInit {
   }
 
   signOut(): void {
-    console.log("Sign Out");
+    //console.log("Sign Out");
     this.isLogIn = true;
     localStorage.removeItem("user");
     this.auth
