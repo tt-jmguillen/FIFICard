@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-8">
+        <h3>Basic information</h3>
+    </div>   
+    <div class="col-4 text-right">
+        <h6>
+        <span (click)="updateMode()" class="mode">{{isEdit? 'Save':'Edit'}}</span>
+        <span (click)="cancelEdit()" class="mode" *ngIf="isEdit">Cancel</span>
+        </h6>
+    </div>
+</div>
+
+<form [formGroup]="form" >  
+    <div class="mb-3">
+        <label >* First Name</label>
+        <input type="text" class="form-control" placeholder="First Name" formControlName="firstname" readonly="{{isEdit? '': 'readonly'}}">
+    </div>
+    <div class="mb-3">
+        <label >* Last Name</label>
+        <input type="text" class="form-control" placeholder="Last Name" formControlName="lastname" readonly="{{isEdit? '': 'readonly'}}">
+    </div>
+    <div class="mb-3">
+        <label >* Email Address</label>
+        <input type="email" class="form-control" placeholder="Email Address" formControlName="email" readonly="readonly">
+    </div>
+    <div class="mb-3">
+        <label >* Gender</label>
+        <br/>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" value="Female" formControlName="gender">
+            <label class="custom-control-label" for="customRadioInline1">Female</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" value="Male" formControlName="gender">
+            <label class="custom-control-label" for="customRadioInline2">Male</label>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label>* Birthday</label>
+        <div class="input-group ">
+            <select aria-label="Month" class="form-control" placeholder="Month" [attr.disabled]="!isEdit ? '' : null" formControlName="month">
+                <option value=""></option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+            <input type="number" aria-label="Day" class="form-control" placeholder="Day" min="1" max="31" readonly="{{isEdit? '': 'readonly'}}" formControlName="day">
+            <input type="number" aria-label="Year" class="form-control" placeholder="Year" min="1950" max="{{currentYear}}" readonly="{{isEdit? '': 'readonly'}}" formControlName="year">
+        </div>
+    </div>
+</form>

@@ -51,6 +51,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HeaderComponent } from './pages/header/header.component';
 import { FooterComponent } from './pages/footer/footer.component';
+import { ProfileInfoComponent } from './settings/profile/profile-info/profile-info.component';
 
 
 @NgModule({
@@ -83,6 +84,7 @@ import { FooterComponent } from './pages/footer/footer.component';
     ReviewComponent,
     HeaderComponent,
     FooterComponent,
+    ProfileInfoComponent,
   ],
   imports: [
     BrowserModule,
