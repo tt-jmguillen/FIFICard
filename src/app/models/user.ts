@@ -10,4 +10,5 @@ export class User {
     public lastname: string;
     public gender: string;
     public birthday: string;
+    public address: string;
 }

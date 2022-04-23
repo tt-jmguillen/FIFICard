@@ -52,6 +52,7 @@ import { MatInputModule } from '@angular/material/input';
 import { HeaderComponent } from './pages/header/header.component';
 import { FooterComponent } from './pages/footer/footer.component';
 import { ProfileInfoComponent } from './settings/profile/profile-info/profile-info.component';
+import { ProfileShippingAddressComponent } from './settings/profile/profile-shipping-address/profile-shipping-address.component';
 
 
 @NgModule({
@@ -85,6 +86,7 @@ import { ProfileInfoComponent } from './settings/profile/profile-info/profile-in
     HeaderComponent,
     FooterComponent,
     ProfileInfoComponent,
+    ProfileShippingAddressComponent,
   ],
   imports: [
     BrowserModule,

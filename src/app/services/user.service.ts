@@ -44,5 +44,11 @@ export class UserService {
     });
   }
 
-
+  updateAddress(userId: string, addressId: string)
+  {
+    const data = doc(this.store, 'users/' + userId);
+    updateDoc(data, {
+      'address': addressId
+    });
+  }
 }

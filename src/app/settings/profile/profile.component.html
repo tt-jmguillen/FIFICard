@@ -1,58 +1,80 @@
 <ion-content>
   <section class="section-name padding-y-sm">
-      <div class="container animate main">
-        <section class="tabs-wrapper">
-          <div class="tabs-container">
-            <div class="tabs-block">
-              <div id="tabs-section" class="tabs">
-                <ul class="tab-head">
-                  <li>
-                    <a id="tab-1" class="tab-link active" onclick="tabclick(this.id)"> <span class="material-icons tab-icon">face</span> <span class="tab-label">Profile</span></a>
-                  </li>
-                  <li>
-                    <a id="tab-2" class="tab-link" onclick="tabclick(this.id)"> <span class="material-icons tab-icon">smartphone</span> <span class="tab-label">Communication Preferences</span></a>
-                  </li>
-                  <li>
-                    <a id="tab-3" class="tab-link" onclick="tabclick(this.id)"> <span class="material-icons tab-icon">local_shipping</span> <span class="tab-label">Shipping Address</span></a>
-                  </li>
-                  <li>
-                    <a id="tab-4" class="tab-link" onclick="tabclick(this.id)"> <span class="material-icons tab-icon">payments</span> <span class="tab-label">Payment Methods</span></a>
-                  </li>
-                  <li>
-                    <a id="tab-5" class="tab-link" onclick="tabclick(this.id)"> <span class="material-icons tab-icon">toc</span> <span class="tab-label">My Lists</span></a>
-                  </li>
-                  <li>
-                    <a id="tab-6" class="tab-link" onclick="tabclick(this.id)"> <span class="material-icons tab-icon">add_shopping_cart</span> <span class="tab-label">My Orders</span></a>
-                  </li>
-                  <li>
-                    <a id="tab-7" class="tab-link" onclick="tabclick(this.id)"> <span class="material-icons tab-icon">close</span> <span class="tab-label">Sign out</span></a>
-                  </li>
-                </ul>
+    <div class="container animate main">
+      <section class="tabs-wrapper">
+        <div class="tabs-container">
+          <div class="tabs-block">
+            <div id="tabs-section" class="tabs">
+              <ul class="tab-head">
+                <li>
+                  <a id="tab-1" class="tab-link active" onclick="tabclick(this.id)"> <span
+                      class="material-icons tab-icon">face</span> <span class="tab-label">Profile</span></a>
+                </li>
+                <li>
+                  <a id="tab-2" class="tab-link" onclick="tabclick(this.id)"> <span
+                      class="material-icons tab-icon">smartphone</span> <span class="tab-label">Communication
+                      Preferences</span></a>
+                </li>
+                <li>
+                  <a id="tab-3" class="tab-link" onclick="tabclick(this.id)"> <span
+                      class="material-icons tab-icon">local_shipping</span> <span class="tab-label">Shipping
+                      Address</span></a>
+                </li>
+                <li>
+                  <a id="tab-4" class="tab-link" onclick="tabclick(this.id)"> <span
+                      class="material-icons tab-icon">payments</span> <span class="tab-label">Payment Methods</span></a>
+                </li>
+                <li>
+                  <a id="tab-5" class="tab-link" onclick="tabclick(this.id)"> <span
+                      class="material-icons tab-icon">toc</span> <span class="tab-label">My Lists</span></a>
+                </li>
+                <li>
+                  <a id="tab-6" class="tab-link" onclick="tabclick(this.id)"> <span
+                      class="material-icons tab-icon">add_shopping_cart</span> <span class="tab-label">My
+                      Orders</span></a>
+                </li>
+                <li>
+                  <a id="tab-7" class="tab-link" onclick="tabclick(this.id)"> <span
+                      class="material-icons tab-icon">close</span> <span class="tab-label">Sign out</span></a>
+                </li>
+              </ul>
 
-                <section id="tab-1-section" class="tab-body entry-content active active-content">
-                  <h2>Profile</h2>
-                
+              <section id="tab-1-section" class="tab-body entry-content active active-content">
+                <h2>Profile</h2>
+
                 <div class="card">
                   <div class="card-body">
-                      <app-profile-info></app-profile-info>
+                    <app-profile-info></app-profile-info>
                   </div>
                 </div>
-                <br/>
-                  <div class="card">
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col-8">  <h3>Primary Address</h3></div>   <div class="col-4 text-right"><h6><a href="#">Edit</a></h6></div>
+                <!--
+                <br />
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-8">
+                        <h3>Primary Address</h3>
                       </div>
-                      <p>
-                        Add an address and contact number
-                      </p>
+                      <div class="col-4 text-right">
+                        <h6><a href="#">Edit</a></h6>
+                      </div>
                     </div>
+                    <p>
+                      Add an address and contact number
+                    </p>
                   </div>
-                  <br/>
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-8">  <h3>Change password</h3></div>   <div class="col-4 text-right"><h6><a href="#">Edit</a></h6></div>
+                </div>
+                -->
+                <br />
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-8">
+                        <h3>Change password</h3>
+                      </div>
+                      <div class="col-4 text-right">
+                        <h6><a href="#">Edit</a></h6>
+                      </div>
                     </div>
                     <p>
                       Reset your FiBei Greetings Password Change
@@ -60,74 +82,52 @@
                   </div>
                 </div>
 
-                </section>
+              </section>
 
-                <section id="tab-2-section" class="tab-body entry-content">
-                  <h2>Communication Preferences</h2>
-                  <div class="card">
-                    <div class="card-body">
-                      <h3> Email preferences</h3>
+              <section id="tab-2-section" class="tab-body entry-content">
+                <h2>Communication Preferences</h2>
+                <div class="card">
+                  <div class="card-body">
+                    <h3> Email preferences</h3>
                     <p>
-                      the email address in your FeBie Greetins profile is <b>____________@___.com</b> you can <a href="">change your email address</a> at any time.
+                      the email address in your FeBie Greetins profile is <b>____________@___.com</b> you can <a
+                        href="">change your email address</a> at any time.
                     </p>
-                    <br/>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                        <label class="custom-control-label" for="customCheck1"> click if you want to receive notification, special offers and promotion emails.</label>
-                      </div>
-                      <br/>
-                      <p> See our <a href="#" class="bold"><b>PRIVACY POLICY</b></a></p>
-                      <br/>
+                    <br />
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
+                      <label class="custom-control-label" for="customCheck1"> click if you want to receive notification,
+                        special offers and promotion emails.</label>
+                    </div>
+                    <br />
+                    <p> See our <a href="#" class="bold"><b>PRIVACY POLICY</b></a></p>
+                    <br />
                   </div>
                 </div>
-                
-                </section>
 
-                <section id="tab-3-section" class="tab-body entry-content">
-                  <h2> Shipping Addresses</h2>
-                    <div class="card">
-                      <div class="card-body">
-                        <h3>  add a shipping address</h3>
-                        <p> To make checkout even faster, you can save shipping addresses.</p>
-                        
-                        <div class="mb-3">
-                          <label >  Address nickname</label>
-                          <input type="text" class="form-control" placeholder="ex: Home, Grandma's house, etc.">
-                        </div>
-                        <div class="mb-3">
-                          <label >* First Name</label>
-                          <input type="text" class="form-control" placeholder="First Name">
-                        </div>
-                        <div class="mb-3">
-                          <label >* Last Name</label>
-                          <input type="text" class="form-control" placeholder="Last Name">
-                        </div>
-                        <div class="mb-3">
-                          <label >* Address Line 1</label>
-                          <input type="text" class="form-control" placeholder="Address Line 1">
-                        </div>
-                        <div class="mb-3">
-                          <label >* Address Line 2</label>
-                          <input type="text" class="form-control" placeholder="Address Line 2">
-                        </div>
-                        <button type="button" class="btn btn-primary">SAVE ADDRESS</button>
-                    
-                      </div>
+              </section>
 
-                    </div>
-                    </section>
-
-                <section id="tab-4-section" class="tab-body entry-content">
-                  <h2>Payment Methods</h2>
-                  <div class="card">
-                    <div class="card-body">
-                      <img src="/assets/images/gcash.png" class="img-fluid">
-                    </div>
+              <section id="tab-3-section" class="tab-body entry-content">
+                <h2> Shipping Addresses</h2>
+                <div class="card">
+                  <div class="card-body">
+                    <app-profile-shipping-address></app-profile-shipping-address>
                   </div>
-                </section>
 
-                <section id="tab-5-section" class="tab-body entry-content">
-                  <h2>My Lists</h2>
+                </div>
+              </section>
+
+              <section id="tab-4-section" class="tab-body entry-content">
+                <h2>Payment Methods</h2>
+                <div class="card">
+                  <div class="card-body">
+                    <img src="/assets/images/gcash.png" class="img-fluid">
+                  </div>
+                </div>
+              </section>
+
+              <section id="tab-5-section" class="tab-body entry-content">
+                <h2>My Lists</h2>
                 <div class="card">
                   <div class="card-body">
                     <ul class="nav nav-tabs" role="tablist">
@@ -151,24 +151,24 @@
                   </div>
                 </div>
 
-                
-                </section>
 
-                <section id="tab-6-section" class="tab-body entry-content">
-                  <h2>My Orders</h2>
-                  <div class="card">
-                    <div class="card-body">
-                     <table class="table">
-                       <thead>
-                         <th>Date Purchase</th>
-                         <th>Type of Purchese</th>
-                         <th>Code</th>
-                         <th>Name</th>
-                         <th>Recipeint</th>
-                         <th>Amount</th>
-                         <th>Status </th>
-                       </thead>
-                        <tbody>
+              </section>
+
+              <section id="tab-6-section" class="tab-body entry-content">
+                <h2>My Orders</h2>
+                <div class="card">
+                  <div class="card-body">
+                    <table class="table">
+                      <thead>
+                        <th>Date Purchase</th>
+                        <th>Type of Purchese</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Recipeint</th>
+                        <th>Amount</th>
+                        <th>Status </th>
+                      </thead>
+                      <tbody>
                         <tr>
                           <td></td>
                           <td></td>
@@ -177,29 +177,27 @@
                           <td></td>
                           <td></td>
                         </tr>
-                          
-                        </tbody>
-                       </table> 
-                    </div>
+
+                      </tbody>
+                    </table>
                   </div>
-                </section>
+                </div>
+              </section>
 
-                <section id="tab-7-section" class="tab-body entry-content">
-                  <p>
-                  <br/><br/><br/><br/> <br/><br/><br/><br/>
+              <section id="tab-7-section" class="tab-body entry-content">
+                <p>
+                  <br /><br /><br /><br /> <br /><br /><br /><br />
                   <button class="btn btn-default" (click)="signOut()">
                     Sign Out
                   </button>
-                  </p>
-                </section>
+                </p>
+              </section>
 
-              </div>
             </div>
           </div>
-        </section>
-      </div>
-    </section>
-<app-footer></app-footer>
+        </div>
+      </section>
+    </div>
+  </section>
+  <app-footer></app-footer>
 </ion-content>
-
-
