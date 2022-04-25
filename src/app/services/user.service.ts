@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { doc, docData, Firestore } from '@angular/fire/firestore';
 import { updateDoc } from 'firebase/firestore';
 import { Observable } from 'rxjs';
@@ -9,11 +10,14 @@ import { User } from '../models/user';
 })
 export class UserService {
   store: Firestore;
+  auth: AngularFireAuth;
 
   constructor(
-    private _store: Firestore
+    private _store: Firestore,
+    private _auth: AngularFireAuth
   ) { 
     this.store = _store;
+    this.auth = _auth;
   }
 
   subscribeUser(uid: string): Observable<User>
@@ -50,5 +54,19 @@ export class UserService {
     updateDoc(data, {
       'address': addressId
     });
+  }
+
+  changeEmail(currentEmail: string, password: string, newEmail: string)
+  {
+    this.auth.signInWithEmailAndPassword(currentEmail, password).then(userCredential => {
+      userCredential.user?.updateEmail(newEmail);
+    })
+  }
+
+  changePassword(email: string, password: string, newPassword: string)
+  {
+    this.auth.signInWithEmailAndPassword(email, password).then(userCredential => {
+      userCredential.user?.updatePassword(newPassword);
+    })
   }
 }
