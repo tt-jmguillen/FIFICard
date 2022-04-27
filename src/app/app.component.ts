@@ -14,7 +14,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'FibieGreetings';
+  title = 'FibeiGreetings';
   isAuthenticated: boolean;
   user: any;
   userDetails: any;
