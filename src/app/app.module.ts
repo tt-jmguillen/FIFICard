@@ -55,6 +55,7 @@ import { ProfileInfoComponent } from './settings/profile/profile-info/profile-in
 import { ProfileShippingAddressComponent } from './settings/profile/profile-shipping-address/profile-shipping-address.component';
 import { ProfileChangePasswordComponent } from './settings/profile/profile-change-password/profile-change-password.component';
 import { ProfileCommunicationComponent } from './settings/profile/profile-communication/profile-communication.component';
+import { MothersDayComponent } from './mothers-day/mothers-day.component';
 
 
 @NgModule({
@@ -91,6 +92,7 @@ import { ProfileCommunicationComponent } from './settings/profile/profile-commun
     ProfileShippingAddressComponent,
     ProfileChangePasswordComponent,
     ProfileCommunicationComponent,
+    MothersDayComponent,
   ],
   imports: [
     BrowserModule,
