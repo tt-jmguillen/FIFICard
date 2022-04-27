@@ -1,0 +1,46 @@
+<h2>Communication Preferences</h2>
+<div class="card">
+    <div class="card-body">
+        <h3> Email preferences</h3>
+        <p>
+            the email address in your FeBie Greetins profile is <b>{{this.user.email}}</b> you can <span (click)="open(content)" class="mode">change your email address</span> at any time.
+        </p>
+        <br />
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="customCheck1" [checked]="this.user.notification" (change)="notificationChange(this.user.notification?true:false)">
+            <label class="custom-control-label" for="customCheck1"> click if you want to receive notification,
+                special offers and promotion emails.</label>
+        </div>
+        <br />
+        <p> See our <a href="#" class="bold"><b>PRIVACY POLICY</b></a></p>
+        <br />
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <form [formGroup]="form"> 
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Change Email</h4>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label>Current Email</label>
+          <input type="email" class="form-control" placeholder="Current Email" formControlName="email">
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <input type="password" class="form-control" placeholder="Password" formControlName="password">
+          </div>
+        <div class="mb-3">
+          <label>New Email</label>
+          <input type="email" class="form-control" placeholder="New Email" formControlName="newemail">
+        </div>
+        <div class="model-footer">
+          <div class="mb-3">
+            <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+            <button type="button" class="btn btn-danger" (click)="close()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>

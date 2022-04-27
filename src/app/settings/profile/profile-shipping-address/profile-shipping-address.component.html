@@ -1,26 +1,37 @@
-<h3> add a shipping address</h3>
-<p> To make checkout even faster, you can save shipping addresses.</p>
-
-<form [formGroup]="form">
-    <div class="mb-3">
-        <label> Address nickname</label>
-        <input type="text" class="form-control" placeholder="ex: Home, Grandma's house, etc." formControlName="name" readonly="{{isSaving? 'readonly': ''}}">
+<h2> Shipping Addresses</h2>
+<div class="card">
+    <div class="card-body">
+        <h3> add a shipping address</h3>
+        <p> To make checkout even faster, you can save shipping addresses.</p>
+        
+        <form [formGroup]="form">
+            <div class="mb-3">
+                <label> Address nickname</label>
+                <input type="text" class="form-control" placeholder="ex: Home, Grandma's house, etc." formControlName="name"
+                    readonly="{{isSaving? 'readonly': ''}}">
+            </div>
+            <div class="mb-3">
+                <label>* First Name</label>
+                <input type="text" class="form-control" placeholder="First Name" formControlName="firstname"
+                    readonly="{{isSaving? 'readonly': ''}}">
+            </div>
+            <div class="mb-3">
+                <label>* Last Name</label>
+                <input type="text" class="form-control" placeholder="Last Name" formControlName="lastname"
+                    readonly="{{isSaving? 'readonly': ''}}">
+            </div>
+            <div class="mb-3">
+                <label>* Address Line 1</label>
+                <input type="text" class="form-control" placeholder="Address Line 1" formControlName="address"
+                    readonly="{{isSaving? 'readonly': ''}}">
+            </div>
+            <div class="mb-3">
+                <label>* Address Line 2</label>
+                <input type="text" class="form-control" placeholder="Address Line 2" formControlName="address2"
+                    readonly="{{isSaving? 'readonly': ''}}">
+            </div>
+            <button type="button" class="btn btn-primary" (click)="saveAddress()">{{isSaving? 'SAVING...': 'SAVE
+                ADDRESS'}}</button>
+        </form>
     </div>
-    <div class="mb-3">
-        <label>* First Name</label>
-        <input type="text" class="form-control" placeholder="First Name" formControlName="firstname" readonly="{{isSaving? 'readonly': ''}}">
-    </div>
-    <div class="mb-3">
-        <label>* Last Name</label>
-        <input type="text" class="form-control" placeholder="Last Name" formControlName="lastname" readonly="{{isSaving? 'readonly': ''}}">
-    </div>
-    <div class="mb-3">
-        <label>* Address Line 1</label>
-        <input type="text" class="form-control" placeholder="Address Line 1" formControlName="address" readonly="{{isSaving? 'readonly': ''}}">
-    </div>
-    <div class="mb-3">
-        <label>* Address Line 2</label>
-        <input type="text" class="form-control" placeholder="Address Line 2" formControlName="address2" readonly="{{isSaving? 'readonly': ''}}">
-    </div>
-    <button type="button" class="btn btn-primary" (click)="saveAddress()">{{isSaving? 'SAVING...': 'SAVE ADDRESS'}}</button>
-</form>
+</div>

@@ -25,7 +25,7 @@ const routes: Routes = [
     path: 'tabs', component: TabsComponent
   },
   {
-    path: 'profile', component: ProfileComponent
+    path: 'profile/:id', component: ProfileComponent
   },
   {
     path: 'events', component: EventsComponent

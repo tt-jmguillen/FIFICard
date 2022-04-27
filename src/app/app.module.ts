@@ -54,6 +54,7 @@ import { FooterComponent } from './pages/footer/footer.component';
 import { ProfileInfoComponent } from './settings/profile/profile-info/profile-info.component';
 import { ProfileShippingAddressComponent } from './settings/profile/profile-shipping-address/profile-shipping-address.component';
 import { ProfileChangePasswordComponent } from './settings/profile/profile-change-password/profile-change-password.component';
+import { ProfileCommunicationComponent } from './settings/profile/profile-communication/profile-communication.component';
 
 
 @NgModule({
@@ -89,6 +90,7 @@ import { ProfileChangePasswordComponent } from './settings/profile/profile-chang
     ProfileInfoComponent,
     ProfileShippingAddressComponent,
     ProfileChangePasswordComponent,
+    ProfileCommunicationComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,25 +7,21 @@
             <div id="tabs-section" class="tabs">
               <ul class="tab-head">
                 <li>
-                  <a id="tab-1" class="tab-link active" onclick="tabclick(this.id)"> <span
+                  <a id="tab-1" [ngClass]="id=='info'?'tab-link active':'tab-link'" onclick="tabclick(this.id)"> <span
                       class="material-icons tab-icon">face</span> <span class="tab-label">Profile</span></a>
                 </li>
                 <li>
-                  <a id="tab-2" class="tab-link" onclick="tabclick(this.id)"> <span
+                  <a id="tab-2" [ngClass]="id=='comm'?'tab-link active':'tab-link'" onclick="tabclick(this.id)"> <span
                       class="material-icons tab-icon">smartphone</span> <span class="tab-label">Communication
                       Preferences</span></a>
                 </li>
                 <li>
-                  <a id="tab-3" class="tab-link" onclick="tabclick(this.id)"> <span
+                  <a id="tab-3" [ngClass]="id=='address'?'tab-link active':'tab-link'" onclick="tabclick(this.id)"> <span
                       class="material-icons tab-icon">local_shipping</span> <span class="tab-label">Shipping
                       Address</span></a>
                 </li>
                 <li>
-                  <a id="tab-4" class="tab-link" onclick="tabclick(this.id)"> <span
-                      class="material-icons tab-icon">payments</span> <span class="tab-label">Payment Methods</span></a>
-                </li>
-                <li>
-                  <a id="tab-5" class="tab-link" onclick="tabclick(this.id)"> <span
+                  <a id="tab-5" [ngClass]="id=='list'?'tab-link active':'tab-link'" onclick="tabclick(this.id)"> <span
                       class="material-icons tab-icon">toc</span> <span class="tab-label">My Lists</span></a>
                 </li>
                 <li>
@@ -39,81 +35,21 @@
                 </li>
               </ul>
 
-              <section id="tab-1-section" class="tab-body entry-content active active-content">
-                <h2>Profile</h2>
-
-                <div class="card">
-                  <div class="card-body">
-                    <app-profile-info></app-profile-info>
-                  </div>
-                </div>
-                <!--
-                <br />
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-8">
-                        <h3>Primary Address</h3>
-                      </div>
-                      <div class="col-4 text-right">
-                        <h6><a href="#">Edit</a></h6>
-                      </div>
-                    </div>
-                    <p>
-                      Add an address and contact number
-                    </p>
-                  </div>
-                </div>
-                -->
+              <section id="tab-1-section" [ngClass]="id=='info'?'tab-body entry-content active active-content':'tab-body entry-content'">
+                <app-profile-info></app-profile-info>
                 <br />
                 <app-profile-change-password></app-profile-change-password>
-                
-
               </section>
 
-              <section id="tab-2-section" class="tab-body entry-content">
-                <h2>Communication Preferences</h2>
-                <div class="card">
-                  <div class="card-body">
-                    <h3> Email preferences</h3>
-                    <p>
-                      the email address in your FeBie Greetins profile is <b>____________@___.com</b> you can <a
-                        href="">change your email address</a> at any time.
-                    </p>
-                    <br />
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                      <label class="custom-control-label" for="customCheck1"> click if you want to receive notification,
-                        special offers and promotion emails.</label>
-                    </div>
-                    <br />
-                    <p> See our <a href="#" class="bold"><b>PRIVACY POLICY</b></a></p>
-                    <br />
-                  </div>
-                </div>
-
+              <section id="tab-2-section" [ngClass]="id=='comm'?'tab-body entry-content active active-content':'tab-body entry-content'">
+                <app-profile-communication></app-profile-communication>
               </section>
 
-              <section id="tab-3-section" class="tab-body entry-content">
-                <h2> Shipping Addresses</h2>
-                <div class="card">
-                  <div class="card-body">
-                    <app-profile-shipping-address></app-profile-shipping-address>
-                  </div>
-
-                </div>
+              <section id="tab-3-section" [ngClass]="id=='address'?'tab-body entry-content active active-content':'tab-body entry-content'">
+                <app-profile-shipping-address></app-profile-shipping-address>
               </section>
 
-              <section id="tab-4-section" class="tab-body entry-content">
-                <h2>Payment Methods</h2>
-                <div class="card">
-                  <div class="card-body">
-                    <img src="/assets/images/gcash.png" class="img-fluid">
-                  </div>
-                </div>
-              </section>
-
-              <section id="tab-5-section" class="tab-body entry-content">
+              <section id="tab-5-section" [ngClass]="id=='lsi'?'tab-body entry-content active active-content':'tab-body entry-content'">
                 <h2>My Lists</h2>
                 <div class="card">
                   <div class="card-body">

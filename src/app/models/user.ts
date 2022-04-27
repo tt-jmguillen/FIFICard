@@ -11,4 +11,5 @@ export class User {
     public gender: string;
     public birthday: string;
     public address: string;
+    public notification: boolean;
 }

@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-profile',
@@ -8,10 +10,20 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class ProfileComponent implements OnInit {
   @Output() onSignOut: EventEmitter<void> = new EventEmitter();
+  activateRoute: ActivatedRoute;
+  id: string;
+
   constructor(
-    public auth: AngularFireAuth) { }
+    public auth: AngularFireAuth,
+    private _activateRoute: ActivatedRoute
+  ) { 
+    this.activateRoute = _activateRoute
+  }
 
   ngOnInit(): void {
+    this.activateRoute.params.subscribe(params => {
+      this.id = params['id'];
+    });
   }
 
   signOut(): void {

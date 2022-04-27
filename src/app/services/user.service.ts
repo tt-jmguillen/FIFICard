@@ -56,6 +56,22 @@ export class UserService {
     });
   }
 
+  updateEmail(userId: string, email: string)
+  {
+    const data = doc(this.store, 'users/' + userId);
+    updateDoc(data, {
+      'email': email
+    });
+  }
+
+  updateNotification(userId: string, notification: boolean)
+  {
+    const data = doc(this.store, 'users/' + userId);
+    updateDoc(data, {
+      'notification': notification
+    });
+  }
+
   changeEmail(currentEmail: string, password: string, newEmail: string)
   {
     this.auth.signInWithEmailAndPassword(currentEmail, password).then(userCredential => {
