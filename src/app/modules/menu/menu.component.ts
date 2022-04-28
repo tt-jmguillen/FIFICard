@@ -10,6 +10,7 @@ import { LoginComponent } from 'src/app/login/login.component';
 import { map, take } from 'rxjs';
 import firebase from "firebase/compat/app";
 import { User } from 'src/app/models/user';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-menu',
@@ -27,6 +28,8 @@ export class MenuComponent implements OnInit {
   userProfile: User;
   isLogIn = false;
   @Output() onSignOut: EventEmitter<void> = new EventEmitter();
+  redirectEvent: string;
+  isMothersDay: boolean;
 
   constructor(
     private _service: EventService,
@@ -41,6 +44,13 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    environment.redirect.forEach(element => {
+      if (window.location.hostname.toLowerCase() == element.host.toLowerCase()){
+        this.redirectEvent = element.event;
+        this.isMothersDay = this.redirectEvent == element.event;
+      }
+    });
+
     this.loadEvents();
 
     const userDetails = JSON.parse(localStorage.getItem('user')!);

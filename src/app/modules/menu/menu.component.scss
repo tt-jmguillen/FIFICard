@@ -3,10 +3,20 @@
 }
 
 .dropdown-menu{
-    width: 300px;
+    width:  0px;
 }
 
 .navbar > .container, .navbar > .container-fluid {
  display: block!important;
 
+}
+
+/* to not collapse */
+.navbar-nav {
+    flex-direction: row !Important;
+}
+
+.navbar-nav .nav-link {
+    padding-right: 0.7rem !Important;
+    padding-left: 0.7rem !Important;
 }
