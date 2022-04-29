@@ -1,3 +1,5 @@
+import { MotherGiftsComponent } from './mothers-day/mother-gifts/mother-gifts.component';
+import { MotherCardsComponent } from './mothers-day/mother-cards/mother-cards.component';
 import { MothersDayComponent } from './mothers-day/mothers-day.component';
 import { StickersComponent } from './stickers/stickers.component';
 import { CreationsComponent } from './creations/creations.component';
@@ -24,6 +26,12 @@ const routes: Routes = [
   },
   {
     path: 'mother', component: MothersDayComponent
+  },
+  {
+    path: 'mother/cards', component: MotherCardsComponent
+  },
+  {
+    path: 'mother/gifts', component: MotherGiftsComponent
   },
   {
     path: 'tabs', component: TabsComponent
