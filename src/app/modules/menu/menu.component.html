@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="col-lg-4" *ngIf="redirectEvent=='mothers day'">
-        <a href="/mother/cards"><img src="/assets/images/mothers/button1-min.png"></a>
+        <a href="/mother/cards" *ngIf="false"><img src="/assets/images/mothers/button1-min.png"></a>
     </div>
     <div class="col-lg-4" *ngIf="redirectEvent=='mothers day'">
         <a href="/mother/gifts"><img src="/assets/images/mothers/button2-min.png"></a>
@@ -41,7 +41,7 @@
                     <a class="dropdown-item" href="/profile/comm">Communication Preferences</a>
                     <a class="dropdown-item" href="/profile/address">Shipping Address</a>
                     <a class="dropdown-item" href="/profile/list">My Lists</a>
-                    <a class="dropdown-item" href="#">Sign Out</a>
+                    <a class="dropdown-item" href="#" (click)="signOut()">Sign Out</a>
                 </div>
             </div>
         </div>
