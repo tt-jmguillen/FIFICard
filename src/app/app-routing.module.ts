@@ -55,6 +55,9 @@ const routes: Routes = [
     path: 'cards/events/:event', component: CardsComponent
   },
   {
+    path: 'cards/events/:event/:recipient', component: CardsComponent
+  },
+  {
     path: 'search/:search', component: CardsComponent
   },
   {
