@@ -28,6 +28,7 @@ export class Page
 export class CardsComponent implements OnInit {
   event?: string;
   search?: string;
+  recipient?: string;
 
   caption: string = '';
   banner: string = '';
@@ -64,6 +65,7 @@ export class CardsComponent implements OnInit {
     this.activateRoute.params.subscribe(params => {
       this.event = params['event'];
       this.search = params['search'];
+      this.recipient = params['recipient'];
 
       this.loadRecipients(this.event||"");
       this.selectedRecipient = 'All';
@@ -72,6 +74,9 @@ export class CardsComponent implements OnInit {
         if (this.event! != 'All'){
           this.caption! = this.event;
           this.banner = `/assets/images/event/banner/${this.caption.replace(" ","").replace("'","")||'All'}-min.png`;
+          if (this.recipient){
+            this.selectedRecipient = this.recipient;
+          }
           this.loadEvent(this.event);
         }
         else{
