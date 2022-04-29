@@ -16,6 +16,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { TabsComponent } from './pages/tabs/tabs.component';
 import { ProfileComponent } from './settings/profile/profile.component';
+import { MotherGreetingsComponent } from './mothers-day/mother-greetings/mother-greetings.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,9 @@ const routes: Routes = [
   },
   {
     path: 'mother/gifts', component: MotherGiftsComponent
+  },
+  {
+    path: 'mother/greetings', component: MotherGreetingsComponent
   },
   {
     path: 'tabs', component: TabsComponent
