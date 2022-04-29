@@ -19,7 +19,15 @@ export const environment = {
     small: "_74x100",
     medium: "_278x220",
     large: "_282x400"
-  }
+  },
+  redirect:[
+    {
+      host: "fibeimothersday.com",
+      main: "/mother",
+      logo: "/assets/images/logo_fibiemothersday.png",
+      event: "mothers day"
+    }
+  ]
 };
 
 /*
