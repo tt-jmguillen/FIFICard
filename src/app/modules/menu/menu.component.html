@@ -31,17 +31,20 @@
     </div>
     <div class="col-lg-4" style="display: flex;justify-content: flex-end;">
         <div *ngIf="!isLogIn">
-            <div ngbDropdown class="nav-item dropdown" style="padding-top: 4%;">
-                <a ngbDropdownToggle class="nav-link dropdown-toggle" href="#" id="dropdown01"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Hi, {{this.userProfile?.displayName}}
-                </a>
-                <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="/profile/info">Profile</a>
-                    <a class="dropdown-item" href="/profile/comm">Communication Preferences</a>
-                    <a class="dropdown-item" href="/profile/address">Shipping Address</a>
-                    <a class="dropdown-item" href="/profile/list">My Lists</a>
-                    <a class="dropdown-item" href="#" (click)="signOut()">Sign Out</a>
+            <div ngbDropdown class="d-inline-block dp-menu">
+                <a ngbDropdownToggle id="dropdownBasic1" style="cursor: pointer;">Hi, {{this.userProfile?.displayName}}</a>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dp-div">
+                    <a ngbDropdownItem href="/profile/info">Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a ngbDropdownItem href="/profile/comm">Communication Preferences</a>
+                    <div class="dropdown-divider"></div>
+                    <a ngbDropdownItem href="/profile/address">Shipping Address</a>
+                    <div class="dropdown-divider"></div>
+                    <a ngbDropdownItem href="/profile/list">My Lists</a>
+                    <div class="dropdown-divider"></div>
+                    <a ngbDropdownItem href="/profile/orders">My Orders</a>
+                    <div class="dropdown-divider"></div>
+                    <a ngbDropdownItem href="#" (click)="signOut()">Sign Out</a>
                 </div>
             </div>
         </div>

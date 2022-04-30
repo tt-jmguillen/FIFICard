@@ -2,10 +2,6 @@
     color: pink;
 }
 
-.dropdown-menu{
-    width:  0px;
-}
-
 .navbar > .container, .navbar > .container-fluid {
  display: block!important;
 
@@ -20,3 +16,22 @@
     padding-right: 0.7rem !Important;
     padding-left: 0.7rem !Important;
 }
+
+.dp-menu{
+    padding-top: 10%; 
+    padding-right: 10px;
+}
+
+.dp-div{
+    margin-top: 20px;
+    margin-left: -50px;
+}
+
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    
+    border-bottom: 5px solid black;
+  }
