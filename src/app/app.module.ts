@@ -59,6 +59,7 @@ import { MothersDayComponent } from './mothers-day/mothers-day.component';
 import { MotherCardsComponent } from './mothers-day/mother-cards/mother-cards.component';
 import { MotherGiftsComponent } from './mothers-day/mother-gifts/mother-gifts.component';
 import { MotherGreetingsComponent } from './mothers-day/mother-greetings/mother-greetings.component';
+import { ProfileOrdersComponent } from './settings/profile/profile-orders/profile-orders.component';
 
 
 @NgModule({
@@ -99,6 +100,7 @@ import { MotherGreetingsComponent } from './mothers-day/mother-greetings/mother-
     MotherCardsComponent,
     MotherGiftsComponent,
     MotherGreetingsComponent,
+    ProfileOrdersComponent,
   ],
   imports: [
     BrowserModule,

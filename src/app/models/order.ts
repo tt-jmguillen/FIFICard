@@ -16,6 +16,7 @@ export class Order {
     public anonymously? : boolean;
     public sendto? : string;
     public message? : string;
+    public gateway?: string;
     public proof? : string;
     public status?: string;
     public created?: Timestamp;

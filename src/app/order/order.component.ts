@@ -204,7 +204,7 @@ export class OrderComponent implements OnInit {
         this.isPayPalApproved = true;
         this.showSuccess = true;
         this.modalService.dismissAll();
-        this.submitOrder();
+        this.submitOrder("PayPal");
       },
       onCancel: (data, actions) => {
         console.log('OnCancel', data, actions);
@@ -249,7 +249,7 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  submitOrder(){
+  submitOrder(gateway: string){
     let userDetails: string = localStorage.getItem('user')!;
     console.log(userDetails);
     if(userDetails == null || userDetails.length < 0){ this.appComponent.openLoginDialog(null);
@@ -261,8 +261,10 @@ export class OrderComponent implements OnInit {
           order.card_id = this.card?.id;
           order.card_name = this.card?.name;
           order.card_price = this.card?.price;
+          order.gateway = gateway;
           order.proof = this.proof;
           order.status = this.initialStatus;
+
           this.orderService.createOrder(order).then(order => {
             this.userService.addOrder(this.uid, order.id!);
             this.emailService.sendOrderEmail(order);

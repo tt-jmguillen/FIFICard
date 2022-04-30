@@ -1,0 +1,27 @@
+<h2>My Orders</h2>
+<div class="card">
+    <div class="card-body">
+        <table class="table" style="max-width: 100px; position: relative;">
+            <thead>
+                <th>Date Purchase</th>
+                <th>Type of Purchase</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Recipeint</th>
+                <th>Amount</th>
+                <th>Status </th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let userOrder of orders">
+                    <td>{{(userOrder.order.created!.toDate().getMonth()+ 1) + '/' + userOrder.order.created!.toDate().getDate() + '/' + userOrder.order.created!.toDate().getFullYear()}}</td>
+                    <td></td>
+                    <td>{{userOrder.order.card_id}}</td>
+                    <td>{{userOrder.order.card_name}}</td>
+                    <td>{{userOrder.order.receiver_name}}</td>
+                    <td>{{userOrder.order.card_price}}</td>
+                    <td>{{userOrder.order.status}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -21,9 +21,18 @@ export class OrderService {
     this.store = _store;
   }
 
-  getOrder(id: string): Observable<Order>{
+  subscribeOrder(id: string): Observable<Order>{
     const data = doc(this.store, 'orders/' + id);
     return docData(data, {idField: 'id'}) as Observable<Order>;
+  }
+
+  getOrder(id: string): Promise<Order>{
+    return new Promise((resolve) => {
+      const data = doc(this.store, 'orders/' + id);
+      (docData(data, {idField: 'id'}) as Observable<Order>).subscribe(order => {
+        resolve(order);
+      });
+    });
   }
 
   getRandomString(): string {
