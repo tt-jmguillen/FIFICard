@@ -1,3 +1,4 @@
+import { AddressService } from './../services/address.service';
 import { EmailService } from './../services/email.service';
 import { OrderService } from './../services/order.service';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -12,6 +13,8 @@ import { AppComponent } from '../app.component';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { environment } from 'src/environments/environment';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user';
 
 export class Validation{
   public sender_name: boolean = true;
@@ -48,7 +51,11 @@ export class OrderComponent implements OnInit {
   initialStatus: string;
   isPayPalApproved: boolean = false;
   closeResult = '';
-  
+  userService: UserService;
+  addressService: AddressService;
+  uid: string;
+  user: User;
+
   public payPalConfig?: IPayPalConfig;
   public showSuccess: boolean = false;
   public showCancel: boolean = false;
@@ -63,7 +70,9 @@ export class OrderComponent implements OnInit {
     private _fb: FormBuilder,
     private _router: Router,
     private titleService: Title,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private _userService: UserService,
+    private _addressService: AddressService
   ) { 
     this.activateRoute = _activateRoute;
     this.service = _service;
@@ -71,6 +80,8 @@ export class OrderComponent implements OnInit {
     this.emailService = _emailService;
     this.fb = _fb;
     this.router = _router;
+    this.userService = _userService;
+    this.addressService = _addressService;
   }
 
   open(content: any) {
@@ -92,6 +103,9 @@ export class OrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const userDetails = JSON.parse(localStorage.getItem('user')!); 
+    this.uid = userDetails?.uid;
+
     this.activateRoute.params.subscribe(params => {
       this.id = params['id'];
       this.loadCard();
@@ -110,7 +124,31 @@ export class OrderComponent implements OnInit {
       anonymously: [Boolean(false)],
       sendto: ['Recipient', [Validators.required]],
       message: ['', [Validators.required]]
+    });
+
+    this.loadUser();
+  }
+
+  loadUser(){
+    this.userService.getUser(this.uid).then(user => {
+      this.user = user;
+      this.orderForm.patchValue({
+        sender_name: user.firstname + ' ' + user.lastname,
+        sender_email: user.email,
+      });
+      if (user.address){
+        this.loadAddress(user.address)
+      }
     })
+  }
+
+  loadAddress(id: string)
+  {
+    this.addressService.getAddress(id).then(address => {
+      this.orderForm.patchValue({
+        address: address.address + '\r\n' + address.address2 + '\r\n' + address.city + '\r\n' + address.province + '\r\n' + address.country + '\r\n ' + address.postcode
+      })
+    });
   }
 
 
@@ -219,12 +257,14 @@ export class OrderComponent implements OnInit {
         let order: Order = this.orderForm.value as Order;
         if (this.orderForm.valid){
           let order: Order = this.orderForm.value as Order;
+          order.user_id = this.uid;
           order.card_id = this.card?.id;
           order.card_name = this.card?.name;
           order.card_price = this.card?.price;
           order.proof = this.proof;
           order.status = this.initialStatus;
           this.orderService.createOrder(order).then(order => {
+            this.userService.addOrder(this.uid, order.id!);
             this.emailService.sendOrderEmail(order);
             this.orderForm.reset();
             let cart: Cart= new Cart(order.id!, this.card!.name!);

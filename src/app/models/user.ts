@@ -12,4 +12,5 @@ export class User {
     public birthday: string;
     public address: string;
     public notification: boolean;
+    public orders: string[];
 }

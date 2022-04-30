@@ -45,6 +45,7 @@ export class OrderService {
     return new Promise((resolve, rejects) => {
       const data = collection(this.store, 'orders')
       addDoc(data, {
+        user_id: order.user_id,
         card_id: order.card_id,
         card_name: order.card_name,
         card_price: order.card_price,

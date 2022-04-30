@@ -85,4 +85,20 @@ export class UserService {
       userCredential.user?.updatePassword(newPassword);
     })
   }
+
+  addOrder(userId: string, orderId: string){
+    this.getUser(userId).then(user => {
+      if (user.orders){
+        user.orders.push(orderId);
+      }
+      else{
+        user.orders = [orderId];
+      }
+      
+      const data = doc(this.store, 'users/' + userId);
+      updateDoc(data, {
+        'orders': user.orders
+      });
+    })
+  }
 }

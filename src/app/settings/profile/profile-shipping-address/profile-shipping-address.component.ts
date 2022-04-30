@@ -60,6 +60,7 @@ export class ProfileShippingAddressComponent implements OnInit {
   loadAddress(id: string)
   {
     this.addressService.getAddress(id).then(address => {
+      let country = address.country? address.country: 'Philippines';
       this.address = address;
       this.form.patchValue({
         name: this.address.name,
@@ -69,7 +70,7 @@ export class ProfileShippingAddressComponent implements OnInit {
         address2: this.address.address2,
         city: this.address.city,
         province: this.address.province,
-        country: this.address.country,
+        country: country,
         postcode: this.address.postcode
       });
     });

@@ -2,6 +2,7 @@ import { Timestamp } from "@angular/fire/firestore";
 
 export class Order {
     public id? : string;
+    public user_id?: string;
     public card_id? : string;
     public card_name?: string;
     public card_price? : number;
