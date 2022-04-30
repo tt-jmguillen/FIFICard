@@ -36,7 +36,11 @@ export class ProfileShippingAddressComponent implements OnInit {
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       address: ['', [Validators.required]],
-      address2: ['', [Validators.required]]
+      address2: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      province: ['', [Validators.required]],
+      country: ['Philippines', [Validators.required]],
+      postcode: ['', [Validators.required]]
     });
 
     const userDetails = JSON.parse(localStorage.getItem('user')!); 
@@ -63,6 +67,10 @@ export class ProfileShippingAddressComponent implements OnInit {
         lastname: this.address.lastname,
         address: this.address.address,
         address2: this.address.address2,
+        city: this.address.city,
+        province: this.address.province,
+        country: this.address.country,
+        postcode: this.address.postcode
       });
     });
   }

@@ -24,7 +24,11 @@ export class AddressService {
         'firstname': address.firstname,
         'lastname': address.lastname,
         'address': address.address,
-        'address2': address.address2
+        'address2': address.address2,
+        'city': address.city,
+        'province': address.province,
+        'country': address.country,
+        'postcode': address.postcode
       }).then(address => {
         resolve(address.id);
       })
@@ -49,7 +53,11 @@ export class AddressService {
       'firstname': address.firstname,
       'lastname': address.lastname,
       'address': address.address,
-      'address2': address.address2
+      'address2': address.address2,
+      'city': address.city,
+      'province': address.province,
+      'country': address.country,
+      'postcode': address.postcode
     });
   }
 }

@@ -30,6 +30,26 @@
                 <input type="text" class="form-control" placeholder="Address Line 2" formControlName="address2"
                     readonly="{{isSaving? 'readonly': ''}}">
             </div>
+            <div class="mb-3">
+                <label>* City</label>
+                <input type="text" class="form-control" placeholder="City" formControlName="city"
+                    readonly="{{isSaving? 'readonly': ''}}">
+            </div>
+            <div class="mb-3">
+                <label>* Province/Region</label>
+                <input type="text" class="form-control" placeholder="Province/Region" formControlName="province"
+                    readonly="{{isSaving? 'readonly': ''}}">
+            </div>
+            <div class="mb-3">
+                <label>* Country</label>
+                <input type="text" class="form-control" placeholder="Country" formControlName="country"
+                    readonly="{{isSaving? 'readonly': ''}}">
+            </div>
+            <div class="mb-3">
+                <label>* Post Code</label>
+                <input type="text" class="form-control" placeholder="Post Code" formControlName="postcode"
+                    readonly="{{isSaving? 'readonly': ''}}">
+            </div>
             <button type="button" class="btn btn-primary" (click)="saveAddress()">{{isSaving? 'SAVING...': 'SAVE
                 ADDRESS'}}</button>
         </form>
