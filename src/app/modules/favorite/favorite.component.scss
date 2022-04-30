@@ -1,0 +1,22 @@
+.favorite{
+    margin-top: 15px;
+    display: flex;
+    justify-content: right;
+}
+
+.fav-div{
+    width: 20%;
+    padding: 10px 10px 5px 10px;
+    background-color: red;
+}
+
+.icon{
+    color: white;
+    cursor: pointer;
+}
+
+.count{
+    color: white;
+    font-size: 20px;
+    padding-left: 20px;
+}

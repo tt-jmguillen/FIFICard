@@ -1,7 +1,6 @@
 <ion-content>
     <section class="section-name padding-y-sm">
         <div class="container animate main">
-
             <div class="row align-top mb-5">
                 <div class="col-12">
                     <nav aria-label="breadcrumb">
@@ -9,12 +8,12 @@
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{card?.name}}</li>
                         </ol>
-                    </nav>  
-                    <hr/>
+                    </nav>
+                    <hr />
                 </div>
-            
                 <div class="col-lg-6 col-sm-12">
                     <app-imagegrid id="{{id}}"></app-imagegrid>
+                    <app-favorite cardId="{{id}}"></app-favorite>
                     <app-rating id2="{{id}}"></app-rating>
                 </div>
                 <div class="col-lg-6 col-sm-12">
@@ -27,46 +26,33 @@
                                 <p>{{card?.description}}</p>
                             </section>
                             <section>
-                                <span class="text-muted">{{card?.event}}</span><br/>
+                                <span class="text-muted">{{card?.event}}</span><br />
                                 <span class="text-muted">{{card?.recipient}}</span>
                             </section>
                             <section>
                                 <h3 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h3>
                                 <a class="order" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)">Pick this Card</a>
-                                <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping"  *ngIf="card">
-                    
+                                <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping" *ngIf="card">
                             </section>
                             <section>
                                 <span style="font-weight: 600;" *ngIf="card">Details:</span>
                                 <div style="white-space:pre-wrap">{{card?.details}}</div>
-                                <br/>
-                                <a   href="/"><img src="/assets/images/logo_fibeigreetings.png" class="img-fluid" style="max-height:100px;" *ngIf="card"></a>
-                                <br/>
+                                <br />
+                                <a href="/"><img src="/assets/images/logo_fibeigreetings.png" class="img-fluid"
+                                        style="max-height:100px;" *ngIf="card"></a>
+                                <br />
                             </section>
                         </div>
                     </div>
-                    
                 </div>
-
                 <div class="col-12">
                     <app-suggestion-list cardId="{{id}}"></app-suggestion-list>
-                    </div>
+                </div>
                 <div class="col-12">
-                <app-rating-summary cardId="{{id}}"></app-rating-summary>
+                    <app-rating-summary cardId="{{id}}"></app-rating-summary>
                 </div>
             </div>
-            <style>
-                .icon-free-shipping
-                {
-                    display: inline-block;
-                    height: 56px;
-                    padding-left: 20px;
-
-                }
-            </style>
-
         </div>
-   </section>
-<app-footer></app-footer>
+    </section>
+    <app-footer></app-footer>
 </ion-content>
-

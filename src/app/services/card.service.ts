@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { collection, collectionData, doc, docData, Firestore, Timestamp } from '@angular/fire/firestore';
+import { collection, collectionData, doc, docData, Firestore, Timestamp, updateDoc } from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { query, where } from '@firebase/firestore';
 import { Observable } from 'rxjs';
@@ -13,18 +13,18 @@ import { Rating } from '../models/rating';
 export class CardService {
   store: Firestore;
   storage: Storage;
-  db:AngularFirestore;
+  db: AngularFirestore;
 
   constructor(
     private _store: Firestore,
     private _storage: Storage,
-    private _db: AngularFirestore) { 
+    private _db: AngularFirestore) {
     this.store = _store;
     this.storage = _storage;
     this.db = _db;
   }
 
-  getCards(): Promise<Card[]>{
+  getCards(): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
       let data = collection(this.store, 'cards');
       let qry = query(data, where('active', "==", true));
@@ -35,54 +35,60 @@ export class CardService {
     });
   }
 
-  getCard(id: string): Observable<Card>{
+  getCard(id: string): Observable<Card> {
     const data = doc(this.store, 'cards/' + id);
-    return docData(data, {idField: 'id'}) as Observable<Card>;
+    return docData(data, { idField: 'id' }) as Observable<Card>;
   }
 
-  async getRatings(id: string): Promise<Rating[]>{
+  async getRatings(id: string): Promise<Rating[]> {
     return new Promise((resolve, rejects) => {
-        this.db.collection('cards').doc(id).collection('ratings', ref => ref.orderBy('created', 'desc')).get().subscribe(data => {
-            if (!data.empty)
-            {
-                let ratings: Rating[] = [];
-                data.forEach(doc => {
-                    //console.log(doc.data()["date"].toDate());
-                    let rating: Rating = doc.data() as Rating;
-                    rating.id = doc.id;
-                    rating.date = doc.data()["date"].toDate();
-                    ratings.push(rating);
-                });
-                resolve(ratings);
-            }
-            else{
-                rejects("No ratings found.");
-            }
-        });
+      this.db.collection('cards').doc(id).collection('ratings', ref => ref.orderBy('created', 'desc')).get().subscribe(data => {
+        if (!data.empty) {
+          let ratings: Rating[] = [];
+          data.forEach(doc => {
+            //console.log(doc.data()["date"].toDate());
+            let rating: Rating = doc.data() as Rating;
+            rating.id = doc.id;
+            rating.date = doc.data()["date"].toDate();
+            ratings.push(rating);
+          });
+          resolve(ratings);
+        }
+        else {
+          rejects("No ratings found.");
+        }
+      });
     });
-}
+  }
 
-  async getImageURL(path: string): Promise<string>{
+  async getImageURL(path: string): Promise<string> {
     const fileRef = ref(this.storage, path);
     return getDownloadURL(fileRef)
   }
 
-  async addRating(id: string, rating: Rating): Promise<string>{
-    console.log("AddRating id: " + id );
+  async addRating(id: string, rating: Rating): Promise<string> {
+    console.log("AddRating id: " + id);
     console.log("AddRating rating: " + JSON.stringify(rating));
     return new Promise(resolve => {
-        this.db.collection('cards').doc(id).collection('ratings').add({
-            date: Timestamp.now(),
-            username: rating.username,
-            rate: rating.rate,
-            title: rating.title,
-            review: rating.review,
-            approve: false,
-            created: Timestamp.now()
-        }).then(data => {
-            resolve(data.id);
-        })
+      this.db.collection('cards').doc(id).collection('ratings').add({
+        date: Timestamp.now(),
+        username: rating.username,
+        rate: rating.rate,
+        title: rating.title,
+        review: rating.review,
+        approve: false,
+        created: Timestamp.now()
+      }).then(data => {
+        resolve(data.id);
+      })
     });
-}
+  }
+
+  updateFavorite(cardId: string, favorites: string[]){
+    const data = doc(this.store, 'cards/' + cardId);
+    updateDoc(data, {
+      'favorites': favorites
+    });
+  }
 
 }

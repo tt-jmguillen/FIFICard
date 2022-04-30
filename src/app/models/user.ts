@@ -13,4 +13,5 @@ export class User {
     public address: string;
     public notification: boolean;
     public orders: string[];
+    public favorites: string[];
 }

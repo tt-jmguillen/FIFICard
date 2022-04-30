@@ -101,4 +101,11 @@ export class UserService {
       });
     })
   }
+
+  updateFavorites(userId: string, favorites: string[]){
+    const data = doc(this.store, 'users/' + userId);
+    updateDoc(data, {
+      'favorites': favorites
+    });
+  }
 }

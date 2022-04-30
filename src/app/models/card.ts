@@ -15,6 +15,7 @@ export class Card {
   public modified?: Timestamp;
   public images?: string[];
   public primary?: string;
+  public favorites?: string[];
 
   public imageUrl?: string;
 }
