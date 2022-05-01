@@ -2,7 +2,7 @@
  * Tabs Container
  */
  .tabs-container {
-	padding: 2rem;
+	padding: 1rem;
 }
 
 /**
@@ -186,7 +186,7 @@
 @media (min-width: 576px) {
 
 	.tabs > ul {
-		width: 150px;
+		width: 160px;
 	}
 
 	.tabs > ul li a {
@@ -205,7 +205,7 @@
 
 	.tabs section {
 		width: calc(100% - 150px);
-		padding: 2rem 2rem;
+		padding: 1rem 1rem;
 	}
 }
 @media (min-width: 768px) {
@@ -215,12 +215,7 @@
 	}
 
 	.tabs-container {
-		padding: 2rem 1rem; //4rem 4rem;
+		padding: 1rem 1rem; //4rem 4rem;
 	}
 }
-@media (min-width: 992px) {
 
-	.tabs {
-		width: 800px;
-	}
-}
