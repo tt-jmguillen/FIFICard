@@ -40,6 +40,15 @@ export class CardService {
     return docData(data, { idField: 'id' }) as Observable<Card>;
   }
 
+  getACard(id: string): Promise<Card> {
+    return new Promise((resolve) => {
+      const data = doc(this.store, 'cards/' + id);
+      (docData(data, { idField: 'id' }) as Observable<Card>).subscribe(card => {
+        resolve(card);
+      });
+    });
+  }
+
   async getRatings(id: string): Promise<Rating[]> {
     return new Promise((resolve, rejects) => {
       this.db.collection('cards').doc(id).collection('ratings', ref => ref.orderBy('created', 'desc')).get().subscribe(data => {

@@ -25,7 +25,7 @@
                       class="material-icons tab-icon">toc</span> <span class="tab-label">My Lists</span></a>
                 </li>
                 <li>
-                  <a id="tab-5" class="tab-link" onclick="tabclick(this.id)"> <span
+                  <a id="tab-5" [ngClass]="id=='orders'?'tab-link active':'tab-link'" onclick="tabclick(this.id)"> <span
                       class="material-icons tab-icon">add_shopping_cart</span> <span class="tab-label">My
                       Orders</span></a>
                 </li>
@@ -54,29 +54,7 @@
 
               <section id="tab-4-section"
                 [ngClass]="id=='list'?'tab-body entry-content active active-content':'tab-body entry-content'">
-                <h2>My Lists</h2>
-                <div class="card">
-                  <div class="card-body">
-                    <ul class="nav nav-tabs" role="tablist">
-                      <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Favorites</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Keepsake Wish List</a>
-                      </li>
-                    </ul><!-- Tab panes -->
-                    <div class="tab-content">
-                      <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                        <p>Status: Public Make this list private</p>
-                        <p>Favorites</p>
-                      </div>
-                      <div class="tab-pane" id="tabs-2" role="tabpanel">
-                        <p>Status: Public Make this list private</p>
-                        <p>Keepsake Wish List</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <app-profile-list></app-profile-list>
               </section>
 
               <section id="tab-5-section" [ngClass]="id=='orders'?'tab-body entry-content active active-content':'tab-body entry-content'">

@@ -1,0 +1,36 @@
+<h2>My Lists</h2>
+<div class="card">
+    <div class="card-body">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Favorites</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Keepsake Wish List</a>
+            </li>
+        </ul><!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                <p>Status: Public Make this list private</p>
+                <div class="fav-card" *ngFor="let userFavorite of userFavorites">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <a href="/card/{{userFavorite.card.id}}" class="bold">{{userFavorite.card!.name}}</a><br />
+                            <span>Description: </span><span class="bold">{{userFavorite.card!.description}}</span><br />
+                            <span>Event: </span><span class="bold">{{userFavorite.card!.event}}</span><br />
+                            <span>Recipient: </span><span class="bold">{{userFavorite.card!.recipient}}</span><br />
+                            <span>Price: </span><span class="bold">{{userFavorite.card!.price}}</span>
+                        </div>
+                        <div class="col-md-6 col-sm-12 img-div">
+                            <img src="{{userFavorite.image}}" class="thumbnail">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tabs-2" role="tabpanel">
+                <p>Status: Public Make this list private</p>
+                <p>Keepsake Wish List</p>
+            </div>
+        </div>
+    </div>
+</div>
