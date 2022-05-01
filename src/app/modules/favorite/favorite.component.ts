@@ -46,8 +46,8 @@ export class FavoriteComponent implements OnInit {
   }
 
   updateMark(){
+    this.isFavorite = false;
     this.userFavorite.forEach(card => {
-      this.isFavorite = false;
       if (this.cardId! == card){
         this.isFavorite = true;
       }
@@ -87,7 +87,6 @@ export class FavoriteComponent implements OnInit {
 
   addToFavorite(){
     const index = this.cardFavorite.indexOf(this.uid, 0);
-    console.log(index);
     if (index < 0){
       this.cardFavorite.push(this.uid);
       this.updateCount();
