@@ -14,14 +14,14 @@
                 <p>Status: Public Make this list private</p>
                 <div class="fav-card" *ngFor="let userFavorite of userFavorites">
                     <div class="row">
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-9 col-sm-12">
                             <a href="/card/{{userFavorite.card.id}}" class="bold">{{userFavorite.card!.name}}</a><br />
                             <span>Description: </span><span class="bold">{{userFavorite.card!.description}}</span><br />
                             <span>Event: </span><span class="bold">{{userFavorite.card!.event}}</span><br />
                             <span>Recipient: </span><span class="bold">{{userFavorite.card!.recipient}}</span><br />
                             <span>Price: </span><span class="bold">{{userFavorite.card!.price}}</span>
                         </div>
-                        <div class="col-md-6 col-sm-12 img-div">
+                        <div class="col-md-3 col-sm-12 img-div">
                             <img src="{{userFavorite.image}}" class="thumbnail">
                         </div>
                     </div>
