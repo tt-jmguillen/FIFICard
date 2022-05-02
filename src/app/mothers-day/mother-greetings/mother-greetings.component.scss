@@ -1,0 +1,25 @@
+.mother-greetings-selection
+{
+    background-image: url('../../../assets/images/mothers/greetings/bg-min.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.mother-greetings-selection a
+{
+    border: 2px solid #bc6c65;
+    margin-bottom: 16px;
+    display: inline-block;
+    padding: 10px 30px;
+    color: #bc6c65;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 3px 3px 1px #bc6c65;
+    background:#fff;
+}
+.mother-greetings-selection a:hover
+{
+background: #f8e3e0;
+}
