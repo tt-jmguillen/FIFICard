@@ -1,4 +1,6 @@
 <ion-content>
+    <app-sub-header *ngIf="elementEvent == 'mothers day'"></app-sub-header>
+    
     <section class="section-name padding-y-sm">
         <div class="container animate main">
             <div class="row align-top mb-5">
@@ -54,5 +56,6 @@
             </div>
         </div>
     </section>
+    <app-sub-footer *ngIf="elementEvent == 'mothers day'"></app-sub-footer>
     <app-footer></app-footer>
 </ion-content>

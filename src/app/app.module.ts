@@ -62,6 +62,8 @@ import { MotherGreetingsComponent } from './mothers-day/mother-greetings/mother-
 import { ProfileOrdersComponent } from './settings/profile/profile-orders/profile-orders.component';
 import { FavoriteComponent } from './modules/favorite/favorite.component';
 import { ProfileListComponent } from './settings/profile/profile-list/profile-list.component';
+import { SubHeaderComponent } from './pages/sub-header/sub-header.component';
+import { SubFooterComponent } from './pages/sub-footer/sub-footer.component';
 
 
 @NgModule({
@@ -105,6 +107,8 @@ import { ProfileListComponent } from './settings/profile/profile-list/profile-li
     ProfileOrdersComponent,
     FavoriteComponent,
     ProfileListComponent,
+    SubHeaderComponent,
+    SubFooterComponent,
   ],
   imports: [
     BrowserModule,

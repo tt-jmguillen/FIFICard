@@ -14,23 +14,23 @@
             </div>
         </div>
 
-        <form [formGroup]="form">
-            <div class="mb-3">
+        <form [formGroup]="form" class="row">
+            <div class="mb-3 col-6">
                 <label>* First Name</label>
                 <input type="text" class="form-control" placeholder="First Name" formControlName="firstname"
                     readonly="{{isEdit? '': 'readonly'}}">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-6">
                 <label>* Last Name</label>
                 <input type="text" class="form-control" placeholder="Last Name" formControlName="lastname"
                     readonly="{{isEdit? '': 'readonly'}}">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-6">
                 <label>* Email Address</label>
                 <input type="email" class="form-control" placeholder="Email Address" formControlName="email"
                     readonly="readonly">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-6">
                 <label>* Gender</label>
                 <br />
                 <div class="custom-control custom-radio custom-control-inline">
@@ -44,7 +44,7 @@
                     <label class="custom-control-label" for="customRadioInline2">Male</label>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-12">
                 <label>* Birthday</label>
                 <div class="input-group ">
                     <select aria-label="Month" class="form-control" placeholder="Month"

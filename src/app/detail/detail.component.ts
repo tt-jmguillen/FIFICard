@@ -6,6 +6,7 @@ import { stringify } from 'querystring';
 import { Card } from '../models/card';
 import { CardService } from '../services/card.service';
 import { AppComponent } from '../app.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-detail',
@@ -18,6 +19,7 @@ export class DetailComponent implements OnInit {
   activateRoute: ActivatedRoute;
   service: CardService;
   event: string | undefined;
+  elementEvent: string;
 
   constructor(
     private _activateRoute: ActivatedRoute,
@@ -31,6 +33,12 @@ export class DetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    environment.redirect.forEach(element => {
+      if (window.location.hostname.toLowerCase() == element.host.toLowerCase()){
+        this.elementEvent = element.event;
+      }
+    });
+
     this.activateRoute.params.subscribe(params => {
       this.id = params['id'];
       this.loadCard();

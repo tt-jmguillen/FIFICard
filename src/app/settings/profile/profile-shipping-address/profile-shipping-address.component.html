@@ -4,54 +4,56 @@
         <h3> add a shipping address</h3>
         <p> To make checkout even faster, you can save shipping addresses.</p>
         
-        <form [formGroup]="form">
-            <div class="mb-3">
+        <form [formGroup]="form" class="row">
+            <div class="mb-3 col-12">
                 <label> Address nickname</label>
                 <input type="text" class="form-control" placeholder="ex: Home, Grandma's house, etc." formControlName="name"
                     readonly="{{isSaving? 'readonly': ''}}">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-6">
                 <label>* First Name</label>
                 <input type="text" class="form-control" placeholder="First Name" formControlName="firstname"
                     readonly="{{isSaving? 'readonly': ''}}">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-6">
                 <label>* Last Name</label>
                 <input type="text" class="form-control" placeholder="Last Name" formControlName="lastname"
                     readonly="{{isSaving? 'readonly': ''}}">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-12">
                 <label>* Address Line 1</label>
                 <input type="text" class="form-control" placeholder="Address Line 1" formControlName="address"
                     readonly="{{isSaving? 'readonly': ''}}">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-12">
                 <label>* Address Line 2</label>
                 <input type="text" class="form-control" placeholder="Address Line 2" formControlName="address2"
                     readonly="{{isSaving? 'readonly': ''}}">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-6">
                 <label>* City</label>
                 <input type="text" class="form-control" placeholder="City" formControlName="city"
                     readonly="{{isSaving? 'readonly': ''}}">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-6">
                 <label>* Province/Region</label>
                 <input type="text" class="form-control" placeholder="Province/Region" formControlName="province"
                     readonly="{{isSaving? 'readonly': ''}}">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-6">
                 <label>* Country</label>
                 <input type="text" class="form-control" placeholder="Country" formControlName="country"
                     readonly="{{isSaving? 'readonly': ''}}">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-6">
                 <label>* Post Code</label>
                 <input type="text" class="form-control" placeholder="Post Code" formControlName="postcode"
                     readonly="{{isSaving? 'readonly': ''}}">
             </div>
-            <button type="button" class="btn btn-primary" (click)="saveAddress()">{{isSaving? 'SAVING...': 'SAVE
-                ADDRESS'}}</button>
+            <div class=" col-12">
+                <button type="button" class="btn btn-primary" (click)="saveAddress()">{{isSaving? 'SAVING...': 'SAVE
+                    ADDRESS'}}</button>
+            </div>
         </form>
     </div>
 </div>
