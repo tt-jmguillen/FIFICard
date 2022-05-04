@@ -30,6 +30,9 @@ export class CardsComponent implements OnInit {
   search?: string;
   recipient?: string;
 
+  budget: string = '';
+  sort: string = '';
+
   caption: string = '';
   banner: string = '';
   service: CardService;
@@ -67,6 +70,9 @@ export class CardsComponent implements OnInit {
       this.search = params['search'];
       this.recipient = params['recipient'];
 
+      this.budget = localStorage.getItem('budget')!.toString();
+      this.sort = localStorage.getItem('sort')!.toString();
+
       this.loadRecipients(this.event||"");
       this.selectedRecipient = 'All';
 
@@ -83,7 +89,7 @@ export class CardsComponent implements OnInit {
           this.loadAll();
         }
       }
-      else if(this.search){
+      else if ((this.search) && (this.search != '')){
         this.caption! = "Search: " + this.search;
         this.loadSearch(this.search);
       }
@@ -94,13 +100,11 @@ export class CardsComponent implements OnInit {
   }
 
   onRecipientClick(recipient: string){
-    //console.log("onRecipientClick>:" + JSON.stringify(recipient));
     this.selectedRecipient = recipient;
     this.loadEvent(this.event!);
   }
   
   loadRecipients(_event: string){
-
      this.serviceRecipient.getRecipients().then(data => {
        this.recipients = data;
        data.forEach(r => {
@@ -135,7 +139,7 @@ export class CardsComponent implements OnInit {
 
   loadAll(){
     this.service.getCards().then(data => {
-      this.cards = data;
+      this.cards = this.filterRecord(data);
       this.initializeBatch();
       this.loadBatch(1);
     });
@@ -144,12 +148,10 @@ export class CardsComponent implements OnInit {
   loadEvent(_event: string){
     this.service.getCards().then(data => {
       this.cards = [];
-      data.forEach(card => {
+      this.filterRecord(data).forEach(card => {
         if (card.event){
           card.event.split(",").forEach(event => {
             if(event.trim() == _event){
-                console.log("events>>" + JSON.stringify(card.event));
-                console.log("recipients>>" + JSON.stringify(card.recipient));
                 if ((event.trim() == _event && this.selectedRecipient == 'All')){
                 this.cards.push(card);
                 }else if(event.trim() == _event && (card.recipient!.includes(this.selectedRecipient) || card.recipient!.includes('Any'))){
@@ -176,7 +178,7 @@ export class CardsComponent implements OnInit {
 
   loadSearch(_search: string){
     this.service.getCards().then(data => {
-      data.forEach(card => {
+      this.filterRecord(data).forEach(card => {
         if (card.name!.includes(_search)){
           this.cards.push(card);
         }
@@ -192,6 +194,58 @@ export class CardsComponent implements OnInit {
       });
       this.initializeBatch();
       this.loadBatch(1);
+    });
+  }
+
+  filterRecord(cards: Card[]){
+    if (this.budget){
+      let newCards: Card[] = []
+      cards.forEach(card => {
+        if (this.budget == '0 - 99'){
+          if (card.price! >= 99)
+            newCards.push(card);
+        }
+        else if (this.budget == '100 - 199'){
+          if ((card.price! <= 100) && (card.price! >= 199))
+            newCards.push(card);
+        }
+        else if (this.budget == '200 and Up'){
+          if (card.price! >= 99)
+            newCards.push(card);
+        }
+      });
+      return this.sortRecord(newCards);
+    }
+
+    return this.sortRecord(cards);
+  }
+
+  sortRecord(cards: Card[]): Card[]{
+    if (this.sort == "Latest"){
+      return cards.sort((a,b) => {
+        if (a.created! > b.created!) return -1;
+        if (a.created! < b.created!) return 1;
+        return 0;
+      });
+    }
+    else if (this.sort == "Price from Low to High"){
+      return cards.sort((a,b) => {
+        if (a.price! > b.price!) return 1;
+        if (a.price! < b.price!) return -1;
+        return 0;
+      });
+    }
+    else if (this.sort == "Price from High to Low"){
+      return cards.sort((a,b) => {
+        if (a.price! < b.price!) return 1;
+        if (a.price! > b.price!) return -1;
+        return 0;
+      });
+    }
+    return cards.sort((a,b) => {
+      if (a.name!.trim() > b.name!.trim()) return 1;
+      if (a.name!.trim() < b.name!.trim()) return -1;
+      return 0;
     });
   }
 

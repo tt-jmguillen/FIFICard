@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Query } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { collection, collectionData, doc, docData, Firestore, Timestamp, updateDoc } from '@angular/fire/firestore';
+import { collection, collectionData, doc, docData, Firestore, orderBy, QueryConstraint, Timestamp, updateDoc } from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { query, where } from '@firebase/firestore';
 import { Observable } from 'rxjs';
@@ -28,8 +28,11 @@ export class CardService {
     return new Promise((resolve, rejects) => {
       let data = collection(this.store, 'cards');
       let qry = query(data, where('active', "==", true));
+
       (collectionData(qry, { idField: 'id' }) as Observable<Card[]>).subscribe(
-        cards => resolve(cards),
+        cards => {
+          resolve(cards);
+        },
         err => rejects(err)
       );
     });
