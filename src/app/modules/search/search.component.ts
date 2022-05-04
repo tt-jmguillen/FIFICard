@@ -27,8 +27,10 @@ export class SearchComponent implements OnInit {
     this.searchForm = this.fb.group({
       search: ['']
     });
-    this.budget = localStorage.getItem('budget')!.toString();
-    this.sort = localStorage.getItem('sort')!.toString();
+    if (localStorage.getItem('budget'))
+      this.budget = localStorage.getItem('budget')!.toString();
+      if (localStorage.getItem('sort'))
+      this.sort = localStorage.getItem('sort')!.toString();
   }
 
   searchCard(){

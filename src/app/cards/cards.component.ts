@@ -70,8 +70,10 @@ export class CardsComponent implements OnInit {
       this.search = params['search'];
       this.recipient = params['recipient'];
 
-      this.budget = localStorage.getItem('budget')!.toString();
-      this.sort = localStorage.getItem('sort')!.toString();
+      if (localStorage.getItem('budget'))
+        this.budget = localStorage.getItem('budget')!.toString();
+      if (localStorage.getItem('sort'))
+        this.sort = localStorage.getItem('sort')!.toString();
 
       this.loadRecipients(this.event||"");
       this.selectedRecipient = 'All';
