@@ -18,6 +18,9 @@ export class Order {
     public message? : string;
     public gateway?: string;
     public proof? : string;
+    public transaction_id? : string;
+    public payer_id? : string;
+    public payer_email? : string;
     public status?: string;
     public created?: Timestamp;
     public modified?: Timestamp;

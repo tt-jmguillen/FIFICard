@@ -56,6 +56,10 @@ export class OrderComponent implements OnInit {
   uid: string;
   user: User;
 
+  transactionId: string;
+  payerId: string;
+  payerEmail: string;
+
   public payPalConfig?: IPayPalConfig;
   public showSuccess: boolean = false;
   public showCancel: boolean = false;
@@ -193,14 +197,24 @@ export class OrderComponent implements OnInit {
         layout: 'vertical'
       },
       onApprove: (data, actions) => {
-        console.log('onApprove - transaction was approved, but not authorized', data, actions);
-        actions.order.get().then((details: any) => {
-          console.log('onApprove - you can get full order details inside onApprove: ', details);
-        });
-
+        //console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        //actions.order.get().then((details: any) => {
+        //  console.log('onApprove - you can get full order details inside onApprove: ', details);
+        //});
+        //this.isPayPalApproved = true;
+        //this.showSuccess = true;
+        //this.modalService.dismissAll();
+        //this.submitOrder("PayPal");
       },
       onClientAuthorization: (data) => {
-        console.log('onClientAuthorization - inform your server about completed transaction at this point', data);
+        //console.log('onClientAuthorization - inform your server about completed transaction at this point', data);
+
+        this.transactionId = data.id;
+        if (data.payer.payer_id)
+          this.payerId = data.payer.payer_id;
+        if (data.payer.email_address)
+          this.payerEmail = data.payer.email_address;
+
         this.isPayPalApproved = true;
         this.showSuccess = true;
         this.modalService.dismissAll();
@@ -251,7 +265,6 @@ export class OrderComponent implements OnInit {
 
   submitOrder(gateway: string){
     let userDetails: string = localStorage.getItem('user')!;
-    console.log(userDetails);
     if(userDetails == null || userDetails.length < 0){ this.appComponent.openLoginDialog(null);
     }else{
         let order: Order = this.orderForm.value as Order;
@@ -264,6 +277,16 @@ export class OrderComponent implements OnInit {
           order.gateway = gateway;
           order.proof = this.proof;
           order.status = this.initialStatus;
+
+          if (gateway == "PayPal"){
+            order.transaction_id = this.transactionId;
+            if (this.payerId){
+              order.payer_id = this.payerId;
+            }
+            if (this.payerEmail){
+              order.payer_email = this.payerEmail;
+            }
+          }
 
           this.orderService.createOrder(order).then(order => {
             this.userService.addOrder(this.uid, order.id!);
