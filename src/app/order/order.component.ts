@@ -24,7 +24,6 @@ export class Validation{
   public receiver_phone: boolean = true;
   public address: boolean = true;
   public sendto: boolean = true;
-  public message: boolean = true;
   public proof: boolean = true;
 }
 
@@ -127,7 +126,7 @@ export class OrderComponent implements OnInit {
       address: ['', [Validators.required]],
       anonymously: [Boolean(false)],
       sendto: ['Recipient', [Validators.required]],
-      message: ['', [Validators.required]]
+      message: ['',]
     });
 
     this.loadUser();
@@ -306,7 +305,6 @@ export class OrderComponent implements OnInit {
           this.validation.receiver_phone = this.orderForm.controls['receiver_phone']['status'] == "VALID";
           this.validation.address = this.orderForm.controls['address']['status'] == "VALID";
           this.validation.sendto = this.orderForm.controls['sendto']['status'] == "VALID";
-          this.validation.message = this.orderForm.controls['message']['status'] == "VALID";
           this.validation.proof = this.proof != '';
           //this.modalService.dismissAll();
         }
