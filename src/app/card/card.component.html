@@ -1,5 +1,7 @@
-<div routerLink="{{'/card/' + card!.id}}" class="card card-product-grid" *ngIf="card">
-  <img src="{{this.imageURL!}}" routerLink="{{'/card/' + card!.id}}" class="cursor">
+<div class="card card-product-grid" *ngIf="card">
+  <a [routerLink]="['/card/' + card!.id]" class="img-wrap">
+    <img src="{{this.imageURL!}}">
+  </a>
   <figcaption class="info-wrap">
     <p routerLink="{{'/card/' + card!.id}}" class="title cursor">{{card!.name}}</p>
     <div class="price mt-1">₱ {{card!.price | number:'1.2-2'}}</div> <!-- price-wrap.// -->
