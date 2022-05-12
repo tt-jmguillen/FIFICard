@@ -88,14 +88,6 @@ export class CardsComponent implements OnInit {
         }
       });
 
-      this.loadRecipients(this.event || "");
-      if (this.recipient){
-        this.selectedRecipient = this.recipient;
-      }
-      else {
-        this.selectedRecipient = 'All';
-      }
-
       if (this.event) {
         this.caption = this.event;
         this.banner = `/assets/images/event/banner/${this.caption.replace(" ", "").replace("'", "") || 'All'}-min.png`;
@@ -112,6 +104,14 @@ export class CardsComponent implements OnInit {
     this.service.getCards().then(data => {
       if (this.event! != 'All') {
         this.filterForEvent(this.event!, data);
+        
+        this.loadRecipient(this.event!, this.cards);
+        if (this.recipient){
+          this.selectedRecipient = this.recipient;
+        }
+        else {
+          this.selectedRecipient = 'All';
+        }
       }
       else if ((this.search) && (this.search != '')) {
         this.filterForSearch(this.search, data);
@@ -124,6 +124,7 @@ export class CardsComponent implements OnInit {
       if (this.recipient){
         this.filterCards = this.filterForRecipient(this.recipient, this.filterCards);
       }
+
       this.applyDisplayFilterAndSort();
     });
   }
@@ -132,10 +133,7 @@ export class CardsComponent implements OnInit {
     if (this.budget){
       this.filterCards = this.filterForBudget(this.budget, this.filterCards);
     }
-    if (this.sort){
-      this.filterCards = this.sortRecord(this.sort, this.filterCards);
-    }
-
+    this.filterCards = this.sortRecord(this.sort, this.filterCards);
     this.initializeBatch();
     this.loadBatch(1);
   }
@@ -171,15 +169,20 @@ export class CardsComponent implements OnInit {
 
   filterForRecipient(_recipient: string, data: Card[]): Card[]{
     let filtered: Card[] = [];
-    data.forEach(card => {
-      if (card.recipient){
-        card.recipient.split(",").forEach(recipient => {
-          if (recipient.trim() == _recipient) {
-            filtered.push(card);
-          }
-        })
-      }
-    });
+    if (_recipient == 'All'){
+      filtered = data;
+    }
+    else{
+      data.forEach(card => {
+        if (card.recipient){
+          card.recipient.split(",").forEach(recipient => {
+            if (recipient.trim() == _recipient) {
+              filtered.push(card);
+            }
+          })
+        }
+      });
+    }
     return filtered;
   }
 
@@ -212,33 +215,30 @@ export class CardsComponent implements OnInit {
     }
     else if (_sort == "Price from Low to High") {
       return data.sort((a, b) => {
-        if (a.price! > b.price!) return 1;
-        if (a.price! < b.price!) return -1;
-        return 0;
+        return a.price! - b.price!;
       });
     }
     else if (_sort == "Price from High to Low") {
       return data.sort((a, b) => {
-        if (a.price! < b.price!) return 1;
-        if (a.price! > b.price!) return -1;
-        return 0;
+        return a.price! + b.price!;
       });
     }
     return data.sort((a, b) => {
-      if (a.name!.trim() > b.name!.trim()) return 1;
-      if (a.name!.trim() < b.name!.trim()) return -1;
-      return 0;
+      var textA = a.name!.trim().toUpperCase();
+      var textB = b.name!.trim().toUpperCase();
+      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
     });
   }
 
   onRecipientClick(recipient: string) {
     this.selectedRecipient = recipient;
+    console.log(this.selectedRecipient);
     this.filterCards = this.filterForRecipient(this.selectedRecipient, this.cards);
     this.applyDisplayFilterAndSort();
-    //this.loadEvent(this.event!);
   }
 
-  loadRecipients(_event: string) {
+  loadRecipient(_event: string, cards: Card[]) {
+    this.recipientsByName = [];
     this.serviceRecipient.getRecipients().then(data => {
       this.recipients = data;
       data.forEach(r => {
@@ -246,30 +246,21 @@ export class CardsComponent implements OnInit {
           this.recipientsByName.push(r.name);
         }
       });
-      this.initializeBatch();
-      this.loadBatch(1);
-    });
 
-    this.service.getCards().then(data => {
       this.recipientsByEvent = [];
       this.recipientsByEvent.push('All');
-      data.forEach(card => {
-        if (card.event) {
-          card.event.split(",").forEach(event => {
-            if (event.trim() == _event) {
-              if (card.recipient) {
-                card.recipient.split(",").forEach(recip => {
-                  recip = recip.trim();
-                  if (!this.recipientsByEvent.includes(recip) && recip != 'Any' && this.recipientsByName.includes(recip))
-                    this.recipientsByEvent.push(recip);
-                });
-              }
-            }
+
+      cards.forEach(card => {
+        if (card.recipient) {
+          card.recipient.split(",").forEach(recip => {
+            recip = recip.trim();
+            if (!this.recipientsByEvent.includes(recip) && recip != 'Any' && this.recipientsByName.includes(recip))
+              this.recipientsByEvent.push(recip);
           });
         }
-      });
+      }); 
     });
-
+     
   }
   
   initializeBatch() {
