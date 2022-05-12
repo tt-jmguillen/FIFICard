@@ -1,3 +1,4 @@
+import { FilterService } from './../services/filter.service';
 import { Card } from './../models/card';
 import { CardService } from './../services/card.service';
 import { Component, OnInit } from '@angular/core';
@@ -36,6 +37,7 @@ export class CardsComponent implements OnInit {
   caption: string = '';
   banner: string = '';
   service: CardService;
+  filterService: FilterService;
   serviceRecipient: RecipientService;
   activateRoute: ActivatedRoute;
   selectedRecipient: string = ''
@@ -56,10 +58,12 @@ export class CardsComponent implements OnInit {
 
   constructor(
     private _service: CardService,
+    private _filterService: FilterService,
     private _serviceRecipient: RecipientService,
     private _activateRoute: ActivatedRoute
   ){ 
     this.service = _service;
+    this.filterService = _filterService;
     this.serviceRecipient = _serviceRecipient;
     this.activateRoute = _activateRoute;
   }
@@ -70,10 +74,15 @@ export class CardsComponent implements OnInit {
       this.search = params['search'];
       this.recipient = params['recipient'];
 
-      if (localStorage.getItem('budget'))
-        this.budget = localStorage.getItem('budget')!.toString();
-      if (localStorage.getItem('sort'))
-        this.sort = localStorage.getItem('sort')!.toString();
+      this.filterService.getBudget().subscribe(value => {
+        this.budget = value;
+        console.log(this.budget);
+      });
+
+      this.filterService.getSort().subscribe(value => {
+        this.sort = value;
+        console.log(this.sort);
+      });
 
       this.loadRecipients(this.event||"");
       this.selectedRecipient = 'All';

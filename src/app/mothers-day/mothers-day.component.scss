@@ -1,10 +1,13 @@
-.mothersday-component a
+.mothersday-component img
 {
-opacity:.8;
-background: black;
+    opacity:.8;
+    background: black;
 }
-.mothersday-component a:hover
+.mothersday-component img:hover
 {
+    opacity: 1;
+}
 
-opacity: 1;
+.cursor{
+    cursor: pointer;
 }

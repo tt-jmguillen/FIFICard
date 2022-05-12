@@ -4,82 +4,74 @@
             <div>
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="/cards/events/Mother's%20Day">
-                            <img src="/assets/images/layout2/Homepage_1-min.png" class="img-fluid" title="mother's day">
-                
-                        </a>
+                        <img src="/assets/images/layout2/Homepage_1-min.png" routerLink="/cards/events/Mother's Day"
+                            class="img-fluid" title="mother's day">
                     </div>
                 </div>
             </div>
 
             <div>
                 <div class="row">
-                <div class="col-md-12">
-                    <h2 class="text-center">Featured Categories</h2>
-                </div>
-                <div class="row my-selections">
+                    <div class="col-md-12">
+                        <h2 class="text-center">Featured Categories</h2>
+                    </div>
+                    <div class="row my-selections">
+                        <div class="col-md-3">
+                            <div routerLink="/cards/events/Birthday" class="cursor selection">
+                                <img src="/assets/images/layout2/Birthday.png" alt="Birthday" title="Birthday">
+                                <div>Birthday</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div routerLink="/cards/events/Anniversary" class="cursor selection">
+                                <img src="/assets/images/layout2/Anniversary.png" alt="Anniversary" title="Anniversary">
+                                <div>Anniversary</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div routerLink="/cards/events/Sympathy" class="cursor selection">
+                                <img src="/assets/images/layout2/Sympathy.png" alt="Sympathy" title="Sympathy">
+                                <div>Sympathy</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div routerLink="/cards/events/Pet Cards" class="cursor selection">
+                                <img src="/assets/images/layout2/Pet.png" alt="Pet" title="Pet">
+                                <div>Pet Cards</div>
+                            </div>
+                        </div>
+                    </div>
 
-              
-                <div class="col-md-3">
-                    <a href="/cards/events/Birthday">
-                        <img src="/assets/images/layout2/Birthday.png" alt="Birthday" title="Birthday">
-                        <div>Birthday</div>
-                    </a>
                 </div>
-                <div class="col-md-3">
-                    <a href="/cards/events/Anniversary">
-                        <img src="/assets/images/layout2/Anniversary.png" alt="Anniversary" title="Anniversary">
-                        <div>Anniversary</div>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="/cards/events/Sympathy">
-                        <img src="/assets/images/layout2/Sympathy.png" alt="Sympathy" title="Sympathy">
-                        <div>Sympathy</div>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="/cards/events/Pet%20Cards">
-                        <img src="/assets/images/layout2/Pet.png" alt="Pet" title="Pet">
-                        <div>Pet Cards</div>
-                    </a>
-                </div>
+
             </div>
-                 
-                </div> 
-               
-            </div>
-            <br/>  <br/>
+            <br /> <br />
             <div>
                 <div class="">
-                    <a href="/events">
-                        <img src="/assets/images/layout2/Homepage_3-min.png" class="img-fluid">
-                    </a>
-                    <br/><br/>
+                    <img src="/assets/images/layout2/Homepage_3-min.png" routerLink="/events" class="img-fluid cursor">
+                    <br /><br />
                 </div>
             </div>
             <div>
                 <div class="row">
                     <div class="col-md-3 col-12">
-                        <a href="/cards/events/Graduation">
-                            <img src="/assets/images/layout2/Homepage_4-min.png" class="img-fluid" style="width:100%">
-                        </a>
-                        <br/><br/>
+                        <img src="/assets/images/layout2/Homepage_4-min.png" routerLink="/cards/events/Graduation"
+                            class="img-fluid cursor" style="width:100%">
+                        <br /><br />
                     </div>
                     <div class="col-md-9 col-m12">
-                        <a href="/cards/events/All">
-                            <img src="/assets/images/layout2/Homepage_5-min.png" class="img-fluid">
-                        </a>
-                        <br/><br/>
+                        <img src="/assets/images/layout2/Homepage_5-min.png" routerLink="/cards/events/All"
+                            class="img-fluid cursor">
+                        <br /><br />
                     </div>
                 </div>
             </div>
             <div>
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="/gifts">
-                            <img src="/assets/images/layout2/Homepage_6-min.png" class="img-fluid"></a>
-                            <br/>  <br/>
+                        <img src="/assets/images/layout2/Homepage_6-min.png" routerLink="/gifts"
+                            class="img-fluid cursor">
+                        <br /> <br />
                     </div>
                 </div>
 
@@ -87,12 +79,12 @@
             <div>
                 <div class="row">
                     <div class="col-md-6">
-                            <img src="/assets/images/homepage/free_shipping_banner.png" class="img-fluid">
-                            <br/>  <br/>
+                        <img src="/assets/images/homepage/free_shipping_banner.png" class="img-fluid">
+                        <br /> <br />
                     </div>
                     <div class="col-md-6">
-                            <img src="/assets/images/homepage/free-sticker.png" class="img-fluid">
-                            <br/>  <br/>
+                        <img src="/assets/images/homepage/free-sticker.png" class="img-fluid">
+                        <br /> <br />
                     </div>
                 </div>
 
@@ -100,27 +92,5 @@
 
         </div>
     </section>
-<app-footer></app-footer>
+    <app-footer></app-footer>
 </ion-content>
-<style>
-    .my-selections div a
-{
-border:4px solid #ccc;
-padding:10px;
-display: inline-block;
-border-radius: 6px;
-}
-.my-selections div a div
-{
-text-align: center;
-color:blueviolet;
-font-weight: bold;
-margin-top: 6px;
-font-size:18px;
-}
-.my-selections div a:hover
-{
-border:4px solid blueviolet;
-}
-</style>
-

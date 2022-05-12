@@ -1,7 +1,7 @@
-<div href="#" class="card card-product-grid" *ngIf="card">
-  <a href="{{'/card/' + card!.id}}" class="img-wrap"> <img src="{{this.imageURL!}}"> </a>
+<div routerLink="{{'/card/' + card!.id}}" class="card card-product-grid" *ngIf="card">
+  <img src="{{this.imageURL!}}" routerLink="{{'/card/' + card!.id}}" class="cursor">
   <figcaption class="info-wrap">
-    <a href="{{'/card/' + card!.id}}" class="title">{{card!.name}}</a>
+    <p routerLink="{{'/card/' + card!.id}}" class="title cursor">{{card!.name}}</p>
     <div class="price mt-1">₱ {{card!.price | number:'1.2-2'}}</div> <!-- price-wrap.// -->
     <app-rating-decimal cardId="{{card!.id}}"></app-rating-decimal>
   </figcaption>

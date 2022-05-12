@@ -1,0 +1,22 @@
+.cursor{
+    cursor: pointer;
+}
+
+.my-selections div .selection {
+    border: 4px solid #ccc;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 6px;
+}
+
+.my-selections div .selection div {
+    text-align: center;
+    color: blueviolet;
+    font-weight: bold;
+    margin-top: 6px;
+    font-size: 18px;
+}
+
+.my-selections div a:hover {
+    border: 4px solid blueviolet;
+}

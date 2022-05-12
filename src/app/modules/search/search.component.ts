@@ -1,3 +1,4 @@
+import { FilterService } from './../../services/filter.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+  filterService: FilterService;
   fb: FormBuilder;
   router: Router;
   searchForm: FormGroup;
@@ -16,9 +18,11 @@ export class SearchComponent implements OnInit {
   sort: string = '';
 
   constructor(
+    private _filterService: FilterService,
     private _fb: FormBuilder,
     private _router: Router
   ) { 
+    this.filterService = _filterService
     this.fb = _fb;
     this.router = _router;
   }
@@ -27,10 +31,12 @@ export class SearchComponent implements OnInit {
     this.searchForm = this.fb.group({
       search: ['']
     });
+    /*
     if (localStorage.getItem('budget'))
       this.budget = localStorage.getItem('budget')!.toString();
-      if (localStorage.getItem('sort'))
+    if (localStorage.getItem('sort'))
       this.sort = localStorage.getItem('sort')!.toString();
+    */
   }
 
   searchCard(){
@@ -42,18 +48,12 @@ export class SearchComponent implements OnInit {
 
   changeBudget(event: any){
     this.budget = event.target.value;
-    localStorage.setItem('budget', this.budget);
-    if (window.location.pathname.includes('/events')){
-      window.location.reload();
-    }
+    this.filterService.setBudget(this.budget);
   }
 
   changeSort(event: any){
     this.sort = event.target.value;
-    localStorage.setItem('sort', this.sort);
-    if (window.location.pathname.includes('/events')){
-      window.location.reload();
-    }
+    this.filterService.setSort(this.sort);
   }
 
   doSearch(){

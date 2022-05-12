@@ -27,7 +27,7 @@ export class GiftsComponent implements OnInit {
       data.forEach(event => {
         if (event.active){
           event.image = `/assets/images/gift/${event.name?.replace(' ','').replace("'",'')}-min.png`;
-          event.url = `cards/events/${event.name}`;
+          event.url = `/cards/events/${event.name}`;
           if (event.name?.toUpperCase() == 'CREATIONS'){
             this.ak = event;
             this.ak.url = "/creations";

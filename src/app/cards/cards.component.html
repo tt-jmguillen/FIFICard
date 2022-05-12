@@ -9,73 +9,14 @@
             </div>
         </div>
         <header class="section-heading">
-            <!--<a href="#" class="btn btn-outline-primary float-end">See all</a>-->
             <h3 class="section-title" *ngIf="caption">{{caption}}</h3>
         </header><!-- sect-heading -->
         <div class="my-recipient">
-            <!-- <span class=" imagediv hover-target" *ngFor = "let recipient of recipientsByEvent" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient ? 'blueviolet' : ''}"> 
-                {{recipient}}
-            </span> -->
             <span class=" imagediv hover-target" *ngFor = "let recipient of recipientsByEvent" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient ? 'blueviolet' : '', 'color': selectedRecipient==recipient ? 'white' : ''}"> 
                 {{recipient}}
             </span>
         </div>
-
-        <!-- <div class="row">
-            <div class="col-md-12">
-                <img src="/assets/images/homepage/home-banner.png" class="img-fluid" style="border-radius:6px;">
-                <br/> <br/>
-            </div>
-            <div class="col-md-6">
-                <img src="/assets/images/homepage/free_shipping_banner.png" class="img-fluid" style="border-radius:6px;">
-            </div>
-            <div class="col-md-6">
-                <img src="/assets/images/homepage/free-sticker.png" class="img-fluid" style="border-radius:6px;">
-                <br/> <br/>
-            </div>
-            <div class="col-md-2 col-sm-6 col-6 text-center">
-                <a href="/events/Birthday">
-                    <img src="/assets/images/homepage/category/c-birthday.png" alt="birthday" title="birthday">
-                    <h4>Birthday</h4>
-                </a>
-                <br/> <br/>
-            </div>
-            <div class="col-md-2 col-sm-6 col-6 text-center">
-                <a href="/events/Thank You">
-                    <img src="/assets/images/homepage/category/c-thankyou.png" alt="thankyou" title="thankyou">
-                    <h4>Thank You</h4>
-                </a>
-                <br/> <br/>
-            </div>
-            <div class="col-md-2 col-sm-6 col-6 text-center">
-                <a href="/events/Anniversary">
-                    <img src="/assets/images/homepage/category/c-anniversary.png" alt="anniversary" title="anniversary">
-                    <h4>Anniversary</h4>
-                </a>
-                <br/> <br/>
-            </div>
-            <div class="col-md-2 col-sm-6 col-6 text-center">
-                <a href="/events/Get%20Well">
-                    <img src="/assets/images/homepage/category/c-getwell.png" alt="getwell" title="getwell">
-                    <h4>Get well</h4>
-                </a>
-                <br/> <br/>
-            </div>
-            <div class="col-md-2 col-sm-6 col-6 text-center">
-                <a href="/events/Sympathy">
-                    <img src="/assets/images/homepage/category/c-sympathy.png" alt="sympathy" title="sympathy">
-                    <h4>Sympathy</h4>
-                </a>
-                <br/> <br/>
-            </div>
-            <div class="col-md-2 col-sm-6 col-6 text-center">
-                <a href="/events/Love">
-                    <img src="/assets/images/homepage/category/c-love.png" alt="love" title="love">
-                    <h4>Love</h4>
-                </a>
-                <br/> <br/>
-            </div>
-        </div>   -->
+        
         <div class="row">
             <div class="col-12 text-center">
                 <button class="btn btn-light actionbtn" (click)="clickPrev()" [disabled]="!disablePrev" *ngIf="pages.length > 1">
@@ -119,7 +60,7 @@
         <div class="row">
             <div class="col-md-12">
                 <br/><br/>
-                <a href="/events"><img src="/assets/images/layout2/Sticker Landing_1-min.png" class="img-fluid" style="margin-top:-50px"></a>
+                <img src="/assets/images/layout2/Sticker Landing_1-min.png" routerLink="/events" class="img-fluid cursor" style="margin-top:-50px">
             </div>
         </div>
     </div>
@@ -130,7 +71,7 @@
             <div class="container animate main">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="/gifts"><img src="/assets/images/layout2/_All Gifts Landing Pages_3.png" class="img-fluid" style="margin-top:-50px"></a>
+                    <img src="/assets/images/layout2/_All Gifts Landing Pages_3.png" routerLink="/gifts" class="img-fluid cursor" style="margin-top:-50px">
                 <br><br> 
                 </div>
             </div>

@@ -135,5 +135,4 @@ export class MenuComponent implements OnInit {
       .catch((e) => console.error("An error happened while signing out!", e));
     window.location.href = "";  
   }
-
 }

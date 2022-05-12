@@ -7,7 +7,7 @@
                 <div class="col-12">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><p routerLink="/" class="cursor">Home</p></li>
                             <li class="breadcrumb-item active" aria-current="page">{{card?.name}}</li>
                         </ol>
                     </nav>
@@ -40,8 +40,7 @@
                                 <span style="font-weight: 600;" *ngIf="card">Details:</span>
                                 <div style="white-space:pre-wrap">{{card?.details}}</div>
                                 <br />
-                                <a href="/"><img src="/assets/images/logo_fibeigreetings.png" class="img-fluid"
-                                        style="max-height:100px;" *ngIf="card"></a>
+                                <img src="/assets/images/logo_fibeigreetings.png" routerLink="/" class="img-fluid cursor" style="max-height:100px;" *ngIf="card">
                                 <br />
                             </section>
                         </div>

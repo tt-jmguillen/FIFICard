@@ -4,17 +4,17 @@
 
             <div class="row my-event">
                 <div class="col-md-3 col-6" *ngFor="let event of events">
-                    <a href="{{event.url}}">
+                    <div class="cursor" routerLink="{{event.url}}">
                         <img src="{{event.image}}" class="img-fluid">
-                        <div>{{event.name}}</div>
-                    </a>
+                        <div class="title">{{event.name}}</div>
+                    </div>
                     <br/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <br/><br/>
-                    <a href="/events"><img src="/assets/images/layout2/Sticker Landing_1-min.png" class="img-fluid" style="margin-top:-50px"></a>
+                    <img src="/assets/images/layout2/Sticker Landing_1-min.png" routerLink="/events" class="img-fluid cursor" style="margin-top:-50px">
                 </div>
             </div>
 
@@ -25,7 +25,7 @@
         <div class="container animate main">
         <div class="row">
             <div class="col-md-12">
-                <a href="/gifts"><img src="/assets/images/layout2/_All Gifts Landing Pages_3.png" class="img-fluid" style="margin-top:-50px"></a>
+                <img src="/assets/images/layout2/_All Gifts Landing Pages_3.png" routerLink="/gifts" class="img-fluid cursor" style="margin-top:-50px">
             <br><br> 
             </div>
         </div>

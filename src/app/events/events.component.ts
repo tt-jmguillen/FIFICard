@@ -28,10 +28,10 @@ export class EventsComponent implements OnInit {
         if (event.active){
           event.image = `/assets/images/event/thumbnail/${event.name?.replace(' ','').replace("'",'')}-min.png`;
           if (event.name?.includes('Easter')){
-            event.url = `cards/events/Easter`;
+            event.url = `/cards/events/Easter`;
           }
           else{
-            event.url = `cards/events/${event.name}`;
+            event.url = `/cards/events/${event.name}`;
           }
           
           if (event.name?.toUpperCase() == 'CREATIONS'){

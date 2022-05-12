@@ -1,18 +1,18 @@
-.my-event a {
+.my-event div {
     opacity: 0.8
 }
-.my-event a img{
+.my-event div img{
 
     border-radius: 50%;
     margin-bottom: 10px;
     // border:5px solid #fff;
 }
 
-.my-event a:hover,
-.my-event a:active {
+.my-event div:hover,
+.my-event div:active {
     opacity: 1
 }
-.my-event a:hover img{
+.my-event div:hover img{
 
     border-style:inset;
     border-width:5px;
@@ -22,8 +22,7 @@
     border-bottom-color: #1244bd;
 }
 
-.my-event a div,
-.my-event a div {
+.title {
     text-align: center;
     background: #000;
     padding: 10px;
@@ -31,8 +30,8 @@
     color: white;
 }
 
-.my-event a:hover div,
-.my-event a:active div {
+.my-event div:hover div,
+.my-event div:active div {
     background: #630ca5;
 }
 .my-header
