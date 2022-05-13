@@ -31,19 +31,16 @@ export class SearchComponent implements OnInit {
     this.searchForm = this.fb.group({
       search: ['']
     });
-    /*
-    if (localStorage.getItem('budget'))
-      this.budget = localStorage.getItem('budget')!.toString();
-    if (localStorage.getItem('sort'))
-      this.sort = localStorage.getItem('sort')!.toString();
-    */
   }
 
   searchCard(){
     if (this.searchForm.value['search']){
       this.search = this.searchForm.value['search'];
+      this.filterService.setSearch(this.search);
+      if (window.location.pathname != '/search'){
+        this.router.navigate(['/search']);
+      }
     }
-    this.doSearch();
   }
 
   changeBudget(event: any){
@@ -54,13 +51,6 @@ export class SearchComponent implements OnInit {
   changeSort(event: any){
     this.sort = event.target.value;
     this.filterService.setSort(this.sort);
-  }
-
-  doSearch(){
-    if (this.search)
-      this.router.navigate(['/search/' + this.search]);
-    else
-      this.router.navigate(['/']);
   }
 
 }

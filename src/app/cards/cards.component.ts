@@ -27,9 +27,9 @@ export class Page {
 })
 export class CardsComponent implements OnInit {
   event?: string;
-  search?: string;
   recipient?: string;
 
+  search: string = '';
   budget: string = '';
   sort: string = '';
 
@@ -71,8 +71,15 @@ export class CardsComponent implements OnInit {
   ngOnInit(): void {
     this.activateRoute.params.subscribe(params => {
       this.event = params['event'];
-      this.search = params['search'];
       this.recipient = params['recipient'];
+
+      this.filterService.getSearch().subscribe(value => {
+        this.search = value;
+        if (this.cards.length > 0){
+          this.filterCards = this.cards; 
+          this.applyFilter();
+        }
+      });
 
       this.filterService.getBudget().subscribe(value => {
         this.budget = value;
@@ -102,31 +109,35 @@ export class CardsComponent implements OnInit {
 
   getAllCards() {
     this.service.getCards().then(data => {
-      if (this.event! != 'All') {
-        this.filterForEvent(this.event!, data);
-        
-        this.loadRecipient(this.event!, this.cards);
-        if (this.recipient){
-          this.selectedRecipient = this.recipient;
-        }
-        else {
-          this.selectedRecipient = 'All';
-        }
-      }
-      else if ((this.search) && (this.search != '')) {
-        this.filterForSearch(this.search, data);
-      }
-      else{
-        this.cards = data;
-      }
-
+      this.cards = data;      
       this.filterCards = this.cards;      
-      if (this.recipient){
-        this.filterCards = this.filterForRecipient(this.recipient, this.filterCards);
-      }
-
-      this.applyDisplayFilterAndSort();
+      this.applyFilter();
     });
+  }
+
+  applyFilter(){
+    console.log(this.filterCards);
+    if ((this.event) && (this.event! != 'All')) {
+      this.filterCards = this.filterForEvent(this.event!, this.filterCards);
+      
+      this.loadRecipient(this.event!, this.filterCards);
+      if (this.recipient){
+        this.selectedRecipient = this.recipient;
+      }
+      else {
+        this.selectedRecipient = 'All';
+      }
+    }
+    else if ((this.search) && (this.search != '')) {
+      this.filterCards = this.filterForSearch(this.search, this.filterCards);
+    }
+    
+    if (this.recipient){
+      this.filterCards = this.filterForRecipient(this.recipient, this.filterCards);
+    }
+
+    console.log(this.filterCards);
+    this.applyDisplayFilterAndSort();
   }
 
   applyDisplayFilterAndSort(){
@@ -138,33 +149,37 @@ export class CardsComponent implements OnInit {
     this.loadBatch(1);
   }
 
-  filterForEvent(_event: string, data: Card[]) {
+  filterForEvent(_event: string, data: Card[]): Card[] {
+    let filtered: Card[] = [];
     data.forEach(card => {
       if (card.event) {
         card.event.split(",").forEach(event => {
           if (event.trim() == _event) {
-            this.cards.push(card);
+            filtered.push(card);
           }
         })
       }
     });
+    return filtered;
   }
 
-  filterForSearch(_search: string, data: Card[]){
+  filterForSearch(_search: string, data: Card[]): Card[]{
+    let filtered: Card[] = [];
     data.forEach(card => {
       if (card.name!.includes(_search)){
-        this.cards.push(card);
+        filtered.push(card);
       }
       else if (card.description!.includes(_search)){
-        this.cards.push(card);
+        filtered.push(card);
       }
       else if (card.event!.includes(_search)){
-        this.cards.push(card);
+        filtered.push(card);
       }
       else if (card.recipient!.includes(_search)){
-        this.cards.push(card);
+        filtered.push(card);
       }
-    })
+    });
+    return filtered;
   }
 
   filterForRecipient(_recipient: string, data: Card[]): Card[]{
@@ -237,7 +252,7 @@ export class CardsComponent implements OnInit {
     this.applyDisplayFilterAndSort();
   }
 
-  loadRecipient(_event: string, cards: Card[]) {
+  loadRecipient(_event: string, cards: Card[]){
     this.recipientsByName = [];
     this.serviceRecipient.getRecipients().then(data => {
       this.recipients = data;

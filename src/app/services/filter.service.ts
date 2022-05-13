@@ -5,12 +5,22 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FilterService {
+  private searchInfo: BehaviorSubject<string>;
   private budgetInfo: BehaviorSubject<string>;
   private sortInfo: BehaviorSubject<string>;
 
   constructor() { 
+    this.searchInfo = new BehaviorSubject<string>('');
     this.budgetInfo = new BehaviorSubject<string>('');
     this.sortInfo = new BehaviorSubject<string>('');
+  }
+
+  getSearch(): Observable<string> {
+    return this.searchInfo.asObservable();
+  }
+
+  setSearch(newValue: string): void {
+    this.searchInfo.next(newValue);
   }
 
   getBudget(): Observable<string> {

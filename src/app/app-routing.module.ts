@@ -62,7 +62,7 @@ const routes: Routes = [
     path: 'cards/events/:event/:recipient', component: CardsComponent
   },
   {
-    path: 'search/:search', component: CardsComponent
+    path: 'search', component: CardsComponent
   },
   {
     path: 'card/:id', component: DetailComponent
