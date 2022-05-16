@@ -69,10 +69,10 @@ export class OrderService {
         sendto: order.sendto,
         message: order.message,
         gateway: order.gateway,
-        proof: order.proof,
-        transaction_id: order.transaction_id,
-        payer_id: order.payer_id,
-        payer_email: order.payer_email,
+        proof: order.proof!,
+        transaction_id: order.transaction_id!,
+        payer_id: order.payer_id!,
+        payer_email: order.payer_email!,
         status: order.status,
         created: Timestamp.now()
       }).then(docRef => {

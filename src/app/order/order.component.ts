@@ -12,11 +12,12 @@ import { Cart } from '../models/cart';
 import { AppComponent } from '../app.component';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { environment } from 'src/environments/environment';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
+import { retry } from 'rxjs';
 
-export class Validation{
+export class Validation {
   public sender_name: boolean = true;
   public sender_phone: boolean = true;
   public sender_email: boolean = true;
@@ -44,7 +45,7 @@ export class OrderComponent implements OnInit {
   fb: FormBuilder;
   router: Router;
   orderForm: FormGroup;
-  orderForm2: FormGroup;
+  paymentForm: FormGroup;
   validation: Validation = new Validation();
   isUploading: boolean = false;
   initialStatus: string;
@@ -76,7 +77,7 @@ export class OrderComponent implements OnInit {
     private modalService: NgbModal,
     private _userService: UserService,
     private _addressService: AddressService
-  ) { 
+  ) {
     this.activateRoute = _activateRoute;
     this.service = _service;
     this.orderService = _orderService;
@@ -85,14 +86,6 @@ export class OrderComponent implements OnInit {
     this.router = _router;
     this.userService = _userService;
     this.addressService = _addressService;
-  }
-
-  open(content: any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
   }
 
   private getDismissReason(reason: any): string {
@@ -106,7 +99,7 @@ export class OrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const userDetails = JSON.parse(localStorage.getItem('user')!); 
+    const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.uid = userDetails?.uid;
 
     this.activateRoute.params.subscribe(params => {
@@ -129,24 +122,27 @@ export class OrderComponent implements OnInit {
       message: ['',]
     });
 
+    this.paymentForm = this.fb.group({
+      proof: ['',]
+    });
+
     this.loadUser();
   }
 
-  loadUser(){
+  loadUser() {
     this.userService.getUser(this.uid).then(user => {
       this.user = user;
       this.orderForm.patchValue({
         sender_name: user.firstname + ' ' + user.lastname,
         sender_email: user.email,
       });
-      if (user.address){
+      if (user.address) {
         this.loadAddress(user.address)
       }
     })
   }
 
-  loadAddress(id: string)
-  {
+  loadAddress(id: string) {
     this.addressService.getAddress(id).then(address => {
       this.orderForm.patchValue({
         address: address.address + '\r\n' + address.address2 + '\r\n' + address.city + '\r\n' + address.province + '\r\n' + address.country + '\r\n ' + address.postcode
@@ -154,12 +150,10 @@ export class OrderComponent implements OnInit {
     });
   }
 
-
   private initConfig(price: string, cardName: string): void {
-
     this.payPalConfig = {
       currency: environment.paypalCurrency,
-      clientId: environment.paypalClientId,   
+      clientId: environment.paypalClientId,
       createOrderOnClient: (data) => <ICreateOrderRequest>{
         intent: 'CAPTURE',
         purchase_units: [
@@ -244,15 +238,15 @@ export class OrderComponent implements OnInit {
     this.showCancel = false;
   }
 
-  closeShowSuccess(){
+  closeShowSuccess() {
     this.showError = false;
   }
 
-  getStatus(){
+  getStatus() {
     this.orderService.getInitial().then(data => { this.initialStatus = data });
   }
 
-  loadCard(){
+  loadCard() {
     this.service.getCard(this.id!).subscribe(data => {
       this.card! = data;
       this.titleService.setTitle(this.card?.name!);
@@ -262,56 +256,76 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  submitOrder(gateway: string){
-    let userDetails: string = localStorage.getItem('user')!;
-    if(userDetails == null || userDetails.length < 0){ this.appComponent.openLoginDialog(null);
-    }else{
-        let order: Order = this.orderForm.value as Order;
-        if (this.orderForm.valid){
-          let order: Order = this.orderForm.value as Order;
-          order.user_id = this.uid;
-          order.card_id = this.card?.id;
-          order.card_name = this.card?.name;
-          order.card_price = this.card?.price;
-          order.gateway = gateway;
-          order.proof = this.proof;
-          order.status = this.initialStatus;
-
-          if (gateway == "PayPal"){
-            order.transaction_id = this.transactionId;
-            if (this.payerId){
-              order.payer_id = this.payerId;
-            }
-            if (this.payerEmail){
-              order.payer_email = this.payerEmail;
-            }
-          }
-
-          this.orderService.createOrder(order).then(order => {
-            this.userService.addOrder(this.uid, order.id!);
-            this.emailService.sendOrderEmail(order);
-            this.orderForm.reset();
-            let cart: Cart= new Cart(order.id!, this.card!.name!);
-            this.addLocalStorage(cart);
-            this.modalService.dismissAll();
-            this.router.navigate(['/status/' + order.id!]);
-          })
-        }
-        else{
-          this.validation.sender_name = this.orderForm.controls['sender_name']['status'] == "VALID";
-          this.validation.sender_phone = this.orderForm.controls['sender_phone']['status'] == "VALID";
-          this.validation.sender_email = this.orderForm.controls['sender_email']['status'] == "VALID";
-          this.validation.receiver_name = this.orderForm.controls['receiver_name']['status'] == "VALID";
-          this.validation.receiver_phone = this.orderForm.controls['receiver_phone']['status'] == "VALID";
-          this.validation.address = this.orderForm.controls['address']['status'] == "VALID";
-          this.validation.sendto = this.orderForm.controls['sendto']['status'] == "VALID";
-          this.validation.proof = this.proof != '';
-          //this.modalService.dismissAll();
-        }
+  payNow(content: any) {
+    if (this.validateOrder()) {
+      this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
     }
   }
 
-  uploadFile(event: any){
+  validateOrder(): boolean {
+    if (this.orderForm.valid) {
+      return true;
+    }
+    else {
+      this.validation.sender_name = this.orderForm.controls['sender_name']['status'] == "VALID";
+      this.validation.sender_phone = this.orderForm.controls['sender_phone']['status'] == "VALID";
+      this.validation.sender_email = this.orderForm.controls['sender_email']['status'] == "VALID";
+      this.validation.receiver_name = this.orderForm.controls['receiver_name']['status'] == "VALID";
+      this.validation.receiver_phone = this.orderForm.controls['receiver_phone']['status'] == "VALID";
+      this.validation.address = this.orderForm.controls['address']['status'] == "VALID";
+      this.validation.sendto = this.orderForm.controls['sendto']['status'] == "VALID";
+      return false;
+    }
+  }
+
+  submitOrder(gateway: string) {
+    let userDetails: string = localStorage.getItem('user')!;
+    if (userDetails == null || userDetails.length < 0) {
+      this.appComponent.openLoginDialog(null);
+    } else {
+      console.log(this.orderForm.value);
+      let order: Order = this.orderForm.value as Order;
+      order.user_id = this.uid;
+      order.card_id = this.card?.id;
+      order.card_name = this.card?.name;
+      order.card_price = this.card?.price;
+      order.gateway = gateway;
+      order.status = this.initialStatus;
+
+      if (gateway == "PayPal") {
+        order.proof = '';
+        order.transaction_id = this.transactionId;
+        if (this.payerId) {
+          order.payer_id = this.payerId;
+        }
+        if (this.payerEmail) {
+          order.payer_email = this.payerEmail;
+        }
+      }
+      else{
+        order.proof = this.proof;
+        order.transaction_id = '';
+        order.payer_id = '';
+        order.payer_email = '';
+      }
+
+      this.orderService.createOrder(order).then(order => {
+        this.userService.addOrder(this.uid, order.id!);
+        this.emailService.sendOrderEmail(order);
+        this.orderForm.reset();
+        let cart: Cart = new Cart(order.id!, this.card!.name!);
+        this.addLocalStorage(cart);
+        this.modalService.dismissAll();
+        this.router.navigate(['/status/' + order.id!]);
+      })
+    }
+  }
+
+  uploadFile(event: any) {
     this.isUploading = true;
     const file: File = event.target.files[0];
     this.orderService.uploadFile(file).then(result => {
@@ -321,14 +335,13 @@ export class OrderComponent implements OnInit {
     })
   }
 
-  addLocalStorage(cart: Cart){
+  addLocalStorage(cart: Cart) {
     let jsonString: string = localStorage.getItem('cart')!;
-    if (jsonString != null){
+    if (jsonString != null) {
       let carts: Cart[] = JSON.parse(jsonString) as Cart[];
-      carts.push(cart);
       localStorage.setItem("cart", JSON.stringify(carts));
     }
-    else{
+    else {
       let carts: Cart[] = [cart];
       localStorage.setItem("cart", JSON.stringify(carts));
     }
