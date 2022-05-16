@@ -16,8 +16,8 @@ export class Card {
   public images?: string[];
   public primary?: string;
   public favorites?: string[];
-
   public imageUrl?: string;
+  public ratings?: number;
 }
 
 

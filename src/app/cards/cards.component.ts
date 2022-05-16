@@ -99,9 +99,6 @@ export class CardsComponent implements OnInit {
         this.caption = this.event;
         this.banner = `/assets/images/event/banner/${this.caption.replace(" ", "").replace("'", "") || 'All'}-min.png`;
       }
-      else if ((this.search) && (this.search != '')) {
-        this.caption! = "Search: " + this.search;
-      }
 
       this.getAllCards();
     });
@@ -116,7 +113,6 @@ export class CardsComponent implements OnInit {
   }
 
   applyFilter(){
-    console.log(this.filterCards);
     if ((this.event) && (this.event! != 'All')) {
       this.filterCards = this.filterForEvent(this.event!, this.filterCards);
       
@@ -129,6 +125,7 @@ export class CardsComponent implements OnInit {
       }
     }
     else if ((this.search) && (this.search != '')) {
+      this.caption! = "Search: " + this.search;
       this.filterCards = this.filterForSearch(this.search, this.filterCards);
     }
     
@@ -222,27 +219,18 @@ export class CardsComponent implements OnInit {
 
   sortRecord(_sort: string, data: Card[]): Card[] {
     if (_sort == "Latest") {
-      return data.sort((a, b) => {
-        if (a.created! > b.created!) return -1;
-        if (a.created! < b.created!) return 1;
-        return 0;
-      });
+      return data.sort((a, b) => 0 - (a.created! > b.created! ? -1 : 1));
     }
     else if (_sort == "Price from Low to High") {
-      return data.sort((a, b) => {
-        return a.price! - b.price!;
-      });
+      return data.sort((a, b) => 0 - (a.price! > b.price! ? -1 : 1));
     }
     else if (_sort == "Price from High to Low") {
-      return data.sort((a, b) => {
-        return a.price! + b.price!;
-      });
+      return data.sort((a, b) => 0 - (a.price! > b.price! ? 1 : -1));
     }
-    return data.sort((a, b) => {
-      var textA = a.name!.trim().toUpperCase();
-      var textB = b.name!.trim().toUpperCase();
-      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-    });
+    else if (_sort == "Highest Ratings") {
+      return data.sort((a, b) => 0 - ((a.ratings?a.ratings:0) > (b.ratings?b.ratings:0) ? 1 : -1));
+    }
+    return data.sort((a, b) => 0 - (a.name!.trim().toUpperCase() > b.name!.trim().toUpperCase() ? -1 : 1));
   }
 
   onRecipientClick(recipient: string) {

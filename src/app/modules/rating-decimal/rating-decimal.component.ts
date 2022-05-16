@@ -15,20 +15,20 @@ export class RatingDecimalComponent implements OnInit {
   rateCount = 0;
   currentRate = 0;
 
-  constructor(private _service: CardService) { 
+  constructor(private _service: CardService) {
     this.service = _service;
   }
 
   ngOnInit(): void {
     this.norecords = true;
     this.service.getRatings(this.cardId!).then(data => {
-      if (data.length > 0){
+      if (data.length > 0) {
         data.forEach(rating => {
-          if(rating.approve){
-          this.norecords = false;
-          this.ratings.push(rating);
-          this.rateCount = this.rateCount + 1;
-          this.currentRate = this.currentRate + rating.rate;
+          if (rating.approve) {
+            this.norecords = false;
+            this.ratings.push(rating);
+            this.rateCount = this.rateCount + 1;
+            this.currentRate = this.currentRate + rating.rate;
           }
         });
       }
@@ -37,6 +37,6 @@ export class RatingDecimalComponent implements OnInit {
       this.norecords = true;
     });
 
-}
+  }
 
 }
