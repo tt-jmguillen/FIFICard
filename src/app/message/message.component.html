@@ -1,0 +1,34 @@
+<ion-content>
+    <section class="section-name padding-y-sm">
+        <div class="container animate main">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <canvas #main width="1200" height="700"></canvas>
+                </div>
+            </div>
+        </div>
+        <ng-template #content let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Type a Message</h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="messageFormControl" class="form-label">Your Message</label>
+                        <textarea class="form-control" id="messageFormControl" rows="4"
+                            (keyup)="onKeyUpEvent($event)">{{selectedBox.text}}</textarea>
+                    </div>
+                    <div class="col-12">
+                        <label for="messageFormControl" class="form-label">Font Style</label>
+                        <select aria-label="Month" class="form-control" (change)="onChangeEvent($event)">
+                            <option value="{{fontStyle}}" *ngFor="let fontStyle of fontStyles">{{fontStyle}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

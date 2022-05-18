@@ -64,6 +64,8 @@ import { FavoriteComponent } from './modules/favorite/favorite.component';
 import { ProfileListComponent } from './settings/profile/profile-list/profile-list.component';
 import { SubHeaderComponent } from './pages/sub-header/sub-header.component';
 import { SubFooterComponent } from './pages/sub-footer/sub-footer.component';
+import { MessageComponent } from './message/message.component';
+import { FathersDayComponent } from './fathers-day/fathers-day.component';
 
 
 @NgModule({
@@ -109,6 +111,8 @@ import { SubFooterComponent } from './pages/sub-footer/sub-footer.component';
     ProfileListComponent,
     SubHeaderComponent,
     SubFooterComponent,
+    MessageComponent,
+    FathersDayComponent,
   ],
   imports: [
     BrowserModule,

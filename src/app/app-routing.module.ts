@@ -1,3 +1,5 @@
+import { FathersDayComponent } from './fathers-day/fathers-day.component';
+import { MessageComponent } from './message/message.component';
 import { MotherGiftsComponent } from './mothers-day/mother-gifts/mother-gifts.component';
 import { MotherCardsComponent } from './mothers-day/mother-cards/mother-cards.component';
 import { MothersDayComponent } from './mothers-day/mothers-day.component';
@@ -36,6 +38,9 @@ const routes: Routes = [
   },
   {
     path: 'mother/greetings', component: MotherGreetingsComponent
+  },
+  {
+    path: 'father', component: FathersDayComponent
   },
   {
     path: 'tabs', component: TabsComponent
@@ -78,6 +83,9 @@ const routes: Routes = [
   },
   {
     path: 'login', component: LoginComponent
+  },
+  {
+    path: 'message', component: MessageComponent
   },
 ];
 
