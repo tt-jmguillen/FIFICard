@@ -32,7 +32,7 @@ export class MessageComponent implements OnInit {
 
   image: string;
   items: Item[] = [];
-  fonts: string[] = ['Smooch', 'Zen Loop'];
+  fonts: string[] = ['Smooch', 'Zen Loop', 'Satisfy', 'Courgette'];
   selected: Item;
 
   constructor(
