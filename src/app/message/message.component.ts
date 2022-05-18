@@ -1,23 +1,24 @@
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 
-class Box {
+class Item {
   public id: number;
-  public x: number;
-  public y: number;
-  public w: number;
-  public h: number;
+  public top: number;
+  public left: number;
+  public width: number;
+  public height: number;
+  public style: string;
+  public text: string = '';
+  public size: number = 20;
+  public alignment: string = "left";
 
-  public text: string;
-  public font: string
-  public fontsize: number;
-
-  constructor(_id: number, _x: number, _y: number, _w: number, _h: number) {
+  constructor(_id: number, _top: number, _left: number, _width: number, _height: number, _style: string){
     this.id = _id;
-    this.x = _x;
-    this.y = _y;
-    this.w = _w;
-    this.h = _h;
+    this.top = _top;
+    this.left = _left;
+    this.width = _width;
+    this.height = _height;
+    this.style = _style;
   }
 }
 
@@ -27,88 +28,66 @@ class Box {
   styleUrls: ['./message.component.scss']
 })
 export class MessageComponent implements OnInit {
-  @ViewChild('main', { static: true }) main: ElementRef;
-  @ViewChild('content', { static: true }) content: TemplateRef<any>;
+  @ViewChild("offcanvas") private offcanvas: TemplateRef<any>;
 
-  private context: CanvasRenderingContext2D;
-  image = new Image();
-  boxes: Box[] = [];
-  fontStyles : string[] = ['Calibri', 'Times New Roman', 'Garamond', 'Arial', 'Helvetica', 'Cambria', 'Trebuchet MS', 'Georgia', 'Tahoma', 'Didot']
-
-  selectedBox: Box;
+  image: string;
+  items: Item[] = [];
+  fonts: string[] = ['Smooch', 'Zen Loop'];
+  selected: Item;
 
   constructor(
-    private modalService: NgbModal
+    private offcanvasService: NgbOffcanvas
   ) { }
 
   ngOnInit(): void {
-    this.boxes.push(
-      new Box(1, 200, 150, 400, 120)
-    );
-    this.boxes.push(
-      new Box(2, 200, 300, 400, 120)
-    )
-
-    this.context = this.main.nativeElement.getContext('2d');
-
-    this.image.src = "/assets/images/index.png";
-    this.image.onload = () => {
-      this.context.drawImage(this.image, 0, 0);
-
-      this.boxes.forEach(box => {
-        this.context.beginPath();
-        this.context.rect(box.x, box.y, box.w, box.h);
-        this.context.strokeStyle = "#FF0000";
-        this.context.stroke();
-      });
-
-      this.context.save();
-    }
-
-    this.main.nativeElement.addEventListener('mousedown', (e: { clientX: number; clientY: number; }) => {
-      this.getCursorPosition(e);
-    });
+    this.image = '/assets/images/index.png';
+    this.createTextArea();
   }
 
-  getCursorPosition(event: { clientX: number; clientY: number; }) {
-    const rect = this.main.nativeElement.getBoundingClientRect()
-    const x = event.clientX - rect.left
-    const y = event.clientY - rect.top
+  createTextArea(){
+    this.items.push(new Item(1, 150, 200, 400, 100, this.fonts[0]));
+    this.items.push(new Item(2, 350, 200, 400, 100, this.fonts[0]));
+  }
 
-    this.boxes.forEach(box => {
-      let passX: boolean = ((box.x < x) && ((box.x + box.w) > x));
-      let passY: boolean = ((box.y < y) && ((box.y + box.h) > y));
-
-      if (passX && passY) {
-        this.openEditor(box);
+  textareaClick(id: number){
+    this.items.forEach(item => {
+      if (item.id == id){
+        this.selected = item;
+        this.offcanvasService.open(this.offcanvas, { position: 'end' });
       }
     });
   }
 
-  openEditor(box: Box) {
-    this.selectedBox = box;
-    this.modalService.open(this.content);
-  }
-
-  onKeyUpEvent(event: any) {
-    this.boxes[this.boxes.indexOf(this.selectedBox)].text = event.target.value;
-    this.updateText();
-  }
-
-  onChangeEvent(event: any){
-    this.boxes[this.boxes.indexOf(this.selectedBox)].font = event.target.value;
-    this.updateText();
-  }
-
-  updateText() {
-    this.context.restore();
-    this.boxes.forEach(box => {
-      if (box.text) {
-        this.context.font = "20pt " + box.font?box.font:this.fontStyles[0];
-        this.context.fillStyle = "#000000";
-        this.context.fillText(box.text, box.x + 2, box.y + 20, box.w - 4);
+  textareaKeyup(event: any){
+    console.log(event.target.value);
+    this.items.forEach(item => {
+      if (item.id == this.selected.id){
+        item.text = event.target.value;
       }
     });
   }
 
+  fontChange(event: any){
+    this.items.forEach(item => {
+      if (item.id == this.selected.id){
+        item.style = event.target.value;
+      }
+    });
+  }
+
+  sizeChange(event: any){
+    this.items.forEach(item => {
+      if (item.id == this.selected.id){
+        item.size = Number(event.target.value);
+      }
+    });
+  }
+
+  alignmentClick(alignment: string){
+    this.items.forEach(item => {
+      if (item.id == this.selected.id){
+        item.alignment = alignment;
+      }
+    });
+  }
 }
