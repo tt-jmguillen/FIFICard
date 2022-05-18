@@ -22,8 +22,8 @@ export const environment = {
   },
   redirect:[
     {
-      host: "localhost",
-      // host: "fibeimothersday.com",
+      // host: "localhost",
+      host: "fibeimothersday.com",
       main: "/mother",
       logo: "/assets/images/logo_fibiemothersday.png",
       event: "mothers day"
