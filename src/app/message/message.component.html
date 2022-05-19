@@ -1,34 +1,70 @@
 <ion-content>
     <section class="section-name padding-y-sm">
-        <div class="container animate main">
+        <div class="container animate">
             <div class="row">
                 <div class="col-12 text-center">
-                    <canvas #main width="1200" height="700"></canvas>
+                    <div class="main">
+                        <img src="{{image}}">
+                        <div class="text-area d-flex align-items-center justify-content-center"
+                            *ngFor="let item of items" [style.top.px]="item.top" [style.left.px]="item.left"
+                            [style.width.px]="item.width" [style.height.px]="item.height">
+                            <div [style.font-family]="item.style" [style.font-size.px]="item.size"
+                            [style.text-align] = "item.alignment">
+                                <p [innerText]="item.text"></p>
+                            </div>
+                            <button class="icon icon-sm rounded-circle border" (click)="textareaClick(item.id)"><i class="fa fa-edit"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <ng-template #content let-modal>
-            <div class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title">Type a Message</h4>
-                <button type="button" class="btn-close" aria-label="Close"
-                    (click)="modal.dismiss('Cross click')"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <label for="messageFormControl" class="form-label">Your Message</label>
-                        <textarea class="form-control" id="messageFormControl" rows="4"
-                            (keyup)="onKeyUpEvent($event)">{{selectedBox.text}}</textarea>
-                    </div>
-                    <div class="col-12">
-                        <label for="messageFormControl" class="form-label">Font Style</label>
-                        <select aria-label="Month" class="form-control" (change)="onChangeEvent($event)">
-                            <option value="{{fontStyle}}" *ngFor="let fontStyle of fontStyles">{{fontStyle}}</option>
-                        </select>
+    </section>
+    <ng-template #offcanvas let-offcanvas>
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close" aria-label="Close"
+                (click)="offcanvas.dismiss('Cross click')"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="row">
+                <div class="col-12">
+                    <label class="form-label">Your Message</label>
+                    <br />
+                    <textarea class="form-control" rows="5" (keyup)="textareaKeyup($event)"
+                        [value]="selected.text"></textarea>
+                </div>
+                <div class="col-12">
+                    <br />
+                    <label class="form-label">Font</label>
+                    <br />
+                    <select class="form-control" [value]="selected.style" (change)="fontChange($event)"
+                        [(ngModel)]="selected.style">
+                        <option *ngFor="let font of fonts" value="{{font}}">{{font}}</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <br />
+                    <label class="form-label">Font Size</label>
+                    <br />
+                    <input type="range" class="form-range" min="20" max="50" step="1" [value]="selected.size"
+                        (change)="sizeChange($event)">
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Alignment</label>
+                    <br />
+                    <div class="btn-group" role="group" ngbRadioGroup name="radioBasic" [(ngModel)]="selected.alignment">
+                        <button [ngClass]="selected.alignment == 'left' ? 'btn btn-primary btn-lg' : 'btn btn-light btn-lg'" (click)="alignmentClick('left')">
+                            <i class="fa fa-align-left"></i>
+                        </button>
+                        <button [ngClass]="selected.alignment == 'center' ? 'btn btn-primary btn-lg' : 'btn btn-light btn-lg'"  (click)="alignmentClick('center')">
+                            <i class="fa fa-align-center"></i>
+                        </button>
+                        <button [ngClass]="selected.alignment == 'right' ? 'btn btn-primary btn-lg' : 'btn btn-light btn-lg'"  (click)="alignmentClick('right')">
+                            <i class="fa fa-align-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-        </ng-template>
-    </section>
+        </div>
+    </ng-template>
     <app-footer></app-footer>
 </ion-content>
