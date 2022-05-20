@@ -32,13 +32,6 @@
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <app-imagegrid id="{{id}}"></app-imagegrid>
-
-                    <!-- <div class="col-12 text-center mainimagediv">
-                    <img src="/assets/images/gcash.png" class="mainitem" *ngIf="card">
-                </div>
-
-                <ngx-paypal [config]="payPalConfig"></ngx-paypal> -->
-
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <header class="section-heading">
@@ -51,7 +44,6 @@
                         <h5 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h5>
                     </section>
 
-                    <!-- (ngSubmit)="submitOrder()" -->
                     <form [formGroup]="orderForm">
                         <section>
                             <span class="text-muted">Sender</span><br />
@@ -126,27 +118,17 @@
                                     <option value="Sender">Sender</option>
                                 </select>
                             </div>
+                            <div class="col-12 mb-2" *ngIf="card?.signAndSend">
+                                <button class="submit" (click)="signAndSend()">Sign and Send</button>
+                            </div>
                             <div class="col-12 mb-2">
                                 <label for="messageFormControl" class="form-label">Personal Message</label>
                                 <textarea class="form-control" id="messageFormControl" rows="5"
                                     formControlName="message"></textarea>
                             </div>
                         </section>
-                        <!-- <section>
-                        <div class="col-12 mb-2">
-                            <input type="hidden" value="{{proof}}">
-                            <label for="formFile" class="form-label">Proof of Payment (Screenshot)</label>
-                            <input [ngClass]="validation.proof ? 'form-control' : 'form-control invalid'" type="file" id="formFile" (change)="uploadFile($event)" [disabled]="isUploading">
-                        </div>
-                    </section> -->
-                        <!-- <section *ngIf="isPayPalApproved">
-                        <div class="col-12 mb-2">
-                            <label class="form-label" style="color: blue; font-weight: bold;">PayPal Payment Confirmed</label>
-                        </div>
-                    </section> -->
                         <section>
                             <div class="col-12 mb-2">
-                                <!-- <button class="submit" type="submit" [disabled]="isUploading">Submit Order</button> -->
                                 <button class="submit" (click)="payNow(content)">Pay Now</button>
                             </div>
                         </section>
@@ -161,15 +143,6 @@
                         (click)="modal.dismiss('Cross click')"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- <form>
-                <div class="mb-3">
-                <label for="dateOfBirth">Date of birth</label>
-                <div class="input-group">
-                    <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
-                    <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
-                </div>
-                </div>
-            </form> -->
                     <div class="mb-3">
                         <div class="col-12 text-center mainimagediv">
                             <img src="/assets/images/gcash.png" class="mainitem" *ngIf="card">
@@ -196,10 +169,7 @@
                     </div>
                 </div>
             </ng-template>
-
             <pre>{{ closeResult }}</pre>
-            <!-- </ion-content> -->
-
         </div>
     </section>
     <app-footer></app-footer>

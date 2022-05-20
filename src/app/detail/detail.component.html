@@ -33,7 +33,7 @@
                             </section>
                             <section>
                                 <h3 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h3>
-                                <a class="order" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)">Pick this Card</a>
+                                <a class="order" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)">Buy Now</a>
                                 <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping" *ngIf="card">
                             </section>
                             <section>

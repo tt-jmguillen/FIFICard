@@ -1,3 +1,4 @@
+import { SignAndSendComponent } from './order/sign-and-send/sign-and-send.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
@@ -117,6 +118,8 @@ import { HomeBestsellerComponent } from './modules/home-bestseller/home-bestsell
     FathersDayComponent,
     HomeFeaturedComponent,
     HomeBestsellerComponent,
+    SignAndSendComponent,
+    StickersComponent
   ],
   imports: [
     BrowserModule,

@@ -20,6 +20,7 @@ export class Card {
   public favorites?: string[];
   public imageUrl?: string;
   public ratings?: number;
+  public signAndSend?: boolean;
 }
 
 

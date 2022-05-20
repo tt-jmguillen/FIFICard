@@ -1,3 +1,4 @@
+import { SignAndSend } from './../models/sign-and-send';
 import { Injectable, Query } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { collection, collectionData, doc, docData, Firestore, orderBy, QueryConstraint, Timestamp, updateDoc } from '@angular/fire/firestore';
@@ -100,6 +101,25 @@ export class CardService {
     const data = doc(this.store, 'cards/' + cardId);
     updateDoc(data, {
       'favorites': favorites
+    });
+  }
+
+  async getSignAndSend(id: string): Promise<SignAndSend[]> {
+    return new Promise((resolve, rejects) => {
+      this.db.collection('cards').doc(id).collection('signandsend').get().subscribe(data => {
+        if (!data.empty) {
+          let signAndSends: SignAndSend[] = [];
+          data.forEach(doc => {
+            let sign: SignAndSend = doc.data() as SignAndSend;
+            sign.id = doc.id;
+            signAndSends.push(sign);
+          });
+          resolve(signAndSends);
+        }
+        else {
+          rejects("No sign and send found.");
+        }
+      });
     });
   }
 
