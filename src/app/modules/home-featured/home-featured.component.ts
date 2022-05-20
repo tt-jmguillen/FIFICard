@@ -51,7 +51,7 @@ export class HomeFeaturedComponent implements OnInit {
             //console.log("event.trim(): " + event.trim() + "this.homeCardEvent?.trim(): " + this.homeCardEvent?.trim());
             if(event.trim() == this.homeCardEvent?.trim())
             { 
-              console.log("card: " + JSON.stringify(card));
+              //console.log("card: " + JSON.stringify(card));
               let image = card!.primary;
               if(image){
                 this.temp = await this.getAvailableURL(image).then(url => {
