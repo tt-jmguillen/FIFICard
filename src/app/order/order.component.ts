@@ -1,3 +1,4 @@
+import { SignAndSendDetails } from './../models/sign-and-send-details';
 import { AddressService } from './../services/address.service';
 import { EmailService } from './../services/email.service';
 import { OrderService } from './../services/order.service';
@@ -15,7 +16,6 @@ import { environment } from 'src/environments/environment';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
-import { retry } from 'rxjs';
 
 export class Validation {
   public sender_name: boolean = true;
@@ -127,6 +127,23 @@ export class OrderComponent implements OnInit {
     });
 
     this.loadUser();
+
+    this.orderService.getOrderInProgress(this.uid, this.id!).then(orders => {
+      if (orders.length > 0){
+        this.orderForm.patchValue({
+          sender_name: orders[0].sender_name,
+          sender_phone: orders[0].sender_phone,
+          sender_email: orders[0].sender_email,
+          receiver_name: orders[0].receiver_name,
+          receiver_phone: orders[0].receiver_phone,
+          receiver_email: orders[0].receiver_email,
+          address: orders[0].address,
+          anonymously: orders[0].anonymously,
+          sendto: orders[0].sendto,
+          message: orders[0].message,
+        });
+      }
+    })
   }
 
   loadUser() {
@@ -306,7 +323,7 @@ export class OrderComponent implements OnInit {
           order.payer_email = this.payerEmail;
         }
       }
-      else{
+      else {
         order.proof = this.proof;
         order.transaction_id = '';
         order.payer_id = '';
@@ -317,6 +334,20 @@ export class OrderComponent implements OnInit {
         this.userService.addOrder(this.uid, order.id!);
         this.emailService.sendOrderEmail(order);
         this.orderForm.reset();
+
+        this.orderService.getSignAndSendData(this.uid, this.id!).then(signs => {
+          signs.forEach((sign: SignAndSendDetails) => {
+            this.orderService.addSignAndSend(order.id!, sign);
+            this.orderService.deleteSignAndSendData(this.uid, this.id!, sign.id);
+          });
+        });
+
+        this.orderService.getOrderInProgress(this.uid, this.id!).then(orders => {
+          orders.forEach(order => {
+            this.orderService.deleteOrderInProgressa(this.uid, this.id!, order.id!);
+          })
+        })
+
         let cart: Cart = new Cart(order.id!, this.card!.name!);
         this.addLocalStorage(cart);
         this.modalService.dismissAll();
@@ -345,5 +376,21 @@ export class OrderComponent implements OnInit {
       let carts: Cart[] = [cart];
       localStorage.setItem("cart", JSON.stringify(carts));
     }
+  }
+
+  signAndSend() {
+    this.orderService.getOrderInProgress(this.uid, this.id!).then(orders => {
+      orders.forEach(element => {
+        this.orderService.deleteOrderInProgressa(this.uid, this.id!, element.id!);
+      });
+
+      let order: Order = this.orderForm.value as Order;
+      order.user_id = this.uid;
+      order.card_id = this.card?.id;
+      order.card_name = this.card?.name;
+      order.card_price = this.card?.price;
+      this.orderService.addOrderInProgress(this.uid, this.id!, order);
+    });
+    this.router.navigate(['/signandsend/' + this.id!])
   }
 }

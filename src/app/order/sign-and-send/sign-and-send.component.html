@@ -1,0 +1,81 @@
+<ion-content> 
+    <section class="section-name padding-y-sm">
+        <div class="container animate">
+            <div class="row">
+                <div class="col-9 editing">
+                    <div class="main" *ngIf="focusURL">
+                        <img src="{{focusURL.url}}">
+                        <div class="text-area d-flex align-items-center justify-content-center"
+                            *ngFor="let item of focusItems" [style.top.px]="item.top" [style.left.px]="item.left"
+                            [style.width.px]="item.width" [style.height.px]="item.height">
+                            <div [style.font-family]="item.style" [style.font-size.px]="item.size"
+                                [style.text-align]="item.alignment">
+                                <p [innerText]="item.text"></p>
+                            </div>
+                            <button class="icon icon-sm rounded-circle border" (click)="textareaClick(item.code)"><i
+                                class="fa fa-edit"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 tool">
+                    <div class="row">
+                        <div class="col-12" *ngIf="!selected.image">
+                            <label class="alert">Select a Textarea first</label>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Your Message</label>
+                            <br />
+                            <textarea class="form-control" rows="5" (keyup)="textareaKeyup($event)"
+                                [value]="selected.text" [maxLength]="selected.limit"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <br />
+                            <label class="form-label">Font</label>
+                            <br />
+                            <select class="form-control" [value]="selected.style" (change)="fontChange($event)"
+                                [(ngModel)]="selected.style">
+                                <option *ngFor="let font of fonts" value="{{font}}">{{font}}</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <br />
+                            <label class="form-label">Font Size</label>
+                            <br />
+                            <input type="range" class="form-range" min="20" max="50" step="1" [value]="selected?selected.size:0"
+                                (change)="sizeChange($event)">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Alignment</label>
+                            <br />
+                            <div class="btn-group   " role="group" ngbRadioGroup name="radioBasic" [(ngModel)]="selected.alignment">
+                                <button [ngClass]="selected.alignment == 'left' ? 'btn btn-primary btn-lg' : 'btn btn-light btn-lg'" (click)="alignmentClick('left')">
+                                    <i class="fa fa-align-left"></i>
+                                </button>
+                                <button [ngClass]="selected.alignment == 'center' ? 'btn btn-primary btn-lg' : 'btn btn-light btn-lg'"  (click)="alignmentClick('center')">
+                                    <i class="fa fa-align-center"></i>
+                                </button>
+                                <button [ngClass]="selected.alignment == 'right' ? 'btn btn-primary btn-lg' : 'btn btn-light btn-lg'"  (click)="alignmentClick('right')">
+                                    <i class="fa fa-align-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row action-tool">
+                        <div class="col-12">
+                            <button class="btn btn-outline-primary action" (click)="clickSave()">Save</button>
+                            <button class="btn btn-outline-danger action" (click)="clickCancel()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="image-list">
+                        <img *ngFor="let url of urls" src="{{url.url}}" (click)="imageClick(url)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

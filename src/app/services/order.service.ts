@@ -1,3 +1,4 @@
+import { SignAndSendDetails } from './../models/sign-and-send-details';
 import { Injectable } from '@angular/core';
 import { collection, Firestore, doc, addDoc, docData, query, where, collectionData } from '@angular/fire/firestore';
 import { ref, Storage, uploadBytes, UploadResult } from '@angular/fire/storage';
@@ -5,6 +6,7 @@ import { Order } from '../models/order';
 import { Timestamp } from "@angular/fire/firestore";
 import { Observable } from 'rxjs';
 import { Status } from '../models/status';
+import { deleteDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -86,6 +88,32 @@ export class OrderService {
     });
   }
 
+  addSignAndSend(orderId: string, sign: SignAndSendDetails){
+    return new Promise((resolve, rejects) => {
+      const data = collection(this.store, 'orders/' + orderId + '/signandsend')
+      addDoc(data, {
+        image: sign.image,
+        code: sign.code,
+        top: sign.top,
+        left: sign.left,
+        width: sign.width,
+        height: sign.height,
+        limit: sign.limit,
+        style: sign.style,
+        text: sign.text,
+        size: sign.size,
+        alignment: sign.alignment
+      }).then(docRef => {
+        const data = docData(docRef, {idField: 'id'}) as Observable<SignAndSendDetails>;
+        data.subscribe(doc => {
+          resolve(doc);
+        });
+      }).catch(reason => {
+        rejects(reason);
+      })
+    });
+  }
+
   async getInitial(): Promise<string>{
     return new Promise((resolve, rejects) => {
       let data = collection(this.store, 'status');
@@ -98,5 +126,86 @@ export class OrderService {
           resolve("New");
       });
     });
+  }
+
+  getSignAndSendData(userId: string, cardId: string): Promise<SignAndSendDetails[]>{
+    return new Promise((resolve) => {
+      let data = collection(this.store, 'workinprogress/' + userId + '/card/' + cardId + '/signandsend') ;
+      (collectionData(data, { idField: 'id' }) as Observable<SignAndSendDetails[]>).subscribe(
+        signs => {
+          resolve(signs);
+        }
+      );
+    });
+  }
+
+  addSignAndSendData(userId: string, cardId: string, sign: SignAndSendDetails){
+    return new Promise((resolve, rejects) => {
+      const data = collection(this.store, 'workinprogress/' + userId + '/card/' + cardId + '/signandsend')
+      addDoc(data, {
+        image: sign.image,
+        code: sign.code,
+        top: sign.top,
+        left: sign.left,
+        width: sign.width,
+        height: sign.height,
+        limit: sign.limit,
+        style: sign.style,
+        text: sign.text,
+        size: sign.size,
+        alignment: sign.alignment
+      }).then(docRef => {
+        const data = docData(docRef, {idField: 'id'}) as Observable<SignAndSendDetails>;
+        data.subscribe(doc => {
+          resolve(doc);
+        });
+      }).catch(reason => {
+        rejects(reason);
+      })
+    });
+  }
+
+  deleteSignAndSendData(userId: string, cardId: string, id: string){
+    deleteDoc(doc(this.store, 'workinprogress/' + userId + '/card/' + cardId + '/signandsend/' + id));
+  }
+
+  getOrderInProgress(userId: string, cardId: string): Promise<Order[]>{
+    return new Promise((resolve) => {
+      let data = collection(this.store, 'workinprogress/' + userId + '/card/' + cardId + '/order') ;
+      (collectionData(data, { idField: 'id' }) as Observable<Order[]>).subscribe(
+        order => {
+          resolve(order);
+        }
+      );
+    });
+  }
+
+  addOrderInProgress(userId: string, cardId: string, order: Order){
+    const data = collection(this.store, 'workinprogress/' + userId + '/card/' + cardId + '/order')
+    return new Promise((resolve, rejects) => {
+      addDoc(data, {
+        sender_name: order.sender_name,
+        sender_phone: order.sender_phone,
+        sender_email: order.sender_email,
+        receiver_name: order.receiver_name,
+        receiver_phone: order.receiver_phone,
+        receiver_email: order.receiver_email,
+        address: order.address,
+        anonymously: order.anonymously,
+        sendto: order.sendto,
+        message: order.message
+      }).then(docRef => {
+        const data = docData(docRef, {idField: 'id'}) as Observable<Order>;
+        data.subscribe(doc => {
+          resolve(doc);
+        });
+      }).catch(reason => {
+        rejects(reason);
+      })
+    });
+  }
+
+  deleteOrderInProgressa(userId: string, cardId: string, id: string){
+    deleteDoc(doc(this.store, 'workinprogress/' + userId + '/card/' + cardId + '/order/' + id));
   }
 }

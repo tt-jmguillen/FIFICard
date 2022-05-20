@@ -1,3 +1,4 @@
+import { SignAndSendComponent } from './order/sign-and-send/sign-and-send.component';
 import { FathersDayComponent } from './fathers-day/fathers-day.component';
 import { MessageComponent } from './message/message.component';
 import { MotherGiftsComponent } from './mothers-day/mother-gifts/mother-gifts.component';
@@ -78,6 +79,9 @@ const routes: Routes = [
   },
   {
     path: 'order/:id', component: OrderComponent
+  },
+  {
+    path: 'signandsend/:id', component: SignAndSendComponent
   },
   {
     path: 'status/:id', component: StatusComponent
