@@ -68,6 +68,8 @@ import { MessageComponent } from './message/message.component';
 import { FathersDayComponent } from './fathers-day/fathers-day.component';
 import { HomeFeaturedComponent } from './modules/home-featured/home-featured.component';
 import { HomeBestsellerComponent } from './modules/home-bestseller/home-bestseller.component';
+import { FatherGreetingsComponent } from './fathers-day/father-greetings/father-greetings.component';
+
 
 
 @NgModule({
@@ -117,6 +119,7 @@ import { HomeBestsellerComponent } from './modules/home-bestseller/home-bestsell
     FathersDayComponent,
     HomeFeaturedComponent,
     HomeBestsellerComponent,
+    FatherGreetingsComponent,
   ],
   imports: [
     BrowserModule,
