@@ -19,7 +19,30 @@
                         {{recipient}}
                     </span>
                 </div>
-                <div class="col-md-12 text-center">
+                <div class="col-md-8 col-sm-12"></div>
+                <div class="col-md-2 col-sm-6">
+                    <select class="form-select" aria-label="Budget" (change)="changeBudget($event)">
+                        <option value="" [selected]="budget == ''">Budget</option>
+                        <option value="0 - 99" [selected]="budget == '0 - 99'">0 - 99.00</option>
+                        <option value="100 - 199" [selected]="budget == '100 - 199'">100.00 - 199.00</option>
+                        <option value="200 and Up" [selected]="budget == '200 and Up'">200.00 and Up</option>
+                    </select>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <select class="form-select" aria-label="Sort" (change)="changeSort($event)">
+                        <option value="" [selected]="sort == ''">Sort</option>
+                        <option value="Latest" [selected]="sort == 'Latest'">Latest</option>
+                        <option value="Price from Low to High" [selected]="sort == 'Price from Low to High'">Price from
+                            Low
+                            to High</option>
+                        <option value="Price from High to Low" [selected]="sort == 'Price from High to Low'">Price from
+                            High
+                            to Low</option>
+                        <option value="Highest Ratings" [selected]="sort == 'Highest Ratings'">Highest Ratings</option>
+                    </select>
+                </div>
+
+                <div class="col-md-12 d-flex justify-content-center">
                     <button class="btn btn-light actionbtn" (click)="clickPrev()" [disabled]="!disablePrev"
                         *ngIf="pages.length > 1">
                         <i class="fa fa-i fa-angle-left"></i>
@@ -46,7 +69,7 @@
                 </div>
             </div> <!-- row.// -->
             <div class="row">
-                <div class="col-md-12 text-center">
+                <div class="col-md-12 d-flex justify-content-center">
                     <button class="btn btn-light actionbtn" (click)="clickPrev()" [disabled]="!disablePrev"
                         *ngIf="pages.length > 1">
                         <i class="fa fa-i fa-angle-left"></i>

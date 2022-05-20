@@ -43,6 +43,7 @@ export class CardsComponent implements OnInit {
 
   cards: Card[] = [];
   filterCards: Card[] = [];
+  sortCards: Card[] = [];
   displayCards: Card[] = [];
   pages: Page[] = [];
   index: number;
@@ -76,22 +77,7 @@ export class CardsComponent implements OnInit {
       this.filterService.getSearch().subscribe(value => {
         this.search = value;
         if (this.cards.length > 0){
-          this.filterCards = this.cards; 
           this.applyFilter();
-        }
-      });
-
-      this.filterService.getBudget().subscribe(value => {
-        this.budget = value;
-        if (this.filterCards.length > 0){
-          this.applyDisplayFilterAndSort();
-        }
-      });
-
-      this.filterService.getSort().subscribe(value => {
-        this.sort = value;
-        if (this.filterCards.length > 0){
-          this.applyDisplayFilterAndSort();
         }
       });
 
@@ -102,6 +88,20 @@ export class CardsComponent implements OnInit {
 
       this.getAllCards();
     });
+  }
+
+  changeBudget(event: any){
+    this.budget = event.target.value;
+    if (this.filterCards.length > 0){
+      this.applyDisplayFilterAndSort();
+    }
+  }
+
+  changeSort(event: any){
+    this.sort = event.target.value;
+    if (this.filterCards.length > 0){
+      this.applyDisplayFilterAndSort();
+    }
   }
 
   getAllCards() {
@@ -133,15 +133,17 @@ export class CardsComponent implements OnInit {
       this.filterCards = this.filterForRecipient(this.recipient, this.filterCards);
     }
 
-    console.log(this.filterCards);
     this.applyDisplayFilterAndSort();
   }
 
   applyDisplayFilterAndSort(){
+    this.sortCards = this.filterCards;
+
     if (this.budget){
-      this.filterCards = this.filterForBudget(this.budget, this.filterCards);
+      this.sortCards = this.filterForBudget(this.budget, this.sortCards);
     }
-    this.filterCards = this.sortRecord(this.sort, this.filterCards);
+    this.sortCards = this.sortRecord(this.sort, this.sortCards);
+
     this.initializeBatch();
     this.loadBatch(1);
   }
@@ -202,16 +204,19 @@ export class CardsComponent implements OnInit {
     let filtered: Card[] = []
     data.forEach(card => {
       if (_budget == '0 - 99') {
-        if (card.price! >= 99)
+        if (Number(card.price!) <= 99){
           filtered.push(card);
+        }
       }
       else if (_budget == '100 - 199') {
-        if ((card.price! <= 100) && (card.price! >= 199))
+        if (100 <= (Number(card.price!)) && (Number(card.price!) <= 199)){
           filtered.push(card);
+        }
       }
       else if (_budget == '200 and Up') {
-        if (card.price! >= 99)
+        if (200 <= Number(card.price!)){
           filtered.push(card);
+        }
       }
     });
     return filtered;
@@ -235,7 +240,6 @@ export class CardsComponent implements OnInit {
 
   onRecipientClick(recipient: string) {
     this.selectedRecipient = recipient;
-    console.log(this.selectedRecipient);
     this.filterCards = this.filterForRecipient(this.selectedRecipient, this.cards);
     this.applyDisplayFilterAndSort();
   }
@@ -269,9 +273,9 @@ export class CardsComponent implements OnInit {
   initializeBatch() {
     this.pages = [];
 
-    if (this.filterCards.length > this.batchLimit) {
-      this.batchCount = Math.trunc(this.filterCards.length / this.batchLimit);
-      if (this.batchCount < (this.filterCards.length / this.batchLimit)) {
+    if (this.sortCards.length > this.batchLimit) {
+      this.batchCount = Math.trunc(this.sortCards.length / this.batchLimit);
+      if (this.batchCount < (this.sortCards.length / this.batchLimit)) {
         this.batchCount++;
       }
     }
@@ -282,14 +286,14 @@ export class CardsComponent implements OnInit {
     for (let i = 1; i <= this.batchCount; i++) {
       let page: Page = new Page(i);
       page.end = i * this.batchLimit;
-      if (page.end > this.filterCards.length)
-        page.end = this.filterCards.length;
-      if (this.filterCards.length > this.batchLimit)
+      if (page.end > this.sortCards.length)
+        page.end = this.sortCards.length;
+      if (this.sortCards.length > this.batchLimit)
         page.start = page.end - (this.batchLimit - 1);
       else
         page.start = 1;
       page.display = `Page ${i} of ${this.batchCount}`;
-      page.showing = `Showing ${page.start} - ${page.end} to ${this.filterCards.length} items`;
+      page.showing = `Showing ${page.start} - ${page.end} to ${this.sortCards.length} items`;
       this.pages.push(page);
     }
   }
@@ -301,7 +305,7 @@ export class CardsComponent implements OnInit {
         page.selected = true;
         this.displayCards = [];
         for (let i = page.start - 1; i <= page.end - 1; i++) {
-          this.displayCards.push(this.filterCards[i]);
+          this.displayCards.push(this.sortCards[i]);
         }
         this.batchShowing = page.showing;
       }

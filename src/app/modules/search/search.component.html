@@ -1,6 +1,6 @@
 <form [formGroup]="searchForm" class="search" (ngSubmit)="searchCard()">
     <div class="row">
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-12">
             <div class="input-group w-100">
                 <input type="text" class="form-control" placeholder="Search" formControlName="search">
                 <div class="input-group-append">
@@ -10,7 +10,7 @@
                 </div>     
             </div>
         </div>
-        <div class="col-md-3 col-sm-6">
+        <!--<div class="col-md-3 col-sm-6">
             <select class="form-control custom-select" aria-label="Budget" (change)="changeBudget($event)">
                 <option value="" [selected]="budget == ''">Budget</option>
                 <option value="0 - 99" [selected]="budget == '0 - 99'">0 - 99.00</option>
@@ -26,7 +26,7 @@
                 <option value="Price from High to Low" [selected]="sort == 'Price from High to Low'">Price from High to Low</option>
                 <option value="Highest Ratings" [selected]="sort == 'Highest Ratings'">Highest Ratings</option>
             </select>
-        </div>
+        </div>-->
     </div>
     
 </form> 
