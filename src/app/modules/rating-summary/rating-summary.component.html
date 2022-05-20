@@ -1,5 +1,6 @@
 <br /><br />
-<p style="font-size: 150%; text-align: center;"><b>Customer reviews</b></p>
+<div *ngIf="currentRateStr!='0.0'">
+<p style="font-size: 150%; text-align: center;" *ngIf="currentRateStr!='0.0'"><b>Customer reviews</b></p>
 
 <div style="display: flex; background-color: #f8f9fa;border:1px solid #ccc">
     <div class="col-lg-6 col-sm-12">
@@ -39,4 +40,19 @@
         </button>
         </div>
     </div>
+</div>
+</div>
+
+<div *ngIf="currentRateStr=='0.0'">
+  <p style="font-size: 150%; text-align: center;" *ngIf="!isLogIn"><b>Customer reviews</b></p>
+  
+  <div>
+      <div class="col-lg-12 col-sm-12" style="display: flex;">
+          <div class="center-content" style="padding-left: 45%;" *ngIf="!isLogIn">
+          <button mat-raised-button (click)="writeReviewDialog()">
+            WRITE A REVIEW
+          </button>
+          </div>
+      </div>
+  </div>
 </div>

@@ -48,7 +48,7 @@ export class DetailComponent implements OnInit {
   loadCard(){
     this.service.getCard(this.id!).subscribe(data => {
       this.card! = data;
-      //console.log("CARD: " + JSON.stringify(data));
+      console.log("CARD: " + JSON.stringify(data));
       this.event = this.card!.event;
       this.titleService.setTitle(this.card?.name!);
     });
