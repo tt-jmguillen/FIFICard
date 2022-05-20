@@ -59,7 +59,20 @@ export class SignAndSendComponent implements OnInit {
   filerService: FilterService;
 
   uid: string;
-  fonts: string[] = ['Smooch', 'Zen Loop', 'Satisfy', 'Courgette'];
+  fonts: string[] = [
+    'Open Sans',
+    'Dancing Script',
+    'Pacifico',
+    'Satisfy',
+    'Cookie',
+    'Great Vibes',
+    'Lora',
+    'Lobster',
+    'Playball',
+    'Courgette',
+    'Smooch', 
+    'Zen Loop'
+  ];
   items: Item[] = [];
   images: string[] = [];
   urls: URL[] = [];
@@ -215,6 +228,14 @@ export class SignAndSendComponent implements OnInit {
   }
 
   clickSave(){
+    this.saveProcess(false);
+  }
+
+  clickSaveAndClose(){
+    this.saveProcess(true);
+  }
+
+  saveProcess(closeAfter: boolean){
     this.images.forEach(image => {
       this.updateDetail(image);
     })
@@ -249,6 +270,10 @@ export class SignAndSendComponent implements OnInit {
         signDetails.forEach(element => {
           this.orderService.addSignAndSendData(this.uid, this.id!, element)
         });
+      }
+
+      if (closeAfter){
+        this.router.navigate(['/order/' + this.id!])
       }
     });
   }
