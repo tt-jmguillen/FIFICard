@@ -184,16 +184,43 @@ export class CardsComponent implements OnInit {
   filterForRecipient(_recipient: string, data: Card[]): Card[]{
     let filtered: Card[] = [];
     if (_recipient == 'All'){
-      filtered = data;
+      data.forEach(card => {
+        if (this.event){
+          if (card.event){
+            card.event.split(",").forEach(event => {
+              if (event.trim() == this.event) {
+                filtered.push(card);
+              }
+            });
+          }
+        }
+      });
     }
     else{
       data.forEach(card => {
-        if (card.recipient){
-          card.recipient.split(",").forEach(recipient => {
-            if (recipient.trim() == _recipient) {
-              filtered.push(card);
-            }
-          })
+        if (this.event){
+          if (card.event){
+            card.event.split(",").forEach(event => {
+              if (event.trim() == this.event) {
+                if (card.recipient){
+                  card.recipient.split(",").forEach(recipient => {
+                    if (recipient.trim() == _recipient) {
+                      filtered.push(card);
+                    }
+                  })
+                }
+              }
+            })
+          }
+        }
+        else{
+          if (card.recipient){
+            card.recipient.split(",").forEach(recipient => {
+              if (recipient.trim() == _recipient) {
+                filtered.push(card);
+              }
+            })
+          }
         }
       });
     }
