@@ -1,12 +1,12 @@
 <div class="container" ng-app="app">
-    <div class="row center-content"><h5><b>YOU MAY ALSO LIKE</b></h5></div>
+    <div class="row center-content"><h5><b>{{homeCardEvent}}</b></h5></div>
     <div class="row center-content" ng-controller="appController">
       <div class="col-md-1" *ngIf="!disablePrev" style="padding-top: 5%;">
         <button class="btn btn-default" (click)="leftClick()">
           <mat-icon>arrow_back_ios</mat-icon>
         </button>
       </div>
-      <div class="col-md-3" routerLink="{{'/card/' + displayCard!.id}}" *ngFor="let displayCard of displayCards">
+      <div class="col-md-3" routerLink="{{'/card/' + displayCard!.id}}" *ngFor="let displayCard of displayCards" >
         <img class="img-thumbnail" src="{{displayCard?.imageUrl}}">
         <h5>{{displayCard?.name}}</h5>
       </div>

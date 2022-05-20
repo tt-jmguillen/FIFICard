@@ -66,6 +66,8 @@ import { SubHeaderComponent } from './pages/sub-header/sub-header.component';
 import { SubFooterComponent } from './pages/sub-footer/sub-footer.component';
 import { MessageComponent } from './message/message.component';
 import { FathersDayComponent } from './fathers-day/fathers-day.component';
+import { HomeFeaturedComponent } from './modules/home-featured/home-featured.component';
+import { HomeBestsellerComponent } from './modules/home-bestseller/home-bestseller.component';
 
 
 @NgModule({
@@ -113,6 +115,8 @@ import { FathersDayComponent } from './fathers-day/fathers-day.component';
     SubFooterComponent,
     MessageComponent,
     FathersDayComponent,
+    HomeFeaturedComponent,
+    HomeBestsellerComponent,
   ],
   imports: [
     BrowserModule,

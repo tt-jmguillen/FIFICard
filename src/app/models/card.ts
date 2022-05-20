@@ -11,6 +11,8 @@ export class Card {
   public recipient?: string;
   public recipients?: string[];
   public active?: boolean;
+  public bestseller?: boolean;
+  public featured?: boolean;
   public created?: Timestamp;
   public modified?: Timestamp;
   public images?: string[];
