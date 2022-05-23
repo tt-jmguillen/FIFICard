@@ -15,6 +15,7 @@ export class CardService {
   store: Firestore;
   storage: Storage;
   db: AngularFirestore;
+  temp:any;
 
   constructor(
     private _store: Firestore,
@@ -24,6 +25,54 @@ export class CardService {
     this.storage = _storage;
     this.db = _db;
   }
+
+  getBestsellerCards(): Promise<Card[]> {
+    return new Promise((resolve, rejects) => {
+      this.db.collection('cards', ref => ref.where('active', "==", true).where('bestseller', "==", true)).get().subscribe(data => {
+        if (!data.empty) {
+          let cards: Card[] = [];
+          data.forEach(doc => {
+            let card: Card = doc.data() as Card;
+            card.id = doc.id;
+            cards.push(card);
+          
+          });
+          cards = cards.sort(() => Math.random() - 0.5).slice(0,8);  
+          resolve(cards);
+        }
+        else {
+          rejects("No cards found.");
+        }
+      });
+    });
+  }
+
+  getFeaturedCards(_event: string): Promise<Card[]> {
+    return new Promise((resolve, rejects) => {
+      this.db.collection('cards', ref => ref.where('active', "==", true).where('featured', "==", true)).get().subscribe(data => {
+        if (!data.empty) {
+          let cards: Card[] = [];
+          data.forEach(doc => {
+                let card: Card = doc.data() as Card;
+                card.id = doc.id;
+                console.log("card.event: " + JSON.stringify(card.event));
+                card.event?.split(",").forEach(async event => {
+                  if(event.trim() == _event.trim())
+                  { 
+                    cards.push(card);
+                 }
+                }) 
+          });
+          cards = cards.sort(() => Math.random() - 0.5).slice(0,8);  
+          resolve(cards);
+        }
+        else {
+          rejects("No cards found.");
+        }
+      });
+    });
+  }
+
 
   getCards(): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
