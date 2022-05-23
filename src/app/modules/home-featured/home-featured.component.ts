@@ -1,8 +1,8 @@
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Card } from 'src/app/models/card';
 import { CardService } from 'src/app/services/card.service';
 import { environment } from 'src/environments/environment';
-
 @Component({
   selector: 'app-home-featured',
   templateUrl: './home-featured.component.html',
@@ -10,7 +10,6 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeFeaturedComponent implements OnInit {
   @Input() homeCardEvent?: string;
-
   service: CardService;
   cards: Card[] = [];
   randomCards: Card[] = [];
@@ -22,55 +21,40 @@ export class HomeFeaturedComponent implements OnInit {
   temp: any;
   imageUrl: string[] = [];
   cardEvent: string;
-
   constructor(private _service: CardService) { 
     this.service = _service;
   }
-
   ngOnInit() {
-    console.log(">>>>>loadEvent1");
-    this.loadEvent();
-
-    const wait2 = window.setTimeout(() => {
-        console.log(">>>>>loadEvent2");
-        //console.log("cards: " + JSON.stringify(this.cards));
-        this.cards.sort(() => Math.random() - 0.5)  
-        this.randomCards = this.cards.slice(0,12)   
-        this.loadBatch(1);
-    }, 15000);
+    //console.log(">>>>>loadEvent1");
+    this.loadFeatured();
   }
-
-  loadEvent(){
-    this.service.getCards().then(data => {
-     
-      this.cards = [];
-      data.forEach(card => {
-        if (card.event){
-          //console.log("card.event: " + JSON.stringify(card.event));
-          card.event.split(",").forEach(async event => {
-            //console.log("event.trim(): " + event.trim() + "this.homeCardEvent?.trim(): " + this.homeCardEvent?.trim());
-            if(event.trim() == this.homeCardEvent?.trim())
-            { 
-              //console.log("card: " + JSON.stringify(card));
-              let image = card!.primary;
-              if(image){
-                this.temp = await this.getAvailableURL(image).then(url => {
-                  return url;
-                });
-              }
-               //console.log("temp: " + JSON.stringify(this.temp));
-               card.imageUrl  = this.temp; 
-               this.cards.push(card);  
-           }
-          }) 
-        }
+  loadFeatured(){
+    this.service.getFeaturedCards(this.homeCardEvent?.trim()!).then(data => {
+      this.randomCards = [];
+      let ctr = 1;
+      data.forEach(async card => {
+               this.randomCards.push(card);  
+               this.getImage(card);
+               if(ctr == data.length){ 
+                 this.loadBatch(1);
+               }
+               ctr = ctr+1;
       });
+    });
+  }
+  getImage(card: Card){
+    this.temp = this.getAvailableURL(card.primary!).then(url => {
+        this.randomCards.forEach(value => {
+           if(card.id == value.id){
+             card.imageUrl = url;
+           }
+        })
     });
   }
 
   getAvailableURL(image: string): Promise<string>{
     return new Promise((resolve, rejects) => {
-      this.service.getImageURL(image + environment.imageSize.small).then(url => {
+      this.service.getImageURL(image + environment.imageSize.medium).then(url => {
         resolve(url);
       }).catch(err => {
         this.service.getImageURL(image).then(url => {
@@ -79,7 +63,6 @@ export class HomeFeaturedComponent implements OnInit {
       });
     });
   }
-
   loadBatch(_index: number){
     this.displayCards = [];
     if(_index==1){
@@ -108,18 +91,14 @@ export class HomeFeaturedComponent implements OnInit {
       }
     }
   }
-
   leftClick(){
     this.page-=1;
     this.loadBatch(this.page);
   }
-
   
   rightClick(){
     this.page+=1;
     this.loadBatch(this.page);
   }
-
-
 
 }
