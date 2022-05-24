@@ -49,20 +49,38 @@ export class CardService {
 
   getFeaturedCards(_event: string): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
-      //this.db.collection('cards', ref => ref.where('active', "==", true).where('featured', "==", true)).get().subscribe(data => {
-      this.db.collection('cards', ref => ref.where('active', "==", true)).get().subscribe(data => {
+        this.db.collection('cards', ref => ref
+        .where('active', "==", true)
+        //.where('featured', "==", true)
+        .where('events', "array-contains", _event.trim())).get().subscribe(data => {
         if (!data.empty) {
           let cards: Card[] = [];
           data.forEach(doc => {
                 let card: Card = doc.data() as Card;
                 card.id = doc.id;
-                console.log("card.event: " + JSON.stringify(card.event) + " == " + _event.trim());
-                card.event?.split(",").forEach(async event => {
-                  if(event.trim() == _event.trim())
-                  { 
-                    cards.push(card);
-                 }
-                }) 
+                cards.push(card);
+          });
+          cards = cards.sort(() => Math.random() - 0.5).slice(0,12);  
+          resolve(cards);
+        }
+        else {
+          rejects("No cards found.");
+        }
+      });
+    });
+  }
+
+  getCardsByEvent(_event: string): Promise<Card[]> {
+    return new Promise((resolve, rejects) => {
+      this.db.collection('cards', ref => ref
+                                 .where('active', "==", true)
+                                 .where('events', "array-contains", _event.trim())).get().subscribe(data => {
+        if (!data.empty) {
+          let cards: Card[] = [];
+          data.forEach(doc => {
+                let card: Card = doc.data() as Card;
+                card.id = doc.id;
+                cards.push(card);
           });
           cards = cards.sort(() => Math.random() - 0.5).slice(0,12);  
           resolve(cards);

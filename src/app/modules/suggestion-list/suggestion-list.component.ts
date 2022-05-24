@@ -34,51 +34,46 @@ export class SuggestionListComponent implements OnInit {
   }
 
   ngOnInit() {
-   
-    this.loadEvent();;
-
-    const wait2 = window.setTimeout(() => {
-        //console.log("3>>>>>loadBatch");
-        //console.log("cards: " + JSON.stringify(this.cards));
-        this.cards.sort(() => Math.random() - 0.5)  
-        this.randomCards = this.cards.slice(0,12)   
-        this.loadBatch(1);
-    }, 15000);
+    this.loadEvent();
   }
 
   loadEvent(){
     this.service.getCard(this.cardId!).subscribe(val => {
       this.cardEvent = val.event!;
-      //console.log("1>>>>cardEvent: " + JSON.stringify(this.cardEvent));
+      console.log("1>>>>cardEvent: " + JSON.stringify(this.cardEvent));
+      this.getEventCard();
     });
+  }
 
-    this.service.getCards().then(data => {
-      //console.log("2>>>>>loadEvent");
-      this.cards = [];
-      data.forEach(card => {
-        if (card.event){
-          card.event.split(",").forEach(async event => {
-            if(event.trim() == this.cardEvent)
-            { 
-              let image = card!.primary;
-              if(image){
-                this.temp = await this.getAvailableURL(image).then(url => {
-                  return url;
-                });
-              }
-               //console.log("temp: " + JSON.stringify(this.temp));
-               card.imageUrl  = this.temp; 
-               this.cards.push(card);  
+ getEventCard(){
+  this.service.getCardsByEvent(this.cardEvent?.trim()!).then(data => {
+    this.randomCards = [];
+    let ctr = 1;
+    data.forEach(async card => {
+             this.randomCards.push(card);  
+             this.getImage(card);
+             if(ctr == data.length){ 
+               this.loadBatch(1);
+             }
+             ctr = ctr+1;
+    });
+  });
+ }
+
+
+ getImage(card: Card){
+    this.temp = this.getAvailableURL(card.primary!).then(url => {
+        this.randomCards.forEach(value => {
+           if(card.id == value.id){
+             card.imageUrl = url;
            }
-          }) 
-        }
-      });
+        })
     });
   }
 
   getAvailableURL(image: string): Promise<string>{
     return new Promise((resolve, rejects) => {
-      this.service.getImageURL(image + environment.imageSize.small).then(url => {
+      this.service.getImageURL(image + environment.imageSize.medium).then(url => {
         resolve(url);
       }).catch(err => {
         this.service.getImageURL(image).then(url => {
