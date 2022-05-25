@@ -1,0 +1,12 @@
+.cursor{
+    cursor: pointer;
+    opacity: 0.9;
+   
+    padding: 20px;
+}
+.cursor:active,
+.cursor:hover
+{
+    background: whitesmoke;
+    opacity:1;
+}
