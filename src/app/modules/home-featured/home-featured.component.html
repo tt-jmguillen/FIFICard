@@ -7,7 +7,7 @@
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
       </div>
-      <div class="col-md-3" routerLink="{{'/card/' + displayCard!.id}}" *ngFor="let displayCard of displayCards" >
+      <div class="col-md-2" routerLink="{{'/card/' + displayCard!.id}}" *ngFor="let displayCard of displayCards" >
         <img class="img-thumbnail" src="{{displayCard?.imageUrl}}">
         <h5>{{displayCard?.name}}</h5>
       </div>

@@ -47,7 +47,7 @@ export class CardService {
     });
   }
 
-  getFeaturedCards(_event: string): Promise<Card[]> {
+  getFeaturedCards(_event: string, limit: number): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
         this.db.collection('cards', ref => ref
         .where('active', "==", true)
@@ -60,7 +60,7 @@ export class CardService {
                 card.id = doc.id;
                 cards.push(card);
           });
-          cards = cards.sort(() => Math.random() - 0.5).slice(0,12);  
+          cards = cards.sort(() => Math.random() - 0.5).slice(0,limit);  
           resolve(cards);
         }
         else {

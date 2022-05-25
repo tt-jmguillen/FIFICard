@@ -1,5 +1,6 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
 import { Card } from 'src/app/models/card';
 import { CardService } from 'src/app/services/card.service';
 import { environment } from 'src/environments/environment';
@@ -10,6 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeFeaturedComponent implements OnInit {
   @Input() homeCardEvent?: string;
+  @Input() limit?: string;
   service: CardService;
   cards: Card[] = [];
   randomCards: Card[] = [];
@@ -21,15 +23,17 @@ export class HomeFeaturedComponent implements OnInit {
   temp: any;
   imageUrl: string[] = [];
   cardEvent: string;
-  constructor(private _service: CardService) { 
+  isMobile: boolean;
+
+  constructor(private _service: CardService,) { 
     this.service = _service;
   }
   ngOnInit() {
-    //console.log(">>>>>loadEvent1");
     this.loadFeatured();
+    this.isMobile = window.orientation > -1;
   }
   loadFeatured(){
-    this.service.getFeaturedCards(this.homeCardEvent?.trim()!).then(data => {
+    this.service.getFeaturedCards(this.homeCardEvent?.trim()!, Number(this.limit)).then(data => {
       this.randomCards = [];
       let ctr = 1;
       data.forEach(async card => {
@@ -63,34 +67,34 @@ export class HomeFeaturedComponent implements OnInit {
       });
     });
   }
+
   loadBatch(_index: number){
-    this.displayCards = [];
-    if(_index==1){
-      for(let i = 0; i <= 2; i++){
-        this.displayCards.push(this.randomCards[i]);
-        this.disablePrev = true;
-        this.disableNext = (this.randomCards.length>2) ? false : true;
-      }
-    } else if(_index==2){
-      for(let i = 3; i <= 5; i++){
-        this.displayCards.push(this.randomCards[i]);
-        this.disablePrev = false;
-        this.disableNext = (this.randomCards.length>5) ? false : true;
-      }
-    } else if(_index==3){
-      for(let i = 6; i <= 8; i++){
-        this.displayCards.push(this.randomCards[i]);
-        this.disablePrev = false;
-        this.disableNext = (this.randomCards.length>8) ? false : true;
-      }
-    }else{
-      for(let i = 9; i <= 11; i++){
-        this.displayCards.push(this.randomCards[i]);
-        this.disablePrev = false;
-        this.disableNext = true;
-      }
-    }
+      this.displayCards = [];
+      const cardCount = Number(this.limit);
+      const displayCount = this.isMobile? 2 : 4;
+      let pageCount = cardCount/displayCount; 
+          if(_index == 1){
+            for(let i = (displayCount*(_index-1)); i <= (displayCount*_index)-1; i++){
+              this.displayCards.push(this.randomCards[i]);
+              this.disablePrev = true;
+              this.disableNext = (this.randomCards.length>(displayCount*1)-1) ? false : true;
+            }
+          }else if(_index > 1 && _index < pageCount){
+            for(let i = (displayCount*(_index-1)); i <= (displayCount*_index)-1; i++){
+              this.displayCards.push(this.randomCards[i]);
+              this.disablePrev = false;
+              this.disableNext = (this.randomCards.length>(displayCount*1)-1) ? false : true;
+            }
+          }else{
+            for(let i = (displayCount*(_index-1)); i <=(displayCount*_index)-1; i++){
+              this.displayCards.push(this.randomCards[i]);
+              this.disablePrev = false;
+              this.disableNext = true;
+            }
+          }
+
   }
+  
   leftClick(){
     this.page-=1;
     this.loadBatch(this.page);
