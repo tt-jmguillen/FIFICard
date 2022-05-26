@@ -1,12 +1,13 @@
 import { Order } from 'src/app/models/order';
 import { OrderService } from './../../services/order.service';
 import { SignAndSendDetails } from './../../models/sign-and-send-details';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardService } from 'src/app/services/card.service';
 import { sign } from 'crypto';
 import { FilterService } from 'src/app/services/filter.service';
 import { left } from '@popperjs/core';
+import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 class Item {
   public image: string;
@@ -38,6 +39,12 @@ class Item {
     this.style = _style;
     this.alignment = _alignment;
   }
+
+  public clear(){
+    this.text = '';
+    this.size = 20;
+    this.alignment = 'left'; 
+  }
 }
 
 class URL{
@@ -51,12 +58,16 @@ class URL{
   styleUrls: ['./sign-and-send.component.scss']
 })
 export class SignAndSendComponent implements OnInit {
+  @Output() signAndSendEvent = new EventEmitter<SignAndSendDetails[]>();
+  
   id?: string;
   activateRoute: ActivatedRoute;
   service: CardService;
   orderService: OrderService;
   router: Router;
   filerService: FilterService;
+  modalService: NgbModal;
+  modalRef: NgbModalRef;
 
   uid: string;
   fonts: string[] = [
@@ -80,19 +91,27 @@ export class SignAndSendComponent implements OnInit {
   focusURL: URL;
   focusItems: Item[] = [];
   selected: Item = new Item();
+
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false,
+    fullscreen: true
+  };
   
   constructor(
     private _activateRoute: ActivatedRoute,
     private _service: CardService,
     private _orderService: OrderService,
     private _router: Router,
-    private _filerService: FilterService
+    private _filerService: FilterService,
+    private _modalService: NgbModal
   ) { 
     this.activateRoute = _activateRoute;
     this.service = _service;
     this.orderService = _orderService;
     this.router = _router;
     this.filerService = _filerService;
+    this.modalService = _modalService;
   }
 
   ngOnInit(): void {
@@ -103,6 +122,10 @@ export class SignAndSendComponent implements OnInit {
       this.id = params['id'];
       this.loadSignAndSend();
     });
+  }
+
+  clickSignAndSend(signandsend: any) {
+    this.modalRef = this.modalService.open(signandsend, this.ngbModalOptions);
   }
 
   loadSignAndSend(){
@@ -117,6 +140,7 @@ export class SignAndSendComponent implements OnInit {
         this.items.push(item);
       });
 
+      /*
       this.orderService.getSignAndSendData(this.uid, this.id!).then(signs => {
         signs.forEach(sign => {
           this.items.forEach(item => {
@@ -126,6 +150,7 @@ export class SignAndSendComponent implements OnInit {
           })
         });
       });
+      */  
 
       this.items.forEach(item => {
         if (this.images.indexOf(item.image) < 0){
@@ -224,18 +249,15 @@ export class SignAndSendComponent implements OnInit {
   }
 
   clickCancel(){
-    this.router.navigate(['/order/' + this.id!])
+    this.modalRef.close('Cancel');
   }
 
-  clickSave(){
-    this.saveProcess(false);
+  clickClear(){
+    this.items.forEach(item => { item.clear(); });
+    this.focusItems.forEach(item => { item.clear(); })
   }
 
-  clickSaveAndClose(){
-    this.saveProcess(true);
-  }
-
-  saveProcess(closeAfter: boolean){
+  clickDone(){
     this.images.forEach(image => {
       this.updateDetail(image);
     })
@@ -257,25 +279,7 @@ export class SignAndSendComponent implements OnInit {
       signDetails.push(detail);
     });
 
-    this.orderService.getSignAndSendData(this.uid, this.id!).then(signs => {
-      if (signs.length == 0){
-        signDetails.forEach(element => {
-          this.orderService.addSignAndSendData(this.uid, this.id!, element)
-        });
-      }
-      else{
-        signs.forEach(sign => {
-          this.orderService.deleteSignAndSendData(this.uid, this.id!, sign.id);
-        });
-        signDetails.forEach(element => {
-          this.orderService.addSignAndSendData(this.uid, this.id!, element)
-        });
-      }
-
-      if (closeAfter){
-        this.router.navigate(['/order/' + this.id!])
-      }
-    });
+    this.signAndSendEvent.emit(signDetails);
+    this.modalRef.close('Done');
   }
-
 }

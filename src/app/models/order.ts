@@ -4,7 +4,6 @@ export class Order {
     public id? : string;
     public user_id?: string;
     public card_id? : string;
-    public card_name?: string;
     public card_price? : number;
     public sender_name? : string;
     public sender_phone? : string;
@@ -16,12 +15,20 @@ export class Order {
     public anonymously? : boolean;
     public sendto? : string;
     public message? : string;
+    public created?: Timestamp;
+    public isPaid?: Boolean;
+    public paymentId?: string;
+    public withSignAndSend?: boolean;
+
+    /*
+    public card_name?: string;
     public gateway?: string;
     public proof? : string;
     public transaction_id? : string;
     public payer_id? : string;
     public payer_email? : string;
     public status?: string;
-    public created?: Timestamp;
     public modified?: Timestamp;
+    */
+    
 }

@@ -33,143 +33,115 @@
                 <div class="col-lg-6 col-sm-12">
                     <app-imagegrid id="{{id}}"></app-imagegrid>
                 </div>
-                <div class="col-lg-6 col-sm-12">
-                    <header class="section-heading">
-                        <h3 class="section-title">{{card?.name}}</h3>
-                    </header>
-                    <section>
+                <div class="col-lg-6 col-sm-12 row">
+                    <div class="col-12">
+                        <header class="section-heading">
+                            <h3 class="section-title">{{card?.name}}</h3>
+                        </header>
+                    </div>
+                    <div class="col-12">
                         <p>{{card?.description}}</p>
-                    </section>
-                    <section>
+                    </div>
+                    <div class="col-12 mb-2">
                         <h5 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h5>
-                    </section>
-
-                    <form [formGroup]="orderForm">
-                        <section>
-                            <span class="text-muted">Sender</span><br />
-                            <div class="col-12 mb-2">
-                                <label for="senderNameFormControl" class="form-label">Sender Name</label>
-                                <input type="text"
-                                    [ngClass]="validation.sender_name ? 'form-control' : 'form-control invalid'"
-                                    id="senderNameFormControl" placeholder="Name" formControlName="sender_name">
-                            </div>
-                            <div class="col-12 mb-2">
-                                <label for="senderNumberFormControl" class="form-label">Sender Phone Number</label>
-                                <input type="text"
-                                    [ngClass]="validation.sender_phone ? 'form-control' : 'form-control invalid'"
-                                    class="form-control" id="senderNumberFormControl" placeholder="Phone Number"
-                                    formControlName="sender_phone">
-                            </div>
-                            <div class="col-12 mb-2">
-                                <label for="senderEmailFormControl" class="form-label">Sender Email Address</label>
-                                <input type="email"
-                                    [ngClass]="validation.sender_email ? 'form-control' : 'form-control invalid'"
-                                    class="form-control" id="senderEmailFormControl" placeholder="Email Address"
-                                    formControlName="sender_email">
-                            </div>
-                        </section>
-                        <section>
-                            <span class="text-muted">Recipient</span><br />
-                            <div class="col-12 mb-2">
-                                <label for="recipientNameFormControl" class="form-label">Recipient Name</label>
-                                <input type="text"
-                                    [ngClass]="validation.receiver_name ? 'form-control' : 'form-control invalid'"
-                                    class="form-control" id="recipientNameFormControl" placeholder="Name"
-                                    formControlName="receiver_name">
-                            </div>
-                            <div class="col-12 mb-2">
-                                <label for="recipientNumberFormControl" class="form-label">Recipient Phone
-                                    Number</label>
-                                <input type="text"
-                                    [ngClass]="validation.receiver_phone ? 'form-control' : 'form-control invalid'"
-                                    class="form-control" id="recipientNumberFormControl" placeholder="Phone Number"
-                                    formControlName="receiver_phone">
-                            </div>
-                            <div class="col-12 mb-2">
-                                <label for="recipientEmailFormControl" class="form-label">Recipient Email
-                                    Address</label>
-                                <input type="email" class="form-control" id="recipientEmailFormControl"
-                                    placeholder="Email Address" formControlName="receiver_email">
-                            </div>
-                        </section>
-                        <section>
-                            <div class="col-12 mb-2">
-                                <label for="messageFormControl" class="form-label">Delivery Address</label>
-                                <textarea [ngClass]="validation.address ? 'form-control' : 'form-control invalid'"
-                                    id="messageFormControl" rows="5" formControlName="address"></textarea>
-                            </div>
-                        </section>
-                        <section>
-                            <div class="col-12 mb-3 mt-3 ml-3 form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="sendAnonymouslyCheck"
-                                    formControlName="anonymously">
-                                <label class="form-check-label" for="sendAnonymouslyCheck">
-                                    Send Anonymously
-                                </label>
-                            </div>
-                            <div class="col-12 mb-2">
-                                <label class="form-check-label" for="sendToFormControl">
-                                    Send To
-                                </label>
-                                <select
-                                    [ngClass]="validation.sendto ? 'form-select form-control mt-1' : 'form-select form-control mt-1 invalid'"
-                                    aria-label="Sent to" id="sendToFormControl" formControlName="sendto">
-                                    <option selected value="Recipient">Recipient</option>
-                                    <option value="Sender">Sender</option>
-                                </select>
-                            </div>
-                            <div class="col-12 mb-2" *ngIf="card?.signAndSend">
-                                <button class="submit" (click)="signAndSend()">Sign and Send</button>
-                            </div>
-                            <div class="col-12 mb-2">
-                                <label for="messageFormControl" class="form-label">Personal Message</label>
-                                <textarea class="form-control" id="messageFormControl" rows="5"
-                                    formControlName="message"></textarea>
-                            </div>
-                        </section>
-                        <section>
-                            <div class="col-12 mb-2">
-                                <button class="submit" (click)="payNow(content)">Pay Now</button>
-                            </div>
-                        </section>
-                    </form>
-                </div>
-            </div>
-
-            <ng-template #content let-modal>
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modal-basic-title">PAY VIA</h4>
-                    <button type="button" class="btn-close" aria-label="Close"
-                        (click)="modal.dismiss('Cross click')"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <div class="col-12 text-center mainimagediv">
-                            <img src="/assets/images/gcash.png" class="mainitem" *ngIf="card">
-                        </div>
-                        <form [formGroup]="paymentForm">
-                            <section>
-                                <div class="col-12 mb-2">
-                                    <input type="hidden" value="{{proof}}">
-                                    <label for="formFile" class="form-label">Proof of Payment (Screenshot)</label>
-                                    <input type="file" id="formFile" (change)="uploadFile($event)"
-                                        [disabled]="isUploading" formControlName="proof" class="upload">
-                                </div>
-                            </section>
-                            <section>
-                                <div class="col-12 mb-2">
-                                    <button class="submit" (click)="submitOrder('GCash')"
-                                        [disabled]="isUploading">Submit Order</button>
-                                </div>
-                            </section>
-                        </form>
-                        <br />
-                        <p style=" text-align: center;">___________ OR ___________ </p>
-                        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <span class="text-muted">Sender</span>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label class="form-label">Sender Name</label>
+                        <input type="text" class="form-control" placeholder="Name" [value]="order.sender_name"
+                            (change)="onChange('Sender-Name', $event)" (keyup)="onKeyUp('Sender-Name', $event)">
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label class="form-label">Sender Phone Number</label>
+                        <input type="text" class="form-control" placeholder="Phone Number" [value]="order.sender_phone"
+                            (change)="onChange('Sender-Phone', $event)" (keyup)="onKeyUp('Sender-Phone', $event)">
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label class="form-label">Sender Email Address</label>
+                        <input type="email" class="form-control" placeholder="Email Address" [value]="order.sender_email"
+                            (change)="onChange('Sender-Email', $event)" (keyup)="onKeyUp('Sender-Email', $event)">
+                    </div>
+                    <div class="col-12 mb-2">
+                        <span class="text-muted">Recipient</span>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label class="form-label">Recipient Name</label>
+                        <input type="text" class="form-control" placeholder="Name" [value]="order.receiver_name"
+                            (change)="onChange('Recipient-Name', $event)" (keyup)="onKeyUp('Recipient-Email', $event)">
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label class="form-label">Recipient Phone Number</label>
+                        <input type="text" class="form-control" placeholder="Phone Number" [value]="order.receiver_phone"
+                            (change)="onChange('Recipient-Phone', $event)" (keyup)="onKeyUp('Recipient-Phone', $event)">
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label class="form-label">Recipient Email Address</label>
+                        <input type="email" class="form-control" placeholder="Email Address" [value]="order.receiver_email"
+                            (change)="onChange('Recipient-Email', $event)" (keyup)="onKeyUp('Recipient-Email', $event)">
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label class="form-label">Delivery Address</label>
+                        <textarea class="form-control" placeholder="Delivery Address" rows="5" [value]="order.address"
+                            (change)="onChange('Address', $event)" (keyup)="onKeyUp('Address', $event)"></textarea>
+                    </div>
+                    <div class="col-12 mb-2 mt-2 pl-3 form-check">
+                        <input class="form-check-input" type="checkbox" [checked]="order.anonymously"
+                            (change)="onChange('Anonymously', $event)" (keyup)="onKeyUp('Anonymously', $event)">
+                        <label class="form-check-label">Send Anonymously</label>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label class="form-label">Send To</label>
+                        <select class="form-select form-control"  [value]="order.sendto"
+                            (change)="onChange('SendTo', $event)">
+                            <option selected value="Recipient">Recipient</option>
+                            <option value="Sender">Sender</option>
+                        </select>
+                    </div>
+                    <div class="col-12 mb-2" *ngIf="card?.signAndSend">
+                        <app-sign-and-send (signAndSendEvent)="receiveSignAndSend($event)"></app-sign-and-send>
+                        <!--<button class="btn btn-primary full-size" (click)="signAndSend()" *ngIf="card?.signAndSend">Sign and Send</button>-->
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label class="form-label">Personal Message</label>
+                        <textarea class="form-control" placeholder="Personal Message" rows="5"  [value]="order.message"
+                            (change)="onChange('Message', $event)" (keyup)="onKeyUp('Message ', $event)"></textarea>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <button class="btn btn-primary full-size" (click)="addToCart(confimation)"
+                            [disabled]="isValidOrder == false">Add to Cart</button>
                     </div>
                 </div>
+            </div>
+            
+            <ng-template #confimation let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">1 item added</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="{{primaryImageURL}}">
+                        </div>
+                        <div class="col-9">
+                            <div class="col-12">{{card?.name}}</div>
+                            <div class="col-12 allign-right">₱ {{card?.price | number:'1.2-2'}}</div>
+                        </div>
+                    </div>
+                    <div class="border"></div>
+                    <div class="row">
+                        <div class="col-6">Card Subtotal (1 item):</div>
+                        <div class="col-6">
+                            <div class="col-12 allign-right">₱ {{card?.price | number:'1.2-2'}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer footer">
+                    <button class="btn btn-link" (click)="keepShopping()">Keep Shopping</button>
+                    <button class="btn btn-primary" ngbAutofocus (click)="cart()">VIEW CART</button>
+                </div>
             </ng-template>
-            <pre>{{ closeResult }}</pre>
         </div>
     </section>
     <app-footer></app-footer>

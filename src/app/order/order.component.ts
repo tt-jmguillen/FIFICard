@@ -1,32 +1,20 @@
+import { sign } from 'crypto';
 import { SignAndSendDetails } from './../models/sign-and-send-details';
 import { AddressService } from './../services/address.service';
 import { EmailService } from './../services/email.service';
 import { OrderService } from './../services/order.service';
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Card } from '../models/card';
 import { Order } from '../models/order';
 import { CardService } from '../services/card.service';
-import { Cart } from '../models/cart';
 import { AppComponent } from '../app.component';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { environment } from 'src/environments/environment';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
-
-export class Validation {
-  public sender_name: boolean = true;
-  public sender_phone: boolean = true;
-  public sender_email: boolean = true;
-  public receiver_name: boolean = true;
-  public receiver_phone: boolean = true;
-  public address: boolean = true;
-  public sendto: boolean = true;
-  public proof: boolean = true;
-}
 
 @Component({
   selector: 'app-order',
@@ -37,22 +25,31 @@ export class Validation {
 export class OrderComponent implements OnInit {
   id?: string;
   card?: Card;
-  proof: string = '';
+
+  order: Order = new Order();
+  SignAndSend: SignAndSendDetails[] = [];
+  isValidOrder: Boolean = false;
+
+  titleService: Title;
+  appComponent: AppComponent
   activateRoute: ActivatedRoute;
-  service: CardService;
+  cardService: CardService;
   orderService: OrderService;
-  emailService: EmailService;
-  fb: FormBuilder;
-  router: Router;
-  orderForm: FormGroup;
-  paymentForm: FormGroup;
-  validation: Validation = new Validation();
-  isUploading: boolean = false;
-  initialStatus: string;
-  isPayPalApproved: boolean = false;
-  closeResult = '';
   userService: UserService;
   addressService: AddressService;
+  modalService: NgbModal;
+  router: Router;
+
+  confirmRef: NgbModalRef;
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
+  
+  emailService: EmailService;
+
+  isPayPalApproved: boolean = false;
+  closeResult = '';
   uid: string;
   user: User;
 
@@ -60,113 +57,123 @@ export class OrderComponent implements OnInit {
   payerId: string;
   payerEmail: string;
 
+  primaryImageURL: string;
+
   public payPalConfig?: IPayPalConfig;
   public showSuccess: boolean = false;
   public showCancel: boolean = false;
   public showError: boolean = false;
 
   constructor(
-    private appComponent: AppComponent,
-    private _activateRoute: ActivatedRoute,
-    private _service: CardService,
-    private _orderService: OrderService,
+    _titleService: Title,
+    _appComponent: AppComponent,
+    _activateRoute: ActivatedRoute,
+    _cardService: CardService,
+    _orderService: OrderService,
+    _userService: UserService,
+    _addressService: AddressService,
+    _modalService: NgbModal,
+    _router: Router,
+    
     private _emailService: EmailService,
-    private _fb: FormBuilder,
-    private _router: Router,
-    private titleService: Title,
-    private modalService: NgbModal,
-    private _userService: UserService,
-    private _addressService: AddressService
   ) {
+    this.titleService = _titleService;
+    this.appComponent = _appComponent;
     this.activateRoute = _activateRoute;
-    this.service = _service;
+    this.cardService = _cardService;
     this.orderService = _orderService;
-    this.emailService = _emailService;
-    this.fb = _fb;
-    this.router = _router;
     this.userService = _userService;
     this.addressService = _addressService;
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+    this.modalService = _modalService;
+    this.router = _router;
+    
+    this.emailService = _emailService;
   }
 
   ngOnInit(): void {
+    this.order.sender_name = '';
+    this.order.sender_phone = '';
+    this.order.sender_email = '';
+    this.order.receiver_name = '';
+    this.order.receiver_phone = '';
+    this.order.receiver_email = '';
+    this.order.address = '';
+    this.order.anonymously = false;
+    this.order.sendto = "Recipient";
+    this.order.message = '';
+    this.order.withSignAndSend = false;
+
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.uid = userDetails?.uid;
+    this.order.user_id = this.uid;
 
     this.activateRoute.params.subscribe(params => {
       this.id = params['id'];
       this.loadCard();
     });
 
-    this.getStatus();
-
-    this.orderForm = this.fb.group({
-      sender_name: ['', [Validators.required]],
-      sender_phone: ['', [Validators.required]],
-      sender_email: ['', [Validators.required]],
-      receiver_name: ['', [Validators.required]],
-      receiver_phone: ['', [Validators.required]],
-      receiver_email: ['',],
-      address: ['', [Validators.required]],
-      anonymously: [Boolean(false)],
-      sendto: ['Recipient', [Validators.required]],
-      message: ['',]
-    });
-
-    this.paymentForm = this.fb.group({
-      proof: ['',]
-    });
-
     this.loadUser();
 
-    this.orderService.getOrderInProgress(this.uid, this.id!).then(orders => {
-      if (orders.length > 0){
-        this.orderForm.patchValue({
-          sender_name: orders[0].sender_name,
-          sender_phone: orders[0].sender_phone,
-          sender_email: orders[0].sender_email,
-          receiver_name: orders[0].receiver_name,
-          receiver_phone: orders[0].receiver_phone,
-          receiver_email: orders[0].receiver_email,
-          address: orders[0].address,
-          anonymously: orders[0].anonymously,
-          sendto: orders[0].sendto,
-          message: orders[0].message,
-        });
-      }
-    })
+    this.isValidOrder = this.validateOrder();
+  }
+
+  loadCard() {
+    this.cardService.getCard(this.id!).subscribe(data => {
+      this.card! = data;
+      this.titleService.setTitle(this.card?.name!);
+      this.order.card_id = data.id;
+      this.order.card_price = data.price;
+      this.getAvailableURL(this.card.primary!).then(url => {
+        this.primaryImageURL = url;
+      });
+      this.isValidOrder = this.validateOrder();
+    });
   }
 
   loadUser() {
     this.userService.getUser(this.uid).then(user => {
-      this.user = user;
-      this.orderForm.patchValue({
-        sender_name: user.firstname + ' ' + user.lastname,
-        sender_email: user.email,
-      });
-      if (user.address) {
-        this.loadAddress(user.address)
+      if (user.firstname && user.lastname){
+        this.order.sender_name = user.firstname + ' ' + user.lastname;
       }
+      if (user.email){
+        this.order.sender_email = user.email;
+      }
+      if (user.address) {
+        this.addressService.getAddress(user.address).then(address => {
+          this.order.address = address.address + '\r\n' + address.address2 + '\r\n' + address.city + '\r\n' + address.province + '\r\n' + address.country + '\r\n ' + address.postcode;
+        });
+      }
+      this.isValidOrder = this.validateOrder();
     })
   }
 
-  loadAddress(id: string) {
-    this.addressService.getAddress(id).then(address => {
-      this.orderForm.patchValue({
-        address: address.address + '\r\n' + address.address2 + '\r\n' + address.city + '\r\n' + address.province + '\r\n' + address.country + '\r\n ' + address.postcode
-      })
-    });
+  validateOrder(): boolean{
+    let isValid = true;
+    if (!this.order.sender_name || (this.order.sender_name == '')){
+      isValid = false;
+    }
+    if (!this.order.sender_phone || (this.order.sender_phone == '')){
+      isValid = false;
+    }
+    if (!this.order.sender_email || (this.order.sender_email == '')){
+      isValid = false;
+    }
+    if (!this.order.receiver_name || (this.order.receiver_name == '')){
+      isValid = false;
+    }
+    if (!this.order.receiver_phone || (this.order.receiver_phone == '')){
+      isValid = false;
+    }
+    if (!this.order.address || (this.order.address == '')){
+      isValid = false;
+    }
+    if (!this.order.sendto || (this.order.sendto == '')){
+      isValid = false;
+    }
+    return isValid;
   }
 
+  /*
   private initConfig(price: string, cardName: string): void {
     this.payPalConfig = {
       currency: environment.paypalCurrency,
@@ -248,149 +255,87 @@ export class OrderComponent implements OnInit {
       }
     };
   }
+  */
 
-  private resetStatus(): void {
-    this.showError = false;
-    this.showSuccess = false;
-    this.showCancel = false;
+  onChange(type: string, event: any){
+    if (type == "Sender-Name"){
+      this.order.sender_name = event.target.value;
+    }
+    if (type == "Sender-Phone"){
+      this.order.sender_phone = event.target.value;
+    }
+    if (type == "Sender-Email"){
+      this.order.sender_email = event.target.value;
+    }
+    if (type == "Recipient-Name"){
+      this.order.receiver_name = event.target.value;
+    }
+    if (type == "Recipient-Phone"){
+      this.order.receiver_phone = event.target.value;
+    }
+    if (type == "Recipient-Email"){
+      this.order.receiver_email = event.target.value;
+    }
+    if (type == "Address"){
+      this.order.address = event.target.value;
+    }
+    if (type == "Anonymously"){
+      this.order.anonymously = event.target.checked;
+    }
+    if (type == "SendTo"){
+      this.order.sendto = event.target.value;
+    }
+    if (type == "Message"){
+      this.order.message = event.target.value;
+    }
   }
 
-  closeShowSuccess() {
-    this.showError = false;
+  onKeyUp(type: string, event: any){  
+    this.isValidOrder = this.validateOrder();
   }
 
-  getStatus() {
-    this.orderService.getInitial().then(data => { this.initialStatus = data });
-  }
-
-  loadCard() {
-    this.service.getCard(this.id!).subscribe(data => {
-      this.card! = data;
-      this.titleService.setTitle(this.card?.name!);
-
-      console.log("PRICE: " + JSON.stringify(this.card));
-      this.initConfig(String(this.card?.price), String(this.card?.name));
-    });
-  }
-
-  payNow(content: any) {
-    if (this.validateOrder()) {
-      this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  addToCart(confirm: any){
+    this.orderService.createOrder(this.order).then(id => {
+      this.SignAndSend.forEach(sign => {
+        this.orderService.addSignAndSend(id, sign);
       });
-    }
-  }
-
-  validateOrder(): boolean {
-    if (this.orderForm.valid) {
-      return true;
-    }
-    else {
-      this.validation.sender_name = this.orderForm.controls['sender_name']['status'] == "VALID";
-      this.validation.sender_phone = this.orderForm.controls['sender_phone']['status'] == "VALID";
-      this.validation.sender_email = this.orderForm.controls['sender_email']['status'] == "VALID";
-      this.validation.receiver_name = this.orderForm.controls['receiver_name']['status'] == "VALID";
-      this.validation.receiver_phone = this.orderForm.controls['receiver_phone']['status'] == "VALID";
-      this.validation.address = this.orderForm.controls['address']['status'] == "VALID";
-      this.validation.sendto = this.orderForm.controls['sendto']['status'] == "VALID";
-      return false;
-    }
-  }
-
-  submitOrder(gateway: string) {
-    let userDetails: string = localStorage.getItem('user')!;
-    if (userDetails == null || userDetails.length < 0) {
-      this.appComponent.openLoginDialog(null);
-    } else {
-      console.log(this.orderForm.value);
-      let order: Order = this.orderForm.value as Order;
-      order.user_id = this.uid;
-      order.card_id = this.card?.id;
-      order.card_name = this.card?.name;
-      order.card_price = this.card?.price;
-      order.gateway = gateway;
-      order.status = this.initialStatus;
-
-      if (gateway == "PayPal") {
-        order.proof = '';
-        order.transaction_id = this.transactionId;
-        if (this.payerId) {
-          order.payer_id = this.payerId;
-        }
-        if (this.payerEmail) {
-          order.payer_email = this.payerEmail;
-        }
-      }
-      else {
-        order.proof = this.proof;
-        order.transaction_id = '';
-        order.payer_id = '';
-        order.payer_email = '';
-      }
-
-      this.orderService.createOrder(order).then(order => {
-        this.userService.addOrder(this.uid, order.id!);
-        this.emailService.sendOrderEmail(order);
-        this.orderForm.reset();
-
-        this.orderService.getSignAndSendData(this.uid, this.id!).then(signs => {
-          signs.forEach((sign: SignAndSendDetails) => {
-            this.orderService.addSignAndSend(order.id!, sign);
-            this.orderService.deleteSignAndSendData(this.uid, this.id!, sign.id);
-          });
-        });
-
-        this.orderService.getOrderInProgress(this.uid, this.id!).then(orders => {
-          orders.forEach(order => {
-            this.orderService.deleteOrderInProgressa(this.uid, this.id!, order.id!);
-          })
-        })
-
-        let cart: Cart = new Cart(order.id!, this.card!.name!);
-        this.addLocalStorage(cart);
-        this.modalService.dismissAll();
-        this.router.navigate(['/status/' + order.id!]);
-      })
-    }
-  }
-
-  uploadFile(event: any) {
-    this.isUploading = true;
-    const file: File = event.target.files[0];
-    this.orderService.uploadFile(file).then(result => {
-      this.proof = result.metadata.fullPath;
-      this.validation.proof = this.proof != '';
-      this.isUploading = false;
+      this.userService.addItemOnCart(this.uid, id);
+      this.confirmRef = this.modalService.open(confirm, this.ngbModalOptions);
     })
   }
 
-  addLocalStorage(cart: Cart) {
-    let jsonString: string = localStorage.getItem('cart')!;
-    if (jsonString != null) {
-      let carts: Cart[] = JSON.parse(jsonString) as Cart[];
-      localStorage.setItem("cart", JSON.stringify(carts));
-    }
-    else {
-      let carts: Cart[] = [cart];
-      localStorage.setItem("cart", JSON.stringify(carts));
-    }
+  test(confirm: any){
+    this.confirmRef = this.modalService.open(confirm, this.ngbModalOptions);
   }
 
-  signAndSend() {
-    this.orderService.getOrderInProgress(this.uid, this.id!).then(orders => {
-      orders.forEach(element => {
-        this.orderService.deleteOrderInProgressa(this.uid, this.id!, element.id!);
-      });
+  confirmation(confirm: any) {
+    this.confirmRef = this.modalService.open(confirm, this.ngbModalOptions);
+  }
 
-      let order: Order = this.orderForm.value as Order;
-      order.user_id = this.uid;
-      order.card_id = this.card?.id;
-      order.card_name = this.card?.name;
-      order.card_price = this.card?.price;
-      this.orderService.addOrderInProgress(this.uid, this.id!, order);
+  receiveSignAndSend(signAndSendDetails: SignAndSendDetails[]){
+    this.order.withSignAndSend = true;
+    this.SignAndSend = signAndSendDetails;
+  }
+
+  getAvailableURL(image: string): Promise<string> {
+    return new Promise((resolve) => {
+      this.cardService.getImageURL(image + environment.imageSize.medium).then(url => {
+        resolve(url);
+      }).catch(err => {
+        this.cardService.getImageURL(image).then(url => {
+          resolve(url);
+        }).catch(err => { });
+      });
     });
-    this.router.navigate(['/signandsend/' + this.id!])
+  }
+
+  keepShopping(){
+    this.confirmRef.close('');
+    this.router.navigate(['/events']);
+  }
+
+  cart(){
+    this.confirmRef.close('');
+    this.router.navigate(['/cart']);
   }
 }

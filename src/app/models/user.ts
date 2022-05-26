@@ -14,4 +14,6 @@ export class User {
     public notification: boolean;
     public orders: string[];
     public favorites: string[];
+    public carts: string[];
+    public payments: string[];
 }

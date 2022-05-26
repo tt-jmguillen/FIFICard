@@ -1,3 +1,2 @@
-<button class="icon icon-sm rounded-circle border" style="background-color: #fff;"><i class="fa fa-shopping-cart"></i></button>
-<span class="badge badge-pill badge-danger notify" *ngIf="carts">{{carts.length}}</span>
-<span class="badge badge-pill badge-danger notify" *ngIf="carts == undefined">0</span>
+<button class="icon icon-sm rounded-circle border" style="background-color: #fff;" [routerLink]="['/cart']"><i class="fa fa-shopping-cart"></i></button>
+<span class="badge badge-pill badge-danger notify" *ngIf="count > 0">{{count}}</span>

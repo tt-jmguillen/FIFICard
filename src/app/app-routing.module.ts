@@ -1,3 +1,4 @@
+import { CartsComponent } from './carts/carts.component';
 import { SignAndSendComponent } from './order/sign-and-send/sign-and-send.component';
 import { FathersDayComponent } from './fathers-day/fathers-day.component';
 import { MessageComponent } from './message/message.component';
@@ -93,7 +94,7 @@ const routes: Routes = [
     path: 'login', component: LoginComponent
   },
   {
-    path: 'message', component: MessageComponent
+    path: 'cart', component: CartsComponent
   },
 ];
 

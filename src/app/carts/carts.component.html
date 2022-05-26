@@ -1,0 +1,104 @@
+<ion-content>
+    <section class="section-name padding-y-sm">
+        <div class="container animate main">
+            <div *ngIf="userCarts.length == 0">
+                <div class="row border">
+                    <div class="col-12 allign-center">
+                        <label>No Items on the Cart</label>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="userCarts.length > 0">
+                <div *ngFor="let userCart of userCarts">
+                    <div class="row border" *ngIf="userCart.visible">
+                        <div class="col-1 allign-center valign-center">
+                            <input type="checkbox" (change)="onInclude(userCart.id, $event)"
+                                [checked]="userCart.selected">
+                        </div>
+                        <div class="col-1">
+                            <img src="{{userCart.url}}" *ngIf="userCart.url != ''" class="img">
+                        </div>
+                        <div class="col-7 valign-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <strong>{{userCart.card.name}}</strong>
+                                </div>
+                                <div class="col-12">
+                                    Description: <strong>{{userCart.card.description}}</strong>
+                                </div>
+                                <div class="col-12">
+                                    Receiver: <strong>{{userCart.order.receiver_name}}</strong>
+                                </div>
+                                <div class="col-12">
+                                    Sign and Send: <strong>{{userCart.order.withSignAndSend?'Yes':'No'}}</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1 valign-center">
+                            <button class="btn btn-outline-danger btn-sm" (click)="remove(userCart)" >Remove</button>
+                        </div>
+                        <div class="col-2 allign-right pr-0 valign-center">
+                            <span>₱ <strong>{{userCart.order.card_price| number:'1.2-2'}}</strong></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row total">
+                    <div class="col-1"></div>
+                    <div class="col-9 allign-right">Total:</div>
+                    <div class="col-2 allign-right">₱ <strong>{{total | number:'1.2-2'}}</strong></div>
+                </div>
+                <div class="row total">
+                    <div class="col-10"></div>
+                    <div class="col-2 allign-right">
+                        <button class="btn btn-primary full-size" [disabled]="total == 0"
+                            (click)="payNow(gcash_payment)">Pay via GCash</button>
+                    </div>
+                </div>
+                <div class="row total">
+                    <div class="col-10"></div>
+                    <div class="col-2 allign-right">
+                        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #gcash_payment let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Scan and Pay</h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-12 mb-2 text-center">
+                            <img src="/assets/images/gcash.png" class="mainitem">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <label class="form-label">Total Amount: ₱ <strong>{{total |
+                                    number:'1.2-2'}}</strong></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <input type="hidden" value="">
+                            <label for="formFile" class="form-label">Proof of Payment (Screenshot)</label>
+                            <input type="file" id="formFile" class="upload" (change)="uploadFile($event)">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <button class="btn btn-primary full-size" [disabled]="gcashUploadedFile == ''"
+                                (click)="saveTransaction('GCash')">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

@@ -40,7 +40,7 @@ export class StatusComponent implements OnInit {
   loadOrder(){
     this.service.subscribeOrder(this.id!).subscribe(data => {
       this.order! = data;
-      this.titleService.setTitle(this.order!.card_name!);
+      //this.titleService.setTitle(this.order!.card_name!);
       this.cardService.getCard(this.order!.card_id!).subscribe(val => {
         this.card! = val;
       })

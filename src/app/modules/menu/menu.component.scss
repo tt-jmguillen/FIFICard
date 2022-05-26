@@ -1,41 +1,47 @@
-.active{
+.active {
     color: pink;
 }
 
-.navbar > .container, .navbar > .container-fluid {
- display: block!important;
+.navbar>.container,
+.navbar>.container-fluid {
+    display: block !important;
+
 
 }
 
 /* to not collapse */
 .navbar-nav {
-    flex-direction: row !Important;
+    flex-direction: row !important;
 }
 
 .navbar-nav .nav-link {
-    padding-right: 0.7rem !Important;
-    padding-left: 0.7rem !Important;
+    padding-right: 0.7rem !important;
+    padding-left: 0.7rem !important;
 }
 
-.dp-menu{
-    padding-top: 10%; 
+.dp-menu {
+    padding-top: 10%;
     padding-right: 10px;
 }
 
-.dp-div{
+.dp-div {
     margin-top: 20px;
     margin-left: -50px;
 }
 
 .arrow-up {
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    
+
     border-bottom: 5px solid black;
 }
 
-.cursor{
+.cursor {
     cursor: pointer;
+}
+
+.full-width{
+    width: 100%;
 }

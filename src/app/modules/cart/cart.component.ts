@@ -1,5 +1,5 @@
+import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { Cart } from 'src/app/models/cart';
 
 @Component({
   selector: 'app-cart',
@@ -7,14 +7,23 @@ import { Cart } from 'src/app/models/cart';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  carts: Cart[];
+  userService: UserService;
+  count: number = 0;
 
-  constructor() { }
+  constructor(
+    _userService: UserService
+  ) { 
+    this.userService = _userService;
+  }
 
   ngOnInit(): void {
-    let jsonString: string = localStorage.getItem('cart')!;
-    if (jsonString != null){
-      this.carts = JSON.parse(jsonString) as Cart[];
+    const userDetails = JSON.parse(localStorage.getItem('user')!);
+    if (userDetails){
+      this.userService.subscribeUser(userDetails?.uid).subscribe(user => {
+        if (user.carts){
+          this.count = user.carts.length;
+        }
+      })
     }
   }
 

@@ -15,86 +15,78 @@ export class UserService {
   constructor(
     private _store: Firestore,
     private _auth: AngularFireAuth
-  ) { 
+  ) {
     this.store = _store;
     this.auth = _auth;
   }
 
-  subscribeUser(uid: string): Observable<User>
-  {
+  subscribeUser(uid: string): Observable<User> {
     const data = doc(this.store, 'users/' + uid);
-    return docData(data, {idField: 'id'}) as Observable<User>;
+    return docData(data, { idField: 'id' }) as Observable<User>;
   }
 
-  getUser(uid: string): Promise<User>
-  {
+  getUser(uid: string): Promise<User> {
     return new Promise((resolve) => {
       const data = doc(this.store, 'users/' + uid);
-      (docData(data, {idField: 'id'}) as Observable<User>).subscribe(user => {
+      (docData(data, { idField: 'id' }) as Observable<User>).subscribe(user => {
         resolve(user);
       });
     });
   }
 
-  updateUser(user: User)
-  {
+  updateUser(user: User) {
     const data = doc(this.store, 'users/' + user.id);
     updateDoc(data, {
       'firstname': user.firstname,
       'lastname': user.lastname,
       'displayName': user.displayName,
       'gender': user.gender,
-      'birthday': user.birthday 
+      'birthday': user.birthday
     });
   }
 
-  updateAddress(userId: string, addressId: string)
-  {
+  updateAddress(userId: string, addressId: string) {
     const data = doc(this.store, 'users/' + userId);
     updateDoc(data, {
       'address': addressId
     });
   }
 
-  updateEmail(userId: string, email: string)
-  {
+  updateEmail(userId: string, email: string) {
     const data = doc(this.store, 'users/' + userId);
     updateDoc(data, {
       'email': email
     });
   }
 
-  updateNotification(userId: string, notification: boolean)
-  {
+  updateNotification(userId: string, notification: boolean) {
     const data = doc(this.store, 'users/' + userId);
     updateDoc(data, {
       'notification': notification
     });
   }
 
-  changeEmail(currentEmail: string, password: string, newEmail: string)
-  {
+  changeEmail(currentEmail: string, password: string, newEmail: string) {
     this.auth.signInWithEmailAndPassword(currentEmail, password).then(userCredential => {
       userCredential.user?.updateEmail(newEmail);
     })
   }
 
-  changePassword(email: string, password: string, newPassword: string)
-  {
+  changePassword(email: string, password: string, newPassword: string) {
     this.auth.signInWithEmailAndPassword(email, password).then(userCredential => {
       userCredential.user?.updatePassword(newPassword);
     })
   }
 
-  addOrder(userId: string, orderId: string){
+  addOrder(userId: string, orderId: string) {
     this.getUser(userId).then(user => {
-      if (user.orders){
+      if (user.orders) {
         user.orders.push(orderId);
       }
-      else{
+      else {
         user.orders = [orderId];
       }
-      
+
       const data = doc(this.store, 'users/' + userId);
       updateDoc(data, {
         'orders': user.orders
@@ -102,10 +94,59 @@ export class UserService {
     })
   }
 
-  updateFavorites(userId: string, favorites: string[]){
+  updateFavorites(userId: string, favorites: string[]) {
     const data = doc(this.store, 'users/' + userId);
     updateDoc(data, {
       'favorites': favorites
     });
+  }
+
+  addItemOnCart(userId: string, orderId: string) {
+    this.getUser(userId).then(user => {
+      if (user.carts) {
+        user.carts.push(orderId);
+      }
+      else {
+        user.carts = [orderId];
+      }
+
+      const data = doc(this.store, 'users/' + userId);
+      updateDoc(data, {
+        'carts': user.carts
+      });
+    });
+  }
+
+  removeItemOnCart(userId: string, orderId: string) {
+    this.getUser(userId).then(user => {
+      let carts: string[] = [];
+
+      user.carts.forEach(id => {
+        if (id != orderId){
+          carts.push(id);
+        }
+      });
+
+      const data = doc(this.store, 'users/' + userId);
+      updateDoc(data, {
+        carts: carts
+      });
+    });
+  }
+
+  addPayment(userId: string, paymentId: string) {
+    this.getUser(userId).then(user => {
+      if (user.payments) {
+        user.payments.push(paymentId);
+      }
+      else {
+        user.payments = [paymentId];
+      }
+
+      const data = doc(this.store, 'users/' + userId);
+      updateDoc(data, {
+        'payments': user.payments
+      });
+    })
   }
 }
