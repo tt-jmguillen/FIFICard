@@ -76,7 +76,7 @@ export class CardsComponent implements OnInit {
 
       this.filterService.getSearch().subscribe(value => {
         this.search = value;
-        if (this.cards.length > 0){
+        if (this.cards.length > 0) {
           this.applyFilter();
         }
       });
@@ -90,34 +90,34 @@ export class CardsComponent implements OnInit {
     });
   }
 
-  changeBudget(event: any){
+  changeBudget(event: any) {
     this.budget = event.target.value;
-    if (this.filterCards.length > 0){
+    if (this.filterCards.length > 0) {
       this.applyDisplayFilterAndSort();
     }
   }
 
-  changeSort(event: any){
+  changeSort(event: any) {
     this.sort = event.target.value;
-    if (this.filterCards.length > 0){
+    if (this.filterCards.length > 0) {
       this.applyDisplayFilterAndSort();
     }
   }
 
   getAllCards() {
     this.service.getCards().then(data => {
-      this.cards = data;      
-      this.filterCards = this.cards;      
+      this.cards = data;
+      this.filterCards = this.cards;
       this.applyFilter();
     });
   }
 
-  applyFilter(){
+  applyFilter() {
     if ((this.event) && (this.event! != 'All')) {
       this.filterCards = this.filterForEvent(this.event!, this.filterCards);
-      
+
       this.loadRecipient(this.event!, this.filterCards);
-      if (this.recipient){
+      if (this.recipient) {
         this.selectedRecipient = this.recipient;
       }
       else {
@@ -127,19 +127,27 @@ export class CardsComponent implements OnInit {
     else if ((this.search) && (this.search != '')) {
       this.caption! = "Search: " + this.search;
       this.filterCards = this.filterForSearch(this.search, this.filterCards);
+
+      this.loadRecipient(this.event!, this.filterCards);
+      if (this.recipient) {
+        this.selectedRecipient = this.recipient;
+      }
+      else {
+        this.selectedRecipient = 'All';
+      }
     }
-    
-    if (this.recipient){
+
+    if (this.recipient) {
       this.filterCards = this.filterForRecipient(this.recipient, this.filterCards);
     }
 
     this.applyDisplayFilterAndSort();
   }
 
-  applyDisplayFilterAndSort(){
+  applyDisplayFilterAndSort() {
     this.sortCards = this.filterCards;
 
-    if (this.budget){
+    if (this.budget) {
       this.sortCards = this.filterForBudget(this.budget, this.sortCards);
     }
     this.sortCards = this.sortRecord(this.sort, this.sortCards);
@@ -162,33 +170,33 @@ export class CardsComponent implements OnInit {
     return filtered;
   }
 
-  filterForSearch(_search: string, data: Card[]): Card[]{
+  filterForSearch(_search: string, data: Card[]): Card[] {
     let filtered: Card[] = [];
     data.forEach(card => {
-      if (card.name!.includes(_search)){
+      if (card.name!.includes(_search)) {
         filtered.push(card);
       }
-      else if (card.description!.includes(_search)){
+      else if (card.description!.includes(_search)) {
         filtered.push(card);
       }
-      else if (card.event!.includes(_search)){
+      else if (card.event!.includes(_search)) {
         filtered.push(card);
       }
-      else if (card.recipient!.includes(_search)){
+      else if (card.recipient!.includes(_search)) {
         filtered.push(card);
       }
     });
     return filtered;
   }
 
-  filterForRecipient(_recipient: string, data: Card[]): Card[]{
+    filterForRecipient(_recipient: string, data: Card[]): Card[] {
     let filtered: Card[] = [];
-    if (_recipient == 'All'){
+    if (_recipient == 'All') {
       data.forEach(card => {
-        if (this.event){
-          if (card.event){
+        if (this.event) {
+          if (card.event) {
             card.event.split(",").forEach(event => {
-              if (event.trim() == this.event) {
+              if (event.trim() == this.event?.trim()) {
                 filtered.push(card);
               }
             });
@@ -196,15 +204,15 @@ export class CardsComponent implements OnInit {
         }
       });
     }
-    else{
+    else {
       data.forEach(card => {
-        if (this.event){
-          if (card.event){
+        if (this.event) {
+          if (card.event) {
             card.event.split(",").forEach(event => {
               if (event.trim() == this.event) {
-                if (card.recipient){
+                if (card.recipient) {
                   card.recipient.split(",").forEach(recipient => {
-                    if (recipient.trim() == _recipient) {
+                    if (recipient.trim() == _recipient.trim()) {
                       filtered.push(card);
                     }
                   })
@@ -213,10 +221,10 @@ export class CardsComponent implements OnInit {
             })
           }
         }
-        else{
-          if (card.recipient){
+        else {
+          if (card.recipient) {
             card.recipient.split(",").forEach(recipient => {
-              if (recipient.trim() == _recipient) {
+              if (recipient.trim() == _recipient.trim()) {
                 filtered.push(card);
               }
             })
@@ -227,21 +235,21 @@ export class CardsComponent implements OnInit {
     return filtered;
   }
 
-  filterForBudget(_budget: string, data: Card[]): Card[]{
+  filterForBudget(_budget: string, data: Card[]): Card[] {
     let filtered: Card[] = []
     data.forEach(card => {
       if (_budget == '0 - 99') {
-        if (Number(card.price!) <= 99){
+        if (Number(card.price!) <= 99) {
           filtered.push(card);
         }
       }
       else if (_budget == '100 - 199') {
-        if (100 <= (Number(card.price!)) && (Number(card.price!) <= 199)){
+        if (100 <= (Number(card.price!)) && (Number(card.price!) <= 199)) {
           filtered.push(card);
         }
       }
       else if (_budget == '200 and Up') {
-        if (200 <= Number(card.price!)){
+        if (200 <= Number(card.price!)) {
           filtered.push(card);
         }
       }
@@ -260,7 +268,7 @@ export class CardsComponent implements OnInit {
       return data.sort((a, b) => 0 - (a.price! > b.price! ? 1 : -1));
     }
     else if (_sort == "Highest Ratings") {
-      return data.sort((a, b) => 0 - ((a.ratings?a.ratings:0) > (b.ratings?b.ratings:0) ? 1 : -1));
+      return data.sort((a, b) => 0 - ((a.ratings ? a.ratings : 0) > (b.ratings ? b.ratings : 0) ? 1 : -1));
     }
     return data.sort((a, b) => 0 - (a.name!.trim().toUpperCase() > b.name!.trim().toUpperCase() ? -1 : 1));
   }
@@ -271,7 +279,7 @@ export class CardsComponent implements OnInit {
     this.applyDisplayFilterAndSort();
   }
 
-  loadRecipient(_event: string, cards: Card[]){
+  loadRecipient(_event: string, cards: Card[]) {
     this.recipientsByName = [];
     this.serviceRecipient.getRecipients().then(data => {
       this.recipients = data;
@@ -292,11 +300,11 @@ export class CardsComponent implements OnInit {
               this.recipientsByEvent.push(recip);
           });
         }
-      }); 
+      });
     });
-     
+
   }
-  
+
   initializeBatch() {
     this.pages = [];
 
