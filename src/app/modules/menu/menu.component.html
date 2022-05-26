@@ -24,17 +24,18 @@
         </div>
     </div>
     <div class="col-4" *ngIf="redirectEvent=='mothers day'">
-       <img routerLink="/cards/events/Mother's Day" src="/assets/images/mothers/button1-min.png" class="cursor">
+        <img routerLink="/cards/events/Mother's Day" src="/assets/images/mothers/button1-min.png" class="cursor">
     </div>
     <div class="col-4" *ngIf="redirectEvent=='mothers day'">
         <img routerLink="/mother/gifts" src="/assets/images/mothers/button2-min.png" class="cursor">
     </div>
-    <div class="col-4">
+    <div class="col-4" *ngIf="isLogIn == false">
         <div class="full-width">
             <div class="row">
-                <div class="col-lg-8" *ngIf="!isLogIn" style="display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end;">
+                <div class="col-8" style="display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end;">
                     <div ngbDropdown class="d-inline-block">
-                        <a ngbDropdownToggle id="dropdownBasic1" style="cursor: pointer;">Hi, {{this.userProfile?.displayName}}</a>
+                        <a ngbDropdownToggle id="dropdownBasic1" style="cursor: pointer;">Hi,
+                            {{this.userProfile?.displayName}}</a>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dp-div">
                             <p ngbDropdownItem routerLink='/profile/info' class="cursor">Profile</p>
                             <div class="dropdown-divider"></div>
@@ -50,14 +51,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-1 col-sm-2" *ngIf="isLogIn" style="padding-top: 1%;">
-                    <button mat-raised-button (click)="openLoginDialog(null)">
-                        Login
-                    </button>
-                </div>
-                <div class="col-lg-1 col-sm-2" *ngIf="!isLogIn" style="padding-top: 1%;">
+                <div class="col-lg-2" style="padding-top: 1%;">
                     <button mat-raised-button (click)="signOut()">
                         Sign Out
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4" *ngIf="isLogIn == true">
+        <div class="full-width">
+            <div class="row">
+                <div class="col-8"></div>
+                <div class="col-lg-2">
+                    <button mat-raised-button (click)="openLoginDialog(null)">
+                        Login
                     </button>
                 </div>
             </div>
