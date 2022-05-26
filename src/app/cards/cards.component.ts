@@ -83,11 +83,17 @@ export class CardsComponent implements OnInit {
 
       if (this.event) {
         this.caption = this.event;
-        this.banner = `/assets/images/event/banner/${this.caption.replace(" ", "").replace("'", "") || 'All'}-min.png`;
+        this.banner = `/assets/images/event/banner/${this.replaceAll(this.caption) || 'All'}-min.png`;
       }
 
       this.getAllCards();
     });
+  }
+
+  replaceAll(value: string): string{
+    let newValue = value.split(' ').join('');
+    newValue = newValue.split("'").join('');
+    return newValue.toLocaleLowerCase();
   }
 
   changeBudget(event: any) {
