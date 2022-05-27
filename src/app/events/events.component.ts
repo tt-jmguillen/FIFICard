@@ -26,7 +26,7 @@ export class EventsComponent implements OnInit {
     this.service.getEventNonGift().then((data: Event[]) => {
       data.forEach(event => {
         if (event.active){
-          event.image = `/assets/images/event/thumbnail/${event.name?.replace(' ','').replace("'",'')}-min.png`;
+          event.image = `/assets/images/event/thumbnail/${this.replaceAll(event.name!)}-min.png`;
           if (event.name?.includes('Easter')){
             event.url = `/cards/events/Easter`;
           }
@@ -47,5 +47,11 @@ export class EventsComponent implements OnInit {
         this.events.push(this.ak);
       }
     })
+  }
+
+  replaceAll(value: string): string{
+    let newValue = value.split(' ').join('');
+    newValue = newValue.split("'").join('');
+    return newValue.toLocaleLowerCase();
   }
 }
