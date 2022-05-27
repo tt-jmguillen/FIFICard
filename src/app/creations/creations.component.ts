@@ -27,7 +27,7 @@ export class CreationsComponent implements OnInit {
     this.service.getEventCreation().then((data: Event[]) => {
       data.forEach(event => {
         if (event.active){
-          event.image = `/assets/images/gift/${event.name?.replace(' ','').replace("'",'')}-min.png`;
+          event.image = `/assets/images/gift/${this.replaceAll(event.name!)}-min.png`;
           event.url = `cards/events/${event.name}`;
           if (event.name?.toUpperCase() == 'CREATIONS'){
             this.ak = event;
@@ -41,5 +41,11 @@ export class CreationsComponent implements OnInit {
         this.events.push(this.ak);
       }
     })
+  }
+
+  replaceAll(value: string): string{
+    let newValue = value.split(' ').join('');
+    newValue = newValue.split("'").join('');
+    return newValue.toLocaleLowerCase();
   }
 }
