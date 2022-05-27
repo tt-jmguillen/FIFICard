@@ -71,6 +71,7 @@ export class CartsComponent implements OnInit {
     this.paymentService.getInitial().then(status => this.initalStatus = status);
     this.userService.subscribeUser(this.uid).subscribe(user => {
       this.loadCarts(user.carts);
+      this.setPayPal();
     })
   }
 
@@ -109,12 +110,10 @@ export class CartsComponent implements OnInit {
                   this.getAvailableURL(card.primary!).then(url => {
                     userCart.url = url;
                   })
-                  this.setPayPal();
                 }
+                this.setPayPal();
               }
             });
-
-            
           });
 
           this.computeTotal();
@@ -127,6 +126,8 @@ export class CartsComponent implements OnInit {
         userCart.selected = false;
       }
     });
+
+    this.setPayPal();
   }
 
   computeTotal() {
