@@ -51,7 +51,7 @@ export class CardService {
     return new Promise((resolve, rejects) => {
         this.db.collection('cards', ref => ref
         .where('active', "==", true)
-        //.where('featured', "==", true)
+        .where('featured', "==", true)
         .where('events', "array-contains", _event.trim())).get().subscribe(data => {
         if (!data.empty) {
           let cards: Card[] = [];
