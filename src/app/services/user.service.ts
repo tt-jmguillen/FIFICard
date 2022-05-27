@@ -94,6 +94,24 @@ export class UserService {
     })
   }
 
+  addOrders(userId: string, orderIds: string[]) {
+    this.getUser(userId).then(user => {
+      orderIds.forEach(orderId => {
+        if (user.orders) {
+          user.orders.push(orderId);
+        }
+        else {
+          user.orders = [orderId];
+        }
+      });
+
+      const data = doc(this.store, 'users/' + userId);
+      updateDoc(data, {
+        'orders': user.orders
+      });
+    })
+  }
+
   updateFavorites(userId: string, favorites: string[]) {
     const data = doc(this.store, 'users/' + userId);
     updateDoc(data, {
@@ -123,6 +141,29 @@ export class UserService {
 
       user.carts.forEach(id => {
         if (id != orderId){
+          carts.push(id);
+        }
+      });
+
+      const data = doc(this.store, 'users/' + userId);
+      updateDoc(data, {
+        carts: carts
+      });
+    });
+  }
+
+  removeItemsOnCart(userId: string, orderIds: string[]) {
+    this.getUser(userId).then(user => {
+      let carts: string[] = [];
+
+      user.carts.forEach(id => {
+        let isFound = false;
+        orderIds.forEach(orderId => {
+          if (orderId == id){
+            isFound == true;
+          }
+        })
+        if (!isFound){
           carts.push(id);
         }
       });

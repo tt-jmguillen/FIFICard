@@ -73,6 +73,16 @@ export class OrderService {
     });
   }
 
+  updatePaidOrders(ids: string[], paymentId: string){
+    ids.forEach(id => {
+      const data = doc(this.store, 'orders/' + id);
+      updateDoc(data, {
+        isPaid: true,
+        paymentId: paymentId
+      });
+    });
+  }
+
   addSignAndSend(orderId: string, sign: SignAndSendDetails){
     return new Promise((resolve, rejects) => {
       const data = collection(this.store, 'orders/' + orderId + '/signandsend')

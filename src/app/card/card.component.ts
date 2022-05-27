@@ -28,7 +28,6 @@ export class CardComponent implements OnInit {
       this.loadImage();
     });
 
-
     this.rateAve = 4.5;
     this.rateCount = 99;
   }
