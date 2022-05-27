@@ -1,8 +1,8 @@
 import { Payment } from './../models/payment';
-import { collectionData, Firestore } from '@angular/fire/firestore';
+import { collectionData, docData, Firestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { ref, Storage, uploadBytes, UploadResult } from '@angular/fire/storage';
-import { addDoc, collection, query, Timestamp, where } from 'firebase/firestore';
+import { addDoc, collection, doc, query, Timestamp, where } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { Status } from '../models/status';
 
@@ -68,6 +68,15 @@ export class PaymentService {
         resolve(docRef.id);
       });
     })
+  }
+
+  getPayment(id: string): Promise<Payment> {
+    return new Promise((resolve) => {
+      const data = doc(this.store, 'payments/' + id);
+      (docData(data, { idField: 'id' }) as Observable<Payment>).subscribe(payment => {
+        resolve(payment);
+      });
+    });
   }
   
 }

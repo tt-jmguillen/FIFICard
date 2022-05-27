@@ -107,8 +107,9 @@ export class MenuComponent implements OnInit {
         //console.log("emailVerified ->",  userDetails?.emailVerified);
         //console.log("IdToken ->",  userDetails?.getIdToken());
 
-        this.isLogIn = userDetails == null  ? true : false;
+        this.isLogIn = this.userDetails == null  ? true : false;
         //console.log("isLogIn ->",  String(this.isLogIn));
+        
 
         if(!this.isLogIn){
         localStorage.setItem("user", JSON.stringify(userDetails));
