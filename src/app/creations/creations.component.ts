@@ -45,7 +45,7 @@ export class CreationsComponent implements OnInit {
 
   replaceAll(value: string): string{
     let newValue = value.split(' ').join('');
-    newValue = newValue.split("'").join('');
+    newValue = newValue.split("’").join('');
     return newValue.toLocaleLowerCase();
   }
 }
