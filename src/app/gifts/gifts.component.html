@@ -1,38 +1,32 @@
 <ion-content>
     <section class="section-name padding-y-sm mother-background">
         <div class="container animate main">
-
             <div class="row">
                 <div class="col-md-12">
                     <img src="/assets/images/layout2/Gifts Landing page_2-min.png" class="img-fluid">
-                <br><br> 
-                <h2 class="text-center my-header">SHOP BY CATEGORY</h2>
-                <hr/>
+                    <br><br>
+                    <h2 class="text-center my-header">SHOP BY CATEGORY</h2>
+                    <hr />
                 </div>
             </div>
-            <div class="row my-event">
-                <div class="col-md-3  col-6" *ngFor="let event of events">
-                    <div routerLink="{{event.url}}">
-                        <img src="{{event.image}}" class="img-fluid">
-                        <div class="title">{{event.name}}</div>
-                    </div>
-                    <br/>
-                </div>
-            </div>
-           
+            <app-gift-events [order]="['Bath and Body','Candies and Chocolates','Candles and Fragrances','Computers and Peripherals','Flowers','Fruit Baskets','Gift Set','Mugs & Teacups','Pet Cards','Picture Frames','Stuffed Toys']">
+            </app-gift-events>
+            <app-gift-events [order]="['Gifts for Graduates','Gifts for Mothers','Gifts for Fathers']">
+            </app-gift-events>
+
         </div>
     </section>
-    <br><br> 
+    <br><br>
     <section class="section-name padding-y-sm mother-background-footer">
         <div class="container animate main">
-        <div class="row">
-            <div class="col-md-12">
-                <img src="/assets/images/layout2/Gifts Landing Page_3-min.png" class="img-fluid" style="margin-top:-50px">
-            <br><br> 
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="/assets/images/layout2/Gifts Landing Page_3-min.png" class="img-fluid"
+                        style="margin-top:-50px">
+                    <br><br>
+                </div>
             </div>
         </div>
-        </div>
     </section>
-<app-footer></app-footer>
+    <app-footer></app-footer>
 </ion-content>
-

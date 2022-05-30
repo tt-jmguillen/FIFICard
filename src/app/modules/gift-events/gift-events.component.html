@@ -1,0 +1,9 @@
+<div class="row my-event">
+    <div class="col-md-3  col-6" *ngFor="let event of events">
+        <div routerLink="{{event.url}}">
+            <img src="{{event.image}}" class="img-fluid">
+            <div class="title">{{event.name}}</div>
+        </div>
+        <br/>
+    </div>
+</div>

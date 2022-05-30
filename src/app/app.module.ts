@@ -71,6 +71,7 @@ import { HomeFeaturedComponent } from './modules/home-featured/home-featured.com
 import { HomeBestsellerComponent } from './modules/home-bestseller/home-bestseller.component';
 import { FatherGreetingsComponent } from './fathers-day/father-greetings/father-greetings.component';
 import { CartsComponent } from './carts/carts.component';
+import { GiftEventsComponent } from './modules/gift-events/gift-events.component';
 
 
 
@@ -124,7 +125,8 @@ import { CartsComponent } from './carts/carts.component';
     FatherGreetingsComponent,
     SignAndSendComponent,
     StickersComponent,
-    CartsComponent
+    CartsComponent,
+    GiftEventsComponent
   ],
   imports: [
     BrowserModule,
