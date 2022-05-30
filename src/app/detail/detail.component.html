@@ -4,18 +4,28 @@
     <section class="section-name padding-y-sm">
         <div class="container animate main">
             <div class="row align-top mb-5">
-                <div class="col-12">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><p routerLink="/" class="cursor">Home</p></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{card?.name}}</li>
-                        </ol>
-                    </nav>
-                    <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><p routerLink="/" class="cursor">Home</p></li>
+                                        <li class="breadcrumb-item active" aria-current="page">{{card?.name}}</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                         <div class="col-md-6 text-right">
+                             <app-favorite cardId="{{id}}"></app-favorite>
+                        </div>
+                    </div>
+                    <hr/>
+                  </div>
                 </div>
+                
                 <div class="col-lg-6 col-sm-12">
                     <app-imagegrid id="{{id}}"></app-imagegrid>
-                    <app-favorite cardId="{{id}}"></app-favorite>
+                   
                     <app-rating id2="{{id}}"></app-rating>
                 </div>
                 <div class="col-lg-6 col-sm-12">

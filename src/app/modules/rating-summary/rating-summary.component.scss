@@ -30,4 +30,15 @@
 .progress-bar-span{
     display: flex!important;
 }
- 
+.my-bar div .mat-progress-bar-buffer
+{
+  background:#ccc !important;
+}
+.my-bars div .mat-progress-bar-fill::after
+{
+  background-color:darkviolet !important;
+}
+.my-bar
+{
+  border:none !important
+}

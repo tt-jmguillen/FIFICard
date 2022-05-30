@@ -7,9 +7,9 @@
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
       </div>
-      <div class="col-md-2" routerLink="{{'/card/' + displayCard!.id}}" *ngFor="let displayCard of displayCards" >
-        <img class="img-thumbnail" src="{{displayCard?.imageUrl}}">
-        <h5>{{displayCard?.name}}</h5>
+      <div class="col-md-2 cursor" routerLink="{{'/card/' + displayCard!.id}}" *ngFor="let displayCard of displayCards" >
+        <img class="img-thumbnail" src="{{displayCard?.imageUrl}}" title="{{displayCard?.name}}">
+        <p>{{displayCard?.name}}</p>
       </div>
       <div class="col-md-1" *ngIf="!disableNext"  style="padding-top: 5%;">
         <button class="btn btn-default" (click)="rightClick()">

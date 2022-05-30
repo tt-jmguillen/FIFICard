@@ -11,14 +11,14 @@
             <div *ngIf="userCarts.length > 0">
                 <div *ngFor="let userCart of userCarts">
                     <div class="row border" *ngIf="userCart.visible">
-                        <div class="col-1 allign-center valign-center">
+                        <div class="col-md-1 col-2 allign-center valign-center">
                             <input type="checkbox" (change)="onInclude(userCart.id, $event)"
                                 [checked]="userCart.selected">
                         </div>
-                        <div class="col-1">
+                        <div class="col-md-1 col-10">
                             <img src="{{userCart.url}}" *ngIf="userCart.url != ''" class="img">
                         </div>
-                        <div class="col-7 valign-center">
+                        <div class="col-md-7 col-12 valign-center">
                             <div class="row">
                                 <div class="col-12">
                                     <strong>{{userCart.card.name}}</strong>
@@ -34,30 +34,30 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-1 valign-center">
+                        <div class="col-md-1 col-6 valign-center">
                             <button class="btn btn-outline-danger btn-sm" (click)="remove(userCart)" >Remove</button>
                         </div>
-                        <div class="col-2 allign-right pr-0 valign-center">
+                        <div class="col-md-2 col-6 allign-right pr-0 valign-center">
                             <span>₱ <strong>{{userCart.order.card_price| number:'1.2-2'}}</strong></span>
                         </div>
                     </div>
                 </div>
                 
                 <div class="row total">
-                    <div class="col-1"></div>
-                    <div class="col-9 allign-right">Total:</div>
-                    <div class="col-2 allign-right">₱ <strong>{{total | number:'1.2-2'}}</strong></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-12 col-md-9 allign-right">Total:</div>
+                    <div class="col-12 col-md-2 allign-right">₱ <strong>{{total | number:'1.2-2'}}</strong></div>
                 </div>
                 <div class="row total">
-                    <div class="col-10"></div>
-                    <div class="col-2 allign-right">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2 col-12 allign-right">
                         <button class="btn btn-primary full-size" [disabled]="total == 0"
                             (click)="payNow(gcash_payment)">Pay via GCash</button>
                     </div>
                 </div>
                 <div class="row total">
-                    <div class="col-10"></div>
-                    <div class="col-2 allign-right">
+                    <div class="col-md-10"></div>
+                    <div class="col-12 col-md-2 allign-right">
                         <ngx-paypal [config]="payPalConfig"></ngx-paypal>
                     </div>
                 </div>

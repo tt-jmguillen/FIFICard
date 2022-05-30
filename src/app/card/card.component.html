@@ -1,5 +1,5 @@
 <div class="card card-product-grid" *ngIf="card">
-  <a [routerLink]="['/card/' + card!.id]" class="img-wrap">
+  <a [routerLink]="['/card/' + card!.id]" class="img-wrap" title="{{card!.name}}">
     <img src="{{this.imageURL!}}">
   </a>
   <figcaption class="info-wrap">

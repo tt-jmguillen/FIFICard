@@ -18,7 +18,10 @@
 {
 border:none !important;
 }
-
+.cursor
+{
+    cursor: pointer !Important;
+}
 
 .custom-ico .material-icons
 {
@@ -38,7 +41,12 @@ border:none !important;
     border-radius: 50%;
 }
 
-.custom-ico h5
+.custom-ico p
 {
     color:#905fb5;
+    font-size: 14px;
+    line-height: 16px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-weight:bold;
 }

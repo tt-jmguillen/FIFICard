@@ -5,7 +5,6 @@
 }
 
 .fav-div{
-    width: 20%;
     padding: 10px 10px 5px 10px;
     background-color: red;
 }
@@ -18,5 +17,7 @@
 .count{
     color: white;
     font-size: 20px;
-    padding-left: 20px;
+    padding-left: 10px;
+    position: relative;
+    top: -3px;
 }
