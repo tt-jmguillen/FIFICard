@@ -92,8 +92,6 @@ export class CardsComponent implements OnInit {
         this.banner = `/assets/images/event/banner/${this.replaceAll(this.caption) || 'All'}-min.png`;
       }
 
-      console.log(this.event, this.search, this.recipient);
-
       //this.getAllCards();
       if ((this.event) && (this.event! != 'All')) {
         this.getCardsForEvent(this.event!);
@@ -211,6 +209,18 @@ export class CardsComponent implements OnInit {
     })
   }
 
+  averageRatings(value?: number): number{
+    if (!value){
+      return 0;
+    }
+    else if (Number.isNaN(Number(value))){
+      return 0;
+    }
+    else{
+      return value;
+    }
+  }
+
   applyFilter() {
       if((this.event) && (this.event! != 'All')) {
       this.filterCards = this.filterForEvent(this.event!, this.filterCards);
@@ -250,6 +260,10 @@ export class CardsComponent implements OnInit {
       this.sortCards = this.filterForBudget(this.budget, this.sortCards);
     }
     this.sortCards = this.sortRecord(this.sort, this.sortCards);
+
+    this.sortCards.forEach(card => {
+      console.log(card.id, card.name, card.ratings, this.averageRatings(card.ratings!));
+    })
 
     this.initializeBatch();
     this.loadBatch(1);
@@ -367,7 +381,7 @@ export class CardsComponent implements OnInit {
       return data.sort((a, b) => 0 - (a.price! > b.price! ? 1 : -1));
     }
     else if (_sort == "Highest Ratings") {
-      return data.sort((a, b) => 0 - ((a.ratings ? a.ratings : 0) > (b.ratings ? b.ratings : 0) ? 1 : -1));
+      return data.sort((a, b) => 0 - (this.averageRatings(a.ratings) > this.averageRatings(b.ratings) ? 1 : -1));
     }
     return data.sort((a, b) => 0 - (a.name!.trim().toUpperCase() > b.name!.trim().toUpperCase() ? -1 : 1));
   }
