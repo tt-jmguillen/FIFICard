@@ -4,22 +4,24 @@
   </div>
   <div class="row center-content bg-blue" ng-controller="appController">
     <div class="col-md-1 middle">
-      <button class="btn btn-default" [hidden]="disablePrev" (click)="leftClick()">
+      <button class="btn btn-default" (click)="leftClick()" [hidden]="disablePrev" >
         <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
     </div>
     <div class="col-md-10">
       <div class="row">
-        <div class="col-md-2 col-sm-6 pointer" routerLink="{{'/card/' + displayCard!.id}}" *ngFor="let displayCard of displayCards">
-          <img class="img-thumbnail" src="{{displayCard?.imageUrl}}">
-          <h5>{{displayCard?.name}}</h5>
+        <div class="col-md-2 cursor" routerLink="{{'/card/' + displayCard!.id}}"
+          *ngFor="let displayCard of displayCards">
+          <img class="img-thumbnail" src="{{displayCard?.imageUrl}}" title="{{displayCard?.name}}">
+          <p>{{displayCard?.name}}</p>
         </div>
       </div>
     </div>
     <div class="col-md-1 middle">
-      <button class="btn btn-default" [hidden]="disableNext" (click)="rightClick()">
+      <button class="btn btn-default" (click)="rightClick()" [hidden]="disableNext">
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
     </div>
   </div>
 </div>
+<br /> <br />

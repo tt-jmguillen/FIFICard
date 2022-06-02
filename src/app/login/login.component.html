@@ -1,12 +1,15 @@
 <!-- <ion-content id="loginContent" scroll="true"> -->
-<div mat-dialog-actions class="d-flex flex-row-reverse">
-  <button mat-button  (click)="onCloseClick($event)">X</button>
-</div>
-<br />
+<style>
+.mat-card
+{
+  background:red;
+}
+</style>
 <div mat-dialog-content>
-
-    <mat-card>
-        <mat-card-content>
+  <div style="text-align: right;">
+ <button mat-button  (click)="onCloseClick($event)">X</button>
+</div>
+        <mat-card-content style="border:none" class="mat-card-cus">
           <ngx-auth-firebaseui 
           [providers]="[this.providers.Google, this.providers.Facebook]"
           (onSuccess)="printUser($event)"
@@ -14,7 +17,5 @@
           (selectedTabChange)="onTabChange($event)">
          </ngx-auth-firebaseui>     
         </mat-card-content>
-      </mat-card>
-
 </div>
 <!-- </ion-content> -->

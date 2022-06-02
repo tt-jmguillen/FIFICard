@@ -3,11 +3,15 @@
 <div *ngFor="let rating of ratings">
  <div class="card">
       <div class="card-body">
-          <header class="section-heading">
-              <h5 class="section-title" style="font-weight: bold;">“{{rating?.title}}”</h5>
+        <div class="row">
+          <div class="col-md-6">
+              <header class="">
+              <h5 class="section-title" style="font-weight: bold;margin:0">{{rating?.title}}</h5>
           </header>
-          <section>
-              <td> 
+          </div>
+          <div class="col-md-6 text-right" style="float:right">
+            <section style="float:right">
+              <td style="color:darkviolet"> 
                   <mat-icon *ngIf="rating.rate>=1">star</mat-icon>
                   <mat-icon *ngIf="rating.rate>=2">star</mat-icon>
                   <mat-icon *ngIf="rating.rate>=3">star</mat-icon>
@@ -15,13 +19,18 @@
                   <mat-icon *ngIf="rating.rate>=5">star</mat-icon>
               </td>
           </section>
-          <section>
+          </div>
+        </div>
+        <section>
+          <h6><i>“{{rating?.review}}”</i></h6>
+        </section>
+          <section style="text-align:right">
             <h6 class="section-title">{{rating?.username}} | {{rating?.created?.toDate()?.toLocaleDateString()}}</h6>
           </section>
-          <section>
-            <h6 class="section-title">{{rating?.review}}</h6>
-          </section>
+         
+          
       </div>
   </div>
+  <br/>
   
 </div> 
