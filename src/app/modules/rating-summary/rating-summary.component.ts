@@ -27,11 +27,11 @@ export class RatingSummaryComponent implements OnInit {
   snackBar: MatSnackBar;
   userDetails: any;
   isLogIn = true;
-  
+
   constructor(
     public dialog: MatDialog,
     private _service: CardService,
-    private _snackBar: MatSnackBar) { 
+    private _snackBar: MatSnackBar) {
     this.service = _service;
     this.snackBar = _snackBar;
   }
@@ -40,42 +40,42 @@ export class RatingSummaryComponent implements OnInit {
 
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.userDetails = userDetails;
-    console.log("userDetails ->",  userDetails);
+    console.log("userDetails ->", userDetails);
     this.isLogIn = userDetails == null || userDetails.length < 0 ? true : false;
-    console.log("isLogIn ->",   String(this.isLogIn));
+    console.log("isLogIn ->", String(this.isLogIn));
 
     this.norecords = true;
     this.service.getRatings(this.cardId!).then(data => {
       //console.log(">>>>: " + JSON.stringify(data));
-      if (data.length > 0){
+      if (data.length > 0) {
         data.forEach(rating => {
-          if(rating.approve){
-          this.norecords = false;
-          this.ratings.push(rating);
-          this.rateCount = this.rateCount + 1;
-          this.currentRate = this.currentRate + rating.rate;
+          if (rating.approve) {
+            this.norecords = false;
+            this.ratings.push(rating);
+            this.rateCount = this.rateCount + 1;
+            this.currentRate = this.currentRate + rating.rate;
 
-              switch (rating.rate) {
-                case 1:
-                    this.rate1+=1;
-                    break;
-                case 2:
-                    this.rate2+=1;
-                    break;
-                case 3:
-                    this.rate3+=1;
-                    break;
-                case 4:
-                    this.rate4+=1;
-                    break;
-                default: 
-                    this.rate5+=1;
-                    break;
+            switch (rating.rate) {
+              case 1:
+                this.rate1 += 1;
+                break;
+              case 2:
+                this.rate2 += 1;
+                break;
+              case 3:
+                this.rate3 += 1;
+                break;
+              case 4:
+                this.rate4 += 1;
+                break;
+              default:
+                this.rate5 += 1;
+                break;
             }
           }
         });
         this.currentRate = this.currentRate / this.rateCount;
-        this.currentRateStr = String(this.currentRate.toFixed(1));
+        this.currentRateStr = Number.isNaN(this.currentRate)?'0':this.currentRate.toFixed(1);
       }
     }).catch(reason => {
       console.log(reason);
@@ -84,23 +84,23 @@ export class RatingSummaryComponent implements OnInit {
 
   }
 
-  calculateRate(rate: number): number{
+  calculateRate(rate: number): number {
     // console.log("rate>>>>: " + String(rate));
     // console.log("this.rateCount>>>>: " + String(this.rateCount));
     // console.log("calculateRate: " + String((rate/this.rateCount)*100));
-     return (rate/this.rateCount)*100;
+    return (rate / this.rateCount) * 100;
   }
 
-  writeReviewDialog(){
-      const dialogConfig = new MatDialogConfig();
-      this.dialogRef = this.dialog.open(ReviewComponent, dialogConfig);
-  
-      this.dialogRef.afterClosed().subscribe(data => {
-        console.log("rating2: " +  JSON.stringify(data));
-        if(data){
-          this._service.addRating(this.cardId!, data);
-        }
-      });
-    }
+  writeReviewDialog() {
+    const dialogConfig = new MatDialogConfig();
+    this.dialogRef = this.dialog.open(ReviewComponent, dialogConfig);
+
+    this.dialogRef.afterClosed().subscribe(data => {
+      console.log("rating2: " + JSON.stringify(data));
+      if (data) {
+        this._service.addRating(this.cardId!, data);
+      }
+    });
+  }
 
 }

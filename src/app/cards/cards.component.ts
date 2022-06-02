@@ -27,9 +27,9 @@ export class Page {
 })
 export class CardsComponent implements OnInit {
   event?: string;
+  search?: string;
   recipient?: string;
 
-  search: string = '';
   budget: string = '';
   sort: string = '';
 
@@ -57,6 +57,8 @@ export class CardsComponent implements OnInit {
   recipientsByEvent: string[] = [];
   recipientsByName: string[] = [];
 
+  loading: boolean = true;
+
   constructor(
     private _service: CardService,
     private _filterService: FilterService,
@@ -72,25 +74,40 @@ export class CardsComponent implements OnInit {
   ngOnInit(): void {
     this.activateRoute.params.subscribe(params => {
       this.event = params['event'];
+      this.search = params['search'];
       this.recipient = params['recipient'];
 
-      this.filterService.getSearch().subscribe(value => {
-        this.search = value;
-        if (this.cards.length > 0) {
-          this.applyFilter();
-        }
-      });
+      //this.filterService.getSearch().subscribe(value => {
+      //  if (!this.loading){
+      //    this.search = value;
+      //    this.getSearchCard(this.search);
+      //  }
+      //if (this.cards.length > 0) {
+      //  this.applyFilter();
+      //  }
+      //});
 
       if (this.event) {
         this.caption = this.event;
         this.banner = `/assets/images/event/banner/${this.replaceAll(this.caption) || 'All'}-min.png`;
       }
 
-      this.getAllCards();
+      console.log(this.event, this.search, this.recipient);
+
+      //this.getAllCards();
+      if ((this.event) && (this.event! != 'All')) {
+        this.getCardsForEvent(this.event!);
+      }
+      else if ((this.search) && (this.search != '')) {
+        this.getSearchCard(this.search);
+      }
+      else {
+        this.getAllCards();
+      }
     });
   }
 
-  replaceAll(value: string): string{
+  replaceAll(value: string): string {
     let newValue = value.split(' ').join('');
     newValue = newValue.split("’").join('');
     newValue = newValue.split("'").join('');
@@ -112,15 +129,90 @@ export class CardsComponent implements OnInit {
   }
 
   getAllCards() {
+    this.loading = true;
     this.service.getCards().then(data => {
+      this.loading = false;
       this.cards = data;
       this.filterCards = this.cards;
-      this.applyFilter();
+      //this.applyFilter();
+
+      this.loadRecipient(this.event!, this.cards);
+      if (this.recipient) {
+        this.selectedRecipient = this.recipient;
+      }
+      else {
+        this.selectedRecipient = 'All';
+      }
+
+      this.applyDisplayFilterAndSort();
     });
   }
 
+  getCardsForEvent(event: string) {
+    this.loading = true;
+    this.service.getCardsByEvent(event).then(data => {
+      this.loading = false;
+      this.cards = data;
+      this.filterCards = data;
+
+      this.loadRecipient(this.event!, this.cards);
+      if (this.recipient) {
+        this.selectedRecipient = this.recipient;
+      }
+      else {
+        this.selectedRecipient = 'All';
+      }
+
+      this.applyDisplayFilterAndSort();
+    })
+  }
+
+  getSearchCard(search: string) {
+    this.caption! = "Searching: " + this.search;
+    this.loading = true;
+    this.cards = [];
+    this.filterCards = [];
+    this.displayCards = [];
+    this.recipientsByName = [];
+    this.recipientsByEvent = [];
+
+    this.doSearch(search).then(data => {
+      this.loading = false;
+      this.caption! = "Search: " + this.search;
+
+      this.cards = data;
+      this.filterCards = data;
+      this.applyDisplayFilterAndSort();
+    }).catch(err => {
+      this.loading = false;
+      this.caption! = "Search: " + this.search + " - No Record Found";
+      this.cards = [];
+      this.filterCards = [];
+      this.applyDisplayFilterAndSort();
+    })
+  }
+
+  doSearch(search: string): Promise<Card[]> {
+    let value = search.toLowerCase().trim();
+    return new Promise((resolve, rejects) => {
+      this.service.getCardsByEvent(search).then(data => {
+        resolve(data);
+      }).catch(e => {
+        this.service.getSearchCards('search_name', value).then(data => {
+          resolve(data);
+        }).catch(e => {
+          this.service.getSearchCards('search_escription', value).then(data => {
+            resolve(data);
+          }).catch(e => {
+            rejects('No Records Found');
+          });
+        });
+      });
+    })
+  }
+
   applyFilter() {
-    if ((this.event) && (this.event! != 'All')) {
+      if((this.event) && (this.event! != 'All')) {
       this.filterCards = this.filterForEvent(this.event!, this.filterCards);
 
       this.loadRecipient(this.event!, this.filterCards);
@@ -196,7 +288,7 @@ export class CardsComponent implements OnInit {
     return filtered;
   }
 
-    filterForRecipient(_recipient: string, data: Card[]): Card[] {
+  filterForRecipient(_recipient: string, data: Card[]): Card[] {
     let filtered: Card[] = [];
     if (_recipient == 'All') {
       data.forEach(card => {

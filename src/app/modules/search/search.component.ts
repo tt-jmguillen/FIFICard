@@ -36,10 +36,12 @@ export class SearchComponent implements OnInit {
   searchCard(){
     if (this.searchForm.value['search']){
       this.search = this.searchForm.value['search'];
-      this.filterService.setSearch(this.search);
-      if (window.location.pathname != '/search'){
-        this.router.navigate(['/search']);
-      }
+      console.log(this.search);
+      this.router.navigate(['/search/' + this.search]);
+      //sthis.filterService.setSearch(this.search);
+      //if (window.location.pathname != '/search'){
+      //  this.router.navigate(['/search']);
+      //}
     }
   }
 

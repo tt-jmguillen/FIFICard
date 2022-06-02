@@ -34,24 +34,21 @@ export class CardComponent implements OnInit {
 
   loadImage(){
     if(this.card){
-      if (this.card!.images){
-        if ((!this.card.primary) || (this.card.primary == '')){
-          let image = this.card!.images[0];
-          this.getAvailableURL(image).then(url => {
-            this.imageURL = url;
-          });
-        }
-        else{
-          this.card!.images!.forEach(image => {
-            if (image == this.card!.primary!){
-              this.getAvailableURL(image).then(url => {
-                this.imageURL = url;
-              });
-            }
-          })
+      if (this.card.primary){
+        this.getImage(this.card.primary)
+      }
+      else{
+        if (this.card.images!.length > 0){
+          this.getImage(this.card.images![0]);
         }
       }
     }
+  }
+
+  getImage(image: string){
+    this.getAvailableURL(image).then(url => {
+      this.imageURL = url;
+    });
   }
 
   getAvailableURL(image: string): Promise<string>{

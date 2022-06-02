@@ -1,12 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { timeStamp } from 'console';
-import { arrayRemove } from 'firebase/firestore';
-import { ref } from 'firebase/storage';
-import { delay } from 'rxjs';
 import { Card } from 'src/app/models/card';
 import { CardService } from 'src/app/services/card.service';
-import { Page } from 'src/app/stickers/stickers.component';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -46,7 +40,7 @@ export class SuggestionListComponent implements OnInit {
   }
 
  getEventCard(){
-  this.service.getCardsByEvent(this.cardEvent?.trim()!).then(data => {
+  this.service.getSuggestions(this.cardEvent?.trim()!, 12).then(data => {
     this.randomCards = [];
     let ctr = 1;
     data.forEach(async card => {

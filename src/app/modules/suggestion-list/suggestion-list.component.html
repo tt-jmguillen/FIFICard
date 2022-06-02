@@ -1,21 +1,25 @@
 <div class="container" ng-app="app">
-    <div class="row center-content"><h5><b>YOU MAY ALSO LIKE</b></h5></div>
-    <div class="row center-content" ng-controller="appController">
-      <div class="col-md-1" *ngIf="!disablePrev" style="padding-top: 5%;">
-        <button class="btn btn-default" (click)="leftClick()">
-          <mat-icon>keyboard_arrow_left</mat-icon>
-        </button>
-      </div>
-      <div class="col-md-3 cursor" routerLink="{{'/card/' + displayCard!.id}}" *ngFor="let displayCard of displayCards">
+  <div class="row center-content">
+    <h5><b>YOU MAY ALSO LIKE</b></h5>
+  </div>
+  <div class="row center-content" ng-controller="appController">
+    <div class="col-md-1" *ngIf="!disablePrev" style="padding-top: 5%;">
+      <button class="btn btn-default" (click)="leftClick()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+    </div>
+    <div class="col-md-3 cursor" *ngFor="let displayCard of displayCards">
+      <a href="{{'/card/' + displayCard!.id}}">
         <img class="img-thumbnail" src="{{displayCard?.imageUrl}}">
+      </a>
+      <a href="{{'/card/' + displayCard!.id}}">
         <h5>{{displayCard?.name}}</h5>
-      </div>
-      <div class="col-md-1" *ngIf="!disableNext"  style="padding-top: 5%;">
-        <button class="btn btn-default" (click)="rightClick()">
-          <mat-icon>keyboard_arrow_right</mat-icon>
-        </button>
-      </div>
+      </a>
+    </div>
+    <div class="col-md-1" *ngIf="!disableNext" style="padding-top: 5%;">
+      <button class="btn btn-default" (click)="rightClick()">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
     </div>
   </div>
-
-  
+</div>

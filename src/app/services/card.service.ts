@@ -15,7 +15,7 @@ export class CardService {
   store: Firestore;
   storage: Storage;
   db: AngularFirestore;
-  temp:any;
+  temp: any;
 
   constructor(
     private _store: Firestore,
@@ -28,16 +28,19 @@ export class CardService {
 
   getBestsellerCards(): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
-      this.db.collection('cards', ref => ref.where('active', "==", true).where('bestseller', "==", true)).get().subscribe(data => {
+      this.db.collection('cards', ref => ref
+          .where('active', "==", true)
+          .where('bestseller', "==", true)
+      ).get().subscribe(data => {
         if (!data.empty) {
           let cards: Card[] = [];
           data.forEach(doc => {
             let card: Card = doc.data() as Card;
             card.id = doc.id;
             cards.push(card);
-          
+
           });
-          cards = cards.sort(() => Math.random() - 0.5).slice(0,8);  
+          cards = cards.sort(() => Math.random() - 0.5).slice(0, 8);
           resolve(cards);
         }
         else {
@@ -49,19 +52,50 @@ export class CardService {
 
   getFeaturedCards(_event: string, limit: number): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
-        this.db.collection('cards', ref => ref
+      this.db.collection('cards', ref => ref
         .where('active', "==", true)
         .where('featured', "==", true)
-        .where('events', "array-contains", _event.trim())).get().subscribe(data => {
+        .where('events', "array-contains", _event.trim())
+        .limit(limit)
+      ).get().subscribe(data => {
         if (!data.empty) {
           let cards: Card[] = [];
           data.forEach(doc => {
-                let card: Card = doc.data() as Card;
-                card.id = doc.id;
-                cards.push(card);
+            let card: Card = doc.data() as Card;
+            card.id = doc.id;
+            cards.push(card);
           });
-          cards = cards.sort(() => Math.random() - 0.5).slice(0,limit);  
+          //cards = cards.sort(() => Math.random() - 0.5).slice(0, limit);
           resolve(cards);
+        }
+        else {
+          rejects("No cards found.");
+        }
+      });
+    });
+  }
+
+  getSuggestions(_event: string, limit: number): Promise<Card[]> {
+    return new Promise((resolve, rejects) => {
+      this.db.collection('cards', ref => ref
+        .where('active', "==", true)
+        .where('events', "array-contains", _event.trim())
+        .limit(100)
+      ).get().subscribe(data => {
+        if (!data.empty) {
+          let cards: Card[] = [];
+          data.forEach(doc => {
+            let card: Card = doc.data() as Card;
+            card.id = doc.id;
+            cards.push(card);
+          });
+
+          let limited: Card[] = [];
+          for(let i = 0; i < limit; i++){
+            let random: number = Math.floor((Math.random() * cards.length) + 1);
+            limited.push(cards[random]);
+          }
+          resolve(limited);
         }
         else {
           rejects("No cards found.");
@@ -73,28 +107,92 @@ export class CardService {
   getCardsByEvent(_event: string): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
       this.db.collection('cards', ref => ref
-                                 .where('active', "==", true)
-                                 .where('events', "array-contains", _event.trim())).get().subscribe(data => {
-        if (!data.empty) {
-          let cards: Card[] = [];
-          data.forEach(doc => {
-                let card: Card = doc.data() as Card;
-                card.id = doc.id;
-                cards.push(card);
-          });
-          cards = cards.sort(() => Math.random() - 0.5).slice(0,12);  
-          resolve(cards);
-        }
-        else {
-          rejects("No cards found.");
-        }
-      });
+        .where('active', "==", true)
+        .where('events', "array-contains", _event.trim())).get().subscribe(data => {
+          if (!data.empty) {
+            let cards: Card[] = [];
+            data.forEach(doc => {
+              let card: Card = doc.data() as Card;
+              card.id = doc.id;
+              cards.push(card);
+            });
+            resolve(cards);
+          }
+          else {
+            rejects("No cards found.");
+          }
+        });
     });
   }
 
+  getCardsByRecipient(_recipient: string): Promise<Card[]> {
+    return new Promise((resolve, rejects) => {
+      this.db.collection('cards', ref => ref
+        .where('active', "==", true)
+        .where('recipients', "array-contains", _recipient.trim())).get().subscribe(data => {
+          if (!data.empty) {
+            let cards: Card[] = [];
+            data.forEach(doc => {
+              let card: Card = doc.data() as Card;
+              card.id = doc.id;
+              cards.push(card);
+            });
+            resolve(cards);
+          }
+          else {
+            rejects("No cards found.");
+          }
+        });
+    });
+  }
+
+  getSearchCards(field: string, search: string): Promise<Card[]> {
+    return new Promise((resolve, rejects) => {
+      this.db.collection('cards', ref => ref
+          .orderBy(field)
+          .startAt(search)
+          .endAt(search + "\uf8ff")
+        ).get().subscribe(data => {
+          if (!data.empty) {
+            let cards: Card[] = [];
+            data.forEach(doc => {
+              let card: Card = doc.data() as Card;
+              if (card.active){
+                card.id = doc.id;
+                cards.push(card);
+              }
+            });
+            if (cards.length > 0)
+              resolve(cards);
+            else
+            rejects("No cards found.");
+          }
+          else {
+            rejects("No cards found.");
+          }
+        });
+    });
+  }
 
   getCards(): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
+      this.db.collection('cards', ref => ref
+        .where('active', "==", true)
+        ).get().subscribe(data => {
+          if (!data.empty) {
+            let cards: Card[] = [];
+            data.forEach(doc => {
+              let card: Card = doc.data() as Card;
+              card.id = doc.id;
+              cards.push(card);
+            });
+            resolve(cards);
+          }
+          else {
+            rejects("No cards found.");
+          }
+        });
+
       let data = collection(this.store, 'cards');
       let qry = query(data, where('active', "==", true));
 
@@ -165,7 +263,7 @@ export class CardService {
     });
   }
 
-  updateFavorite(cardId: string, favorites: string[]){
+  updateFavorite(cardId: string, favorites: string[]) {
     const data = doc(this.store, 'cards/' + cardId);
     updateDoc(data, {
       'favorites': favorites
