@@ -13,7 +13,7 @@
             </div>
             <div class="col-9 editing">
                 <div class="main" *ngIf="focusURL">
-                    <img src="{{focusURL.url}}">
+                    <img class="sign-send-img" src="{{focusURL.url}}">
                     <div class="text-area d-flex align-items-center justify-content-center"
                         *ngFor="let item of focusItems" [style.top.px]="item.top" [style.left.px]="item.left"
                         [style.width.px]="item.width" [style.height.px]="item.height">

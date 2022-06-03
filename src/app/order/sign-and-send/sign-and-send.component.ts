@@ -120,7 +120,7 @@ export class SignAndSendComponent implements OnInit {
 
     this.activateRoute.params.subscribe(params => {
       this.id = params['id'];
-      this.loadSignAndSend();
+      this.getImageList();
     });
   }
 
@@ -128,16 +128,25 @@ export class SignAndSendComponent implements OnInit {
     this.modalRef = this.modalService.open(signandsend, this.ngbModalOptions);
   }
 
-  loadSignAndSend(){
+  getImageList(){
+    this.service.getACard(this.id!).then(card => {
+      card.images;
+      this.loadSignAndSend(card.images!);
+    })
+  }
+
+  loadSignAndSend(imageList: string[]){
     this.service.getSignAndSend(this.id!).then(data => {
       this.items = [];
       this.images = [];
       this.urls = [];
 
       data.forEach(sign => {
-        let item = new Item();
-        item.intialize(sign.image, sign.code, sign.top, sign.left, sign.width, sign.height, sign.limit, this.fonts[0]);
-        this.items.push(item);
+        if (imageList.indexOf(sign.image) > 0){
+          let item = new Item();
+          item.intialize(sign.image, sign.code, sign.top, sign.left, sign.width, sign.height, sign.limit, this.fonts[0]);
+          this.items.push(item);
+        }
       });
 
       /*
