@@ -4,7 +4,7 @@
     </div>
     <div class="col-md-12  my-panel">
     <div class="row my-selections ">
-        <div class="col-md-3" *ngFor="let card of randomBestsellerCards; index as i">
+        <div class="col-md-3 col-6" *ngFor="let card of randomBestsellerCards; index as i">
             <div routerLink="{{'/card/' + card!.id}}" class=" selection text-center" *ngIf="i<4">
                 <img src="{{card?.imageUrl}}" alt="{{card?.event}}" title="{{card?.event}}" style="margin:auto !Important">
                 <h5  class="text-center">{{card?.event}}</h5>
@@ -13,7 +13,7 @@
     </div>
 <br/><br/>
     <div class="row my-selections">
-        <div class="col-md-3" *ngFor="let card of randomBestsellerCards; index as i">
+        <div class="col-md-3 col-6" *ngFor="let card of randomBestsellerCards; index as i">
             <div routerLink="{{'/card/' + card!.id}}" class=" selection text-center" *ngIf="i>=4">
                 <img src="{{card?.imageUrl}}" alt="{{card?.event}}" title="{{card?.event}}" style="margin:auto !Important">
                 <h5 class="text-center">{{card?.event}}</h5>

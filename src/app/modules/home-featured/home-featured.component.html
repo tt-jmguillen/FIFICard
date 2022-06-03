@@ -10,7 +10,7 @@
     </div>
     <div class="col-md-10">
       <div class="row">
-        <div class="col-md-2 cursor" routerLink="{{'/card/' + displayCard!.id}}"
+        <div class="col-md-2 col-6 cursor" routerLink="{{'/card/' + displayCard!.id}}"
           *ngFor="let displayCard of displayCards">
           <img class="img-thumbnail" src="{{displayCard?.imageUrl}}" title="{{displayCard?.name}}">
           <p>{{displayCard?.name}}</p>

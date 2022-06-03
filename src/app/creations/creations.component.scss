@@ -1,6 +1,4 @@
-div.my-event {
-    opacity: 0.8
-}
+
 div.my-event img{
 
     border-radius: 50%;
@@ -8,10 +6,7 @@ div.my-event img{
     // border:5px solid #fff;
 }
 
-div.my-event:hover,
-div.my-event:active {
-    opacity: 1
-}
+
 div.my-event:hover img{
 
     border-style:inset;
@@ -49,6 +44,3 @@ div.my-event:active div {
     background-size: contain;
 }
 
-.cursor{
-    cursor: pointer;
-}
