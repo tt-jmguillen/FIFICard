@@ -423,8 +423,8 @@ p:last-child {
 
 .header-main {
   position: relative;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
 }
 
 .brand-wrap .logo, .navbar-brand .logo {
