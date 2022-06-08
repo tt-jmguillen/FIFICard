@@ -1,6 +1,5 @@
 <ion-content>
     <app-sub-header *ngIf="elementEvent == 'mothers day'"></app-sub-header>
-    
     <section class="section-name padding-y-sm">
         <div class="container animate main">
             <div class="row align-top mb-5">
@@ -10,24 +9,23 @@
                             <div class="col-md-6">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><p routerLink="/" class="cursor">Home</p></li>
+                                        <li class="breadcrumb-item">
+                                            <p routerLink="/" class="cursor">Home</p>
+                                        </li>
                                         <li class="breadcrumb-item active" aria-current="page">{{card?.name}}</li>
                                     </ol>
                                 </nav>
                             </div>
-                         <div class="col-md-6" style="text-align: right;">
-                                <img src="assets/images/sign-send-logo.png" style=" height: 60px;display: inline-block;margin-right:20px">
-
-                             <app-favorite cardId="{{id}}" style="display: inline-block;"></app-favorite>
+                            <div class="col-md-6" style="text-align: right;">
+                                <img src="assets/images/sign-send-logo.png" style=" height: 60px;display: inline-block;margin-right:20px" *ngIf="card?.signAndSend">
+                                <app-favorite cardId="{{id}}" style="display: inline-block;"></app-favorite>
+                            </div>
                         </div>
+                        <hr />
                     </div>
-                    <hr/>
-                  </div>
                 </div>
-                
                 <div class="col-lg-6 col-sm-12">
                     <app-imagegrid id="{{id}}"></app-imagegrid>
-                   
                     <app-rating id2="{{id}}"></app-rating>
                 </div>
                 <div class="col-lg-6 col-sm-12">
@@ -45,14 +43,17 @@
                             </section>
                             <section>
                                 <h3 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h3>
-                                <a class="order" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)">Buy Now</a>
-                                <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping" *ngIf="card">
+                                <a class="order" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)">Buy
+                                    Now</a>
+                                <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping"
+                                    *ngIf="card">
                             </section>
                             <section>
                                 <span style="font-weight: 600;" *ngIf="card">Details:</span>
                                 <div style="white-space:pre-wrap">{{card?.details}}</div>
                                 <br />
-                                <img src="/assets/images/logo_fibeigreetings.png" routerLink="/" class="img-fluid cursor" style="max-height:100px;" *ngIf="card">
+                                <img src="/assets/images/logo_fibeigreetings.png" routerLink="/"
+                                    class="img-fluid cursor" style="max-height:100px;" *ngIf="card">
                                 <br />
                             </section>
                         </div>
