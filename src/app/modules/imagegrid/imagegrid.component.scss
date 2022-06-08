@@ -1,17 +1,17 @@
-.mainitem{
-    max-height: 400px;
+.mainitem {
+    max-height: 500px;
 }
 
-.item{
+.item {
     cursor: pointer;
 }
 
-.item:hover{
+.item:hover {
     border-bottom: #000 1px solid
 }
 
-.mainimagediv{
-    height: 400px;
+.mainimagediv {
+    height: 500px;
     // margin-top: 30px;
     // margin-bottom: 50px;
     position: relative;
@@ -19,6 +19,18 @@
     overflow: hidden;
 }
 
-.imagediv{
+.imagediv {
     margin-bottom: 20px;
+}
+
+::ng-deep .ngxImageZoomContainer{
+    height: 100% !important;
+    width: 100% !important;
+    cursor: zoom-in;
+}
+
+::ng-deep .ngxImageZoomFullContainer{
+    height: 100% !important;
+    width: 100% !important;
+    cursor: zoom-in;
 }

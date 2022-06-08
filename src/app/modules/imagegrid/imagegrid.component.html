@@ -1,6 +1,7 @@
 <div class="row align-items-center">
     <div class="col-12 text-center mainimagediv">
-        <img src="{{url}}" class="mainitem">
+        <!--<img src="{{url}}" class="mainitem">-->
+        <lib-ngx-image-zoom *ngIf="url" [thumbImage]="url!" [fullImage]="url!" [zoomMode]="mode" [magnification]=3 [enableScrollZoom]="true" ></lib-ngx-image-zoom>
     </div>
     <div class="col-md-12">
     <div class="card">

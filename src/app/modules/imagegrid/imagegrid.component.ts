@@ -26,6 +26,8 @@ export class ImagegridComponent implements OnInit {
   service: CardService;
   primary: string;
 
+  mode: string = 'hover';
+
   constructor(
     private _service: CardService
   ) { 

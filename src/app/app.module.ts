@@ -72,7 +72,7 @@ import { HomeBestsellerComponent } from './modules/home-bestseller/home-bestsell
 import { FatherGreetingsComponent } from './fathers-day/father-greetings/father-greetings.component';
 import { CartsComponent } from './carts/carts.component';
 import { GiftEventsComponent } from './modules/gift-events/gift-events.component';
-
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 
 @NgModule({
@@ -150,7 +150,8 @@ import { GiftEventsComponent } from './modules/gift-events/gift-events.component
     NgxAuthFirebaseUIModule.forRoot(environment.firebase),
     NgxPayPalModule,
     NgxFeedbackModule,
-    NgbModule
+    NgbModule,
+    NgxImageZoomModule
   ],
   providers: [{
     provide: MatDialogRef,
