@@ -34,7 +34,7 @@ export class HomeFeaturedComponent implements OnInit {
   }
 
   loadFeatured() {
-    this.service.getFeaturedCards(this.homeCardEvent?.trim()!, Number(this.limit)).then(data => {
+    this.service.getFeaturedCards(this.homeCardEvent?.trim()!).then(data => {
       this.randomCards = [];
       let ctr = 1;
       data.forEach(card => {
