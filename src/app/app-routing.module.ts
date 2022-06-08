@@ -1,3 +1,4 @@
+import { SignAndSendCardsComponent } from './sign-and-send-cards/sign-and-send-cards.component';
 import { CartsComponent } from './carts/carts.component';
 import { SignAndSendComponent } from './order/sign-and-send/sign-and-send.component';
 import { FathersDayComponent } from './fathers-day/fathers-day.component';
@@ -65,6 +66,9 @@ const routes: Routes = [
   },
   {
     path: 'stickers', component: StickersComponent
+  },
+  {
+    path: 'signandsend', component: SignAndSendCardsComponent
   },
   {
     path: 'cards/events/:event', component: CardsComponent
