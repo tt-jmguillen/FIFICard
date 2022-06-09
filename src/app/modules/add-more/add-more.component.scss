@@ -1,0 +1,28 @@
+p {
+    margin-top: 20px;
+}
+
+.main{
+    min-height: 100px;
+}
+
+.control{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-icon{
+    cursor: pointer;
+}
+
+.no-padding{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.less-padding{
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}

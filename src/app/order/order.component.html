@@ -32,6 +32,7 @@
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <app-imagegrid id="{{id}}"></app-imagegrid>
+                    <app-add-more *ngIf="card" [id]="card!.id" [recipients]="card!.recipients" [limit]=4 (selectedChange)="addMoreChange($event)"></app-add-more>
                 </div>
                 <div class="col-lg-6 col-sm-12 row">
                     <div class="col-12">
@@ -101,7 +102,6 @@
                     </div>
                     <div class="col-12 mb-2" *ngIf="card?.signAndSend">
                         <app-sign-and-send (signAndSendEvent)="receiveSignAndSend($event)"></app-sign-and-send>
-                        <!--<button class="btn btn-primary full-size" (click)="signAndSend()" *ngIf="card?.signAndSend">Sign and Send</button>-->
                     </div>
                     <div class="col-12 mb-2" *ngIf="!card?.signAndSend">
                         <label class="form-label">Personal Message</label>

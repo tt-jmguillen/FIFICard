@@ -42,6 +42,26 @@ export class OrderService {
         message: order.message,
         withSignAndSend: order.withSignAndSend,
         isPaid: false,
+        count: order.count,
+        created: Timestamp.now()
+      }).then(docRef => {
+        resolve(docRef.id);
+      }).catch(reason => {
+        rejects(reason);
+      })
+    });
+  }
+
+  async createAddMore(order: Order): Promise<string>{
+    return new Promise((resolve, rejects) => {
+      const data = collection(this.store, 'orders')
+      addDoc(data, {
+        parentOrder: order.parentOrder,
+        user_id: order.user_id,
+        card_id: order.card_id,
+        card_price: order.card_price,
+        isPaid: false,
+        count: order.count,
         created: Timestamp.now()
       }).then(docRef => {
         resolve(docRef.id);

@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { collection, collectionData, Firestore, orderBy } from '@angular/fire/firestore';
 import { query } from '@firebase/firestore';
 import { Observable } from 'rxjs';
-
-
 import { Event } from '../models/event';
 
 @Injectable({
