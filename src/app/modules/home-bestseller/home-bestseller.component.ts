@@ -15,8 +15,8 @@ export class HomeBestsellerComponent implements OnInit {
   bestsellerCards: Card[] = [];
   randomBestsellerCards: Card[] = [];
   temp: any;
-  
-  constructor(private _service: CardService) { 
+
+  constructor(private _service: CardService) {
     this.service = _service;
   }
 
@@ -24,28 +24,28 @@ export class HomeBestsellerComponent implements OnInit {
     this.loadBestseller();
   }
 
- loadBestseller(){
+  loadBestseller() {
     this.service.getBestsellerCards().then(data => {
       this.randomBestsellerCards = [];
       data.forEach(async card => {
-               this.randomBestsellerCards.push(card);  
-               this.getImage(card);
+        this.randomBestsellerCards.push(card);
+        this.getImage(card);
       });
     });
   }
 
 
-  getImage(card: Card){
+  getImage(card: Card) {
     this.temp = this.getAvailableURL(card.primary!).then(url => {
-        this.randomBestsellerCards.forEach(value => {
-           if(card.id == value.id){
-             card.imageUrl = url;
-           }
-        })
+      this.randomBestsellerCards.forEach(value => {
+        if (card.id == value.id) {
+          card.imageUrl = url;
+        }
+      })
     });
   }
 
-  getAvailableURL(image: string): Promise<string>{
+  getAvailableURL(image: string): Promise<string> {
     return new Promise((resolve, rejects) => {
       this.service.getImageURL(image + environment.imageSize.medium).then(url => {
         resolve(url);
