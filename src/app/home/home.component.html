@@ -18,7 +18,7 @@
                     </div>
                     
                     <div class="col-md-12">
-                        <app-home-featured homeCardEvent="Father’s Day" limit="50"></app-home-featured>
+                        <app-home-featured caption="Father’s Day" homeCardEvent="Father’s Day" [limit]="100"></app-home-featured>
                     </div>
                     <div class="col-md-12">
                         <img src="/assets/images/fathers/home-banner-father.png" class="w100">
@@ -28,56 +28,25 @@
                         <h2 class="text-center cus-text-title">Featured Categories</h2>
                     </div>
                     <div class="col-md-12">
-                        <app-home-featured homeCardEvent="Birthday" limit="12"></app-home-featured>
+                        <app-home-featured caption="Birthday" homeCardEvent="Birthday" [limit]="100"></app-home-featured>
                     </div>
                     <div class="col-md-12">
-                        <app-home-featured homeCardEvent="Anniversary" limit="12"></app-home-featured>
+                        <app-home-featured caption="Anniversary" homeCardEvent="Anniversary" [limit]="100"></app-home-featured>
                     </div>
                     <div class="col-md-12">
-                        <app-home-featured homeCardEvent="Sympathy" limit="12"></app-home-featured>
+                        <app-home-featured caption="Sympathy" homeCardEvent="Sympathy" [limit]="100"></app-home-featured>
                     </div>
                     <div class="col-md-12">
-                        <app-home-featured homeCardEvent="Pet Cards" limit="12"></app-home-featured>
+                        <app-home-featured caption="Pet Cards" homeCardEvent="Pet Cards" [limit]="100"></app-home-featured>
+                    </div>
+                    <div class="col-md-12">
+                        <app-home-featured caption="Sign and Send" [isSignAndSend]=true></app-home-featured>
                     </div>
                     <div class="col-md-12 text-center">
                         <div class="cursor btn-more-card" routerLink="/events">More Card Categories</div>
                     </div>
                 </div>
             </div>
-            <!-- <div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2 class="text-center">Featured Categories</h2>
-                    </div>
-                    <div class="row my-selections">
-                        <div class="col-md-3">
-                            <div routerLink="/cards/events/Birthday" class="cursor selection">
-                                <img src="/assets/images/layout2/Birthday.png" alt="Birthday" title="Birthday">
-                                <div>Birthday</div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div routerLink="/cards/events/Anniversary" class="cursor selection">
-                                <img src="/assets/images/layout2/Anniversary.png" alt="Anniversary" title="Anniversary">
-                                <div>Anniversary</div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div routerLink="/cards/events/Sympathy" class="cursor selection">
-                                <img src="/assets/images/layout2/Sympathy.png" alt="Sympathy" title="Sympathy">
-                                <div>Sympathy</div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div routerLink="/cards/events/Pet Cards" class="cursor selection">
-                                <img src="/assets/images/layout2/Pet.png" alt="Pet" title="Pet">
-                                <div>Pet Cards</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div> -->
             <br /> <br />
             <div>
                 <div class="">

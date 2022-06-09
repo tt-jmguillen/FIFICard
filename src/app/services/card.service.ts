@@ -50,12 +50,13 @@ export class CardService {
     });
   }
 
-  getFeaturedCards(_event: string): Promise<Card[]> {
+  getFeaturedCards(_event: string, limit: number): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
       this.db.collection('cards', ref => ref
         .where('active', "==", true)
         .where('featured', "==", true)
         .where('events', "array-contains", _event.trim())
+        .limit(limit)
       ).get().subscribe(data => {
         if (!data.empty) {
           let cards: Card[] = [];
@@ -79,7 +80,7 @@ export class CardService {
       this.db.collection('cards', ref => ref
         .where('active', "==", true)
         .where('events', "array-contains", _event.trim())
-        .limit(100)
+        .limit(limit)
       ).get().subscribe(data => {
         if (!data.empty) {
           let cards: Card[] = [];

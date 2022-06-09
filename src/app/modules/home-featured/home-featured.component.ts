@@ -10,8 +10,12 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./home-featured.component.scss']
 })
 export class HomeFeaturedComponent implements OnInit {
+  @Input() caption?: string;
   @Input() homeCardEvent?: string;
-  @Input() limit?: string;
+  @Input() limit: Number;
+  @Input() isSignAndSend: boolean;
+
+
   service: CardService;
   cards: Card[] = [];
   randomCards: Card[] = [];
@@ -29,12 +33,18 @@ export class HomeFeaturedComponent implements OnInit {
     this.service = _service;
   }
   ngOnInit() {
-    this.loadFeatured();
+    if (this.isSignAndSend){
+      this.loadSignAndSend();
+    }
+    else{
+      this.loadFeatured();
+    }
+
     this.isMobile = window.orientation > -1;
   }
 
   loadFeatured() {
-    this.service.getFeaturedCards(this.homeCardEvent?.trim()!).then(data => {
+    this.service.getFeaturedCards(this.homeCardEvent?.trim()!, this.limit==0?12:Number(this.limit)).then(data => {
       this.randomCards = [];
       let ctr = 1;
       data.forEach(card => {
@@ -44,6 +54,19 @@ export class HomeFeaturedComponent implements OnInit {
         ctr = ctr + 1;
       });
     });
+  }
+
+  loadSignAndSend(){
+    this.service.getSignAndSendCards().then(data => {
+      this.randomCards = [];
+      let ctr = 1;
+      data.forEach(card => {
+        this.randomCards.push(card);
+        this.getImage(card);
+        this.loadBatch(1);
+        ctr = ctr + 1;
+      });
+    })
   }
 
   getImage(card: Card) {
