@@ -74,6 +74,7 @@ import { CartsComponent } from './carts/carts.component';
 import { GiftEventsComponent } from './modules/gift-events/gift-events.component';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { SignAndSendCardsComponent } from './sign-and-send-cards/sign-and-send-cards.component';
+import { EventListComponent } from './modules/event-list/event-list.component';
 
 
 @NgModule({
@@ -128,7 +129,8 @@ import { SignAndSendCardsComponent } from './sign-and-send-cards/sign-and-send-c
     StickersComponent,
     CartsComponent,
     GiftEventsComponent,
-    SignAndSendCardsComponent
+    SignAndSendCardsComponent,
+    EventListComponent
   ],
   imports: [
     BrowserModule,

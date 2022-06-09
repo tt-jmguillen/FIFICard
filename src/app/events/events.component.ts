@@ -8,51 +8,10 @@ import { Event } from '../models/event';
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit {
-  service: EventService;
-  events: Event[] = [];
-  ak: Event;
 
-  constructor(
-    private _service: EventService
-  ) { 
-    this.service = _service;
-  }
+  constructor() {}
 
   ngOnInit(): void {
-    this.loadEvents();
   }
-
-  loadEvents(){
-    this.service.getEventNonGift().then((data: Event[]) => {
-      data.forEach(event => {
-        if (event.active){
-          event.image = `/assets/images/event/thumbnail/${this.replaceAll(event.name!)}-min.png`;
-          if (event.name?.includes('Easter')){
-            event.url = `/cards/events/Easter`;
-          }
-          else{
-            event.url = `/cards/events/${event.name}`;
-          }
-          
-          if (event.name?.toUpperCase() == 'CREATIONS'){
-            this.ak = event;
-            this.ak.url = "/creations"
-          }
-          else{
-            this.events.push(event);
-          }
-        }
-      })
-      if (this.ak){
-        this.events.push(this.ak);
-      }
-    })
-  }
-
-  replaceAll(value: string): string{
-    let newValue = value.split(' ').join('');
-    newValue = newValue.split("’").join('');
-    newValue = newValue.split("'").join('');
-    return newValue.toLocaleLowerCase();
-  }
+  
 }
