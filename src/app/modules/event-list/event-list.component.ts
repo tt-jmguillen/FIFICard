@@ -54,7 +54,7 @@ export class EventListComponent implements OnInit {
   orderEvents(){
     this.order?.forEach(name => {
       this.events.forEach(event => {
-        if(event.name?.toLowerCase() == name.toLowerCase()){
+        if(event.name?.toLowerCase().replace("'",'') == name.toLowerCase()){
           this.displayEvents.push(event);
         }
       })
