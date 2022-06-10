@@ -20,6 +20,18 @@ export class Page {
   }
 }
 
+export class EventSetting{
+  public event: string;
+  public mainCard: string;
+  public bannerLink: string;
+
+  constructor(_event: string, _mainCard: string, _bannerLink: string){
+    this.event = _event;
+    this.mainCard = _mainCard;
+    this.bannerLink = _bannerLink;
+  }
+}
+
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
@@ -59,6 +71,9 @@ export class CardsComponent implements OnInit {
 
   loading: boolean = true;
 
+  eventSettings: EventSetting[] = [];
+  eventSetting: EventSetting;
+
   constructor(
     private _service: CardService,
     private _filterService: FilterService,
@@ -72,6 +87,24 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.eventSettings.push(new EventSetting('BIRTHDAY', '08VjvPay1RNWZCvkI4Gt', '/card/YbLeDTqC8nd4V85uJ0aq'));
+    this.eventSettings.push(new EventSetting('CHRISTMAS', 'JHPAAFJDLHm8Ao8rS8px', '/card/EmwhypC9otvbFcoo2yET'));
+    this.eventSettings.push(new EventSetting('THANK YOU', 'Ov40VgNzgtuObCrVJTe3', '/card/TZr0w3xILIYvXdm8spGc'));
+    this.eventSettings.push(new EventSetting('MILITARY APPRECIATION', 'vP08uWaWJ2fNePPpHeoT', '/card/dEQWrVtbl3Q5IYUFmIGn'));
+    this.eventSettings.push(new EventSetting('MOTHERS DAY', '6C3GEEQumsH9rh1iRV9y', '/card/qlYBuR3MbsgYQIwTCLBh'));
+    this.eventSettings.push(new EventSetting('RETIREMENT', 'rmpdW3x0NH2r8LZr9l8U', '/card/excJgjQ91iECBWEkR51p'));
+    this.eventSettings.push(new EventSetting('LOVE YOUR ENEMY', 'caUWVUzKKJui3hmnalaQ', '/card/ttTvbl6pLgKC9FdWOp5u'));
+    this.eventSettings.push(new EventSetting('DISTRESS', 'z3Vlo33fi5BUTEOcJ0t1', '/card/xC9akQ3IwA9QsE9jRbw4'));
+
+    this.eventSettings.push(new EventSetting('Confirmation', '9gJZdaXDGk74siRExTrd', '/card/tdvYzC3lT3vPdZzTkP7D'));
+    this.eventSettings.push(new EventSetting('Wedding', 'B7xwfIgXhIUFxfNhI8xX', '/card/P390wMwR8PGyAgy51vrY'));
+    this.eventSettings.push(new EventSetting('Thinking Of You', '6utqlq60ud67qCKbOcm4', '/card/mAyLGGHHq8x1XqawDacL'));
+    this.eventSettings.push(new EventSetting('Halloween', '07F8gW94f6mGFHISQpWx', '/card/wkrjkOcpYUX3eUyJ08tj'));
+    this.eventSettings.push(new EventSetting('First Communion', 'U34l4tVO9NAaLfJFuDRm', '/card/8woCW1eoUIooXjgvjMSx'));
+    this.eventSettings.push(new EventSetting('Baptism', 'YqFMboYkU8KqULTVYCD0', '/card/68VpIN3szeQ2VNj2InGD'));
+    this.eventSettings.push(new EventSetting('Parents Appreciation', 'RTKaRLkckcFHBVTvwFC9', '/card/vJ0Rk9KoFwnISsjdKtRJ'));
+    this.eventSettings.push(new EventSetting('Teacher Appreciation', '5AeQBWLOrvxpNV3Ff9TY', '/card/hwRqfPGajCmVvWBQ8OIY'));
+
     this.activateRoute.params.subscribe(params => {
       this.event = params['event'];
       this.search = params['search'];
@@ -94,6 +127,12 @@ export class CardsComponent implements OnInit {
 
       //this.getAllCards();
       if ((this.event) && (this.event! != 'All')) {
+        this.eventSettings.forEach(setting => {
+          if (this.replaceAll(setting.event) == this.replaceAll(this.event!)){
+            this.eventSetting = setting;
+          }
+        })
+
         this.getCardsForEvent(this.event!);
       }
       else if ((this.search) && (this.search != '')) {
@@ -261,9 +300,24 @@ export class CardsComponent implements OnInit {
     }
     this.sortCards = this.sortRecord(this.sort, this.sortCards);
 
-    this.sortCards.forEach(card => {
-      console.log(card.id, card.name, card.ratings, this.averageRatings(card.ratings!));
-    })
+    if (this.event) {
+      if (this.eventSetting != undefined){
+        let temporary: Card[] = [];
+
+        this.sortCards.forEach(card => {
+          if(card.id! == this.eventSetting.mainCard){
+            temporary.push(card);
+          }
+        })
+        this.sortCards.forEach(card => {
+          if(card.id! != this.eventSetting.mainCard){
+            temporary.push(card);
+          }
+        })
+
+        this.sortCards = temporary;
+      }
+    }
 
     this.initializeBatch();
     this.loadBatch(1);

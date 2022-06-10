@@ -9,7 +9,7 @@
   text-align-last: center;
   border-radius: 0rem;
   margin-left: 20px;
-   margin-right: 20px;
+  margin-right: 20px;
   // margin-top: 20px;
   //margin-bottom: 20px;
   color: #000;
@@ -95,7 +95,11 @@
   margin-bottom: 10px;
   font-size: 12px;
 }
-.card .img-wrap
-{
+
+.card .img-wrap {
   background-color: #fbf4ff;
+}
+
+.pointer {
+  cursor: pointer;
 }
