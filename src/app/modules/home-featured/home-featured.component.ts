@@ -57,7 +57,7 @@ export class HomeFeaturedComponent implements OnInit {
   }
 
   loadSignAndSend(){
-    this.service.getSignAndSendCards().then(data => {
+    this.service.getSignAndSendFeaturedCards().then(data => {
       this.randomCards = [];
       let ctr = 1;
       data.forEach(card => {
