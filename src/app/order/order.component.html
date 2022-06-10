@@ -1,25 +1,6 @@
 <ion-content>
     <section class="section-name padding-y-sm">
         <div class="container animate main">
-
-            <div class="mt-2" *ngIf="showSuccess">
-                <div class="alert alert-success mt-2">
-                    Your <em>PayPal</em> transaction was successful.
-                </div>
-            </div>
-
-            <div class="mt-2" *ngIf="showError">
-                <div class="alert alert-danger mt-2">
-                    Oh no! Your <em>PayPal</em> transaction failed.
-                </div>
-            </div>
-
-            <div class="mt-2" *ngIf="showCancel">
-                <div class="alert alert-info mt-2">
-                    Your <em>PayPal</em> transaction was cancelled.
-                </div>
-            </div>
-
             <div class="row align-top">
                 <div class="col-12">
                     <nav aria-label="breadcrumb">
@@ -44,24 +25,30 @@
                     <div class="col-12">
                         <p>{{card?.description}}</p>
                     </div>
-                    <div class="col-12 mb-2">
+                    <div class="col-6 mb-2">
                         <h5 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h5>
+                    </div>
+                    <div class="col-6 mb-2 text-right">
+                        <button class="btn btn-light inst-but" (click)="showInstruction()">{{card!.signAndSend?'How to do Sign & Send':'How to Buy'}}</button>
                     </div>
                     <div class="col-12 mb-2">
                         <span class="text-muted">Sender</span>
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Sender Name</label>
+                        <span class="instruction" *ngIf="instruction">Insert Name of the Buyer</span>
                         <input type="text" class="form-control" placeholder="Name" [value]="order.sender_name"
                             (change)="onChange('Sender-Name', $event)" (keyup)="onKeyUp('Sender-Name', $event)">
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Sender Phone Number</label>
-                        <input type="text" class="form-control" placeholder="Phone Number" [value]="order.sender_phone"
+                        <span class="instruction" *ngIf="instruction">Insert Phone number of the Buyer</span>
+                        <input type="text" class="form-control" Number="Phone Number" [value]="order.sender_phone"
                             (change)="onChange('Sender-Phone', $event)" (keyup)="onKeyUp('Sender-Phone', $event)">
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Sender Email Address</label>
+                        <span class="instruction" *ngIf="instruction">Insert Valid Email Address of the Buyer</span>
                         <input type="email" class="form-control" placeholder="Email Address"
                             [value]="order.sender_email" (change)="onChange('Sender-Email', $event)"
                             (keyup)="onKeyUp('Sender-Email', $event)">
@@ -71,23 +58,27 @@
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Recipient Name</label>
+                        <span class="instruction" *ngIf="instruction">Insert Name of the Reciver</span>
                         <input type="text" class="form-control" placeholder="Name" [value]="order.receiver_name"
                             (change)="onChange('Recipient-Name', $event)" (keyup)="onKeyUp('Recipient-Email', $event)">
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Recipient Phone Number</label>
+                        <span class="instruction" *ngIf="instruction">Insert Phone Number of the Reciver</span>
                         <input type="text" class="form-control" placeholder="Phone Number"
                             [value]="order.receiver_phone" (change)="onChange('Recipient-Phone', $event)"
                             (keyup)="onKeyUp('Recipient-Phone', $event)">
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Recipient Email Address</label>
+                        <span class="instruction" *ngIf="instruction">Insert Valid Email Address of the Reciver</span>
                         <input type="email" class="form-control" placeholder="Email Address"
                             [value]="order.receiver_email" (change)="onChange('Recipient-Email', $event)"
                             (keyup)="onKeyUp('Recipient-Email', $event)">
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Delivery Address</label>
+                        <span class="instruction" *ngIf="instruction">Insert Delivery Address of the Buyer or Reciver</span>
                         <textarea class="form-control" placeholder="Delivery Address" rows="5" [value]="order.address"
                             (change)="onChange('Address', $event)" (keyup)="onKeyUp('Address', $event)"></textarea>
                     </div>
@@ -95,9 +86,11 @@
                         <input class="form-check-input" type="checkbox" [checked]="order.anonymously"
                             (change)="onChange('Anonymously', $event)" (keyup)="onKeyUp('Anonymously', $event)">
                         <label class="form-check-label">Send Anonymously</label>
+                        <span class="instruction" *ngIf="instruction">Check the Box if you want to send Anonymously</span>
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Send To</label>
+                        <span class="instruction" *ngIf="instruction">or you want to choose between Recipient (Reciver) or Sender (Buyer)</span>
                         <select class="form-select form-control" [value]="order.sendto"
                             (change)="onChange('SendTo', $event)">
                             <option selected value="Recipient">Recipient</option>
@@ -105,10 +98,12 @@
                         </select>
                     </div>
                     <div class="col-12 mb-2" *ngIf="card?.signAndSend">
+                        <span class="instruction" *ngIf="instruction">then Click Sign & Send</span>
                         <app-sign-and-send (signAndSendEvent)="receiveSignAndSend($event)"></app-sign-and-send>
                     </div>
                     <div class="col-12 mb-2" *ngIf="!card?.signAndSend">
                         <label class="form-label">Personal Message</label>
+                        <span class="instruction" *ngIf="instruction">Insert Personal Message (Optional)</span>
                         <textarea class="form-control" placeholder="Personal Message" rows="5" [value]="order.message"
                             (change)="onChange('Message', $event)" (keyup)="onKeyUp('Message ', $event)"></textarea>
                     </div>

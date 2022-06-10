@@ -66,6 +66,8 @@ export class OrderComponent implements OnInit {
   totalCount: number = 0;
   total: number = 0;
 
+  instruction: boolean = false;
+
   public payPalConfig?: IPayPalConfig;
   public showSuccess: boolean = false;
   public showCancel: boolean = false;
@@ -312,5 +314,9 @@ export class OrderComponent implements OnInit {
         this.totalCount++;
       }
     })
+  }
+
+  showInstruction(){
+    this.instruction = !this.instruction;
   }
 }
