@@ -63,6 +63,9 @@ export class OrderComponent implements OnInit {
 
   primaryImageURL: string;
 
+  totalCount: number = 0;
+  total: number = 0;
+
   public payPalConfig?: IPayPalConfig;
   public showSuccess: boolean = false;
   public showCancel: boolean = false;
@@ -216,6 +219,7 @@ export class OrderComponent implements OnInit {
   }
 
   addToCart(confirm: any){
+    this.computeTotal();
     this.createAnOrder(this.order).then(id => {
       this.addMore.forEach(item => {
         if (item.count > 0){
@@ -293,5 +297,20 @@ export class OrderComponent implements OnInit {
 
   addMoreChange(value: AddMore[]){
     this.addMore = value;
+    this.computeTotal();
+  }
+
+  computeTotal(){
+    if (this.order){
+      this.total = Number(this.order.card_price!) * Number(this.order.count!);
+      this.totalCount = 1;
+    }
+
+    this.addMore.forEach(item => {
+      if (item.count > 0){
+        this.total = this.total + (Number(item.card.price!) * Number(item.count!));
+        this.totalCount++;
+      }
+    })
   }
 }

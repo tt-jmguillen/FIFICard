@@ -69,7 +69,8 @@ export class CartsComponent implements OnInit {
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.uid = userDetails?.uid;
     this.paymentService.getInitial().then(status => this.initalStatus = status);
-    this.userService.subscribeUser(this.uid).subscribe(user => {
+
+    this.userService.getUser(this.uid).then(user => {
       this.loadCarts(user.carts);
       this.setPayPal();
     })
@@ -83,40 +84,43 @@ export class CartsComponent implements OnInit {
     ids.forEach(id => {
       let isFound: boolean = false;
 
-      this.userCarts.forEach(userCart => {
-        if (userCart.id == id){
-          userCart.visible = true;
-          isFound = true;
-        }
-      });
+      if (this.userCarts.length > 0){
+        this.userCarts.forEach(userCart => {
+          if (userCart.id == id){
+            userCart.visible = true;
+            isFound = true;
+          }
+        });
+      }
 
       if(isFound == false){
         this.userCarts.push(new UserCart(id));
+
         this.orderService.getOrder(id).then(order => {
-          
           this.userCarts.forEach(userCart => {
             if (userCart.id == order.id) {
               userCart.order = order;
               this.computeTotal();
-              this.setPayPal();
             }
           });
 
           this.cardService.getACard(order.card_id!).then(card => {
+            
             this.userCarts.forEach(userCart => {
               if (userCart.order) {
                 if (userCart.order.card_id == card.id) {
                   userCart.card = card;
                   this.getAvailableURL(card.primary!).then(url => {
                     userCart.url = url;
-                  })
+                  });
+                  this.setPayPal();
                 }
-                this.setPayPal();
               }
             });
-          });
+          }).catch(err => {
+            console.log(err, order.card_id!)
+          })
 
-          this.computeTotal();
         });
       }
     });
@@ -126,39 +130,109 @@ export class CartsComponent implements OnInit {
         userCart.selected = false;
       }
     });
-
-    this.setPayPal();
+    
   }
 
   computeTotal() {
     let currentTotal: number = 0;
     this.userCarts.forEach(userCart => {
       if (userCart.selected) {
-        currentTotal = currentTotal + Number(userCart.order.card_price!);
+        currentTotal = currentTotal + (Number(userCart.order.card_price!) * Number(userCart.order.count!));
       }
     });
 
     this.total = currentTotal;
+    this.setPayPal();
   }
 
   onInclude(id: string, event: any) {
+    let parentOrder: string = '';
     this.userCarts.forEach(userCart => {
       if (userCart.order.id == id) {
         userCart.selected = event.target.checked;
+        if (userCart.order.parentOrder){
+          parentOrder = userCart.order.parentOrder;
+        }
       }
-      this.computeTotal();
-      this.setPayPal();
-    })
+    });
+
+    if (parentOrder == ''){
+      this.userCarts.forEach(userCart => {
+        if (userCart.order.parentOrder == id){
+          userCart.selected = event.target.checked;
+        }
+      });
+    }
+    else{
+      if (event.target.checked){
+        this.userCarts.forEach(userCart => {
+          if (userCart.id == parentOrder){
+            userCart.selected = event.target.checked;
+          }
+        });
+      }
+    }
+
+    if (!event.target.checked){
+      this.userCarts.forEach(userCart => {
+        if (userCart.order.id == id) {
+          userCart.selected = event.target.checked;
+        }
+        if(userCart.order.parentOrder == id){
+          userCart.selected = event.target.checked;
+        }
+      })
+    }
+    else{
+      let parentOrder: string = '';
+      this.userCarts.forEach(userCart => {
+        if (userCart.order.id == id) {
+          userCart.selected = event.target.checked;
+          if (userCart.order.parentOrder){
+            parentOrder = userCart.order.parentOrder;
+          }
+        }
+      })
+
+      if(parentOrder != ''){
+        this.userCarts.forEach(userCart => {
+          if (userCart.order.id == parentOrder) {
+            userCart.selected = event.target.checked;
+          }
+        });
+      }
+    }
+    this.computeTotal();
   }
 
   remove(userCart: UserCart){
-    this.userService.removeItemOnCart(this.uid, userCart.id);
+    let id: string = userCart.id;
+    let parentOrder: string = userCart.order.parentOrder?userCart.order.parentOrder:'';
+
     userCart.visible = false;
-    if (userCart.selected){
-      userCart.selected = false;
-      this.computeTotal();
-      this.setPayPal();
+    userCart.selected = false;
+
+    if (parentOrder == ''){
+      this.userCarts.forEach(cart => {
+        if (cart.order.parentOrder == id){
+          cart.visible = false;
+          cart.selected = false;
+        }
+      })
     }
+    let ids: string[]= [];
+    this.userCarts.forEach(cart => {
+      if (cart.visible == false){
+        ids.push(cart.order.id!);
+      }
+    });
+
+    console.log(ids);
+    if(ids.length > 0){
+      this.userService.removeItemsOnCart(this.uid, ids);
+    }
+
+    this.computeTotal();
   }
 
   payNow(gcash_payment: any) {
@@ -215,55 +289,62 @@ export class CartsComponent implements OnInit {
 
     if (this.userCarts.length > 0) {
       let items: ITransactionItem[] = [];
+      let isReady: boolean = false;
+
       this.userCarts.forEach(userCart => {
-        if (userCart.selected) {
-          let item: ITransactionItem = {
-            name: 'Fibei Greetings: ' + userCart.card.name + ' for ' + userCart.order.receiver_name,
-            quantity: '1',
-            category: 'DIGITAL_GOODS',
-            unit_amount: {
-              currency_code: environment.paypalCurrency,
-              value: userCart.order.card_price!.toString()
+        if (userCart.card.id && userCart.order.id){
+          isReady = true;
+          if (userCart.selected) {
+            let item: ITransactionItem = {
+              name: 'Fibei Greetings: ' + userCart.card.name + ' for ' + userCart.order.receiver_name,
+              quantity: userCart.order.count!.toString(),
+              category: 'DIGITAL_GOODS',
+              unit_amount: {
+                currency_code: environment.paypalCurrency,
+                value: userCart.order.card_price!.toString()
+              }
             }
+            items.push(item);
           }
-          items.push(item);
         }
       });
 
-      this.payPalConfig = {
-        currency: environment.paypalCurrency,
-        clientId: environment.paypalClientId,
-        createOrderOnClient: (data) => <ICreateOrderRequest>{
-          intent: 'CAPTURE',
-          purchase_units: [
-            {
-              amount: {
-                currency_code: environment.paypalCurrency,
-                value: this.total.toFixed(2),
-                breakdown: {
-                  item_total: {
-                    currency_code: environment.paypalCurrency,
-                    value: this.total.toFixed(2)
+      if (isReady){
+        this.payPalConfig = {
+          currency: environment.paypalCurrency,
+          clientId: environment.paypalClientId,
+          createOrderOnClient: (data) => <ICreateOrderRequest>{
+            intent: 'CAPTURE',
+            purchase_units: [
+              {
+                amount: {
+                  currency_code: environment.paypalCurrency,
+                  value: this.total.toFixed(2),
+                  breakdown: {
+                    item_total: {
+                      currency_code: environment.paypalCurrency,
+                      value: this.total.toFixed(2)
+                    }
                   }
-                }
-              },
-              items: items
-            }
-          ]
-        },
-        advanced: {
-          commit: 'true'
-        },
-        style: {
-          label: 'paypal',
-          layout: 'vertical'
-        },
-        onClientAuthorization: (data) => {
-          this.payPalTransactionId = data.id;
-          this.payPalPayerId = data.payer.payer_id?data.payer.payer_id:'';
-          this.payPalPayerEmail = data.payer.email_address?data.payer.email_address:'';
-          this.saveTransaction("PayPal");
-        },
+                },
+                items: items
+              }
+            ]
+          },
+          advanced: {
+            commit: 'true'
+          },
+          style: {
+            label: 'paypal',
+            layout: 'vertical'
+          },
+          onClientAuthorization: (data) => {
+            this.payPalTransactionId = data.id;
+            this.payPalPayerId = data.payer.payer_id?data.payer.payer_id:'';
+            this.payPalPayerEmail = data.payer.email_address?data.payer.email_address:'';
+            this.saveTransaction("PayPal");
+          },
+        }
       }
     }
     /*

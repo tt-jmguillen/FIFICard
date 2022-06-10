@@ -32,7 +32,8 @@
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <app-imagegrid id="{{id}}"></app-imagegrid>
-                    <app-add-more *ngIf="card" [id]="card!.id" [recipients]="card!.recipients" [limit]=4 (selectedChange)="addMoreChange($event)"></app-add-more>
+                    <app-add-more *ngIf="card" [id]="card!.id" [recipients]="card!.recipients" [limit]=4
+                        (selectedChange)="addMoreChange($event)"></app-add-more>
                 </div>
                 <div class="col-lg-6 col-sm-12 row">
                     <div class="col-12">
@@ -61,8 +62,9 @@
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Sender Email Address</label>
-                        <input type="email" class="form-control" placeholder="Email Address" [value]="order.sender_email"
-                            (change)="onChange('Sender-Email', $event)" (keyup)="onKeyUp('Sender-Email', $event)">
+                        <input type="email" class="form-control" placeholder="Email Address"
+                            [value]="order.sender_email" (change)="onChange('Sender-Email', $event)"
+                            (keyup)="onKeyUp('Sender-Email', $event)">
                     </div>
                     <div class="col-12 mb-2">
                         <span class="text-muted">Recipient</span>
@@ -74,13 +76,15 @@
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Recipient Phone Number</label>
-                        <input type="text" class="form-control" placeholder="Phone Number" [value]="order.receiver_phone"
-                            (change)="onChange('Recipient-Phone', $event)" (keyup)="onKeyUp('Recipient-Phone', $event)">
+                        <input type="text" class="form-control" placeholder="Phone Number"
+                            [value]="order.receiver_phone" (change)="onChange('Recipient-Phone', $event)"
+                            (keyup)="onKeyUp('Recipient-Phone', $event)">
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Recipient Email Address</label>
-                        <input type="email" class="form-control" placeholder="Email Address" [value]="order.receiver_email"
-                            (change)="onChange('Recipient-Email', $event)" (keyup)="onKeyUp('Recipient-Email', $event)">
+                        <input type="email" class="form-control" placeholder="Email Address"
+                            [value]="order.receiver_email" (change)="onChange('Recipient-Email', $event)"
+                            (keyup)="onKeyUp('Recipient-Email', $event)">
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Delivery Address</label>
@@ -94,7 +98,7 @@
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Send To</label>
-                        <select class="form-select form-control"  [value]="order.sendto"
+                        <select class="form-select form-control" [value]="order.sendto"
                             (change)="onChange('SendTo', $event)">
                             <option selected value="Recipient">Recipient</option>
                             <option value="Sender">Sender</option>
@@ -105,7 +109,7 @@
                     </div>
                     <div class="col-12 mb-2" *ngIf="!card?.signAndSend">
                         <label class="form-label">Personal Message</label>
-                        <textarea class="form-control" placeholder="Personal Message" rows="5"  [value]="order.message"
+                        <textarea class="form-control" placeholder="Personal Message" rows="5" [value]="order.message"
                             (change)="onChange('Message', $event)" (keyup)="onKeyUp('Message ', $event)"></textarea>
                     </div>
                     <div class="col-12 mt-2">
@@ -114,26 +118,30 @@
                     </div>
                 </div>
             </div>
-            
+
             <ng-template #confimation let-modal>
                 <div class="modal-header">
                     <h4 class="modal-title" id="modal-basic-title">1 item added</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-3">
-                            <img src="{{primaryImageURL}}">
-                        </div>
-                        <div class="col-9">
-                            <div class="col-12">{{card?.name}}</div>
-                            <div class="col-12 allign-right">₱ {{card?.price | number:'1.2-2'}}</div>
-                        </div>
+                        <div class="col-2"><img src="{{primaryImageURL}}"></div>
+                        <div class="col-7">{{card?.name}}</div>
+                        <div class="col-3 allign-right">{{card?.price | number:'1.2-2'}}</div>
                     </div>
                     <div class="border"></div>
+                    <div *ngFor="let item of addMore">
+                        <div class="row" *ngIf="item.count > 0">
+                            <div class="col-2"></div>
+                            <div class="col-8">{{item.card.name}}</div>
+                            <div class="col-2 allign-right">{{item.card.price! * item.count!| number:'1.2-2'}}</div>
+                        </div>
+                        <div class="border"></div>
+                    </div>
                     <div class="row">
-                        <div class="col-6">Card Subtotal (1 item):</div>
+                        <div class="col-6">Card Subtotal ({{totalCount}} item):</div>
                         <div class="col-6">
-                            <div class="col-12 allign-right">₱ {{card?.price | number:'1.2-2'}}</div>
+                            <div class="col-12 allign-right">₱ {{total | number:'1.2-2'}}</div>
                         </div>
                     </div>
                 </div>
