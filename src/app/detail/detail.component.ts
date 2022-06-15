@@ -1,7 +1,7 @@
 import { EmailService } from './../services/email.service';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { stringify } from 'querystring';
 import { Card } from '../models/card';
 import { CardService } from '../services/card.service';
@@ -26,7 +26,8 @@ export class DetailComponent implements OnInit {
     private appComponent: AppComponent,
     private _service: CardService,
     private _emailService: EmailService,
-    private titleService: Title
+    private titleService: Title,
+    private router: Router
   ) { 
     this.activateRoute = _activateRoute;
     this.service = _service;
@@ -58,7 +59,11 @@ export class DetailComponent implements OnInit {
   checkIfLoggedIn(id: any): void {
     let userDetails: string = localStorage.getItem('user')!;
     console.log(userDetails);
-    if(userDetails == null || userDetails.length < 0) this.appComponent.openLoginDialog(id);
-    else window.location.href = "/order/" + id;
+    if(userDetails == null || userDetails.length < 0) {
+      this.appComponent.openLoginDialog(id);
+    }
+    else {
+      this.router.navigate(['/order', id]);
+    }
   }
 }
