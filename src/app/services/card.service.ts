@@ -196,6 +196,29 @@ export class CardService {
     });
   }
 
+  getSignAndSendFeaturedCards(): Promise<Card[]> {
+    return new Promise((resolve, rejects) => {
+      this.db.collection('cards', ref => ref
+        .where('active', "==", true)
+        .where('featured', "==", true)
+        .where('signAndSend', "==", true)
+      ).get().subscribe(data => {
+        if (!data.empty) {
+          let cards: Card[] = [];
+          data.forEach(doc => {
+            let card: Card = doc.data() as Card;
+            card.id = doc.id;
+            cards.push(card);
+          });
+          resolve(cards);
+        }
+        else {
+          rejects("No cards found.");
+        }
+      });
+    });
+  }
+
   getCards(): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
       this.db.collection('cards', ref => ref

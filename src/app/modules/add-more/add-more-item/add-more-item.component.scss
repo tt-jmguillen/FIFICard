@@ -1,0 +1,67 @@
+.parent{
+    height: 200px;
+}
+
+.main {
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    height: 170px;
+    padding: 5px 5px 5px 5px;
+    cursor: pointer;
+}
+
+.main:hover {
+    box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 14px 0 rgba(0, 0, 0, 0.19) !important;
+}
+
+.name {
+    height: 20%;
+    width: 100%;
+}
+
+.name p {
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.image {
+    height: 70%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.image img {
+    max-height: 95%;
+}
+
+.price {
+    height: 10%;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.price p {
+    font-size: 12px;
+}
+
+.text-right{
+    text-align: right !important;
+}
+
+.tool{
+    padding-top: 5px;
+}
+
+.tool-but p{
+    cursor: pointer;
+    font-size: 15px;
+}
+

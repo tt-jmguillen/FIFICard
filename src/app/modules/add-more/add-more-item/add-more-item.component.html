@@ -1,0 +1,24 @@
+<div class="parent">
+    <div class="main" title="{{card.name}}" (click)="markItem()">
+        <div class="name">
+            <p>{{card.name}}</p>
+        </div>
+        <div class="image">
+            <img src="{{imageURL}}">
+        </div>
+        <div class="price">
+            <p>{{card.price!.toFixed(2)}}</p>
+        </div>
+    </div>
+    <div class="row tool" *ngIf="count > 0">
+        <div class="col-4 text-right tool-but">
+            <p (click)="lessCount()">-</p>
+        </div>
+        <div class="col-4 text-center">
+            <p>{{count.toString()}}</p>
+        </div>
+        <div class="col-4 tool-but">
+            <p (click)="addCount()">+</p>
+        </div>
+    </div>
+</div>

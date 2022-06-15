@@ -1,0 +1,16 @@
+<p>Choose more items:</p>
+<div class="row main">
+    <div class="col-1 control no-padding">
+        <mat-icon [hidden]="!isPrev" (click)="loadPrev()">keyboard_arrow_left</mat-icon>
+    </div>
+    <div class="col-10 no-padding">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 less-padding" *ngFor="let item of displayCards">
+                <app-add-more-item [card]="item.card" [count]="item.count" (addMoreChange)="addMoreChange(item.card.id!, $event)"></app-add-more-item>
+            </div>
+        </div>
+    </div>
+    <div class="col-1 control no-padding">
+        <mat-icon [hidden]="!isNext" (click)="loadNext()">keyboard_arrow_right</mat-icon>
+    </div>
+</div>

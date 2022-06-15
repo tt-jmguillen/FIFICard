@@ -97,6 +97,20 @@ input[type=file]::file-selector-button:hover {
 .full-size:hover{
     background-color: #6610f2; 
 }
-  
+
+.instruction{
+    color:red;
+    font-style: italic;
+    float: right;
+}
+
+.text-right{
+    text-align: right !important;
+}
+
+.inst-but{
+    color: red;
+    font-style: italic;
+} 
 
 

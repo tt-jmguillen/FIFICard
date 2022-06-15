@@ -158,11 +158,13 @@ export class UserService {
 
       user.carts.forEach(id => {
         let isFound = false;
+
         orderIds.forEach(orderId => {
           if (orderId == id){
-            isFound == true;
+            isFound = true;
           }
         })
+
         if (!isFound){
           carts.push(id);
         }

@@ -1,3 +1,4 @@
+import { AddMore } from './../models/add-more';
 import { sign } from 'crypto';
 import { SignAndSendDetails } from './../models/sign-and-send-details';
 import { AddressService } from './../services/address.service';
@@ -26,6 +27,7 @@ export class OrderComponent implements OnInit {
   id?: string;
   card?: Card;
 
+  orders: Order[] = [];
   order: Order = new Order();
   SignAndSend: SignAndSendDetails[] = [];
   isValidOrder: Boolean = false;
@@ -39,6 +41,8 @@ export class OrderComponent implements OnInit {
   addressService: AddressService;
   modalService: NgbModal;
   router: Router;
+
+  addMore: AddMore[] = [];
 
   confirmRef: NgbModalRef;
   ngbModalOptions: NgbModalOptions = {
@@ -58,6 +62,11 @@ export class OrderComponent implements OnInit {
   payerEmail: string;
 
   primaryImageURL: string;
+
+  totalCount: number = 0;
+  total: number = 0;
+
+  instruction: boolean = false;
 
   public payPalConfig?: IPayPalConfig;
   public showSuccess: boolean = false;
@@ -102,6 +111,7 @@ export class OrderComponent implements OnInit {
     this.order.sendto = "Recipient";
     this.order.message = '';
     this.order.withSignAndSend = false;
+    this.order.count = 1;
 
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.uid = userDetails?.uid;
@@ -173,90 +183,6 @@ export class OrderComponent implements OnInit {
     return isValid;
   }
 
-  /*
-  private initConfig(price: string, cardName: string): void {
-    this.payPalConfig = {
-      currency: environment.paypalCurrency,
-      clientId: environment.paypalClientId,
-      createOrderOnClient: (data) => <ICreateOrderRequest>{
-        intent: 'CAPTURE',
-        purchase_units: [
-          {
-            amount: {
-              currency_code: environment.paypalCurrency,
-              value: price,
-              breakdown: {
-                item_total: {
-                  currency_code: environment.paypalCurrency,
-                  value: price
-                }
-              }
-            },
-            items: [
-              {
-                name: 'Fibei Greetings: ' + cardName,
-                quantity: '1',
-                category: 'DIGITAL_GOODS',
-                unit_amount: {
-                  currency_code: environment.paypalCurrency,
-                  value: price,
-                },
-              }
-            ]
-          }
-        ]
-      },
-      advanced: {
-        commit: 'true'
-      },
-      style: {
-        label: 'paypal',
-        layout: 'vertical'
-      },
-      onApprove: (data, actions) => {
-        //console.log('onApprove - transaction was approved, but not authorized', data, actions);
-        //actions.order.get().then((details: any) => {
-        //  console.log('onApprove - you can get full order details inside onApprove: ', details);
-        //});
-        //this.isPayPalApproved = true;
-        //this.showSuccess = true;
-        //this.modalService.dismissAll();
-        //this.submitOrder("PayPal");
-      },
-      onClientAuthorization: (data) => {
-        //console.log('onClientAuthorization - inform your server about completed transaction at this point', data);
-
-        this.transactionId = data.id;
-        if (data.payer.payer_id)
-          this.payerId = data.payer.payer_id;
-        if (data.payer.email_address)
-          this.payerEmail = data.payer.email_address;
-
-        this.isPayPalApproved = true;
-        this.showSuccess = true;
-        this.modalService.dismissAll();
-        this.submitOrder("PayPal");
-      },
-      onCancel: (data, actions) => {
-        console.log('OnCancel', data, actions);
-        this.showCancel = true;
-
-      },
-      onError: err => {
-        console.log('OnError', err);
-        this.showError = true;
-      },
-      onClick: (data, actions) => {
-        console.log('onClick', data, actions);
-        this.resetStatus();
-      },
-      onInit: (data, actions) => {
-        console.log('onInit', data, actions);
-      }
-    };
-  }
-  */
-
   onChange(type: string, event: any){
     if (type == "Sender-Name"){
       this.order.sender_name = event.target.value;
@@ -295,12 +221,44 @@ export class OrderComponent implements OnInit {
   }
 
   addToCart(confirm: any){
-    this.orderService.createOrder(this.order).then(id => {
-      this.SignAndSend.forEach(sign => {
-        this.orderService.addSignAndSend(id, sign);
+    this.computeTotal();
+    this.createAnOrder(this.order).then(id => {
+      this.addMore.forEach(item => {
+        if (item.count > 0){
+          let order: Order = new Order();
+          order.card_id = item.card.id;
+          order.card_price = item.card.price;
+          order.count = item.count;
+          order.parentOrder = id;
+          order.user_id = this.uid;
+
+          this.createAnAddMoreOrder(order).then(_id => {
+             console.log(_id);
+          });
+        }
       });
-      this.userService.addItemOnCart(this.uid, id);
       this.confirmRef = this.modalService.open(confirm, this.ngbModalOptions);
+    });
+  }
+
+  createAnOrder(order: Order): Promise<string>{
+    return new Promise((resolve) => {
+      this.orderService.createOrder(order).then(id => {
+        this.SignAndSend.forEach(sign => {
+          this.orderService.addSignAndSend(id, sign);
+        });
+        this.userService.addItemOnCart(this.uid, id);
+        resolve(id);
+      })
+    })
+  }
+
+  createAnAddMoreOrder(order: Order): Promise<string>{
+    return new Promise((resolve) => {
+      this.orderService.createAddMore(order).then(id => {
+        this.userService.addItemOnCart(this.uid, id);
+        resolve(id);
+      })
     })
   }
 
@@ -337,5 +295,28 @@ export class OrderComponent implements OnInit {
   cart(){
     this.confirmRef.close('');
     this.router.navigate(['/cart']);
+  }
+
+  addMoreChange(value: AddMore[]){
+    this.addMore = value;
+    this.computeTotal();
+  }
+
+  computeTotal(){
+    if (this.order){
+      this.total = Number(this.order.card_price!) * Number(this.order.count!);
+      this.totalCount = 1;
+    }
+
+    this.addMore.forEach(item => {
+      if (item.count > 0){
+        this.total = this.total + (Number(item.card.price!) * Number(item.count!));
+        this.totalCount++;
+      }
+    })
+  }
+
+  showInstruction(){
+    this.instruction = !this.instruction;
   }
 }

@@ -9,7 +9,7 @@
   text-align-last: center;
   border-radius: 0rem;
   margin-left: 20px;
-   margin-right: 20px;
+  margin-right: 20px;
   // margin-top: 20px;
   //margin-bottom: 20px;
   color: #000;
@@ -86,6 +86,10 @@
   cursor: pointer;
 }
 
+.my-recipient{
+  padding-top: 10px;
+}
+
 .my-recipient span {
   border: 1px solid #ccc;
   padding: 8px 16px;
@@ -95,7 +99,21 @@
   margin-bottom: 10px;
   font-size: 12px;
 }
-.card .img-wrap
-{
+
+.card .img-wrap {
   background-color: #fbf4ff;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.valign-center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.allign-right{
+  text-align: right;
 }

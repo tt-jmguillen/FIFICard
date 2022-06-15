@@ -12,8 +12,7 @@
                 <div *ngFor="let userCart of userCarts">
                     <div class="row border" *ngIf="userCart.visible">
                         <div class="col-md-1 col-2 allign-center valign-center">
-                            <input type="checkbox" (change)="onInclude(userCart.id, $event)"
-                                [checked]="userCart.selected">
+                            <input type="checkbox" (change)="onInclude(userCart.id, $event)" [checked]="userCart.selected">
                         </div>
                         <div class="col-md-1 col-10">
                             <img src="{{userCart.url}}" *ngIf="userCart.url != ''" class="img">
@@ -26,19 +25,22 @@
                                 <div class="col-12">
                                     Description: <strong>{{userCart.card.description}}</strong>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12" *ngIf="!userCart.order.parentOrder">
                                     Receiver: <strong>{{userCart.order.receiver_name}}</strong>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12" *ngIf="!userCart.order.parentOrder">
                                     Sign and Send: <strong>{{userCart.order.withSignAndSend?'Yes':'No'}}</strong>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1 col-6 valign-center">
-                            <button class="btn btn-outline-danger btn-sm" (click)="remove(userCart)" >Remove</button>
+                        <div class="col-md-1 col-6 valign-center allign-right">
+                            <span><strong>{{userCart.card.price| number:'1.2-2'}} x {{userCart.order.count}}</strong></span>
                         </div>
-                        <div class="col-md-2 col-6 allign-right pr-0 valign-center">
-                            <span>₱ <strong>{{userCart.order.card_price| number:'1.2-2'}}</strong></span>
+                        <div class="col-md-1 col-6 valign-center text-center">
+                            <span><mat-icon class="delete" (click)="remove(userCart)" title="Remove">delete</mat-icon></span>
+                        </div>
+                        <div class="col-md-1 col-6 allign-right pr-0 valign-center">
+                            <span><strong>{{(userCart.order.card_price! * userCart.order.count!)| number:'1.2-2'}}</strong></span>
                         </div>
                     </div>
                 </div>
