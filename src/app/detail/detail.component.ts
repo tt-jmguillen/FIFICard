@@ -1,3 +1,4 @@
+import { getDownloadURL } from '@angular/fire/storage';
 import { EmailService } from './../services/email.service';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
@@ -58,7 +59,6 @@ export class DetailComponent implements OnInit {
   
   checkIfLoggedIn(id: any): void {
     let userDetails: string = localStorage.getItem('user')!;
-    console.log(userDetails);
     if(userDetails == null || userDetails.length < 0) {
       this.appComponent.openLoginDialog(id);
     }

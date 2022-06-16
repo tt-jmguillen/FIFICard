@@ -1,12 +1,13 @@
+import { AppRoutingModule } from './../app-routing.module';
 import { AddMore } from './../models/add-more';
 import { sign } from 'crypto';
 import { SignAndSendDetails } from './../models/sign-and-send-details';
 import { AddressService } from './../services/address.service';
 import { EmailService } from './../services/email.service';
 import { OrderService } from './../services/order.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Card } from '../models/card';
 import { Order } from '../models/order';
 import { CardService } from '../services/card.service';
@@ -46,10 +47,10 @@ export class OrderComponent implements OnInit {
 
   confirmRef: NgbModalRef;
   ngbModalOptions: NgbModalOptions = {
-    backdrop : 'static',
-    keyboard : false
+    backdrop: 'static',
+    keyboard: false
   };
-  
+
   emailService: EmailService;
 
   isPayPalApproved: boolean = false;
@@ -83,7 +84,7 @@ export class OrderComponent implements OnInit {
     _addressService: AddressService,
     _modalService: NgbModal,
     _router: Router,
-    
+
     private _emailService: EmailService,
   ) {
     this.titleService = _titleService;
@@ -95,7 +96,7 @@ export class OrderComponent implements OnInit {
     this.addressService = _addressService;
     this.modalService = _modalService;
     this.router = _router;
-    
+
     this.emailService = _emailService;
   }
 
@@ -142,10 +143,10 @@ export class OrderComponent implements OnInit {
 
   loadUser() {
     this.userService.getUser(this.uid).then(user => {
-      if (user.firstname && user.lastname){
+      if (user.firstname && user.lastname) {
         this.order.sender_name = user.firstname + ' ' + user.lastname;
       }
-      if (user.email){
+      if (user.email) {
         this.order.sender_email = user.email;
       }
       if (user.address) {
@@ -157,74 +158,74 @@ export class OrderComponent implements OnInit {
     })
   }
 
-  validateOrder(): boolean{
+  validateOrder(): boolean {
     let isValid = true;
-    if (!this.order.sender_name || (this.order.sender_name == '')){
+    if (!this.order.sender_name || (this.order.sender_name == '')) {
       isValid = false;
     }
-    if (!this.order.sender_phone || (this.order.sender_phone == '')){
+    if (!this.order.sender_phone || (this.order.sender_phone == '')) {
       isValid = false;
     }
-    if (!this.order.sender_email || (this.order.sender_email == '')){
+    if (!this.order.sender_email || (this.order.sender_email == '')) {
       isValid = false;
     }
-    if (!this.order.receiver_name || (this.order.receiver_name == '')){
+    if (!this.order.receiver_name || (this.order.receiver_name == '')) {
       isValid = false;
     }
-    if (!this.order.receiver_phone || (this.order.receiver_phone == '')){
+    if (!this.order.receiver_phone || (this.order.receiver_phone == '')) {
       isValid = false;
     }
-    if (!this.order.address || (this.order.address == '')){
+    if (!this.order.address || (this.order.address == '')) {
       isValid = false;
     }
-    if (!this.order.sendto || (this.order.sendto == '')){
+    if (!this.order.sendto || (this.order.sendto == '')) {
       isValid = false;
     }
     return isValid;
   }
 
-  onChange(type: string, event: any){
-    if (type == "Sender-Name"){
+  onChange(type: string, event: any) {
+    if (type == "Sender-Name") {
       this.order.sender_name = event.target.value;
     }
-    if (type == "Sender-Phone"){
+    if (type == "Sender-Phone") {
       this.order.sender_phone = event.target.value;
     }
-    if (type == "Sender-Email"){
+    if (type == "Sender-Email") {
       this.order.sender_email = event.target.value;
     }
-    if (type == "Recipient-Name"){
+    if (type == "Recipient-Name") {
       this.order.receiver_name = event.target.value;
     }
-    if (type == "Recipient-Phone"){
+    if (type == "Recipient-Phone") {
       this.order.receiver_phone = event.target.value;
     }
-    if (type == "Recipient-Email"){
+    if (type == "Recipient-Email") {
       this.order.receiver_email = event.target.value;
     }
-    if (type == "Address"){
+    if (type == "Address") {
       this.order.address = event.target.value;
     }
-    if (type == "Anonymously"){
+    if (type == "Anonymously") {
       this.order.anonymously = event.target.checked;
     }
-    if (type == "SendTo"){
+    if (type == "SendTo") {
       this.order.sendto = event.target.value;
     }
-    if (type == "Message"){
+    if (type == "Message") {
       this.order.message = event.target.value;
     }
   }
 
-  onKeyUp(type: string, event: any){  
+  onKeyUp(type: string, event: any) {
     this.isValidOrder = this.validateOrder();
   }
 
-  addToCart(confirm: any){
+  addToCart(confirm: any) {
     this.computeTotal();
     this.createAnOrder(this.order).then(id => {
       this.addMore.forEach(item => {
-        if (item.count > 0){
+        if (item.count > 0) {
           let order: Order = new Order();
           order.card_id = item.card.id;
           order.card_price = item.card.price;
@@ -233,7 +234,7 @@ export class OrderComponent implements OnInit {
           order.user_id = this.uid;
 
           this.createAnAddMoreOrder(order).then(_id => {
-             console.log(_id);
+            console.log(_id);
           });
         }
       });
@@ -241,7 +242,7 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  createAnOrder(order: Order): Promise<string>{
+  createAnOrder(order: Order): Promise<string> {
     return new Promise((resolve) => {
       this.orderService.createOrder(order).then(id => {
         this.SignAndSend.forEach(sign => {
@@ -253,7 +254,7 @@ export class OrderComponent implements OnInit {
     })
   }
 
-  createAnAddMoreOrder(order: Order): Promise<string>{
+  createAnAddMoreOrder(order: Order): Promise<string> {
     return new Promise((resolve) => {
       this.orderService.createAddMore(order).then(id => {
         this.userService.addItemOnCart(this.uid, id);
@@ -262,7 +263,7 @@ export class OrderComponent implements OnInit {
     })
   }
 
-  test(confirm: any){
+  test(confirm: any) {
     this.confirmRef = this.modalService.open(confirm, this.ngbModalOptions);
   }
 
@@ -270,7 +271,7 @@ export class OrderComponent implements OnInit {
     this.confirmRef = this.modalService.open(confirm, this.ngbModalOptions);
   }
 
-  receiveSignAndSend(signAndSendDetails: SignAndSendDetails[]){
+  receiveSignAndSend(signAndSendDetails: SignAndSendDetails[]) {
     this.order.withSignAndSend = true;
     this.SignAndSend = signAndSendDetails;
   }
@@ -287,36 +288,36 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  keepShopping(){
+  keepShopping() {
     this.confirmRef.close('');
     this.router.navigate(['/events']);
   }
 
-  cart(){
+  cart() {
     this.confirmRef.close('');
-    this.router.navigate(['/cart']);
+    window.location.href = "/cart"; 
   }
 
-  addMoreChange(value: AddMore[]){
+  addMoreChange(value: AddMore[]) {
     this.addMore = value;
     this.computeTotal();
   }
 
-  computeTotal(){
-    if (this.order){
+  computeTotal() {
+    if (this.order) {
       this.total = Number(this.order.card_price!) * Number(this.order.count!);
       this.totalCount = 1;
     }
 
     this.addMore.forEach(item => {
-      if (item.count > 0){
+      if (item.count > 0) {
         this.total = this.total + (Number(item.card.price!) * Number(item.count!));
         this.totalCount++;
       }
     })
   }
 
-  showInstruction(){
+  showInstruction() {
     this.instruction = !this.instruction;
   }
 }

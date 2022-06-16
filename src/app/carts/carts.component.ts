@@ -2,29 +2,32 @@ import { OrderService } from './../services/order.service';
 import { PaymentService } from './../services/payment.service';
 import { CardService } from 'src/app/services/card.service';
 import { UserService } from 'src/app/services/user.service';
-import { Component, NgModuleFactory, OnInit } from '@angular/core';
+import { AfterViewInit, Component, NgModuleFactory, OnInit } from '@angular/core';
 import { Card } from '../models/card';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Payment } from '../models/payment';
 import { Order } from '../models/order';
 import { ICreateOrderRequest, IPayPalConfig, ITransactionItem } from 'ngx-paypal';
 import { environment } from 'src/environments/environment';
+import { Console } from 'console';
 
-class UserCart {
+class Collection {
   public id: string;
-  public order: Order;
-  public card: Card;
-  public url: string;
-  public selected: boolean;
-  public visible: boolean;
+  public cardname: string;
+  public receivername: string;
+  public included: boolean;
+  public price: number;
+  public qty: number;
+  public parent: string;
 
   constructor(_id: string) {
     this.id = _id;
-    this.order = new Order();
-    this.card = new Card();
-    this.url = '';
-    this.selected = true;
-    this.visible = true;
+    this.cardname = '';
+    this.receivername = '';
+    this.included = true;
+    this.price = 0;
+    this.qty = 0;
+    this.parent = '';
   }
 }
 
@@ -36,7 +39,10 @@ class UserCart {
 
 export class CartsComponent implements OnInit {
   uid: string;
-  userCarts: UserCart[] = [];
+
+  collection: Collection[] = []
+  carts: string[] = [];
+
   total: number = 0;
   initalStatus: string;
   gcashUploadedFile: string = '';
@@ -71,168 +77,90 @@ export class CartsComponent implements OnInit {
     this.paymentService.getInitial().then(status => this.initalStatus = status);
 
     this.userService.getUser(this.uid).then(user => {
-      this.loadCarts(user.carts);
-      this.setPayPal();
+      this.carts = user.carts;
+      user.carts.forEach(id => this.collection.push(new Collection(id)));
     })
   }
 
-  loadCarts(ids: string[]) {
-    this.userCarts.forEach(userCart => {
-      userCart.visible = false;
-    });
-
-    ids.forEach(id => {
-      let isFound: boolean = false;
-
-      if (this.userCarts.length > 0){
-        this.userCarts.forEach(userCart => {
-          if (userCart.id == id){
-            userCart.visible = true;
-            isFound = true;
-          }
-        });
+  getUserCart(carts: string[]){
+    this.carts = carts;
+    carts.forEach(cart => {
+      if (this.collection.findIndex(x => x.id == cart) < 0){
+        this.collection.push(new Collection(cart));
       }
+    })
+  }
 
-      if(isFound == false){
-        this.userCarts.push(new UserCart(id));
+  updateOrder(value: Order) {
+    this.collection.forEach(item => {
+      if (item.id == value.id!) {
+        item.receivername = value.receiver_name!;
+        item.parent = value.parentOrder!;
+        item.price = value.card_price!;
+        item.qty = value.count!;
+      }
+    })
+    this.computeTotal();
+  }
 
-        this.orderService.getOrder(id).then(order => {
-          this.userCarts.forEach(userCart => {
-            if (userCart.id == order.id) {
-              userCart.order = order;
-              this.computeTotal();
-            }
-          });
-
-          this.cardService.getACard(order.card_id!).then(card => {
-            
-            this.userCarts.forEach(userCart => {
-              if (userCart.order) {
-                if (userCart.order.card_id == card.id) {
-                  userCart.card = card;
-                  this.getAvailableURL(card.primary!).then(url => {
-                    userCart.url = url;
-                  });
-                  this.setPayPal();
-                }
-              }
-            });
-          }).catch(err => {
-            console.log(err, order.card_id!)
-          })
-
-        });
+  updateCard(value: [string, Card]) {
+    this.collection.forEach(item => {
+      if (item.id == value[0]) {
+        let card = value[1] as Card;
+        item.cardname = card.name!;
       }
     });
+  }
 
-    this.userCarts.forEach(userCart => {
-      if (userCart.visible == false){
-        userCart.selected = false;
+  changeInclude(value: [string, boolean]) {
+    let isParent: boolean = false;
+    let parentId: string = '';
+    
+    this.collection.forEach(item => {
+      if (item.id == value[0]) {
+        item.included = value[1];
+        isParent = item.parent == undefined;
+        parentId = item.parent;
       }
     });
     
+    this.collection.forEach(item => {
+      if (item.id != value[0]){
+        if (isParent){
+          if (item.parent == value[0]){
+            item.included = value[1];
+          }
+        }
+        else{
+          if (value[1]){
+            if (item.id == parentId){
+              item.included = value[1];
+            }
+          }
+        }
+      }
+    });
+
+    this.computeTotal();
+  }
+
+  delete(value: string) {
+    let index: number = this.collection.findIndex(x => x.id == value);
+    this.collection.splice(index, 1);
+    this.userService.removeItemOnCart(this.uid, value);
+    this.computeTotal();
   }
 
   computeTotal() {
     let currentTotal: number = 0;
-    this.userCarts.forEach(userCart => {
-      if (userCart.selected) {
-        currentTotal = currentTotal + (Number(userCart.order.card_price!) * Number(userCart.order.count!));
+    this.collection.forEach(item => {
+      if (item.included) {
+        currentTotal = currentTotal + (Number(item.price) * Number(item.qty));
       }
     });
 
     this.total = currentTotal;
     this.setPayPal();
-  }
-
-  onInclude(id: string, event: any) {
-    let parentOrder: string = '';
-    this.userCarts.forEach(userCart => {
-      if (userCart.order.id == id) {
-        userCart.selected = event.target.checked;
-        if (userCart.order.parentOrder){
-          parentOrder = userCart.order.parentOrder;
-        }
-      }
-    });
-
-    if (parentOrder == ''){
-      this.userCarts.forEach(userCart => {
-        if (userCart.order.parentOrder == id){
-          userCart.selected = event.target.checked;
-        }
-      });
-    }
-    else{
-      if (event.target.checked){
-        this.userCarts.forEach(userCart => {
-          if (userCart.id == parentOrder){
-            userCart.selected = event.target.checked;
-          }
-        });
-      }
-    }
-
-    if (!event.target.checked){
-      this.userCarts.forEach(userCart => {
-        if (userCart.order.id == id) {
-          userCart.selected = event.target.checked;
-        }
-        if(userCart.order.parentOrder == id){
-          userCart.selected = event.target.checked;
-        }
-      })
-    }
-    else{
-      let parentOrder: string = '';
-      this.userCarts.forEach(userCart => {
-        if (userCart.order.id == id) {
-          userCart.selected = event.target.checked;
-          if (userCart.order.parentOrder){
-            parentOrder = userCart.order.parentOrder;
-          }
-        }
-      })
-
-      if(parentOrder != ''){
-        this.userCarts.forEach(userCart => {
-          if (userCart.order.id == parentOrder) {
-            userCart.selected = event.target.checked;
-          }
-        });
-      }
-    }
-    this.computeTotal();
-  }
-
-  remove(userCart: UserCart){
-    let id: string = userCart.id;
-    let parentOrder: string = userCart.order.parentOrder?userCart.order.parentOrder:'';
-
-    userCart.visible = false;
-    userCart.selected = false;
-
-    if (parentOrder == ''){
-      this.userCarts.forEach(cart => {
-        if (cart.order.parentOrder == id){
-          cart.visible = false;
-          cart.selected = false;
-        }
-      })
-    }
-    let ids: string[]= [];
-    this.userCarts.forEach(cart => {
-      if (cart.visible == false){
-        ids.push(cart.order.id!);
-      }
-    });
-
-    console.log(ids);
-    if(ids.length > 0){
-      this.userService.removeItemsOnCart(this.uid, ids);
-    }
-
-    this.computeTotal();
   }
 
   payNow(gcash_payment: any) {
@@ -247,22 +175,22 @@ export class CartsComponent implements OnInit {
   }
 
   saveTransaction(gateway: string) {
-    let orders: string[] = [];
-
-    this.userCarts.forEach(userCart => {
-      if (userCart.selected) {
-        orders.push(userCart.id);
+    let items: string[] = [];
+    this.collection.forEach(item => {
+      if(item.included){
+        items.push(item.id);
       }
     })
 
     let payment: Payment = new Payment();
     payment.userId = this.uid;
-    payment.orders = orders;
+    payment.orders = items;
     payment.gateway = gateway;
+    
     if (gateway == "GCash") {
       payment.proof = this.gcashUploadedFile;
     }
-    if (gateway == "PayPal"){
+    if (gateway == "PayPal") {
       payment.transactionId = this.payPalTransactionId;
       payment.payerId = this.payPalPayerId;
       payment.payerEmail = this.payPalPayerEmail;
@@ -272,172 +200,89 @@ export class CartsComponent implements OnInit {
 
     this.paymentService.createPayment(payment).then(paymentId => {
       this.userService.addPayment(this.uid, paymentId);
-      orders.forEach(orderId => {
-        this.userService.removeItemOnCart(this.uid, orderId);
-        this.orderService.updatePaidOrder(orderId, paymentId);
-        this.userService.addOrder(this.uid, orderId);
+
+      items.forEach(id => {
+        console.log(id);
+        this.orderService.updatePaidOrder(id, paymentId);
+        this.userService.addOrder(this.uid, id);
+        //this.userService.removeItemOnCart(this.uid, id);
+        let index: number = this.collection.findIndex(x => x.id == id);
+        this.collection.splice(index, 1);
       });
+
+      this.userService.removeItemsOnCart(this.uid, items);
+
+      this.computeTotal();
+      this.setPayPal();
 
       if (gateway == "GCash") {
         this.gcashRef.close("Done");
       }
+      
     });
   }
 
   setPayPal() {
     this.payPalConfig = undefined;
 
-    if (this.userCarts.length > 0) {
+    if (this.total > 0) {
       let items: ITransactionItem[] = [];
-      let isReady: boolean = false;
 
-      this.userCarts.forEach(userCart => {
-        if (userCart.card.id && userCart.order.id){
-          isReady = true;
-          if (userCart.selected) {
-            let item: ITransactionItem = {
-              name: 'Fibei Greetings: ' + userCart.card.name + ' for ' + userCart.order.receiver_name,
-              quantity: userCart.order.count!.toString(),
-              category: 'DIGITAL_GOODS',
-              unit_amount: {
-                currency_code: environment.paypalCurrency,
-                value: userCart.order.card_price!.toString()
-              }
+      this.collection.forEach(item => {
+        let itemname = 'Fibei Greetings: ' + item.cardname + ' for ' + item.receivername;
+        if (item.parent != ''){
+          itemname = 'Fibei Greetings: ' + item.cardname;
+        }
+
+        if (item.included) {
+          let paypalItem: ITransactionItem = {
+            name: itemname,
+            quantity: item.qty.toString(),
+            category: 'DIGITAL_GOODS',
+            unit_amount: {
+              currency_code: environment.paypalCurrency,
+              value: item.price.toString()
             }
-            items.push(item);
           }
+          items.push(paypalItem);
         }
       });
 
-      if (isReady){
-        this.payPalConfig = {
-          currency: environment.paypalCurrency,
-          clientId: environment.paypalClientId,
-          createOrderOnClient: (data) => <ICreateOrderRequest>{
-            intent: 'CAPTURE',
-            purchase_units: [
-              {
-                amount: {
-                  currency_code: environment.paypalCurrency,
-                  value: this.total.toFixed(2),
-                  breakdown: {
-                    item_total: {
-                      currency_code: environment.paypalCurrency,
-                      value: this.total.toFixed(2)
-                    }
+      this.payPalConfig = {
+        currency: environment.paypalCurrency,
+        clientId: environment.paypalClientId,
+        createOrderOnClient: (data) => <ICreateOrderRequest>{
+          intent: 'CAPTURE',
+          purchase_units: [
+            {
+              amount: {
+                currency_code: environment.paypalCurrency,
+                value: this.total.toFixed(2),
+                breakdown: {
+                  item_total: {
+                    currency_code: environment.paypalCurrency,
+                    value: this.total.toFixed(2)
                   }
-                },
-                items: items
-              }
-            ]
-          },
-          advanced: {
-            commit: 'true'
-          },
-          style: {
-            label: 'paypal',
-            layout: 'vertical'
-          },
-          onClientAuthorization: (data) => {
-            this.payPalTransactionId = data.id;
-            this.payPalPayerId = data.payer.payer_id?data.payer.payer_id:'';
-            this.payPalPayerEmail = data.payer.email_address?data.payer.email_address:'';
-            this.saveTransaction("PayPal");
-          },
-        }
+                }
+              },
+              items: items
+            }
+          ]
+        },
+        advanced: {
+          commit: 'true'
+        },
+        style: {
+          label: 'paypal',
+          layout: 'vertical'
+        },
+        onClientAuthorization: (data) => {
+          this.payPalTransactionId = data.id;
+          this.payPalPayerId = data.payer.payer_id ? data.payer.payer_id : '';
+          this.payPalPayerEmail = data.payer.email_address ? data.payer.email_address : '';
+          this.saveTransaction("PayPal");
+        },
       }
     }
-    /*
-    this.payPalConfig = {
-      currency: environment.paypalCurrency,
-      clientId: environment.paypalClientId,
-      createOrderOnClient: (data) => <ICreateOrderRequest>{
-        intent: 'CAPTURE',
-        purchase_units: [
-          {
-            amount: {
-              currency_code: environment.paypalCurrency,
-              value: this.total.toFixed(2),
-              breakdown: {
-                item_total: {
-                  currency_code: environment.paypalCurrency,
-                  value: this.total.toFixed(2)
-                }
-              }
-            },
-            items: [
-              {
-                name: 'Fibei Greetings: ' + cardName,
-                quantity: '1',
-                category: 'DIGITAL_GOODS',
-                unit_amount: {
-                  currency_code: environment.paypalCurrency,
-                  value: price,
-                },
-              }
-            ]
-          }
-        ]
-      },
-      advanced: {
-        commit: 'true'
-      },
-      style: {
-        label: 'paypal',
-        layout: 'vertical'
-      },
-      onApprove: (data, actions) => {
-        //console.log('onApprove - transaction was approved, but not authorized', data, actions);
-        //actions.order.get().then((details: any) => {
-        //  console.log('onApprove - you can get full order details inside onApprove: ', details);
-        //});
-        //this.isPayPalApproved = true;
-        //this.showSuccess = true;
-        //this.modalService.dismissAll();
-        //this.submitOrder("PayPal");
-      },
-      onClientAuthorization: (data) => {
-        //console.log('onClientAuthorization - inform your server about completed transaction at this point', data);
-
-        this.transactionId = data.id;
-        if (data.payer.payer_id)
-          this.payerId = data.payer.payer_id;
-        if (data.payer.email_address)
-          this.payerEmail = data.payer.email_address;
-
-        this.isPayPalApproved = true;
-        this.showSuccess = true;
-        this.modalService.dismissAll();
-        this.submitOrder("PayPal");
-      },
-      onCancel: (data, actions) => {
-        console.log('OnCancel', data, actions);
-        this.showCancel = true;
-
-      },
-      onError: err => {
-        console.log('OnError', err);
-        this.showError = true;
-      },
-      onClick: (data, actions) => {
-        console.log('onClick', data, actions);
-        this.resetStatus();
-      },
-      onInit: (data, actions) => {
-        console.log('onInit', data, actions);
-      }
-    };*/
-  }
-
-  getAvailableURL(image: string): Promise<string>{
-    return new Promise((resolve) => {
-      this.cardService.getImageURL(image + environment.imageSize.small).then(url => {
-        resolve(url);
-      }).catch(err => {
-        this.cardService.getImageURL(image).then(url => {
-          resolve(url);
-        }).catch(err => {});
-      });
-    });
   }
 }
