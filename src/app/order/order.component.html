@@ -59,27 +59,27 @@
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Recipient Name</label>
-                        <span class="instruction" *ngIf="instruction">Insert Name of the Reciver</span>
+                        <span class="instruction" *ngIf="instruction">Insert Name of the Receiver</span>
                         <input type="text" class="form-control" placeholder="Name" [value]="order.receiver_name"
                             (change)="onChange('Recipient-Name', $event)" (keyup)="onKeyUp('Recipient-Email', $event)">
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Recipient Phone Number</label>
-                        <span class="instruction" *ngIf="instruction">Insert Phone Number of the Reciver</span>
+                        <span class="instruction" *ngIf="instruction">Insert Phone Number of the Receiver</span>
                         <input type="text" class="form-control" placeholder="Phone Number"
                             [value]="order.receiver_phone" (change)="onChange('Recipient-Phone', $event)"
                             (keyup)="onKeyUp('Recipient-Phone', $event)">
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Recipient Email Address</label>
-                        <span class="instruction" *ngIf="instruction">Insert Valid Email Address of the Reciver</span>
+                        <span class="instruction" *ngIf="instruction">Insert Valid Email Address of the Receiver</span>
                         <input type="email" class="form-control" placeholder="Email Address"
                             [value]="order.receiver_email" (change)="onChange('Recipient-Email', $event)"
                             (keyup)="onKeyUp('Recipient-Email', $event)">
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Delivery Address</label>
-                        <span class="instruction" *ngIf="instruction">Insert Delivery Address of the Buyer or Reciver</span>
+                        <span class="instruction" *ngIf="instruction">Insert Delivery Address of the Buyer or Receiver</span>
                         <textarea class="form-control" placeholder="Delivery Address" rows="5" [value]="order.address"
                             (change)="onChange('Address', $event)" (keyup)="onKeyUp('Address', $event)"></textarea>
                     </div>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="col-12 mb-2">
                         <label class="form-label">Send To</label>
-                        <span class="instruction" *ngIf="instruction">or you want to choose between Recipient (Reciver) or Sender (Buyer)</span>
+                        <span class="instruction" *ngIf="instruction">or you want to choose between Recipient (Receiver) or Sender (Buyer)</span>
                         <select class="form-select form-control" [value]="order.sendto"
                             (change)="onChange('SendTo', $event)">
                             <option selected value="Recipient">Recipient</option>
