@@ -122,7 +122,7 @@ export class CardsComponent implements OnInit {
     this.eventSettings.push(new EventSetting('LOVE YOUR ENEMY','caUWVUzKKJui3hmnalaQ', '/card/ttTvbl6pLgKC9FdWOp5u'));
     this.eventSettings.push(new EventSetting('DISTRESS', 'z3Vlo33fi5BUTEOcJ0t1', '/card/xC9akQ3IwA9QsE9jRbw4'));
     this.eventSettings.push(new EventSetting('GRADUATION', 'hYCJwp6kDMHVgXY4FMuJ', '/card/LG91AKqkj1dsvvql51Zv'));
-    this.eventSettings.push(new EventSetting('CONGRATULATIONS', 'LT6CjyAyAqmYYTihNOx1?fbclid=IwAR2xKw-a4QWJaFGWnBJ0gffx8s-lFvfP4tWUaYO-UZiqemmJg5bW4O4J24g', '/card/nkUZxp04stsB8SVxCVhy'));
+    this.eventSettings.push(new EventSetting('CONGRATULATIONS', 'LT6CjyAyAqmYYTihNOx1', '/card/nkUZxp04stsB8SVxCVhy'));
     this.eventSettings.push(new EventSetting('FATHERS DAY', 'IMHQhzRssP2cZdfqOfWb', '/card/OkBSquS8aTDTrTmscFaa'));
     this.eventSettings.push(new EventSetting('FRIENDSHIP', 'P9whSpKaPTYqYBN1IWmw', '/card/KpBq9Atga2LkaTKX0hcD'));
     this.eventSettings.push(new EventSetting('GRANDPARENTS DAY', 'QO2TVXdSZEoimL49VKuC', '/card/KpW0laiSbUfAmhoqLcgG'));
@@ -158,6 +158,7 @@ export class CardsComponent implements OnInit {
       if ((this.event) && (this.event! != 'All')) {
         this.eventSettings.forEach(setting => {
           if (this.replaceAll(setting.event) == this.replaceAll(this.event!)){
+            console.log(setting);
             this.eventSetting = setting;
           }
         })
