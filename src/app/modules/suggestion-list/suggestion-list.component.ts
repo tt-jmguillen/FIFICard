@@ -34,7 +34,7 @@ export class SuggestionListComponent implements OnInit {
   loadEvent(){
     this.service.getCard(this.cardId!).subscribe(val => {
       this.cardEvent = val.event!;
-      console.log("1>>>>cardEvent: " + JSON.stringify(this.cardEvent));
+      //console.log("1>>>>cardEvent: " + JSON.stringify(this.cardEvent));
       this.getEventCard();
     });
   }

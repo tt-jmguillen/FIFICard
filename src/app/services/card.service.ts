@@ -291,8 +291,8 @@ export class CardService {
   }
 
   async addRating(id: string, rating: Rating): Promise<string> {
-    console.log("AddRating id: " + id);
-    console.log("AddRating rating: " + JSON.stringify(rating));
+    //console.log("AddRating id: " + id);
+    //console.log("AddRating rating: " + JSON.stringify(rating));
     return new Promise(resolve => {
       this.db.collection('cards').doc(id).collection('ratings').add({
         date: Timestamp.now(),

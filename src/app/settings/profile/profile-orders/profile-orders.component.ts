@@ -83,7 +83,7 @@ export class ProfileOrdersComponent implements OnInit {
         userOrder.order = order;
       }
     });
-    console.log(this.orders);
+    //console.log(this.orders);
   }
 
   updateCard(orderId: string, card: Card){

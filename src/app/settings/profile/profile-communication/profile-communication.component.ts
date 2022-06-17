@@ -46,8 +46,8 @@ export class ProfileCommunicationComponent implements OnInit {
     })
   }
 
-  notificationChange(event: any){
-    this.user.notification = !(event as boolean);
+  notificationChange(notif: boolean){
+    this.user.notification = !notif;
     this.userService.updateNotification(this.user.id, this.user.notification);
   }
 

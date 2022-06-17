@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
   }
 
   signOut(): void {
-    console.log("Sign Out");
+    //g("Sign Out");
     localStorage.removeItem("user");
     this.auth
       .signOut()

@@ -55,7 +55,7 @@ export class ProfileChangePasswordComponent implements OnInit {
   }
 
   save(){
-    console.log(this.form.value);
+    //g(this.form.value);
     if (this.form.valid)
     {
       if (this.form.value.newpassword == this.form.value.confirm)

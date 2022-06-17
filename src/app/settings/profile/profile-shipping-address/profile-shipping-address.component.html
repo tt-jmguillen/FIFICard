@@ -4,56 +4,52 @@
         <h3> add a shipping address</h3>
         <p> To make checkout even faster, you can save shipping addresses.</p>
         
-        <form [formGroup]="form" class="row">
+        <div class="row">
             <div class="mb-3 col-12">
                 <label> Address nickname</label>
-                <input type="text" class="form-control" placeholder="ex: Home, Grandma's house, etc." formControlName="name"
-                    readonly="{{isSaving? 'readonly': ''}}">
+                <input type="text" class="form-control" placeholder="ex: Home, Grandma's house, etc." (change)="changeData('name', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.name}}">
             </div>
             <div class="mb-3 col-6">
                 <label>* First Name</label>
-                <input type="text" class="form-control" placeholder="First Name" formControlName="firstname"
-                    readonly="{{isSaving? 'readonly': ''}}">
+                <input type="text" class="form-control" placeholder="First Name" (change)="changeData('firstname', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.firstname}}">
             </div>
             <div class="mb-3 col-6">
                 <label>* Last Name</label>
-                <input type="text" class="form-control" placeholder="Last Name" formControlName="lastname"
-                    readonly="{{isSaving? 'readonly': ''}}">
+                <input type="text" class="form-control" placeholder="Last Name" (change)="changeData('lastname', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.lastname}}">
             </div>
             <div class="mb-3 col-12">
                 <label>* Address Line 1</label>
-                <input type="text" class="form-control" placeholder="Address Line 1" formControlName="address"
-                    readonly="{{isSaving? 'readonly': ''}}">
+                <input type="text" class="form-control" placeholder="Address Line 1" (change)="changeData('address', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.address}}">
             </div>
             <div class="mb-3 col-12">
                 <label>* Address Line 2</label>
-                <input type="text" class="form-control" placeholder="Address Line 2" formControlName="address2"
-                    readonly="{{isSaving? 'readonly': ''}}">
-            </div>
-            <div class="mb-3 col-6">
-                <label>* City</label>
-                <input type="text" class="form-control" placeholder="City" formControlName="city"
-                    readonly="{{isSaving? 'readonly': ''}}">
+                <input type="text" class="form-control" placeholder="Address Line 2" (change)="changeData('address2', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.address2}}">
             </div>
             <div class="mb-3 col-6">
                 <label>* Province/Region</label>
-                <input type="text" class="form-control" placeholder="Province/Region" formControlName="province"
-                    readonly="{{isSaving? 'readonly': ''}}">
+                <select class="form-select" placeholder="Province/Region" (change)="changeData('province', $event)" [disabled]="isSaving" value="{{address.province}}">
+                    <option value="" class="default">Province/Region</option>
+                    <option *ngFor="let item of addressConfig" value="{{item.name}}" >{{item.name}}</option>
+                </select>
+            </div>
+            <div class="mb-3 col-6">
+                <label>* City/Municipality</label>
+                <select class="form-select" placeholder="City/Municipality" (change)="changeData('city', $event)" [disabled]="isSaving"  value="{{address.city}}">
+                    <option value="" class="default">City/Municipality</option>
+                    <option *ngFor="let city of cities" value="{{city}}" [selected]="city == address.city">{{city}}</option>
+                </select>
             </div>
             <div class="mb-3 col-6">
                 <label>* Country</label>
-                <input type="text" class="form-control" placeholder="Country" formControlName="country"
-                    readonly="{{isSaving? 'readonly': ''}}">
+                <input type="text" class="form-control" placeholder="Country" (change)="changeData('country', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.country}}">
             </div>
             <div class="mb-3 col-6">
                 <label>* Post Code</label>
-                <input type="text" class="form-control" placeholder="Post Code" formControlName="postcode"
-                    readonly="{{isSaving? 'readonly': ''}}">
+                <input type="text" class="form-control" placeholder="Post Code" (change)="changeData('c', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.postcode}}">
             </div>
             <div class=" col-12">
-                <button type="button" class="btn btn-primary" (click)="saveAddress()">{{isSaving? 'SAVING...': 'SAVE
-                    ADDRESS'}}</button>
+                <button type="button" class="btn btn-primary" (click)="saveAddress()" [disabled]="!isValid">SAVE ADDRESS</button>
             </div>
-        </form>
+        </div>
     </div>
 </div>
