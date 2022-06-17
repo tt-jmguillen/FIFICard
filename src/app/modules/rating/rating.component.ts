@@ -33,7 +33,7 @@ export class RatingComponent implements OnInit {
 
         this.norecords = false;
       }).catch(reason => {
-        console.log(reason);
+        //console.log(reason);
         this.norecords = true;
       });
   

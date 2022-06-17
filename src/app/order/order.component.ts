@@ -234,7 +234,7 @@ export class OrderComponent implements OnInit {
           order.user_id = this.uid;
 
           this.createAnAddMoreOrder(order).then(_id => {
-            console.log(_id);
+            //console.log(_id);
           });
         }
       });

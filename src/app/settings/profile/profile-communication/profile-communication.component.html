@@ -3,13 +3,12 @@
     <div class="card-body">
         <h3> Email preferences</h3>
         <p>
-            the email address in your FeBie Greetins profile is <b>{{this.user.email}}</b> you can <span (click)="open(content)" class="mode">change your email address</span> at any time.
+            the email address in your FeBie Greetins profile is <b *ngIf="user">{{user.email}}</b> you can <span (click)="open(content)" class="mode">change your email address</span> at any time.
         </p>
         <br />
         <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="customCheck1" [checked]="this.user.notification" (change)="notificationChange(this.user.notification?true:false)">
-            <label class="custom-control-label" for="customCheck1"> click if you want to receive notification,
-                special offers and promotion emails.</label>
+            <input *ngIf="user" type="checkbox" class="custom-control-input" id="customCheck1" [checked]="user.notification" (change)="notificationChange(user.notification)">
+            <label class="custom-control-label" for="customCheck1"> click if you want to receive notification, special offers and promotion emails.</label>
         </div>
         <br />
         <p> See our <a href="#" class="bold"><b>PRIVACY POLICY</b></a></p>

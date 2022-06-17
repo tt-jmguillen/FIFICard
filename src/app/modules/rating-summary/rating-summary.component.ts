@@ -40,9 +40,9 @@ export class RatingSummaryComponent implements OnInit {
 
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.userDetails = userDetails;
-    console.log("userDetails ->", userDetails);
+    //g("userDetails ->", userDetails);
     this.isLogIn = userDetails == null || userDetails.length < 0 ? true : false;
-    console.log("isLogIn ->", String(this.isLogIn));
+    //console.log("isLogIn ->", String(this.isLogIn));
 
     this.norecords = true;
     this.service.getRatings(this.cardId!).then(data => {
@@ -78,7 +78,7 @@ export class RatingSummaryComponent implements OnInit {
         this.currentRateStr = Number.isNaN(this.currentRate)?'0':this.currentRate.toFixed(1);
       }
     }).catch(reason => {
-      console.log(reason);
+      //g(reason);
       this.norecords = true;
     });
 
@@ -96,7 +96,7 @@ export class RatingSummaryComponent implements OnInit {
     this.dialogRef = this.dialog.open(ReviewComponent, dialogConfig);
 
     this.dialogRef.afterClosed().subscribe(data => {
-      console.log("rating2: " + JSON.stringify(data));
+      //console.log("rating2: " + JSON.stringify(data));
       if (data) {
         this._service.addRating(this.cardId!, data);
       }

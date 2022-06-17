@@ -1,18 +1,23 @@
+import { AddressConfig } from './../models/address-config';
 import { Injectable } from '@angular/core';
 import { addDoc, doc, Firestore, collection, docData, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Address } from '../models/address';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddressService {
   store: Firestore;
+  db: AngularFirestore;
 
   constructor(
-    private _store: Firestore
+    private _store: Firestore,
+    private _db: AngularFirestore
   ) { 
     this.store = _store;
+    this.db = _db;
   }
 
   createAddress(address: Address): Promise<string>{
@@ -58,6 +63,25 @@ export class AddressService {
       'province': address.province,
       'country': address.country,
       'postcode': address.postcode
+    });
+  }
+
+  getAddressConfig(): Promise<AddressConfig[]> {
+    return new Promise((resolve, rejects) => {
+      this.db.collection('address_config', ref => ref.orderBy("order", "asc")).get().subscribe(data => {
+        if (!data.empty) {
+          let addresses: AddressConfig[] = [];
+          data.forEach(doc => {
+            let address: AddressConfig = doc.data() as AddressConfig;
+            address.id = doc.id;
+            addresses.push(address);
+          });
+          resolve(addresses);
+        }
+        else {
+          rejects("No address config found.");
+        }
+      });
     });
   }
 }

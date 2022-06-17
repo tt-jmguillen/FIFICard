@@ -23,7 +23,7 @@ export class PageComponent implements OnInit {
       fetch(path).then(res => res.text()).then(data => {
         this.htmlString = data;
       }).catch(reason => {
-        console.log(reason);
+        //console.log(reason);
       })
     });
   }

@@ -33,7 +33,7 @@ export class RatingDecimalComponent implements OnInit {
         });
       }
     }).catch(reason => {
-      console.log(reason);
+      //console.log(reason);
       this.norecords = true;
     });
 

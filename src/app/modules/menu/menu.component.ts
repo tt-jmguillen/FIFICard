@@ -65,6 +65,7 @@ export class MenuComponent implements OnInit {
     if (this.userDetails){
       this.userService.subscribeUser(this.userDetails.uid).subscribe(user => {
         this.userProfile = user;
+        //console.log(user);
       })
     }
   }

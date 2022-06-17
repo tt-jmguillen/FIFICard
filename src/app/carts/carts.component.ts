@@ -202,7 +202,6 @@ export class CartsComponent implements OnInit {
       this.userService.addPayment(this.uid, paymentId);
 
       items.forEach(id => {
-        console.log(id);
         this.orderService.updatePaidOrder(id, paymentId);
         this.userService.addOrder(this.uid, id);
         //this.userService.removeItemOnCart(this.uid, id);

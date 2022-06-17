@@ -92,7 +92,7 @@ export class ImagegridComponent implements OnInit {
   }
 
   changeImage(_url: ItemImage){
-    console.log(_url);
+    //console.log(_url);
     this.url = _url.url;
   }
 

@@ -72,7 +72,7 @@ export class ReviewComponent implements OnInit {
         rating.rate = this.rating;
         rating.approve = false;
         rating.username = this.displayName;
-        console.log("rating1: " +  JSON.stringify(rating));
+        //console.log("rating1: " +  JSON.stringify(rating));
       this.dialogRef.close(rating);
     }
   }
