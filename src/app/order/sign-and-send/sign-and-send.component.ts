@@ -149,18 +149,6 @@ export class SignAndSendComponent implements OnInit {
         }
       });
 
-      /*
-      this.orderService.getSignAndSendData(this.uid, this.id!).then(signs => {
-        signs.forEach(sign => {
-          this.items.forEach(item => {
-            if(item.code == sign.code){
-              item.updateText(sign.text, sign.size, sign.style, sign.alignment);
-            }
-          })
-        });
-      });
-      */  
-
       this.items.forEach(item => {
         if (this.images.indexOf(item.image) < 0){
           this.images.push(item.image);

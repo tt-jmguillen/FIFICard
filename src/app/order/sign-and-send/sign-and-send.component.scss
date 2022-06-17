@@ -1,3 +1,47 @@
+.main-div{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.div-image-list{
+    width: 100px;
+    height: 100%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px 5px 5px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-image-list img{
+    max-width: 100%;
+    cursor: pointer;
+}
+
+.div-textarea{
+    width: 300px;
+    height: 100%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px 10px 10px 10px;
+}
+
+.div-image{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    flex: flex-grow;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+
 .full-size{
     width: 100%;    
     font-size: 18px;
@@ -30,6 +74,8 @@
 
 .editing{
     text-align: center;
+    display: block;
+    min-width: 500px;
 }
 
 .main{
