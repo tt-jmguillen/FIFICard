@@ -57,3 +57,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
        display: none;
    }
 }
+
+.fb_dialog_content > iframe
+{
+  bottom: 90px !Important;
+}
