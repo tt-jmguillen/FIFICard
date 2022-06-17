@@ -133,7 +133,7 @@ export class CardsComponent implements OnInit {
     this.eventSettings.push(new EventSetting('Love', 'dR2Wb8cvjTAJMa29DIhU', '/card/3nczwYuTxv9o1imzMkoy'));
     this.eventSettings.push(new EventSetting('New Year', 'izfn4TE6voc9BSdiajTp', '/card/l1BUektIMItpJSjTLel5'));
     this.eventSettings.push(new EventSetting('Baby', 'EAjQkiW7pxM3B4uvzrT4', '/card/VLb0P0etpFC1i7fCJdfF'));
-    this.eventSettings.push(new EventSetting('Easter', '0P6vkjd1vtozLlSEi6D3', '/card/grPJr0pX8fk5SRpH4SG3'));git 
+    this.eventSettings.push(new EventSetting('Easter', '0P6vkjd1vtozLlSEi6D3', '/card/grPJr0pX8fk5SRpH4SG3'));
     this.activateRoute.params.subscribe(params => {
       this.event = params['event'];
       this.search = params['search'];
