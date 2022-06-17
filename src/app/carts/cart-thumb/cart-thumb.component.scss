@@ -1,0 +1,30 @@
+.border{
+    border: solid 1px gray;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.img{
+    max-width: 100%;
+}
+
+.valign-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.delete{
+    color: red;
+    cursor: pointer;
+}
+
+.allign-center{
+    text-align: center;
+}
+
+.allign-right{
+    text-align: right;
+}

@@ -1,0 +1,33 @@
+<div class="row border">
+    <div class="col-md-1 col-2 allign-center valign-center">
+        <input type="checkbox" [checked]="selected" (change)="updateInclude()">
+    </div>
+    <div class="col-md-1 col-10">
+        <img src="{{url}}" *ngIf="url != ''" class="img">
+    </div>
+    <div class="col-md-7 col-12 valign-center">
+        <div class="row">
+            <div class="col-12" *ngIf="card">
+                <strong>{{card.name}}</strong>
+            </div>
+            <div class="col-12" *ngIf="card">
+                Description: <strong>{{card.description}}</strong>
+            </div>
+            <div class="col-12" *ngIf="!order.parentOrder">
+                Receiver: <strong>{{order.receiver_name}}</strong>
+            </div>
+            <div class="col-12" *ngIf="!order.parentOrder">
+                Sign and Send: <strong>{{order.withSignAndSend?'Yes':'No'}}</strong>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1 col-6 valign-center text-center">
+        <span><mat-icon class="delete" (click)="delete()" title="Remove">delete</mat-icon></span>
+    </div>
+    <div class="col-md-1 col-6 valign-center allign-right">
+        <span><strong>{{order.card_price| number:'1.2-2'}} x {{order.count}}</strong></span>
+    </div>
+    <div class="col-md-1 col-6 allign-right pr-0 valign-center">
+        <span><strong>{{(order.card_price! * order.count!)| number:'1.2-2'}}</strong></span>
+    </div>
+</div>

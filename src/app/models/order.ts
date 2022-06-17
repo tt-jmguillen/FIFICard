@@ -21,16 +21,4 @@ export class Order {
     public paymentId?: string;
     public withSignAndSend?: boolean;
     public count?: number;
-
-    /*
-    public card_name?: string;
-    public gateway?: string;
-    public proof? : string;
-    public transaction_id? : string;
-    public payer_id? : string;
-    public payer_email? : string;
-    public status?: string;
-    public modified?: Timestamp;
-    */
-    
 }

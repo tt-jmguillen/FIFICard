@@ -12,6 +12,7 @@
                     </nav>
                 </div>
                 <div class="col-lg-6 col-sm-12">
+                    <button (click)="test(confimation)">test</button>
                     <app-imagegrid id="{{id}}"></app-imagegrid>
                     <app-add-more *ngIf="card" [id]="card!.id" [recipients]="card!.recipients" [limit]=4
                         (selectedChange)="addMoreChange($event)"></app-add-more>

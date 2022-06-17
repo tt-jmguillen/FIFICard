@@ -7,6 +7,7 @@ import { map, take } from 'rxjs';
 import firebase from "firebase/compat/app";
 import {UserComponent} from 'ngx-auth-firebaseui';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -20,11 +21,13 @@ export class AppComponent {
   userDetails: any;
   isLogIn = true;
   @Output() onSignOut: EventEmitter<void> = new EventEmitter();
+  
 
   constructor(
     public dialog: MatDialog,
     public auth: AngularFireAuth,
-    public authProcess: AuthProcessService
+    public authProcess: AuthProcessService,
+    public route: Router
     //public component: UserComponent
     ) { }
 

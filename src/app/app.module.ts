@@ -77,6 +77,7 @@ import { SignAndSendCardsComponent } from './sign-and-send-cards/sign-and-send-c
 import { EventListComponent } from './modules/event-list/event-list.component';
 import { AddMoreComponent } from './modules/add-more/add-more.component';
 import { AddMoreItemComponent } from './modules/add-more/add-more-item/add-more-item.component';
+import { CartThumbComponent } from './carts/cart-thumb/cart-thumb.component';
 
 
 @NgModule({
@@ -134,7 +135,8 @@ import { AddMoreItemComponent } from './modules/add-more/add-more-item/add-more-
     SignAndSendCardsComponent,
     EventListComponent,
     AddMoreComponent,
-    AddMoreItemComponent
+    AddMoreItemComponent,
+    CartThumbComponent
   ],
   imports: [
     BrowserModule,
@@ -159,7 +161,8 @@ import { AddMoreItemComponent } from './modules/add-more/add-more-item/add-more-
     NgxPayPalModule,
     NgxFeedbackModule,
     NgbModule,
-    NgxImageZoomModule
+    NgxImageZoomModule,
+    AppRoutingModule
   ],
   providers: [{
     provide: MatDialogRef,

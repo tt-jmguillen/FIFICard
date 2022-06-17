@@ -1,54 +1,28 @@
 <ion-content>
     <section class="section-name padding-y-sm">
         <div class="container animate main">
-            <div *ngIf="userCarts.length == 0">
+            <div *ngIf="collection.length == 0">
                 <div class="row border">
                     <div class="col-12 allign-center">
                         <label>No Items on the Cart</label>
                     </div>
                 </div>
             </div>
-            <div *ngIf="userCarts.length > 0">
-                <div *ngFor="let userCart of userCarts">
-                    <div class="row border" *ngIf="userCart.visible">
-                        <div class="col-md-1 col-2 allign-center valign-center">
-                            <input type="checkbox" (change)="onInclude(userCart.id, $event)" [checked]="userCart.selected">
-                        </div>
-                        <div class="col-md-1 col-10">
-                            <img src="{{userCart.url}}" *ngIf="userCart.url != ''" class="img">
-                        </div>
-                        <div class="col-md-7 col-12 valign-center">
-                            <div class="row">
-                                <div class="col-12">
-                                    <strong>{{userCart.card.name}}</strong>
-                                </div>
-                                <div class="col-12">
-                                    Description: <strong>{{userCart.card.description}}</strong>
-                                </div>
-                                <div class="col-12" *ngIf="!userCart.order.parentOrder">
-                                    Receiver: <strong>{{userCart.order.receiver_name}}</strong>
-                                </div>
-                                <div class="col-12" *ngIf="!userCart.order.parentOrder">
-                                    Sign and Send: <strong>{{userCart.order.withSignAndSend?'Yes':'No'}}</strong>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-1 col-6 valign-center allign-right">
-                            <span><strong>{{userCart.card.price| number:'1.2-2'}} x {{userCart.order.count}}</strong></span>
-                        </div>
-                        <div class="col-md-1 col-6 valign-center text-center">
-                            <span><mat-icon class="delete" (click)="remove(userCart)" title="Remove">delete</mat-icon></span>
-                        </div>
-                        <div class="col-md-1 col-6 allign-right pr-0 valign-center">
-                            <span><strong>{{(userCart.order.card_price! * userCart.order.count!)| number:'1.2-2'}}</strong></span>
-                        </div>
-                    </div>
-                </div>
+            <div *ngIf="carts.length > 0">
+                <app-cart-thumb 
+                    *ngFor="let item of collection" 
+                    [id]="item.id" 
+                    [selected]="item.included" 
+                    (updateOrder)="updateOrder($event)" 
+                    (updateCard)="updateCard($event)"
+                    (changeInclude)="changeInclude($event)"
+                    (deleteItem)="delete($event)">
+                </app-cart-thumb>
                 
                 <div class="row total">
                     <div class="col-md-1"></div>
                     <div class="col-12 col-md-9 allign-right">Total:</div>
-                    <div class="col-12 col-md-2 allign-right">₱ <strong>{{total | number:'1.2-2'}}</strong></div>
+                    <div class="col-12 col-md-2 allign-right">₱ <strong class="total">{{total | number:'1.2-2'}}</strong></div>
                 </div>
                 <div class="row total">
                     <div class="col-md-10"></div>

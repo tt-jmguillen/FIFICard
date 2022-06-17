@@ -137,17 +137,11 @@ export class UserService {
 
   removeItemOnCart(userId: string, orderId: string) {
     this.getUser(userId).then(user => {
-      let carts: string[] = [];
-
-      user.carts.forEach(id => {
-        if (id != orderId){
-          carts.push(id);
-        }
-      });
-
+      let index = user.carts.findIndex(x => x == orderId);
+      user.carts.splice(index, 1);
       const data = doc(this.store, 'users/' + userId);
       updateDoc(data, {
-        carts: carts
+        carts: user.carts
       });
     });
   }

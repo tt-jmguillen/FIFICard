@@ -17,7 +17,7 @@ import { OrderComponent } from './order/order.component';
 import { DetailComponent } from './detail/detail.component';
 import { CardsComponent } from './cards/cards.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { TabsComponent } from './pages/tabs/tabs.component';
 import { ProfileComponent } from './settings/profile/profile.component';
@@ -106,4 +106,8 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+
+export class AppRoutingModule {}
+
+
+
