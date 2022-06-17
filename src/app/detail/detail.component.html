@@ -42,11 +42,21 @@
                                 <span class="text-muted">{{card?.recipient}}</span>
                             </section>
                             <section>
-                                <h3 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h3>
-                                <a class="order" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)">Buy
-                                    Now</a>
-                                <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping"
-                                    *ngIf="card">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h3>
+                                        <a class="order" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)">Buy
+                                            Now</a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping"
+                                        *ngIf="card">
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        <a href="/page/TermsAndCondition" target="_blank">Terms And Condition</a><br/>
+                                        <a href="/page/PrivacyPolicy"  target="_blank">Privacy Policy</a>
+                                    </div>
+                                </div>
                             </section>
                             <section>
                                 <span style="font-weight: 600;" *ngIf="card">Details:</span>
