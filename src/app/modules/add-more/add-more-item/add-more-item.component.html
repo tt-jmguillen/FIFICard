@@ -1,5 +1,5 @@
 <div class="parent">
-    <div class="main" title="{{card.name}}" (click)="markItem()">
+    <div class="main" (click)="markItem()" placement="top" [ngbTooltip]="tipContent" container="body" [openDelay]="500">
         <div class="image">
             <img src="{{imageURL}}">
         </div>
@@ -21,4 +21,11 @@
             <p (click)="addCount()">+</p>
         </div>
     </div>
+    <ng-template #tipContent>
+        <div class="content">
+            <span><strong>{{card.name}}</strong></span><br />
+            <span>Description: <strong>{{card.description}}</strong></span><br />
+            <span>Price: <strong>{{card.price!.toFixed(2)}}</strong></span>
+        </div>
+    </ng-template>
 </div>

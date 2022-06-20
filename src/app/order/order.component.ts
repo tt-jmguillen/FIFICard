@@ -2,9 +2,7 @@ import { ShippingService } from './../services/shipping.service';
 import { EventService } from './../services/event.service';
 import { Fee } from './../models/fee';
 import { AddressConfig } from './../models/address-config';
-import { AppRoutingModule } from './../app-routing.module';
 import { AddMore } from './../models/add-more';
-import { sign } from 'crypto';
 import { SignAndSendDetails } from './../models/sign-and-send-details';
 import { AddressService } from './../services/address.service';
 import { EmailService } from './../services/email.service';
@@ -16,12 +14,10 @@ import { Card } from '../models/card';
 import { Order } from '../models/order';
 import { CardService } from '../services/card.service';
 import { AppComponent } from '../app.component';
-import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { environment } from 'src/environments/environment';
-import { NgbModal, ModalDismissReasons, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
-import { rejects } from 'assert';
 import { Event } from '../models/event';
 
 @Component({

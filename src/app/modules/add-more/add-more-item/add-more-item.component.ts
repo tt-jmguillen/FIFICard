@@ -17,6 +17,8 @@ export class AddMoreItemComponent implements OnInit {
   imageURL?: string;
   currentCount: number = 0;
 
+  show: boolean = false;
+
   constructor(
     _service: CardService
   ) { 
@@ -69,4 +71,11 @@ export class AddMoreItemComponent implements OnInit {
     this.addMoreChange.emit(this.currentCount);
   }
 
+  hover(){
+    this.show = true;
+  }
+
+  unhover(){
+    this.show = false;
+  }
 }
