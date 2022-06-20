@@ -18,6 +18,7 @@ class Collection {
   public included: boolean;
   public price: number;
   public qty: number;
+  public shipping: number;
   public parent: string;
 
   constructor(_id: string) {
@@ -27,6 +28,7 @@ class Collection {
     this.included = true;
     this.price = 0;
     this.qty = 0;
+    this.shipping = 0;
     this.parent = '';
   }
 }
@@ -98,6 +100,9 @@ export class CartsComponent implements OnInit {
         item.parent = value.parentOrder!;
         item.price = value.card_price!;
         item.qty = value.count!;
+        if(value.shipping_fee! > 0){
+          item.shipping = Number(value.shipping_fee);
+        }
       }
     })
     this.computeTotal();
@@ -109,6 +114,7 @@ export class CartsComponent implements OnInit {
         let card = value[1] as Card;
         item.cardname = card.name!;
       }
+      this.computeTotal();
     });
   }
 
@@ -155,7 +161,7 @@ export class CartsComponent implements OnInit {
     let currentTotal: number = 0;
     this.collection.forEach(item => {
       if (item.included) {
-        currentTotal = currentTotal + (Number(item.price) * Number(item.qty));
+        currentTotal = currentTotal + (Number(item.price) * Number(item.qty)) + item.shipping;
       }
     });
 
@@ -211,7 +217,6 @@ export class CartsComponent implements OnInit {
 
       this.userService.removeItemsOnCart(this.uid, items);
 
-      this.computeTotal();
       this.setPayPal();
 
       if (gateway == "GCash") {
@@ -228,10 +233,13 @@ export class CartsComponent implements OnInit {
       let items: ITransactionItem[] = [];
 
       this.collection.forEach(item => {
+        console.log(item);
         let itemname = 'Fibei Greetings: ' + item.cardname + ' for ' + item.receivername;
         if (item.parent != ''){
           itemname = 'Fibei Greetings: ' + item.cardname;
         }
+
+        console.log(itemname);
 
         if (item.included) {
           let paypalItem: ITransactionItem = {
@@ -240,7 +248,7 @@ export class CartsComponent implements OnInit {
             category: 'DIGITAL_GOODS',
             unit_amount: {
               currency_code: environment.paypalCurrency,
-              value: item.price.toString()
+              value: (item.price + item.shipping).toString()
             }
           }
           items.push(paypalItem);
