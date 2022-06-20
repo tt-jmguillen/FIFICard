@@ -1,3 +1,7 @@
+import { ShippingService } from './../services/shipping.service';
+import { EventService } from './../services/event.service';
+import { Fee } from './../models/fee';
+import { AddressConfig } from './../models/address-config';
 import { AppRoutingModule } from './../app-routing.module';
 import { AddMore } from './../models/add-more';
 import { sign } from 'crypto';
@@ -17,6 +21,8 @@ import { environment } from 'src/environments/environment';
 import { NgbModal, ModalDismissReasons, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
+import { rejects } from 'assert';
+import { Event } from '../models/event';
 
 @Component({
   selector: 'app-order',
@@ -28,7 +34,6 @@ export class OrderComponent implements OnInit {
   id?: string;
   card?: Card;
 
-  orders: Order[] = [];
   order: Order = new Order();
   SignAndSend: SignAndSendDetails[] = [];
   isValidOrder: Boolean = false;
@@ -40,6 +45,8 @@ export class OrderComponent implements OnInit {
   orderService: OrderService;
   userService: UserService;
   addressService: AddressService;
+  eventService: EventService;
+  shippingService: ShippingService;
   modalService: NgbModal;
   router: Router;
 
@@ -48,13 +55,12 @@ export class OrderComponent implements OnInit {
   confirmRef: NgbModalRef;
   ngbModalOptions: NgbModalOptions = {
     backdrop: 'static',
-    keyboard: false
+    keyboard: false,
+    size: 'lg'
   };
 
   emailService: EmailService;
 
-  isPayPalApproved: boolean = false;
-  closeResult = '';
   uid: string;
   user: User;
 
@@ -69,10 +75,11 @@ export class OrderComponent implements OnInit {
 
   instruction: boolean = false;
 
-  public payPalConfig?: IPayPalConfig;
-  public showSuccess: boolean = false;
-  public showCancel: boolean = false;
-  public showError: boolean = false;
+  addressConfig: AddressConfig[] = [];
+  cities: string[] = [];
+
+  allEvents: Event[] = [];
+  allFees: Fee[] = [];
 
   constructor(
     _titleService: Title,
@@ -82,6 +89,8 @@ export class OrderComponent implements OnInit {
     _orderService: OrderService,
     _userService: UserService,
     _addressService: AddressService,
+    _eventService: EventService,
+    _shippingService: ShippingService,
     _modalService: NgbModal,
     _router: Router,
 
@@ -94,6 +103,8 @@ export class OrderComponent implements OnInit {
     this.orderService = _orderService;
     this.userService = _userService;
     this.addressService = _addressService;
+    this.eventService = _eventService;
+    this.shippingService = _shippingService;
     this.modalService = _modalService;
     this.router = _router;
 
@@ -101,6 +112,10 @@ export class OrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAddressConfig();
+    this.getAllEvents();
+    this.getAllFees();
+
     this.order.sender_name = '';
     this.order.sender_phone = '';
     this.order.sender_email = '';
@@ -108,6 +123,12 @@ export class OrderComponent implements OnInit {
     this.order.receiver_phone = '';
     this.order.receiver_email = '';
     this.order.address = '';
+    this.order.address1 = '';
+    this.order.address2 = '';
+    this.order.province = '';
+    this.order.city = '';
+    this.order.country = '';
+    this.order.postcode = '';
     this.order.anonymously = false;
     this.order.sendto = "Recipient";
     this.order.message = '';
@@ -134,6 +155,10 @@ export class OrderComponent implements OnInit {
       this.titleService.setTitle(this.card?.name!);
       this.order.card_id = data.id;
       this.order.card_price = data.price;
+      this.getFeeAmount(this.order.province!, this.card.events!).then(amount => {
+        this.order.shipping_fee = Number(amount);
+        this.computeTotal();
+      })
       this.getAvailableURL(this.card.primary!).then(url => {
         this.primaryImageURL = url;
       });
@@ -151,11 +176,41 @@ export class OrderComponent implements OnInit {
       }
       if (user.address) {
         this.addressService.getAddress(user.address).then(address => {
-          this.order.address = address.address + '\r\n' + address.address2 + '\r\n' + address.city + '\r\n' + address.province + '\r\n' + address.country + '\r\n ' + address.postcode;
+          this.updateCity(address.province);
+          this.order.address1 = address.address;
+          this.order.address2 = address.address2;
+          this.order.province = address.province;
+          this.order.city = address.city;
+          this.order.country = address.country;
+          this.order.postcode = address.postcode;
+          this.generateFullAddress();
+          this.getFeeAmount(this.order.province!, this.card!.events!).then(amount => {
+            this.order.shipping_fee = Number(amount);
+            this.computeTotal();
+          })
         });
+      }
+      else {
+        this.order.country = 'Philippines';
       }
       this.isValidOrder = this.validateOrder();
     })
+  }
+
+  generateFullAddress() {
+    this.order.address = this.order.address1 + '\r\n' + this.order.address2 + '\r\n' + this.order.city + '\r\n' + this.order.province + '\r\n' + this.order.country + '\r\n ' + this.order.postcode;
+  }
+
+  getAddressConfig() {
+    this.addressService.getAddressConfig().then(addressConfig => this.addressConfig = addressConfig);
+  }
+
+  getAllEvents() {
+    this.eventService.getEvents().then(events => this.allEvents = events);
+  }
+
+  getAllFees() {
+    this.shippingService.getShippingFees().then(fees => this.allFees = fees);
   }
 
   validateOrder(): boolean {
@@ -175,7 +230,22 @@ export class OrderComponent implements OnInit {
     if (!this.order.receiver_phone || (this.order.receiver_phone == '')) {
       isValid = false;
     }
-    if (!this.order.address || (this.order.address == '')) {
+    if (!this.order.address1 || (this.order.address1 == '')) {
+      isValid = false;
+    }
+    if (!this.order.address2 || (this.order.address2 == '')) {
+      isValid = false;
+    }
+    if (!this.order.province || (this.order.province == '')) {
+      isValid = false;
+    }
+    if (!this.order.city || (this.order.city == '')) {
+      isValid = false;
+    }
+    if (!this.order.country || (this.order.country == '')) {
+      isValid = false;
+    }
+    if (!this.order.postcode || (this.order.postcode == '')) {
       isValid = false;
     }
     if (!this.order.sendto || (this.order.sendto == '')) {
@@ -203,8 +273,34 @@ export class OrderComponent implements OnInit {
     if (type == "Recipient-Email") {
       this.order.receiver_email = event.target.value;
     }
-    if (type == "Address") {
-      this.order.address = event.target.value;
+    if (type == "Address1") {
+      this.order.address1 = event.target.value;
+      this.generateFullAddress();
+    }
+    if (type == "Address2") {
+      this.order.address2 = event.target.value;
+      this.generateFullAddress();
+    }
+    if (type == "Province") {
+      this.order.province == event.target.value;
+      this.updateCity(event.target.value);
+      this.generateFullAddress();
+      this.getFeeAmount(this.order.province!, this.card!.events!).then(amount => {
+        this.order.shipping_fee = Number(amount);
+        this.computeTotal();
+      })
+    }
+    if (type == "City") {
+      this.order.city = event.target.value;
+      this.generateFullAddress();
+    }
+    if (type == "Country") {
+      this.order.city = event.target.value;
+      this.generateFullAddress();
+    }
+    if (type == "PostCode") {
+      this.order.city = event.target.value;
+      this.generateFullAddress();
     }
     if (type == "Anonymously") {
       this.order.anonymously = event.target.checked;
@@ -217,7 +313,14 @@ export class OrderComponent implements OnInit {
     }
   }
 
+  updateCity(province: string) {
+    this.cities = this.addressConfig.find(x => x.name == province)!.city;
+  }
+
   onKeyUp(type: string, event: any) {
+    if (type == "Province") {
+      this.updateCity(event.target.value);
+    }
     this.isValidOrder = this.validateOrder();
   }
 
@@ -295,29 +398,121 @@ export class OrderComponent implements OnInit {
 
   cart() {
     this.confirmRef.close('');
-    window.location.href = "/cart"; 
+    window.location.href = "/cart";
   }
 
   addMoreChange(value: AddMore[]) {
     this.addMore = value;
+    this.addMore.forEach(item => {
+      if (item.shipping_fee == undefined){
+        console.log(item.shipping_fee);
+        this.getFeeAmount(this.order.province!, item.card.events!).then(amount => {
+          this.updateAmount(item, amount);
+        })
+      }
+    });
     this.computeTotal();
+  }
+
+  updateAmount(item: AddMore, amount: number){
+    let i = this.addMore.findIndex(x => x.card.id == item.card.id);
+    if (i >= 0){
+      this.addMore[i].shipping_fee = Number(amount);
+    }
   }
 
   computeTotal() {
     if (this.order) {
-      this.total = Number(this.order.card_price!) * Number(this.order.count!);
-      this.totalCount = 1;
+      this.total = (Number(this.order.card_price!) * Number(this.order.count!)) + Number(this.order.shipping_fee!|0);
+      this.totalCount = Number(this.order.count!);
     }
 
     this.addMore.forEach(item => {
       if (item.count > 0) {
-        this.total = this.total + (Number(item.card.price!) * Number(item.count!));
-        this.totalCount++;
+        this.total = this.total + (Number(item.card.price!) * Number(item.count!)) + Number(item.shipping_fee!|0);
+        this.totalCount = this.totalCount +  Number(item.count!);
       }
     })
   }
 
   showInstruction() {
     this.instruction = !this.instruction;
+  }
+
+  getFeeAmount(province: string, cardEvents: string[]): Promise<number> {
+    return new Promise((resolve, rejects) => {
+      if (province && (cardEvents.length > 0)) {
+        let isCard: boolean = false;
+        let isGift: boolean = false;
+        let isCreation: boolean = false;
+        let isSticker: boolean = false;
+
+        cardEvents.forEach(cardEvent => {
+          let i = this.allEvents.findIndex(x => x.name == cardEvent);
+          if (i >= 0) {
+            if (this.allEvents[i].isGift)
+              isGift = true;
+            else if (this.allEvents[i].isCreations)
+              isCreation = true;
+            else if (this.allEvents[i].isSticker)
+              isSticker = true;
+            else
+              isCard = true;
+          }
+        })
+
+        let group: string = '';
+        let x = this.addressConfig.findIndex(x => x.name == province);
+        if (x >= 0) {
+          group = this.addressConfig[x].group;
+        }
+
+        let y = this.allFees.forEach(fee => {
+          if (isCard && (fee.name == 'Card')) {
+            if (group == 'Metro Manila')
+              resolve(Number(fee.metromanila));
+            if (group == 'Luzon')
+              resolve(Number(fee.luzon));
+            if (group == 'Visayas')
+              resolve(Number(fee.visayas));
+            if (group == 'Mindanao')
+              resolve(Number(fee.mindanao));
+          }
+          if (isGift && (fee.name == 'Gift')) {
+            if (group == 'Metro Manila')
+              resolve(Number(fee.metromanila));
+            if (group == 'Luzon')
+              resolve(Number(fee.luzon));
+            if (group == 'Visayas')
+              resolve(Number(fee.visayas));
+            if (group == 'Mindanao')
+              resolve(Number(fee.mindanao));
+          }
+          if (isCreation && (fee.name == 'Creation')) {
+            if (group == 'Metro Manila')
+              resolve(Number(fee.metromanila));
+            if (group == 'Luzon')
+              resolve(Number(fee.luzon));
+            if (group == 'Visayas')
+              resolve(Number(fee.visayas));
+            if (group == 'Mindanao')
+              resolve(Number(fee.mindanao));
+          }
+          if (isSticker && (fee.name == 'Sticker')) {
+            if (group == 'Metro Manila')
+              resolve(Number(fee.metromanila));
+            if (group == 'Luzon')
+              resolve(Number(fee.luzon));
+            if (group == 'Visayas')
+              resolve(Number(fee.visayas));
+            if (group == 'Mindanao')
+              resolve(Number(fee.mindanao));
+          }
+        })
+      }
+      else{
+        rejects("Not enough parameter");
+      }
+    });
   }
 }

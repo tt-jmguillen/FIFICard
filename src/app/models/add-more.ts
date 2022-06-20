@@ -3,6 +3,7 @@ import { Card } from "./card";
 export class AddMore {
     public card: Card;
     public count: number;
+    public shipping_fee: number;
 
     public constructor(_card: Card){
         this.card = _card;

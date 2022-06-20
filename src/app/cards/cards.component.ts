@@ -105,7 +105,7 @@ export class CardsComponent implements OnInit {
     // this.eventSettings.push(new EventSetting('Parents Appreciation', 'RTKaRLkckcFHBVTvwFC9', '/card/vJ0Rk9KoFwnISsjdKtRJ'));
     // this.eventSettings.push(new EventSetting('Teacher Appreciation', '5AeQBWLOrvxpNV3Ff9TY', '/card/hwRqfPGajCmVvWBQ8OIY'));
 
-    this.eventSettings.push(new EventSetting('Confirmation','9gJZdaXDGk74siRExTrd', '/card/tdvYzC3lT3vPdZzTkP7D'));
+    this.eventSettings.push(new EventSetting('Confirmation','tdvYzC3lT3vPdZzTkP7D', '/card/9gJZdaXDGk74siRExTrd'));
     this.eventSettings.push(new EventSetting('Wedding', 'P390wMwR8PGyAgy51vrY', '/card/B7xwfIgXhIUFxfNhI8xX'));
     this.eventSettings.push(new EventSetting('Thinking Of You', 'mAyLGGHHq8x1XqawDacL', '/card/6utqlq60ud67qCKbOcm4'));
     this.eventSettings.push(new EventSetting('Halloween', 'wkrjkOcpYUX3eUyJ08tj', '/card/07F8gW94f6mGFHISQpWx'));

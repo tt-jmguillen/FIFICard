@@ -12,7 +12,7 @@
                     </nav>
                 </div>
                 <div class="col-lg-6 col-sm-12">
-                    <!-- <button (click)="test(confimation)">test</button> -->
+                    <!--<button (click)="test(confimation)">test</button>-->
                     <app-imagegrid id="{{id}}"></app-imagegrid>
                     <app-add-more *ngIf="card" [id]="card!.id" [recipients]="card!.recipients" [limit]=4
                         (selectedChange)="addMoreChange($event)"></app-add-more>
@@ -36,19 +36,19 @@
                         <span class="text-muted">Sender</span>
                     </div>
                     <div class="col-12 mb-2">
-                        <label class="form-label">Sender Name</label>
+                        <label class="form-label">* Sender Name</label>
                         <span class="instruction" *ngIf="instruction">Insert Name of the Buyer</span>
                         <input type="text" class="form-control" placeholder="Name" [value]="order.sender_name"
                             (change)="onChange('Sender-Name', $event)" (keyup)="onKeyUp('Sender-Name', $event)">
                     </div>
                     <div class="col-12 mb-2">
-                        <label class="form-label">Sender Phone Number</label>
+                        <label class="form-label">* Sender Phone Number</label>
                         <span class="instruction" *ngIf="instruction">Insert Phone number of the Buyer</span>
-                        <input type="text" class="form-control" Number="Phone Number" [value]="order.sender_phone"
+                        <input type="text" class="form-control" placeholder="Phone Number" [value]="order.sender_phone"
                             (change)="onChange('Sender-Phone', $event)" (keyup)="onKeyUp('Sender-Phone', $event)">
                     </div>
                     <div class="col-12 mb-2">
-                        <label class="form-label">Sender Email Address</label>
+                        <label class="form-label">* Sender Email Address</label>
                         <span class="instruction" *ngIf="instruction">Insert Valid Email Address of the Buyer</span>
                         <input type="email" class="form-control" placeholder="Email Address"
                             [value]="order.sender_email" (change)="onChange('Sender-Email', $event)"
@@ -58,30 +58,74 @@
                         <span class="text-muted">Recipient</span>
                     </div>
                     <div class="col-12 mb-2">
-                        <label class="form-label">Recipient Name</label>
+                        <label class="form-label">* Recipient Name</label>
                         <span class="instruction" *ngIf="instruction">Insert Name of the Receiver</span>
                         <input type="text" class="form-control" placeholder="Name" [value]="order.receiver_name"
                             (change)="onChange('Recipient-Name', $event)" (keyup)="onKeyUp('Recipient-Email', $event)">
                     </div>
                     <div class="col-12 mb-2">
-                        <label class="form-label">Recipient Phone Number</label>
+                        <label class="form-label">* Recipient Phone Number</label>
                         <span class="instruction" *ngIf="instruction">Insert Phone Number of the Receiver</span>
                         <input type="text" class="form-control" placeholder="Phone Number"
                             [value]="order.receiver_phone" (change)="onChange('Recipient-Phone', $event)"
                             (keyup)="onKeyUp('Recipient-Phone', $event)">
                     </div>
                     <div class="col-12 mb-2">
-                        <label class="form-label">Recipient Email Address</label>
+                        <label class="form-label">* Recipient Email Address</label>
                         <span class="instruction" *ngIf="instruction">Insert Valid Email Address of the Receiver</span>
                         <input type="email" class="form-control" placeholder="Email Address"
                             [value]="order.receiver_email" (change)="onChange('Recipient-Email', $event)"
                             (keyup)="onKeyUp('Recipient-Email', $event)">
                     </div>
                     <div class="col-12 mb-2">
+                        <span class="text-muted">Delivery Address</span>
+                        <span class="instruction" *ngIf="instruction">Insert Delivery Address of the Buyer or Receiver</span>
+                    </div>
+                    <!--<div class="col-12 mb-2">
                         <label class="form-label">Delivery Address</label>
                         <span class="instruction" *ngIf="instruction">Insert Delivery Address of the Buyer or Receiver</span>
                         <textarea class="form-control" placeholder="Delivery Address" rows="5" [value]="order.address"
                             (change)="onChange('Address', $event)" (keyup)="onKeyUp('Address', $event)"></textarea>
+                    </div>-->
+                    <div class="col-12 mb-2">
+                        <label class="form-label">* Address 1</label>
+                        <input type="text" class="form-control" placeholder="Address"
+                            [value]="order.address1" (change)="onChange('Address1', $event)"
+                            (keyup)="onKeyUp('Address1', $event)">
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label class="form-label">* Address 2</label>
+                        <input type="text" class="form-control" placeholder="Address"
+                            [value]="order.address2" (change)="onChange('Address2', $event)"
+                            (keyup)="onKeyUp('Address2', $event)">
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label class="form-label">* Province/Region</label>
+                        <select class="form-select" (change)="onChange('Province', $event)"
+                        (keyup)="onKeyUp('Province', $event)" [value]="order.province">
+                            <option values="">Province/Region</option>
+                            <option *ngFor="let item of addressConfig" [value]="item.name">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label class="form-label">* City/Municipality</label>
+                        <select class="form-select" (change)="onChange('City', $event)"
+                        (keyup)="onKeyUp('City', $event)" [value]="order.city">
+                            <option values="">City/Municipality</option>
+                            <option *ngFor="let item of cities" [value]="item" [selected]="item == order.city">{{item}}</option>
+                        </select>
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label class="form-label">* Country</label>
+                        <input type="text" class="form-control" placeholder="Country"
+                            [value]="order.country" (change)="onChange('Country', $event)"
+                            (keyup)="onKeyUp('Country', $event)">
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label class="form-label">* Postcode</label>
+                        <input type="text" class="form-control" placeholder="Postcode"
+                            [value]="order.postcode" (change)="onChange('Postcode', $event)"
+                            (keyup)="onKeyUp('Postcode', $event)">
                     </div>
                     <div class="col-12 mb-2 mt-2 pl-3 form-check">
                         <input class="form-check-input" type="checkbox" [checked]="order.anonymously"
@@ -117,27 +161,39 @@
 
             <ng-template #confimation let-modal>
                 <div class="modal-header">
-                    <h4 class="modal-title" id="modal-basic-title">1 item added</h4>
+                    <h4 class="modal-title" id="modal-basic-title">{{totalCount}} item added</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-2"><img src="{{primaryImageURL}}"></div>
-                        <div class="col-7">{{card?.name}}</div>
-                        <div class="col-3 allign-right">{{card?.price | number:'1.2-2'}}</div>
+                        <div class="col-7">
+                            <label>{{card?.name}}</label><br/>
+                            <label>Shipping Fee</label>
+                        </div>
+                        <div class="col-3 allign-right">
+                            <label>{{order.card_price| number:'1.2-2'}}</label><br/>
+                            <label>{{order.shipping_fee! > 0?(order.shipping_fee| number:'1.2-2'):'Free'}}</label>
+                        </div>
                     </div>
                     <div class="border"></div>
                     <div *ngFor="let item of addMore">
                         <div class="row" *ngIf="item.count > 0">
                             <div class="col-2"></div>
-                            <div class="col-8">{{item.card.name}}</div>
-                            <div class="col-2 allign-right">{{item.card.price! * item.count!| number:'1.2-2'}}</div>
+                            <div class="col-8">
+                                <label>{{item.card.name}}</label><br/>
+                                <label>Shipping Fee</label>
+                            </div>
+                            <div class="col-2 allign-right">
+                                <label>{{item.card.price! * item.count!| number:'1.2-2'}}</label><br/>
+                                <label>{{item.shipping_fee! > 0?(item.shipping_fee| number:'1.2-2'):'Free'}}</label>
+                            </div>
                         </div>
-                        <div class="border"></div>
+                        <div class="border" *ngIf="item.count > 0"></div>
                     </div>
                     <div class="row">
-                        <div class="col-6">Card Subtotal ({{totalCount}} item):</div>
+                        <div class="col-6"><strong>Total:</strong></div>
                         <div class="col-6">
-                            <div class="col-12 allign-right">₱ {{total | number:'1.2-2'}}</div>
+                            <div class="col-12 allign-right"><strong>₱ {{total | number:'1.2-2'}}</strong></div>
                         </div>
                     </div>
                 </div>

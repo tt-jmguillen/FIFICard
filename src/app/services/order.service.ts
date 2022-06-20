@@ -5,8 +5,6 @@ import { ref, Storage, uploadBytes, UploadResult } from '@angular/fire/storage';
 import { Order } from '../models/order';
 import { Timestamp } from "@angular/fire/firestore";
 import { Observable } from 'rxjs';
-import { Status } from '../models/status';
-import { deleteDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -37,12 +35,19 @@ export class OrderService {
         receiver_phone: order.receiver_phone,
         receiver_email: order.receiver_email,
         address: order.address,
+        address1: order.address1,
+        address2: order.address2,
+        province: order.province,
+        city: order.city,
+        country: order.country,
+        postcode: order.postcode,
         anonymously: order.anonymously,
         sendto: order.sendto,
         message: order.message,
         withSignAndSend: order.withSignAndSend,
         isPaid: false,
         count: order.count,
+        shipping_fee: order.shipping_fee,
         created: Timestamp.now()
       }).then(docRef => {
         resolve(docRef.id);
