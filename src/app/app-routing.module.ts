@@ -23,6 +23,7 @@ import { TabsComponent } from './pages/tabs/tabs.component';
 import { ProfileComponent } from './settings/profile/profile.component';
 import { MotherGreetingsComponent } from './mothers-day/mother-greetings/mother-greetings.component';
 import { FatherGreetingsComponent } from './fathers-day/father-greetings/father-greetings.component';
+import { SignAndSendPageComponent } from './sign-and-send-page/sign-and-send-page.component';
 
 const routes: Routes = [
   {
@@ -99,6 +100,9 @@ const routes: Routes = [
   },
   {
     path: 'cart', component: CartsComponent
+  },
+  {
+    path: 'signandsendpage', component: SignAndSendPageComponent
   },
 ];
 

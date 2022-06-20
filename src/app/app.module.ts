@@ -78,6 +78,7 @@ import { EventListComponent } from './modules/event-list/event-list.component';
 import { AddMoreComponent } from './modules/add-more/add-more.component';
 import { AddMoreItemComponent } from './modules/add-more/add-more-item/add-more-item.component';
 import { CartThumbComponent } from './carts/cart-thumb/cart-thumb.component';
+import { SignAndSendPageComponent } from './sign-and-send-page/sign-and-send-page.component';
 
 
 @NgModule({
@@ -136,7 +137,8 @@ import { CartThumbComponent } from './carts/cart-thumb/cart-thumb.component';
     EventListComponent,
     AddMoreComponent,
     AddMoreItemComponent,
-    CartThumbComponent
+    CartThumbComponent,
+    SignAndSendPageComponent
   ],
   imports: [
     BrowserModule,
