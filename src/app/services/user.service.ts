@@ -146,29 +146,33 @@ export class UserService {
     });
   }
 
-  removeItemsOnCart(userId: string, orderIds: string[]) {
-    this.getUser(userId).then(user => {
-      let carts: string[] = [];
-
-      user.carts.forEach(id => {
-        let isFound = false;
-
-        orderIds.forEach(orderId => {
-          if (orderId == id){
-            isFound = true;
+  removeItemsOnCart(userId: string, orderIds: string[]): Promise<string[]> {
+    return new Promise((resolve) => {
+      this.getUser(userId).then(user => {
+        let carts: string[] = [];
+  
+        user.carts.forEach(id => {
+          let isFound = false;
+  
+          orderIds.forEach(orderId => {
+            if (orderId == id){
+              isFound = true;
+            }
+          })
+  
+          if (!isFound){
+            carts.push(id);
           }
-        })
+        });
+  
+        const data = doc(this.store, 'users/' + userId);
+        updateDoc(data, {
+          carts: carts
+        });
 
-        if (!isFound){
-          carts.push(id);
-        }
+        resolve(carts);
       });
-
-      const data = doc(this.store, 'users/' + userId);
-      updateDoc(data, {
-        carts: carts
-      });
-    });
+    })
   }
 
   addPayment(userId: string, paymentId: string) {

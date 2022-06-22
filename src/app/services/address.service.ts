@@ -25,13 +25,13 @@ export class AddressService {
       const col = collection(this.store, 'addresses');
       addDoc(col, {
         'userId': address.userId,
-        'name': address.name,
+        'name': address.name?address.name:'',
         'firstname': address.firstname,
         'lastname': address.lastname,
         'address': address.address,
         'address2': address.address2,
-        'city': address.city,
         'province': address.province,
+        'city': address.city,
         'country': address.country,
         'postcode': address.postcode
       }).then(address => {
@@ -54,7 +54,7 @@ export class AddressService {
   {
     const data = doc(this.store, 'addresses/' + address.id);
     updateDoc(data, {
-      'name': address.name,
+      'name': address.name?address.name:'',
       'firstname': address.firstname,
       'lastname': address.lastname,
       'address': address.address,

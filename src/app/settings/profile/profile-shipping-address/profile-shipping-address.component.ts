@@ -61,12 +61,14 @@ export class ProfileShippingAddressComponent implements OnInit {
     }
     if (type == 'city') this.address.city = event.target.value;
     if (type == 'postcode') this.address.postcode = event.target.value;
+    if (type == 'country') this.address.country = event.target.value;
     this.validate();
   }
 
   updateCities(province: string) {
     let addConfig: AddressConfig = this.addressConfig.find(x => x.name == province)!;
-    this.cities = addConfig.city;
+    if (addConfig != undefined)
+      this.cities = addConfig.city;
   }
 
   loadUser() {
@@ -88,6 +90,8 @@ export class ProfileShippingAddressComponent implements OnInit {
       this.updateCities(address.province);
       this.address = address;
       this.address.city = address.city;
+      if (this.address.country == undefined)
+        this.address.country = "Philippines";
       this.validate();
     });
   }
@@ -96,7 +100,7 @@ export class ProfileShippingAddressComponent implements OnInit {
     this.isValid = (this.address.firstname != undefined) && (this.address.firstname != '') &&
       (this.address.lastname != undefined) && (this.address.lastname != '') &&
       (this.address.address != undefined) && (this.address.address != '') &&
-      (this.address.address != undefined) && (this.address.address != '') &&
+      (this.address.address2 != undefined) && (this.address.address2 != '') &&
       (this.address.province != undefined) && (this.address.province != '') &&
       (this.address.city != undefined) && (this.address.city != '') &&
       (this.address.country != undefined) && (this.address.country != '') &&
