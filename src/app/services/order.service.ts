@@ -67,6 +67,7 @@ export class OrderService {
         card_price: order.card_price,
         isPaid: false,
         count: order.count,
+        shipping_fee: order.shipping_fee,
         created: Timestamp.now()
       }).then(docRef => {
         resolve(docRef.id);
