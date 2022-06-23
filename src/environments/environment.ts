@@ -14,11 +14,19 @@ export const environment = {
     authDomain: 'fifi-greetings.firebaseapp.com',
     messagingSenderId: '592228815811',
     measurementId: "G-BN0LKLNJY2"
+    /*apiKey: "AIzaSyD-M5TcXBiZel7mlv8sK9J6qdAdACQIiZE",
+    authDomain: "fificard-staging.firebaseapp.com",
+    databaseURL: "https://fificard-staging-default-rtdb.firebaseio.com",
+    projectId: "fificard-staging",
+    storageBucket: "fificard-staging.appspot.com",
+    messagingSenderId: "536378676158",
+    appId: "1:536378676158:web:758439956a634973215fef"*/
   },
   imageSize: {
     small: "_74x100",
     medium: "_278x220",
-    large: "_282x400"
+    large: "_282x400",
+    xlarge: "_564x800"
   },
   redirect:[
     {

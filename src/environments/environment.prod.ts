@@ -14,7 +14,8 @@ export const environment = {
   imageSize: {
     small: "_74x100",
     medium: "_278x220",
-    large: "_282x400"
+    large: "_282x400",
+    xlarge: "_564x800"
   },
   redirect:[
     {

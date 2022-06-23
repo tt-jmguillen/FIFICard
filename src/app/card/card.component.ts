@@ -53,12 +53,16 @@ export class CardComponent implements OnInit {
 
   getAvailableURL(image: string): Promise<string>{
     return new Promise((resolve) => {
-      this.service.getImageURL(image + environment.imageSize.medium).then(url => {
+      this.service.getImageURL(image + environment.imageSize.xlarge).then(url => {
         resolve(url);
       }).catch(err => {
-        this.service.getImageURL(image).then(url => {
+        this.service.getImageURL(image + environment.imageSize.large).then(url => {
           resolve(url);
-        }).catch(err => {});
+        }).catch(err => {
+          this.service.getImageURL(image).then(url => {
+            resolve(url);
+          }).catch(err => {});
+        });
       });
     });
     
