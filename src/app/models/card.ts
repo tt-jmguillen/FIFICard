@@ -8,6 +8,7 @@ export class Card {
   public price?: number;
   public event?: string;
   public events?: string[];
+  public types?: string[];
   public recipient?: string;
   public recipients?: string[];
   public active?: boolean;

@@ -29,3 +29,13 @@ section{
 .cursor{
     cursor: pointer;
 }
+
+.header{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: baseline;
+    align-content: center;
+    gap: 10px 10px;
+}

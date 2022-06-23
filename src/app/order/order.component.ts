@@ -404,7 +404,7 @@ export class OrderComponent implements OnInit {
   addMoreChange(value: AddMore[]) {
     this.addMore = value;
     this.addMore.forEach(item => {
-      if (item.shipping_fee == undefined){
+      if ((item.shipping_fee == 0) && (item.count > 0)){
         this.getFeeAmount(this.order.province!, item.card.events!).then(amount => {
           this.updateAmount(item, amount);
         })
@@ -414,10 +414,9 @@ export class OrderComponent implements OnInit {
   }
 
   updateAmount(item: AddMore, amount: number){
-    let i = this.addMore.findIndex(x => x.card.id == item.card.id);
-    if (i >= 0){
-      this.addMore[i].shipping_fee = Number(amount);
-    }
+    let i = this.addMore.find(x => x.card.id == item.card.id);
+    if (i != undefined)
+      i.shipping_fee = Number(amount);
   }
 
   computeTotal() {
