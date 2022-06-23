@@ -28,7 +28,7 @@ import { Event } from '../models/event';
 
 export class OrderComponent implements OnInit {
   id?: string;
-  card?: Card;
+  card: Card = new Card();
 
   order: Order = new Order();
   SignAndSend: SignAndSendDetails[] = [];
@@ -147,7 +147,7 @@ export class OrderComponent implements OnInit {
 
   loadCard() {
     this.cardService.getCard(this.id!).subscribe(data => {
-      this.card! = data;
+      this.card = data;
       this.titleService.setTitle(this.card?.name!);
       this.order.card_id = data.id;
       this.order.card_price = data.price;
@@ -310,7 +310,9 @@ export class OrderComponent implements OnInit {
   }
 
   updateCity(province: string) {
-    this.cities = this.addressConfig.find(x => x.name == province)!.city;
+    let config = this.addressConfig.find(x => x.name == province);
+    if (config != undefined)
+      this.cities = config.city;
   }
 
   onKeyUp(type: string, event: any) {
@@ -325,13 +327,15 @@ export class OrderComponent implements OnInit {
     this.createAnOrder(this.order).then(id => {
       this.addMore.forEach(item => {
         if (item.count > 0) {
+          console.log(item);
           let order: Order = new Order();
           order.card_id = item.card.id;
           order.card_price = item.card.price;
           order.count = item.count;
           order.parentOrder = id;
+          order.shipping_fee = item.shipping_fee;
           order.user_id = this.uid;
-
+          console.log(order);
           this.createAnAddMoreOrder(order).then(_id => {
             //console.log(_id);
           });
@@ -401,7 +405,6 @@ export class OrderComponent implements OnInit {
     this.addMore = value;
     this.addMore.forEach(item => {
       if (item.shipping_fee == undefined){
-        console.log(item.shipping_fee);
         this.getFeeAmount(this.order.province!, item.card.events!).then(amount => {
           this.updateAmount(item, amount);
         })
@@ -458,53 +461,57 @@ export class OrderComponent implements OnInit {
         })
 
         let group: string = '';
-        let x = this.addressConfig.findIndex(x => x.name == province);
-        if (x >= 0) {
-          group = this.addressConfig[x].group;
-        }
+        let config = this.addressConfig.find(x => x.name == province);
+        if (config != undefined)
+          group = config.group;
 
-        let y = this.allFees.forEach(fee => {
-          if (isCard && (fee.name == 'Card')) {
-            if (group == 'Metro Manila')
-              resolve(Number(fee.metromanila));
-            if (group == 'Luzon')
-              resolve(Number(fee.luzon));
-            if (group == 'Visayas')
-              resolve(Number(fee.visayas));
-            if (group == 'Mindanao')
-              resolve(Number(fee.mindanao));
-          }
-          if (isGift && (fee.name == 'Gift')) {
-            if (group == 'Metro Manila')
-              resolve(Number(fee.metromanila));
-            if (group == 'Luzon')
-              resolve(Number(fee.luzon));
-            if (group == 'Visayas')
-              resolve(Number(fee.visayas));
-            if (group == 'Mindanao')
-              resolve(Number(fee.mindanao));
-          }
-          if (isCreation && (fee.name == 'Creation')) {
-            if (group == 'Metro Manila')
-              resolve(Number(fee.metromanila));
-            if (group == 'Luzon')
-              resolve(Number(fee.luzon));
-            if (group == 'Visayas')
-              resolve(Number(fee.visayas));
-            if (group == 'Mindanao')
-              resolve(Number(fee.mindanao));
-          }
-          if (isSticker && (fee.name == 'Sticker')) {
-            if (group == 'Metro Manila')
-              resolve(Number(fee.metromanila));
-            if (group == 'Luzon')
-              resolve(Number(fee.luzon));
-            if (group == 'Visayas')
-              resolve(Number(fee.visayas));
-            if (group == 'Mindanao')
-              resolve(Number(fee.mindanao));
-          }
-        })
+        if (group != ''){
+          let y = this.allFees.forEach(fee => {
+            if (isCard && (fee.name == 'Card')) {
+              if (group == 'Metro Manila')
+                resolve(Number(fee.metromanila));
+              if (group == 'Luzon')
+                resolve(Number(fee.luzon));
+              if (group == 'Visayas')
+                resolve(Number(fee.visayas));
+              if (group == 'Mindanao')
+                resolve(Number(fee.mindanao));
+            }
+            if (isGift && (fee.name == 'Gift')) {
+              if (group == 'Metro Manila')
+                resolve(Number(fee.metromanila));
+              if (group == 'Luzon')
+                resolve(Number(fee.luzon));
+              if (group == 'Visayas')
+                resolve(Number(fee.visayas));
+              if (group == 'Mindanao')
+                resolve(Number(fee.mindanao));
+            }
+            if (isCreation && (fee.name == 'Creation')) {
+              if (group == 'Metro Manila')
+                resolve(Number(fee.metromanila));
+              if (group == 'Luzon')
+                resolve(Number(fee.luzon));
+              if (group == 'Visayas')
+                resolve(Number(fee.visayas));
+              if (group == 'Mindanao')
+                resolve(Number(fee.mindanao));
+            }
+            if (isSticker && (fee.name == 'Sticker')) {
+              if (group == 'Metro Manila')
+                resolve(Number(fee.metromanila));
+              if (group == 'Luzon')
+                resolve(Number(fee.luzon));
+              if (group == 'Visayas')
+                resolve(Number(fee.visayas));
+              if (group == 'Mindanao')
+                resolve(Number(fee.mindanao));
+            }
+          })
+        }
+        else{
+          resolve(0);
+        }
       }
       else{
         rejects("Not enough parameter");

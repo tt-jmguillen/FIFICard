@@ -1,3 +1,4 @@
+import { ItemImage } from './../modules/imagegrid/imagegrid.component';
 import { OrderService } from './../services/order.service';
 import { PaymentService } from './../services/payment.service';
 import { CardService } from 'src/app/services/card.service';
@@ -9,7 +10,6 @@ import { Payment } from '../models/payment';
 import { Order } from '../models/order';
 import { ICreateOrderRequest, IPayPalConfig, ITransactionItem } from 'ngx-paypal';
 import { environment } from 'src/environments/environment';
-import { Console } from 'console';
 
 class Collection {
   public id: string;
@@ -78,16 +78,21 @@ export class CartsComponent implements OnInit {
     this.uid = userDetails?.uid;
     this.paymentService.getInitial().then(status => this.initalStatus = status);
 
+    this.loadUserCard();
+  }
+
+  loadUserCard() {
+    this.collection = [];
     this.userService.getUser(this.uid).then(user => {
       this.carts = user.carts;
       user.carts.forEach(id => this.collection.push(new Collection(id)));
     })
   }
 
-  getUserCart(carts: string[]){
+  getUserCart(carts: string[]) {
     this.carts = carts;
     carts.forEach(cart => {
-      if (this.collection.findIndex(x => x.id == cart) < 0){
+      if (this.collection.findIndex(x => x.id == cart) < 0) {
         this.collection.push(new Collection(cart));
       }
     })
@@ -100,7 +105,7 @@ export class CartsComponent implements OnInit {
         item.parent = value.parentOrder!;
         item.price = value.card_price!;
         item.qty = value.count!;
-        if(value.shipping_fee! > 0){
+        if (value.shipping_fee! > 0) {
           item.shipping = Number(value.shipping_fee);
         }
       }
@@ -121,7 +126,7 @@ export class CartsComponent implements OnInit {
   changeInclude(value: [string, boolean]) {
     let isParent: boolean = false;
     let parentId: string = '';
-    
+
     this.collection.forEach(item => {
       if (item.id == value[0]) {
         item.included = value[1];
@@ -129,17 +134,17 @@ export class CartsComponent implements OnInit {
         parentId = item.parent;
       }
     });
-    
+
     this.collection.forEach(item => {
-      if (item.id != value[0]){
-        if (isParent){
-          if (item.parent == value[0]){
+      if (item.id != value[0]) {
+        if (isParent) {
+          if (item.parent == value[0]) {
             item.included = value[1];
           }
         }
-        else{
-          if (value[1]){
-            if (item.id == parentId){
+        else {
+          if (value[1]) {
+            if (item.id == parentId) {
               item.included = value[1];
             }
           }
@@ -151,10 +156,17 @@ export class CartsComponent implements OnInit {
   }
 
   delete(value: string) {
-    let index: number = this.collection.findIndex(x => x.id == value);
-    this.collection.splice(index, 1);
-    this.userService.removeItemOnCart(this.uid, value);
-    this.computeTotal();
+    let ids: string[] = [];
+    this.collection.reverse().forEach((item, index) => {
+      if ((item.id == value) || (item.parent == value)) {
+        ids.push(item.id);
+      }
+    })
+    if (ids.length > 0) {
+      this.userService.removeItemsOnCart(this.uid, ids).then(carts => {
+        this.loadUserCard();
+      })
+    }
   }
 
   computeTotal() {
@@ -183,7 +195,7 @@ export class CartsComponent implements OnInit {
   saveTransaction(gateway: string) {
     let items: string[] = [];
     this.collection.forEach(item => {
-      if(item.included){
+      if (item.included) {
         items.push(item.id);
       }
     })
@@ -192,7 +204,7 @@ export class CartsComponent implements OnInit {
     payment.userId = this.uid;
     payment.orders = items;
     payment.gateway = gateway;
-    
+
     if (gateway == "GCash") {
       payment.proof = this.gcashUploadedFile;
     }
@@ -215,14 +227,13 @@ export class CartsComponent implements OnInit {
         this.collection.splice(index, 1);
       });
 
-      this.userService.removeItemsOnCart(this.uid, items);
+      this.userService.removeItemsOnCart(this.uid, items).then(carts => {
+        this.setPayPal();
 
-      this.setPayPal();
-
-      if (gateway == "GCash") {
-        this.gcashRef.close("Done");
-      }
-      
+        if (gateway == "GCash") {
+          this.gcashRef.close("Done");
+        }
+      })
     });
   }
 
@@ -233,13 +244,10 @@ export class CartsComponent implements OnInit {
       let items: ITransactionItem[] = [];
 
       this.collection.forEach(item => {
-        console.log(item);
         let itemname = 'Fibei Greetings: ' + item.cardname + ' for ' + item.receivername;
-        if (item.parent != ''){
+        if (item.parent != '') {
           itemname = 'Fibei Greetings: ' + item.cardname;
         }
-
-        console.log(itemname);
 
         if (item.included) {
           let paypalItem: ITransactionItem = {

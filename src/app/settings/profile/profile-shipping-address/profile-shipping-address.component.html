@@ -27,17 +27,17 @@
             </div>
             <div class="mb-3 col-6">
                 <label>* Province/Region</label>
-                <select class="form-select" placeholder="Province/Region" (change)="changeData('province', $event)" [disabled]="isSaving" value="{{address.province}}">
-                    <option value="" class="default">Province/Region</option>
-                    <option *ngFor="let item of addressConfig" value="{{item.name}}" >{{item.name}}</option>
-                </select>
+                <input type="text" class="form-control" placeholder="Province/Region" (change)="changeData('province', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.province}}" list="provinceIds">
+                <datalist id="provinceIds">
+                    <option *ngFor="let item of addressConfig" value="{{item.name}}">{{item.name}}</option>
+                </datalist>
             </div>
             <div class="mb-3 col-6">
                 <label>* City/Municipality</label>
-                <select class="form-select" placeholder="City/Municipality" (change)="changeData('city', $event)" [disabled]="isSaving"  value="{{address.city}}">
-                    <option value="" class="default">City/Municipality</option>
-                    <option *ngFor="let city of cities" value="{{city}}" [selected]="city == address.city">{{city}}</option>
-                </select>
+                <input type="text" class="form-control" placeholder="City/Municipality" (change)="changeData('city', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.city}}" list="cityIds">
+                <datalist id="cityIds">
+                    <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
+                </datalist>
             </div>
             <div class="mb-3 col-6">
                 <label>* Country</label>
@@ -45,7 +45,7 @@
             </div>
             <div class="mb-3 col-6">
                 <label>* Post Code</label>
-                <input type="text" class="form-control" placeholder="Post Code" (change)="changeData('c', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.postcode}}">
+                <input type="text" class="form-control" placeholder="Post Code" (change)="changeData('postcode', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.postcode}}">
             </div>
             <div class=" col-12">
                 <button type="button" class="btn btn-primary" (click)="saveAddress()" [disabled]="!isValid">SAVE ADDRESS</button>
