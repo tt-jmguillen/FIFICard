@@ -79,6 +79,8 @@ import { AddMoreComponent } from './modules/add-more/add-more.component';
 import { AddMoreItemComponent } from './modules/add-more/add-more-item/add-more-item.component';
 import { CartThumbComponent } from './carts/cart-thumb/cart-thumb.component';
 import { SignAndSendPageComponent } from './sign-and-send-page/sign-and-send-page.component';
+import { ProfileOrderThumbComponent } from './settings/profile/profile-orders/profile-order-thumb/profile-order-thumb.component';
+import { ProfilePaymentThumbComponent } from './settings/profile/profile-orders/profile-payment-thumb/profile-payment-thumb.component';
 
 
 @NgModule({
@@ -138,7 +140,9 @@ import { SignAndSendPageComponent } from './sign-and-send-page/sign-and-send-pag
     AddMoreComponent,
     AddMoreItemComponent,
     CartThumbComponent,
-    SignAndSendPageComponent
+    SignAndSendPageComponent,
+    ProfileOrderThumbComponent,
+    ProfilePaymentThumbComponent
   ],
   imports: [
     BrowserModule,

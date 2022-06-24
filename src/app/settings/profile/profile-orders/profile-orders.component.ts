@@ -23,6 +23,8 @@ export class UserOrder{
 export class ProfileOrdersComponent implements OnInit {
   uid: string;
   user: User;
+  payments: string[] = [];
+
   orders: UserOrder[] = [];
   userService: UserService;
   orderService: OrderService;
@@ -50,7 +52,8 @@ export class ProfileOrdersComponent implements OnInit {
   loadUser(){
     this.userService.getUser(this.uid).then(user => {
       this.user = user;
-      this.loadOrders(user.orders);
+      //this.loadOrders(user.orders);
+      this.payments = user.payments;
     })
   }
 
