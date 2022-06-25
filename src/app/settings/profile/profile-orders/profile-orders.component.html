@@ -1,27 +1,3 @@
 <h2>My Orders</h2>
-<div class="card">
-    <div class="card-body">
-        <table class="table">
-            <thead>
-                <th>Date Purchase</th>
-                <th>Payment</th>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Recipeint</th>
-                <th>Amount</th>
-                <th>Status </th>
-            </thead>
-            <tbody *ngIf="orders">
-                <tr *ngFor="let userOrder of orders">
-                    <td>{{(userOrder.order.created!.toDate().getMonth()+ 1) + '/' + userOrder.order.created!.toDate().getDate() + '/' + userOrder.order.created!.toDate().getFullYear()}}</td>
-                    <td>{{userOrder.payment.gateway}}</td>
-                    <td><a [routerLink]="['/status/' + userOrder.order.id]">{{userOrder.order.id}}</a></td>
-                    <td><a [routerLink]="['/card/' + userOrder.order.card_id]">{{userOrder.card.name}}</a></td>
-                    <td>{{userOrder.order.receiver_name}}</td>
-                    <td>{{userOrder.order.card_price}}</td>
-                    <td>{{userOrder.payment.status}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+
+<app-profile-payment-thumb *ngFor="let payment of payments" [id]="payment"></app-profile-payment-thumb>
