@@ -79,6 +79,8 @@ import { AddMoreComponent } from './modules/add-more/add-more.component';
 import { AddMoreItemComponent } from './modules/add-more/add-more-item/add-more-item.component';
 import { CartThumbComponent } from './carts/cart-thumb/cart-thumb.component';
 import { SignAndSendPageComponent } from './sign-and-send-page/sign-and-send-page.component';
+import { GraduationComponent } from './graduation/graduation.component';
+import { GraduationGreetingsComponent } from './graduation/graduation-greetings/graduation-greetings.component';
 
 
 @NgModule({
@@ -138,7 +140,9 @@ import { SignAndSendPageComponent } from './sign-and-send-page/sign-and-send-pag
     AddMoreComponent,
     AddMoreItemComponent,
     CartThumbComponent,
-    SignAndSendPageComponent
+    SignAndSendPageComponent,
+    GraduationComponent,
+    GraduationGreetingsComponent
   ],
   imports: [
     BrowserModule,

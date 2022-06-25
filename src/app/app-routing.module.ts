@@ -24,6 +24,8 @@ import { ProfileComponent } from './settings/profile/profile.component';
 import { MotherGreetingsComponent } from './mothers-day/mother-greetings/mother-greetings.component';
 import { FatherGreetingsComponent } from './fathers-day/father-greetings/father-greetings.component';
 import { SignAndSendPageComponent } from './sign-and-send-page/sign-and-send-page.component';
+import { GraduationComponent } from './graduation/graduation.component';
+import { GraduationGreetingsComponent } from './graduation/graduation-greetings/graduation-greetings.component';
 
 const routes: Routes = [
   {
@@ -104,6 +106,12 @@ const routes: Routes = [
   {
     path: 'signandsendpage', component: SignAndSendPageComponent
   },
+  {
+    path: 'graduation', component: GraduationComponent
+  },
+  {
+    path: 'graduation/greetings', component: GraduationGreetingsComponent
+  }
 ];
 
 @NgModule({

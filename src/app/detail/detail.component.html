@@ -17,7 +17,7 @@
                                 </nav>
                             </div>
                             <div class="col-md-6" style="text-align: right;">
-                                <img src="assets/images/sign-send-logo.png" style=" height: 60px;display: inline-block;margin-right:20px" *ngIf="card?.signAndSend">
+                              
                                 <app-favorite cardId="{{id}}" style="display: inline-block;"></app-favorite>
                             </div>
                         </div>
@@ -31,13 +31,17 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <header class="section-heading">
+                            <header class="section-heading" style="margin:0 !Important">
                                 <div class="header">
-                                    <h3 class="section-title">{{card?.name}}</h3>
-                                    <h6 class="card-subtitle mb-2 text-muted" *ngFor="let type of card?.types">{{type}}</h6>
+                                  <h3 class="section-title" style="color:indigo;font-weight:bolder">{{card?.name}}</h3>
+                                    
                                 </div>
                             </header>
                             <section>
+                                 <!-- <h6 class="card-subtitle mb-2 text-muted {{type}}" *ngFor="let type of card?.types">{{type}}</h6> -->
+                                <img src="/assets/images/cardtype/t-{{type}}.png" *ngFor="let type of card?.types" style="height: 40px;margin-right:10px;" title="card type {{type}}">
+                                <img src="assets/images/sign-send-logo.png" style=" height: 40px;" *ngIf="card?.signAndSend">
+                                <br/> <br/>
                                 <p>{{card?.description}}</p>
                             </section>
                             <section>
@@ -55,9 +59,9 @@
                                         <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping"
                                         *ngIf="card">
                                     </div>
-                                    <div class="col-md-4 text-center">
-                                        <a href="/page/TermsAndCondition" target="_blank">Terms And Condition</a><br/>
-                                        <a href="/page/PrivacyPolicy"  target="_blank">Privacy Policy</a>
+                                    <div class="col-md-4">
+                                        <a href="/page/TermsAndCondition" target="_blank" title="See terms and Condititon" class="t-links">Terms And Condition</a><br/>
+                                        <a href="/page/PrivacyPolicy"  target="_blank"  title="See Privacy Policy"  class="t-links">Privacy Policy</a>
                                     </div>
                                 </div>
                             </section>
