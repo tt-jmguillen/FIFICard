@@ -144,6 +144,8 @@ import { CardListComponent } from './card-list/card-list.component';
     AddMoreItemComponent,
     CartThumbComponent,
     SignAndSendPageComponent,
+    GraduationComponent,
+    GraduationGreetingsComponent,
     ProfileOrderThumbComponent,
     ProfilePaymentThumbComponent,
     CardListComponent
