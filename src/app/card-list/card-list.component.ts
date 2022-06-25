@@ -1,5 +1,7 @@
+import { RecipientService } from './../services/recipient.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Card } from '../models/card';
+import { Recipient } from '../models/recipient';
 
 export class Page {
   public index: number;
@@ -24,6 +26,10 @@ export class CardListComponent implements OnInit {
   @Input() priority: string;
   @Input() recipient: string;
 
+  recipientService: RecipientService;
+
+  recipientConfig: Recipient[] = [];
+
   budget: string = '';
   sort: string = '';
 
@@ -41,10 +47,24 @@ export class CardListComponent implements OnInit {
   recipients: string[] = [];
   selectedRecipient: string;
 
-  constructor() { }
+  constructor(
+    _recipientService: RecipientService
+  ) { 
+    this.recipientService = _recipientService;
+  }
 
   ngOnInit(): void {
-    this.loadCards();
+    this.getRecipientConfig().then(recipients => {
+      this.recipientConfig = recipients;
+      this.loadCards();
+    })
+  }
+
+  getRecipientConfig(): Promise<Recipient[]>
+  {
+    return new Promise((resolve) => {
+      this.recipientService.getRecipients().then(recipients => resolve(recipients));
+    })
   }
 
   loadCards(){
@@ -149,14 +169,17 @@ export class CardListComponent implements OnInit {
   }
 
   loadRecipient(cards: Card[]) {
+    console.log(this.recipientConfig);
     this.recipients = [];
 
     this.cards.forEach(card => {
       card.recipients?.forEach(recipient => {
         if ((recipient.toLocaleLowerCase() != 'all') && (recipient.toLocaleLowerCase() != 'any') && (recipient != '')){
-          if (this.recipients.findIndex(x => x.trim().toLocaleLowerCase() == recipient.trim().toLocaleLowerCase()) < 0){
-            this.recipients.push(recipient.trim());
-            this.selectedRecipient = recipient.trim();
+          if (this.recipientConfig.findIndex(x => x.name.trim().toLowerCase() ==  recipient.trim().toLowerCase()) >= 0){
+            if (this.recipients.findIndex(x => x.trim().toLowerCase() == recipient.trim().toLowerCase()) < 0){
+              this.recipients.push(recipient.trim());
+              this.selectedRecipient = recipient.trim();
+            }
           }
         }
       })
