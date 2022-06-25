@@ -7,19 +7,6 @@ import { throws } from 'assert';
 import { Recipient } from '../models/recipient';
 import { RecipientService } from '../services/recipient.service';
 
-export class Page {
-  public index: number;
-  public start: number;
-  public end: number;
-  public display: string;
-  public showing: string;
-  public selected: boolean;
-
-  constructor(_index: number) {
-    this.index = _index;
-  }
-}
-
 export class EventSetting{
   public event: string;
   public mainCard: string;
