@@ -50,7 +50,7 @@ export class CardListComponent implements OnInit {
   loadCards(){
     this.filterCards = this.cards;
     this.loadRecipient(this.cards);
-    this.selectedRecipient = this.recipient==undefined?"All":this.recipient;
+    this.selectedRecipient = this.recipient!=undefined?this.recipient:this.selectedRecipient;
     this.filterCards = this.filterForRecipient();
     this.applyDisplayFilterAndSort();
   }
@@ -89,7 +89,6 @@ export class CardListComponent implements OnInit {
   }
 
   filterForRecipient(): Card[] {
-    console.log(this.selectedRecipient);
     if(this.selectedRecipient != "All"){
       let cards: Card[] = []
       this.cards.forEach(card => {
@@ -154,9 +153,10 @@ export class CardListComponent implements OnInit {
 
     this.cards.forEach(card => {
       card.recipients?.forEach(recipient => {
-        if ((recipient.toLocaleLowerCase() != 'all') && (recipient.toLocaleLowerCase() != 'any')){
+        if ((recipient.toLocaleLowerCase() != 'all') && (recipient.toLocaleLowerCase() != 'any') && (recipient != '')){
           if (this.recipients.findIndex(x => x.trim().toLocaleLowerCase() == recipient.trim().toLocaleLowerCase()) < 0){
             this.recipients.push(recipient.trim());
+            this.selectedRecipient = recipient.trim();
           }
         }
       })
@@ -164,6 +164,7 @@ export class CardListComponent implements OnInit {
 
     if (this.recipients.length > 1){
       this.recipients.unshift("All");
+      this.selectedRecipient = "All";
     }
   }
 
