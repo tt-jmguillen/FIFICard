@@ -81,6 +81,7 @@ import { CartThumbComponent } from './carts/cart-thumb/cart-thumb.component';
 import { SignAndSendPageComponent } from './sign-and-send-page/sign-and-send-page.component';
 import { ProfileOrderThumbComponent } from './settings/profile/profile-orders/profile-order-thumb/profile-order-thumb.component';
 import { ProfilePaymentThumbComponent } from './settings/profile/profile-orders/profile-payment-thumb/profile-payment-thumb.component';
+import { CardListComponent } from './card-list/card-list.component';
 
 
 @NgModule({
@@ -142,7 +143,8 @@ import { ProfilePaymentThumbComponent } from './settings/profile/profile-orders/
     CartThumbComponent,
     SignAndSendPageComponent,
     ProfileOrderThumbComponent,
-    ProfilePaymentThumbComponent
+    ProfilePaymentThumbComponent,
+    CardListComponent
   ],
   imports: [
     BrowserModule,
