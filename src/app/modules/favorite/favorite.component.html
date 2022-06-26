@@ -1,7 +1,5 @@
 <div class="favorite">
-    <div class="fav-div">
-        <mat-icon class="icon" *ngIf="!isFavorite" (click)="updateFavorite()">favorite</mat-icon>
-        <mat-icon class="icon" *ngIf="isFavorite" (click)="updateFavorite()">favorite_border</mat-icon>
-        <span class="count">{{count}}</span>
-    </div>
+    <mat-icon class="icon" *ngIf="!isFavorite" (click)="updateFavorite()">favorite</mat-icon>
+    <mat-icon class="icon" *ngIf="isFavorite" (click)="updateFavorite()">favorite_border</mat-icon>
+    <span class="count">{{count}}</span>
 </div>
