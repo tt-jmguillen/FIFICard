@@ -1,5 +1,6 @@
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { configFromSession } from '@ionic/core';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Card } from 'src/app/models/card';
 import { CardService } from 'src/app/services/card.service';
@@ -25,7 +26,6 @@ export class HomeFeaturedComponent implements OnInit {
   @Input() homeCardEvent?: string;
   @Input() limit: Number;
   @Input() isSignAndSend: boolean;
-
 
   service: CardService;
   cards: Card[] = [];
@@ -59,7 +59,7 @@ export class HomeFeaturedComponent implements OnInit {
       this.loadFeatured();
     }
 
-    this.isMobile = window.orientation > -1;
+    this.isMobile = window.innerWidth <= 500;
   }
 
   loadFeatured() {
@@ -114,7 +114,7 @@ export class HomeFeaturedComponent implements OnInit {
 
   loadBatch(_index: number) {
     this.batches = [];
-    const displayCount = this.isMobile ? 3 : 6;
+    const displayCount = this.isMobile ? 2 : 6;
     let counter: number = 1;
     let cards: Card[] = []
 
@@ -125,7 +125,6 @@ export class HomeFeaturedComponent implements OnInit {
         let batch: Batch = new Batch();
         batch.cards = cards;
         this.batches.push(batch);
-        console.log(this.caption, this.batches);
         cards = [];
       }
       else {

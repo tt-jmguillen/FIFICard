@@ -7,16 +7,16 @@
       <ngb-carousel>
         <ng-template ngbSlide *ngFor="let batch of batches">
           <div class="row">
-            <div class="col-md-1 middle"></div>
-            <div class="col-md-10">
+            <div class="col-1 middle"></div>
+            <div class="col-10">
               <div class="row">
-                <div class="col-md-2 col-sm-6 cursor" *ngFor="let card of batch.cards" routerLink="{{'/card/' + card!.id}}">
+                <div class="col-md-2 col-6 cursor" *ngFor="let card of batch.cards" routerLink="{{'/card/' + card!.id}}">
                   <img class="img-thumbnail" src="{{card?.imageUrl}}" title="{{card?.name}}">
                   <p>{{card?.name}}</p>
                 </div>
               </div>
             </div>
-            <div class="col-md-1 middle"></div>
+            <div class="col-1 middle"></div>
           </div>
         </ng-template>
       </ngb-carousel>
