@@ -174,7 +174,7 @@ import { CardListComponent } from './card-list/card-list.component';
     NgxFeedbackModule,
     NgbModule,
     NgxImageZoomModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [{
     provide: MatDialogRef,

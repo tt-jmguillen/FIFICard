@@ -1,14 +1,25 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
+import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Card } from 'src/app/models/card';
 import { CardService } from 'src/app/services/card.service';
 import { environment } from 'src/environments/environment';
+
+class Batch {
+  public cards: Card[];
+
+  constructor() {
+    this.cards = [];
+  }
+}
+
 @Component({
   selector: 'app-home-featured',
   templateUrl: './home-featured.component.html',
-  styleUrls: ['./home-featured.component.scss']
+  styleUrls: ['./home-featured.component.scss'],
+  providers: [NgbCarouselConfig]
 })
+
 export class HomeFeaturedComponent implements OnInit {
   @Input() caption?: string;
   @Input() homeCardEvent?: string;
@@ -18,6 +29,7 @@ export class HomeFeaturedComponent implements OnInit {
 
   service: CardService;
   cards: Card[] = [];
+  batches: Batch[] = [];
   randomCards: Card[] = [];
   displayCards: Card[] = [];
   page: number = 1;
@@ -29,14 +41,21 @@ export class HomeFeaturedComponent implements OnInit {
   cardEvent: string;
   isMobile: boolean;
 
-  constructor(private _service: CardService,) {
+  constructor(
+    private _service: CardService,
+    private config: NgbCarouselConfig
+  ) {
     this.service = _service;
+    config.interval = 7000;
+    config.wrap = true;
+    config.pauseOnHover = true;
+    config.showNavigationArrows = true;
   }
   ngOnInit() {
-    if (this.isSignAndSend){
+    if (this.isSignAndSend) {
       this.loadSignAndSend();
     }
-    else{
+    else {
       this.loadFeatured();
     }
 
@@ -44,28 +63,28 @@ export class HomeFeaturedComponent implements OnInit {
   }
 
   loadFeatured() {
-    this.service.getFeaturedCards(this.homeCardEvent?.trim()!, this.limit==0?12:Number(this.limit)).then(data => {
+    this.service.getFeaturedCards(this.homeCardEvent?.trim()!, this.limit == 0 ? 12 : Number(this.limit)).then(data => {
       this.randomCards = [];
       let ctr = 1;
       data.forEach(card => {
         this.randomCards.push(card);
         this.getImage(card);
-        this.loadBatch(1);
         ctr = ctr + 1;
       });
+      this.loadBatch(1);
     });
   }
 
-  loadSignAndSend(){
+  loadSignAndSend() {
     this.service.getSignAndSendFeaturedCards().then(data => {
       this.randomCards = [];
       let ctr = 1;
       data.forEach(card => {
         this.randomCards.push(card);
         this.getImage(card);
-        this.loadBatch(1);
         ctr = ctr + 1;
       });
+      this.loadBatch(1);
     })
   }
 
@@ -74,9 +93,9 @@ export class HomeFeaturedComponent implements OnInit {
       this.randomCards.forEach(value => {
         if (card.id == value.id) {
           card.imageUrl = url;
-          
+
         }
-        this.loadBatch(1);
+        //this.loadBatch(1);
       })
     });
   }
@@ -94,7 +113,35 @@ export class HomeFeaturedComponent implements OnInit {
   }
 
   loadBatch(_index: number) {
-    this.displayCards = [];
+    this.batches = [];
+    const displayCount = this.isMobile ? 3 : 6;
+    let counter: number = 1;
+    let cards: Card[] = []
+
+    this.randomCards.forEach(randomCard => {
+      cards.push(randomCard);
+      if (counter == displayCount) {
+        counter = 1;
+        let batch: Batch = new Batch();
+        batch.cards = cards;
+        this.batches.push(batch);
+        console.log(this.caption, this.batches);
+        cards = [];
+      }
+      else {
+        counter++;
+      }
+    })
+
+    if (cards.length > 0) {
+      let batch: Batch = new Batch();
+      cards.forEach(card => {
+        batch.cards.push(card);
+      })
+      this.batches.push(batch);
+    }
+
+    /*this.displayCards = [];
     const cardCount = this.randomCards.length;
     const displayCount = this.isMobile ? 3 : 6;
     let pageCount = Math.floor(cardCount / displayCount);
@@ -126,7 +173,7 @@ export class HomeFeaturedComponent implements OnInit {
           this.disableNext = true;
         }
       }
-    }
+    }*/
 
   }
 
