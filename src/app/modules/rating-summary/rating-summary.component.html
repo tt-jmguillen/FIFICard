@@ -1,62 +1,64 @@
-<br /><br />
 <div *ngIf="currentRateStr!='0.0'">
-<p style="font-size: 150%; text-align: center;" *ngIf="currentRateStr!='0.0'"><b>Customer reviews</b></p>
-<div class="row">
-<div  class="col-md-12" style="display: flex; background-color: #f8f9fa;border:1px solid #ccc">
-    <div class="col-lg-6 col-sm-12">
-        <div>
+  <p style="font-size: 150%; text-align: center;" *ngIf="currentRateStr!='0.0'"><b>Customer Reviews</b></p>
+  <div class="row">
+    <div class="col-md-12 main" style="display: flex; background-color: #f8f9fa;border:1px solid #ccc">
+      <div class="col-md-5 col-sm-12 v-align">
         <ng-template #t let-fill="fill">
-            <span class="star" [class.full]="fill === 100">
-              <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
-            </span>
-          </ng-template>
-          
-  
-            <div style="text-align: center;">
-            <ngb-rating
-                [(rate)]="currentRate"
-                [starTemplate]="t"
-                [readonly]="true"
-                [max]=5
-            ></ngb-rating>
-            <div class="rate-count">
-               <div><b style="font-size: 150%;">{{currentRateStr}}/5.0</b></div>
-               <div>{{rateCount}} reviews</div>
-            </div>
+          <span class="star" [class.full]="fill === 100">
+            <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+          </span>
+        </ng-template>
+        <div style="text-align: center;">
+          <ngb-rating [(rate)]="currentRate" [starTemplate]="t" [readonly]="true" [max]=5></ngb-rating>
+          <div class="rate-count">
+            <div><b style="font-size: 150%;">{{currentRateStr}}/5.0</b></div>
+            <div>{{rateCount}} reviews</div>
           </div>
         </div>
-    </div>
-    <div class="col-lg-6 col-sm-12" style="display: flex;">
-        <div style="width: 90%; padding-top: 5%;">
-        <div class="progress-bar-span"><span>5&#9733;&nbsp;&nbsp;</span><mat-progress-bar class="my-bar" mode="determinate" value={{calculateRate(rate5)}}></mat-progress-bar><span>&nbsp;&nbsp;{{rate5}}</span></div>
-        <div class="progress-bar-span"><span>4&#9733;&nbsp;&nbsp;</span><mat-progress-bar class="my-bar" mode="determinate" value={{calculateRate(rate4)}}></mat-progress-bar><span>&nbsp;&nbsp;{{rate4}}</span></div>
-        <div class="progress-bar-span"><span>3&#9733;&nbsp;&nbsp;</span><mat-progress-bar class="my-bar" mode="determinate" value={{calculateRate(rate3)}}></mat-progress-bar><span>&nbsp;&nbsp;{{rate3}}</span></div>
-        <div class="progress-bar-span"><span>2&#9733;&nbsp;&nbsp;</span><mat-progress-bar class="my-bar" mode="determinate" value={{calculateRate(rate2)}}></mat-progress-bar><span>&nbsp;&nbsp;{{rate2}}</span></div>
-        <div class="progress-bar-span"><span>1&#9733;&nbsp;&nbsp;</span><mat-progress-bar class="my-bar" mode="determinate" value={{calculateRate(rate1)}}></mat-progress-bar><span>&nbsp;&nbsp;{{rate1}}</span></div>
-        <br/><br/> <br/><br/>  
       </div>
-        <div class="center-content" style="padding-top: 10%;" *ngIf="!isLogIn">
-        <button mat-raised-button (click)="writeReviewDialog()">
-          WRITE A REVIEW
-        </button>
+      <div class="col-md-5 col-sm-12">
+        <div class="progress-bar-span">
+          <span>5&#9733;&nbsp;&nbsp;</span>
+          <mat-progress-bar class="my-bar" mode="determinate" value={{calculateRate(rate5)}}></mat-progress-bar>
+          <span>&nbsp;&nbsp;{{rate5}}</span>
         </div>
+        <div class="progress-bar-span">
+          <span>4&#9733;&nbsp;&nbsp;</span>
+          <mat-progress-bar class="my-bar" mode="determinate" value={{calculateRate(rate4)}}></mat-progress-bar>
+          <span>&nbsp;&nbsp;{{rate4}}</span>
+        </div>
+        <div class="progress-bar-span">
+          <span>3&#9733;&nbsp;&nbsp;</span>
+          <mat-progress-bar class="my-bar" mode="determinate" value={{calculateRate(rate3)}}></mat-progress-bar>
+          <span>&nbsp;&nbsp;{{rate3}}</span>
+        </div>
+        <div class="progress-bar-span">
+          <span>2&#9733;&nbsp;&nbsp;</span>
+          <mat-progress-bar class="my-bar" mode="determinate" value={{calculateRate(rate2)}}></mat-progress-bar>
+          <span>&nbsp;&nbsp;{{rate2}}</span>
+        </div>
+        <div class="progress-bar-span">
+          <span>1&#9733;&nbsp;&nbsp;</span>
+          <mat-progress-bar class="my-bar" mode="determinate" value={{calculateRate(rate1)}}></mat-progress-bar>
+          <span>&nbsp;&nbsp;{{rate1}}</span>
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-12 v-align" *ngIf="!isLogIn">
+        <button type="button" class="btn btn-outline-dark" (click)="writeReviewDialog()">WRITE A REVIEW</button>
+      </div>
     </div>
+  </div>
 
-  
-</div>
-</div>
-
-<div *ngIf="currentRateStr=='0.0'">
-  <p style="font-size: 150%; text-align: center;" *ngIf="!isLogIn"><b>Customer Reviews</b></p>
-  
-  <div>
+  <div *ngIf="currentRateStr=='0.0'">
+    <p style="font-size: 150%; text-align: center;" *ngIf="!isLogIn"><b>Customer Reviews</b></p>
+    <div>
       <div class="col-lg-12 col-sm-12" style="display: flex;">
-          <div class="center-content" style="padding-left: 45%;" *ngIf="!isLogIn">
+        <div class="center-content" style="padding-left: 45%;" *ngIf="!isLogIn">
           <button mat-raised-button (click)="writeReviewDialog()">
             WRITE A REVIEW
           </button>
-          </div>
+        </div>
       </div>
+    </div>
   </div>
-</div>
 </div>

@@ -42,3 +42,18 @@
 {
   border:none !important
 }
+
+.main{
+  padding: 10px 10px 10px 10px;
+}
+
+.v-align{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress{
+  width: 100% !important;
+}
