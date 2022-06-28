@@ -79,7 +79,7 @@ export class CardService {
     return new Promise((resolve, rejects) => {
       this.db.collection('cards', ref => ref
         .where('active', "==", true)
-        .where('events', "array-contains", _event.trim())
+        .where('events', "array-contains", _event)
         .limit(limit)
       ).get().subscribe(data => {
         if (!data.empty) {
@@ -89,13 +89,7 @@ export class CardService {
             card.id = doc.id;
             cards.push(card);
           });
-
-          let limited: Card[] = [];
-          for(let i = 0; i < limit; i++){
-            let random: number = Math.floor((Math.random() * cards.length) + 1);
-            limited.push(cards[random]);
-          }
-          resolve(limited);
+          resolve(cards);
         }
         else {
           rejects("No cards found.");

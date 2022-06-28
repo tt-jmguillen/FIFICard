@@ -3,23 +3,25 @@
     <h5><b>YOU MAY ALSO LIKE</b></h5>
   </div>
   <div class="row center-content" ng-controller="appController">
-    <div class="col-md-1" *ngIf="!disablePrev" style="padding-top: 5%;">
-      <button class="btn btn-default" (click)="leftClick()">
-        <mat-icon>keyboard_arrow_left</mat-icon>
-      </button>
-    </div>
-    <div class="col-md-3 cursor" *ngFor="let displayCard of displayCards">
-      <a href="{{'/card/' + displayCard!.id}}">
-        <img class="img-thumbnail" src="{{displayCard?.imageUrl}}">
-      </a>
-      <a href="{{'/card/' + displayCard!.id}}">
-        <h5>{{displayCard?.name}}</h5>
-      </a>
-    </div>
-    <div class="col-md-1" *ngIf="!disableNext" style="padding-top: 5%;">
-      <button class="btn btn-default" (click)="rightClick()">
-        <mat-icon>keyboard_arrow_right</mat-icon>
-      </button>
-    </div>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let batch of batches">
+        <div class="row">
+          <div class="col-1 middle"></div>
+          <div class="col-10">
+            <div class="row">
+              <div class="col-md-3 col-6 cursor" *ngFor="let card of batch.cards">
+                <a href="{{'/card/' + card.id}}" routerLinkActive="router-link-active" *ngIf="card.imageUrl">
+                  <img class="img-thumbnail" src="{{card.imageUrl}}">
+                </a>
+                <a href="{{'/card/' + card.id}}">
+                    <h6>{{card.name}}</h6>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-1 middle"></div>
+        </div>
+      </ng-template>
+    </ngb-carousel>
   </div>
 </div>

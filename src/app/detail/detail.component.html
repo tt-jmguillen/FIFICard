@@ -72,9 +72,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" *ngIf="card">
                     <div class="col-12">
-                        <app-suggestion-list cardId="{{id}}"></app-suggestion-list>
+                        <app-suggestion-list [card]="card"></app-suggestion-list>
                     </div>
                 </div>
                 <div class="row">

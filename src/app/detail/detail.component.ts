@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
 })
 export class DetailComponent implements OnInit {
   id?: string;
-  card?: Card;
+  card: Card;
   activateRoute: ActivatedRoute;
   service: CardService;
   event: string | undefined;
@@ -50,7 +50,6 @@ export class DetailComponent implements OnInit {
   loadCard(){
     this.service.getCard(this.id!).subscribe(data => {
       this.card! = data;
-      console.log("CARD: " + JSON.stringify(data));
       this.event = this.card!.event;
       this.titleService.setTitle(this.card?.name!);
     });
