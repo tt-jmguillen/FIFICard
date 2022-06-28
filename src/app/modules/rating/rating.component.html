@@ -1,36 +1,34 @@
-<h1 *ngIf="!norecords">Reviews</h1>
-
-<div *ngFor="let rating of ratings">
- <div class="card">
+<div class="main">
+  <h5 *ngIf="!norecords">Reviews</h5>
+  <div *ngFor="let rating of displayRatings">
+    <div class="card">
       <div class="card-body">
         <div class="row">
-          <div class="col-md-6">
-              <header class="">
-              <h5 class="section-title" style="font-weight: bold;margin:0">{{rating?.title}}</h5>
-          </header>
+          <div class="col-md-9">
+            <header class="">
+              <h6 class="section-title" style="font-weight: bold;margin:0">{{rating?.title}}</h6>
+            </header>
           </div>
-          <div class="col-md-6 text-right" style="float:right">
+          <div class="col-md-3 text-right" style="float:right">
             <section style="float:right">
-              <td style="color:darkviolet"> 
-                  <mat-icon *ngIf="rating.rate>=1">star</mat-icon>
-                  <mat-icon *ngIf="rating.rate>=2">star</mat-icon>
-                  <mat-icon *ngIf="rating.rate>=3">star</mat-icon>
-                  <mat-icon *ngIf="rating.rate>=4">star</mat-icon>
-                  <mat-icon *ngIf="rating.rate>=5">star</mat-icon>
+              <td style="color:darkviolet">
+                <mat-icon *ngIf="rating.rate>=1">star</mat-icon>
+                <mat-icon *ngIf="rating.rate>=2">star</mat-icon>
+                <mat-icon *ngIf="rating.rate>=3">star</mat-icon>
+                <mat-icon *ngIf="rating.rate>=4">star</mat-icon>
+                <mat-icon *ngIf="rating.rate>=5">star</mat-icon>
               </td>
-          </section>
+            </section>
           </div>
         </div>
         <section>
           <h6><i>“{{rating?.review}}”</i></h6>
         </section>
-          <section style="text-align:right">
-            <h6 class="section-title">{{rating?.username}} | {{rating?.created?.toDate()?.toLocaleDateString()}}</h6>
-          </section>
-         
-          
+        <section style="text-align:right">
+          <h6 class="section-title">{{rating?.username}} | {{rating?.created?.toDate()?.toLocaleDateString()}}</h6>
+        </section>
       </div>
+    </div>
   </div>
-  <br/>
-  
-</div> 
+  <button type="button" class="btn btn-outline-secondary btn-sm full-width" *ngIf="displayRatings.length != recordCount" (click)="loadmore()">Load More</button>
+</div>
