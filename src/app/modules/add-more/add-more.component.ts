@@ -3,6 +3,15 @@ import { Card } from './../../models/card';
 import { CardService } from 'src/app/services/card.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AddMore } from 'src/app/models/add-more';
+import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+
+class Batch {
+  public items: AddMore[]
+
+  constructor() {
+    this.items = [];
+  }
+}
 
 @Component({
   selector: 'app-add-more',
@@ -13,32 +22,39 @@ export class AddMoreComponent implements OnInit {
   @Input() id?: string;
   @Input() recipients?: string[];
   @Input() limit: number;
-  @Output() selectedChange:EventEmitter<AddMore[]> =new EventEmitter<AddMore[]>();
+  @Output() selectedChange: EventEmitter<AddMore[]> = new EventEmitter<AddMore[]>();
 
   service: CardService;
   eventService: EventService;
-
+  isMobile: boolean;
   cards: AddMore[] = []
   displayCards: AddMore[] = [];
+  selected: AddMore[] = [];
+  batches: Batch[] = [];
+
   index: number;
   currentIndex: number;
   isPrev: boolean;
   isNext: boolean;
-  selected: AddMore[] = [];
 
   constructor(
     _service: CardService,
-    _eventService: EventService
-  ) { 
+    _eventService: EventService,
+    config: NgbCarouselConfig
+  ) {
     this.service = _service;
     this.eventService = _eventService;
+    config.interval = 0;
+    config.wrap = true;
+    config.showNavigationArrows = true;
   }
 
   ngOnInit(): void {
+    this.isMobile = window.innerWidth <= 500;
     this.getGiftEvents();
   }
 
-  getGiftEvents(){
+  getGiftEvents() {
     this.eventService.getEventGift().then(events => {
       events.forEach(event => {
         this.getCardsByEvent(event.name!);
@@ -46,82 +62,87 @@ export class AddMoreComponent implements OnInit {
     });
   }
 
-  getCardsByEvent(event: string){
+  getCardsByEvent(event: string) {
     this.service.getCardsByEvent(event).then(cards => {
       this.filterRecipient(cards);
     })
   }
 
-  filterRecipient(_cards: Card[]){
+  filterRecipient(_cards: Card[]) {
     _cards.forEach(card => {
-      if (card.id != this.id!){
+      if (card.id != this.id!) {
         let isAdded: boolean = false;
 
         card.recipient!.split(",").forEach(recipient => {
-          if (recipient.toLowerCase() == "all"){
+          if (recipient.toLowerCase() == "all") {
             isAdded = true;
           }
-          else{
-            if (this.recipients!.indexOf(recipient) >= 0){
+          else {
+            if (this.recipients!.indexOf(recipient) >= 0) {
               isAdded = true;
             }
           }
         })
 
-        if(isAdded){
+        if (isAdded) {
           this.cards.push(new AddMore(card));
         }
       }
     });
-    this.computeIndex();
-    this.loadIndex(1);
+    this.loadBatch();
   }
 
-  computeIndex(){
-    this.index = Math.floor(this.cards.length / this.limit);
-    if ((this.cards.length % this.limit) > 0){
-      this.index++;
+  loadBatch() {
+    this.batches = [];
+    let items: AddMore[] = [];
+    let counter: number = 1;
+    const displayCount: number = this.isMobile ? 2 : 4;
+
+    this.cards.forEach(item => {
+      items.push(item);
+      if (counter == displayCount) {
+        counter = 1;
+        let batch: Batch = new Batch();
+        batch.items = items;
+        this.batches.push(batch);
+        items = [];
+      }
+      else {
+        counter++;
+      }
+    })
+
+    if (items.length > 0) {
+      let batch: Batch = new Batch();
+      items.forEach(item => {
+        batch.items.push(item);
+      })
+      this.batches.push(batch);
     }
   }
 
-  loadIndex(index: number){
-    let start: number = (index * this.limit) - this.limit;
-    this.displayCards = this.cards.slice(start, start + this.limit);
-    this.isPrev = index != 1;
-    this.isNext = this.index != index;
-    this.currentIndex = index;
-  }
-
-  loadPrev(){
-    this.loadIndex(this.currentIndex - 1);
-  }
-
-  loadNext(){
-    this.loadIndex(this.currentIndex + 1);
-  }
-
-  addMoreChange(id: string, count: any){
+  addMoreChange(id: string, count: any) {
     this.cards.forEach(card => {
-      if (card.card.id == id){
+      if (card.card.id == id) {
         card.count = count;
         this.updateSelected(card);
       }
     });
   }
 
-  updateSelected(addMore: AddMore){
+  updateSelected(addMore: AddMore) {
     let isFound: boolean = false;
 
-    if(this.selected.length > 0){
+    if (this.selected.length > 0) {
       this.selected.forEach(value => {
-        if (value.card.id == addMore.card.id){
+        if (value.card.id == addMore.card.id) {
           isFound = true;
           value.count = addMore.count;
         }
       });
     }
 
-    if (!isFound){
+    if (!isFound) {
       let item = new AddMore(addMore.card);
       addMore.count = addMore.count;
       this.selected.push(addMore);

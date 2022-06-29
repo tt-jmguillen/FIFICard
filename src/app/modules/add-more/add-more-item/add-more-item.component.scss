@@ -1,4 +1,4 @@
-.parent{
+.parent {
     height: 200px;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .image {
-    height: 70%;
+    height: 60%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -52,20 +52,24 @@
     font-size: 12px;
 }
 
-.text-right{
+.text-right {
     text-align: right !important;
 }
 
-.tool{
-    padding-top: 5px;
+.tool {
+    height: 10%;
 }
 
-.tool-but p{
+.tool-but p {
     cursor: pointer;
     font-size: 15px;
 }
 
-.content{
+.content {
     text-align: left !important;
 }
 
+.description {
+    color: blue;
+    font-weight: bold;
+}

@@ -7,18 +7,18 @@
             <p>{{card.name}}</p>
         </div>
         <div class="price">
-            <p>{{card.price!.toFixed(2)}}</p>
+            <p><strong>{{card.price!.toFixed(2)}}</strong></p>
         </div>
-    </div>
-    <div class="row tool" *ngIf="count > 0">
-        <div class="col-4 text-right tool-but">
-            <p (click)="lessCount()">-</p>
-        </div>
-        <div class="col-4 text-center">
-            <p>{{count.toString()}}</p>
-        </div>
-        <div class="col-4 tool-but">
-            <p (click)="addCount()">+</p>
+        <div class="row tool" *ngIf="count > 0">
+            <div class="col-4 text-right tool-but">
+                <p (click)="lessCount()">-</p>
+            </div>
+            <div class="col-4 text-center">
+                <p class="description">{{count.toString()}}</p>
+            </div>
+            <div class="col-4 tool-but">
+                <p (click)="addCount()">+</p>
+            </div>
         </div>
     </div>
     <ng-template #tipContent>

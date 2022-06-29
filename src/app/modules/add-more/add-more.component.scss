@@ -2,29 +2,37 @@ p {
     margin-top: 20px;
 }
 
-.main{
+.main {
     min-height: 100px;
 }
 
-.control{
+.control {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-mat-icon{
+mat-icon {
     cursor: pointer;
 }
 
-.no-padding{
+.no-padding {
     padding-left: 0px !important;
     padding-right: 0px !important;
 }
 
-.less-padding{
+.less-padding {
     padding-left: 5px !important;
     padding-right: 5px !important;
 }
 
+::ng-deep .carousel-control-prev,
+::ng-deep .carousel-control-next {
+    width: 5% !important;
+}
 
+::ng-deep .carousel-control-prev-icon,
+::ng-deep .carousel-control-next-icon {
+    filter: invert(100%) !important;
+}
