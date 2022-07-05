@@ -16,15 +16,15 @@ export class ReviewComponent implements OnInit {
   userDetails: any;
   displayName: string;
 
-  constructor( 
+  constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ReviewComponent>,
-    @Inject(MAT_DIALOG_DATA) data:any
-    ) { 
-      if (data){
-        this.data = data.rating;
-      }
+    @Inject(MAT_DIALOG_DATA) data: any
+  ) {
+    if (data) {
+      this.data = data.rating;
     }
+  }
 
   ngOnInit(): void {
 
@@ -32,7 +32,7 @@ export class ReviewComponent implements OnInit {
     this.userDetails = userDetails;
     this.displayName = userDetails?.displayName;
 
-    if (this.data){
+    if (this.data) {
       this.form = this.fb.group({
         // username: [this.data.username, [Validators.required]],
         date: [this.data.date, [Validators.required]],
@@ -43,7 +43,7 @@ export class ReviewComponent implements OnInit {
       });
       this.updateRating(this.data.rate);
     }
-    else{
+    else {
       this.form = this.fb.group({
         // username: ['', [Validators.required]],
         date: [Date, [Validators.required]],
@@ -60,19 +60,18 @@ export class ReviewComponent implements OnInit {
     });
   }
 
-  updateRating(rate: number){
+  updateRating(rate: number) {
     this.rating = rate;
   }
 
   save() {
-    if (this.form.valid){
+    if (this.form.valid) {
       let rating: Rating = this.form.value as Rating;
       if (this.data)
         rating.id = this.data.id;
-        rating.rate = this.rating;
-        rating.approve = false;
-        rating.username = this.displayName;
-        //console.log("rating1: " +  JSON.stringify(rating));
+      rating.rate = this.rating;
+      rating.approve = false;
+      rating.username = this.displayName;
       this.dialogRef.close(rating);
     }
   }

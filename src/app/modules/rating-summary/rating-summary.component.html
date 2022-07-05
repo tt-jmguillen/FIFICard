@@ -43,7 +43,7 @@
       </div>
     </div>
     <div class="col-md-2 col-12 v-align" *ngIf="!isLogIn">
-      <button type="button" class="btn btn-outline-dark" (click)="writeReviewDialog()">WRITE A REVIEW</button>
+      <button type="button" class="btn btn-outline-dark" (click)="writeReviewDialog(confimation)">WRITE A REVIEW</button>
     </div>
   </div>
 
@@ -52,7 +52,7 @@
     <div>
       <div class="col-lg-12 col-sm-12" style="display: flex;">
         <div class="center-content" style="padding-left: 45%;" *ngIf="!isLogIn">
-          <button mat-raised-button (click)="writeReviewDialog()">
+          <button mat-raised-button (click)="writeReviewDialog(confimation)">
             WRITE A REVIEW
           </button>
         </div>
@@ -60,3 +60,22 @@
     </div>
   </div>
 </div>
+
+<ng-template #confimation let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confimation</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label>Review Successfully Saved.</label><br />
+        <label>Title: {{rating.title}}</label><br />
+        <label>Review: {{rating.review}}</label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>

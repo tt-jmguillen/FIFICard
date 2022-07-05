@@ -1,6 +1,8 @@
+import { Title } from '@angular/platform-browser';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Rating } from 'src/app/models/rating';
 import { CardService } from 'src/app/services/card.service';
 import { ReviewComponent } from '../review/review.component';
@@ -27,13 +29,19 @@ export class RatingSummaryComponent implements OnInit {
   snackBar: MatSnackBar;
   userDetails: any;
   isLogIn = true;
+  modalService: NgbModal
+
+  rating: Rating;
 
   constructor(
     public dialog: MatDialog,
     private _service: CardService,
-    private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar,
+    private _modalService: NgbModal
+  ) {
     this.service = _service;
     this.snackBar = _snackBar;
+    this.modalService = _modalService
   }
 
   ngOnInit(): void {
@@ -75,7 +83,7 @@ export class RatingSummaryComponent implements OnInit {
           }
         });
         this.currentRate = this.currentRate / this.rateCount;
-        this.currentRateStr = Number.isNaN(this.currentRate)?'0':this.currentRate.toFixed(1);
+        this.currentRateStr = Number.isNaN(this.currentRate) ? '0' : this.currentRate.toFixed(1);
       }
     }).catch(reason => {
       //g(reason);
@@ -91,16 +99,23 @@ export class RatingSummaryComponent implements OnInit {
     return (rate / this.rateCount) * 100;
   }
 
-  writeReviewDialog() {
+  writeReviewDialog(confimation: any) {
     const dialogConfig = new MatDialogConfig();
     this.dialogRef = this.dialog.open(ReviewComponent, dialogConfig);
 
     this.dialogRef.afterClosed().subscribe(data => {
       //console.log("rating2: " + JSON.stringify(data));
-      if (data) {
-        this._service.addRating(this.cardId!, data);
+      this.rating = data as Rating;
+      if (this.rating.title != undefined) {
+        this._service.addRating(this.cardId!, this.rating);
+        this.openConfirmation(confimation);
       }
     });
+  }
+
+  openConfirmation(confirmation: any) {
+    let ngbModalOptions: NgbModalOptions = {};
+    this.modalService.open(confirmation, ngbModalOptions);
   }
 
 }
