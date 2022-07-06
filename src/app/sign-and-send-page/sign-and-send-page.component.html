@@ -9,11 +9,10 @@
                 </div>
                 <div class="col-md-8 text-center">
                     <img src="/assets/images/signandsend/sign-send-logo 2.png" class="img-fluid">
-                    <p style="font-size: 36px;">Sending cards much easier, simpler, and customizable</p>
+                    <p [ngStyle]="isMobile?{'font-size': '15px'} : {'font-size': '36px'}">Sending cards much easier, simpler, and customizable</p>
                 </div>
                 <div class="col-md-12 text-center">
-                    <p  style="font-size: 48px;font-weight: bold;color:#6500bb">In a rush? Find and customize your card here!</p>
-
+                    <p [ngStyle]="isMobile?{'font-size': '15px'} : {'font-size': '48px'}" style="font-weight: bold;color:#6500bb">In a rush? Find and customize your card here!</p>
                 </div>
             </div>
 
@@ -37,25 +36,25 @@
                     </ngb-carousel>
                 </div>
             </div>
-            <br/>
+            <br />
             <div class="row">
-                <div class="col-md-4 text-center">
-                    <img src="/assets/images/signandsend/thumb-01.png" style="height:100px">
+                <div class="col-md-4 col-4 text-center">
+                    <img src="/assets/images/signandsend/thumb-01.png" [ngStyle]="isMobile?{'height': '50px'} : {'height': '100px'}">
                     <br />
-                    <h3>Sign & Customize</h3>
+                    <h3 [ngStyle]="isMobile?{'font-size': '15px'} : {'font-size': '22px'}">Sign & Customize</h3>
                 </div>
-                <div class="col-md-4 text-center">
-                    <img src="/assets/images/signandsend/thumb-03.png" style="height:100px">
+                <div class="col-md-4 col-4 text-center">
+                    <img src="/assets/images/signandsend/thumb-03.png" [ngStyle]="isMobile?{'height': '50px'} : {'height': '100px'}">
                     <br />
-                    <h3>Pick a Card</h3>
+                    <h3 [ngStyle]="isMobile?{'font-size': '15px'} : {'font-size': '22px'}">Pick a Card</h3>
                 </div>
-                <div class="col-md-4 text-center">
-                    <img src="/assets/images/signandsend/thumb-02.png" style="height:100px">
-                    <br /> 
-                    <h3>Send with love</h3>
+                <div class="col-md-4 col-4 text-center">
+                    <img src="/assets/images/signandsend/thumb-02.png" [ngStyle]="isMobile?{'height': '50px'} : {'height': '100px'}">
+                    <br />
+                    <h3 [ngStyle]="isMobile?{'font-size': '15px'} : {'font-size': '22px'}">Send with love</h3>
                 </div>
             </div>
-            <br/><br/>
+            <br />
             <div class="row">
                 <div class="col-md-12">
                     <img src="/assets/images/signandsend/sign-and-send-01.png" class="img-fluid">
@@ -67,9 +66,10 @@
             </div>
         </div>
         <style>
-          .mothersday-component > * {
-    font-family: 'Montserrat';font-size: 22px;
-}
+            .mothersday-component>* {
+                font-family: 'Montserrat';
+                font-size: 22px;
+            }
         </style>
     </section>
     <app-footer></app-footer>
