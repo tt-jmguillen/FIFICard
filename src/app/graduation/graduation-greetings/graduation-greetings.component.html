@@ -3,30 +3,30 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    
-                    <div class="col-md-6 offset-md-3"> <img src="/assets/images/graduation/banner01.png" ></div>
-                    <br/><br/>
+
+                    <div class="col-md-6 offset-md-3"> <img src="/assets/images/graduation/banner01.png"></div>
+                    <br /><br />
                     <img src="/assets/images/graduation/greeting/banner/y-1.png">
                     <!-- <img src="/assets/images/fathers/greeting/banner/j-12-min.png" class="w100"> -->
                     <div class="graduation-greetings-selection">
-                    <div class="row ">
-                        <div class="col-md-10 offset-md-1">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-3 text-center">
-                                    <button (click)="scroll(ALL)">FOR ALL GRADUATES</button>
-                                </div>
-                                <div class="col-md-3 text-center">
-                                    <button (click)="scroll(MOTHER)">FROM MOTHERS</button>
-                                </div>
-                                <div class="col-md-3 text-center">
-                                    <button (click)="scroll(FATHER)">FROM FATHERS</button>
-                                </div>
-                                <div class="col-md-3 text-center">
-                                    <button (click)="scroll(QUOTES)">GRADUATION DAY QUOTES</button>
-                                </div>
-                            </div>
-                            <!-- <div class="row">
+                        <div class="row ">
+                            <div class="col-md-10 offset-md-1">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-3 text-center">
+                                            <button (click)="scroll(ALL)">FOR ALL GRADUATES</button>
+                                        </div>
+                                        <div class="col-md-3 text-center">
+                                            <button (click)="scroll(MOTHER)">FROM MOTHERS</button>
+                                        </div>
+                                        <div class="col-md-3 text-center">
+                                            <button (click)="scroll(FATHER)">FROM FATHERS</button>
+                                        </div>
+                                        <div class="col-md-3 text-center">
+                                            <button (click)="scroll(QUOTES)">GRADUATION DAY QUOTES</button>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="row">
                                 <div class="col-md-3 text-center">
                                     <button (click)="scroll(NEW1)">FOR ALL NEW DADS</button>
                                 </div>
@@ -37,13 +37,13 @@
                                     <button (click)="scroll(QUOTES1)">FATHER'S DAY QUOTES</button>
                                 </div>
                             </div> -->
-                        </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <div #ALL></div>
-                    <img src="/assets/images/graduation/greeting/banner/y-3.png" class="w100">
+                    <div>
+                        <div #ALL></div>
+                        <img src="/assets/images/graduation/greeting/banner/y-3.png" class="w100">
                         <br /><br />
                         <ol>
                             <li>In today's world of education, there is a very promising new addition. Congratulations on your graduation, and best wishes for your teaching career!
@@ -53,192 +53,96 @@
                             <li>I am happy to be part of your success. Happy graduation.</li>
                             <li>I hope you get some well-deserved relaxation, vacation, or whatever kind of break you want to take.</li>
                         </ol>
-                    <br /><br />
+                        <br /><br />
 
-                    <div class="row">
-                        <div class="col-md-3">
-                        <a href="https://fibeigreetings.com/card/RdnOnqzsNhVQg3D84Zh5" class="f-mails" target="_blank" title="Congratulations! We Are So Proud Of You">
-                            <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2FRdnOnqzsNhVQg3D84Zh5%2FLHegpgnaXm0gX4DAgK66?alt=media&token=869773ba-d798-42e3-b858-65f4ce075e35" >
-                            <br/> <br/>
-                            <p>Congratulations! We Are So Proud Of You</p>
-                            <b>P99.00</b>
-                        </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="https://fibeigreetings.com/card/hPVdNaKOy2AAv8PR24Ju" class="f-mails" target="_blank" title="Congratulations On Your Well-Deserved Success">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2FhPVdNaKOy2AAv8PR24Ju%2FTzKPIKmsbnc4H2BRPSQ4?alt=media&token=d536e36f-1160-42b2-b27d-97bc0a11c23d" >
-                                <br/> <br/>
-                                <p>Congratulations On Your Well-Deserved Success</p>
-                                <b>P99.00</b>
-                            </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="https://fibeigreetings.com/card/xDACkoU1KeAgwCxcXKPR" class="f-mails" target="_blank" title="Don't Live Down To Expectations. Go Out There And Do Something Remarkable">
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2FxDACkoU1KeAgwCxcXKPR%2FQR0WSS9C9LgSD1gmoYzr?alt=media&token=27c6eaed-a18d-457e-9b84-17fa0eb9bc82" >
-                                    <br/> <br/>
-                                    <p>Don't Live Down To Expectations. Go Out There And Do Something Remarkable.</p>
-                                    <b>P99.00</b>
+                        <div class="row">
+                            <div class="col-md-3" *ngFor="let selectedCard of line1">
+                                <a *ngIf="selectedCard.card" class="f-mails" target="_blank" title="{{selectedCard.card.name}}" [routerLink]="['/card/' + selectedCard.id]">
+                                    <img *ngIf="selectedCard.url" src="{{selectedCard.url}}">
+                                    <br /> <br />
+                                    <p>{{selectedCard.card.name}}</p>
+                                    <b>P{{selectedCard.card.price | number:'1.2-2'}}</b>
                                 </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="https://fibeigreetings.com/card/ifh9vq8BmFm2HfT6Qrmy" class="f-mails" target="_blank" title="Do What You Have To Do Resolutely, With All Your Heart.">
-                                        <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2Fifh9vq8BmFm2HfT6Qrmy%2F0MM97zZNZzGH4eWe63oN?alt=media&token=ba9c68e7-107e-433f-a4f4-9dae868a2c07" >
-                                        <br/> <br/>
-                                        <p>Do What You Have To Do Resolutely, With All Your Heart.</p>
-                                        <b>P99.00</b>
-                                    </a>
-                                    </div>
-                    </div>
-                    <br /><br />
-                    <div #MOTHER></div>
-                    <img src="/assets/images/graduation/greeting/banner/y-4.png" class="w100">
-                    <br /><br />
-                    <ol>
-                        <li>Wishing to send warm thoughts and heartfelt congratulations to a graduate of whom we are proud.</li>
-                        <li>On your graduation day, I'm thinking of you with love and pride.</li>
-                        <li>You've worked hard, now have some fun shaking your bottom. Congratulations on completing your studies.</li>
-                        <li>Congrats on having your college diploma. What an impressive achievement!</li>
-                        <li>I'm excited to see where life takes you next. Our prayers are with you wherever you are!</li>
-                    </ol>
-                    <br /><br />
-
-                    <div class="row">
-                        <div class="col-md-3">
-                        <a href="https://fibeigreetings.com/card/t0nMQAtOwyuFYySgj2tE" class="f-mails" target="_blank" title="May You Snatch The Chances And Beat The Challenges">
-                            <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2Ft0nMQAtOwyuFYySgj2tE%2FLiXPotOyt9IztzauJYMx?alt=media&token=106346ad-9449-444f-8b81-077a31bbc906" >
-                            <br/> <br/>
-                            <p>May You Snatch The Chances And Beat The Challenges</p>
-                            <b>P99.00</b>
-                        </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="https://fibeigreetings.com/card/D9uh7ONNmIe8VHQCYe29" class="f-mails" target="_blank" title="Be Bold, Be Courageous, Be Your Best">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2FD9uh7ONNmIe8VHQCYe29%2FQY386bdaIrcpwt4BB0tq?alt=media&token=15315598-7f0d-41ff-a79f-aabc608d93f0" >
-                                <br/> <br/>
-                                <p>Be Bold, Be Courageous, Be Your Best</p>
-                                <b>P99.00</b>
-                            </a>
                             </div>
-                            <div class="col-md-3">
-                                <a href="https://fibeigreetings.com/card/1av3jh7ovZSUJu4MMh1c" class="f-mails" target="_blank" title="Congratulations On Completing Your Studies">
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2F1av3jh7ovZSUJu4MMh1c%2F1fUcCuYZR4XrlOT3Uld3?alt=media&token=25c79b40-a9d6-4f8f-932f-9fe5e00d3e66" >
-                                    <br/> <br/>
-                                    <p>Congratulations On Completing Your Studies</p>
-                                    <b>P99.00</b>
-                                </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="https://fibeigreetings.com/card/prZlBHYn70LlMEIF9Fra" class="f-mails" target="_blank" title="Education Is The Ability To Meet Life's Situations">
-                                        <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2FprZlBHYn70LlMEIF9Fra%2FzSebiSlIFv5kyDQWD6iJ?alt=media&token=a55cbcd8-543d-4dc1-bf05-dbf0809cdef0" >
-                                        <br/> <br/>
-                                        <p>Education Is The Ability To Meet Life's Situations</p>
-                                        <b>P99.00</b>
-                                    </a>
-                                    </div>
-                    </div>
-                    <br /><br />
-
-                    <div #FATHER></div>
-                    <img src="/assets/images/graduation/greeting/banner/y-5.png" class="w100">
-                    <br /><br />
-                    <ol>
-                        <li>You're slowly achieving your dreams, and you'll soon see the rewards of your labor.</li>
-                        <li>Another achievement unlocked. You deserved it! Let's celebrate your success.</li>
-                        <li>Congratulations! I am happy and ecstatic about your achievement. Be proud of your accomplishments and hard work.</li>
-                        <li>I'm so proud of you! My hopes for you are that you continue to smile and shine brightly in your life. It is a fantastic feat. Congrats!</li>
-                        <li>You always have the beauty, brains, a good heart, and now you will be receiving your diploma. You truly have it all! Congratulations!
-                            
-                        </li>
-                    </ol>
-                    <br /><br />
-
-                    <div class="row">
-                        <div class="col-md-3">
-                        <a href="https://fibeigreetings.com/card/Mw3jjvWs1mI73m7AdE1T" class="f-mails" target="_blank" title="Happy Graduation Day">
-                            <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2FMw3jjvWs1mI73m7AdE1T%2FzE2wD7mnxUNwcJvbb3mE?alt=media&token=ecb63d52-8cc6-43d4-b89d-ea3fc2810af4" >
-                            <br/> <br/>
-                            <p>Happy Graduation Day</p>
-                            <b>P99.00</b>
-                        </a>
                         </div>
-                        <div class="col-md-3">
-                            <a href="https://fibeigreetings.com/card/oWXDeRm4dRbhGKqDscLX" class="f-mails" target="_blank" title="The Whole Purpose Of Education Is To Turn Mirrors Into Windows">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2FoWXDeRm4dRbhGKqDscLX%2FnE5JYA56cXDxQUZUYsAu?alt=media&token=c4ad9f19-8a08-471c-884f-43c2744da817" >
-                                <br/> <br/>
-                                <p>The Whole Purpose Of Education Is To Turn Mirrors Into Windows</p>
-                                <b>P99.00</b>
-                            </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="https://fibeigreetings.com/card/6BrCFKpIXwTNmeDBTjdx" class="f-mails" target="_blank" title="There Are Far, Far Better Things Ahead Than Any We Leave Behind">
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2F6BrCFKpIXwTNmeDBTjdx%2FHRbFwIHIofsnoO5RXupr?alt=media&token=b892b904-3689-42d1-b144-37ce019e656f" >
-                                    <br/> <br/>
-                                    <p>There Are Far, Far Better Things Ahead Than Any We Leave Behind</p>
-                                    <b>P99.00</b>
+                        <br /><br />
+                        <div #MOTHER></div>
+                        <img src="/assets/images/graduation/greeting/banner/y-4.png" class="w100">
+                        <br /><br />
+                        <ol>
+                            <li>Wishing to send warm thoughts and heartfelt congratulations to a graduate of whom we are proud.</li>
+                            <li>On your graduation day, I'm thinking of you with love and pride.</li>
+                            <li>You've worked hard, now have some fun shaking your bottom. Congratulations on completing your studies.</li>
+                            <li>Congrats on having your college diploma. What an impressive achievement!</li>
+                            <li>I'm excited to see where life takes you next. Our prayers are with you wherever you are!</li>
+                        </ol>
+                        <br /><br />
+
+                        <div class="row">
+                            <div class="col-md-3" *ngFor="let selectedCard of line2">
+                                <a *ngIf="selectedCard.card" class="f-mails" target="_blank" title="{{selectedCard.card.name}}" [routerLink]="['/card/' + selectedCard.id]">
+                                    <img *ngIf="selectedCard.url" src="{{selectedCard.url}}">
+                                    <br /> <br />
+                                    <p>{{selectedCard.card.name}}</p>
+                                    <b>P{{selectedCard.card.price | number:'1.2-2'}}</b>
                                 </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="https://fibeigreetings.com/card/X8arneN97jpksr21jzCv" class="f-mails" target="_blank" title="What We Learn With Pleasure We Never Forget">
-                                        <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2FX8arneN97jpksr21jzCv%2FNAtgZiAUwCwzH4qBDyJj?alt=media&token=bf00bd5d-6266-4553-8586-266ee301147e" >
-                                        <br/> <br/>
-                                        <p>What We Learn With Pleasure We Never Forget</p>
-                                        <b>P99.00</b>
-                                    </a>
-                                    </div>
-                    </div>
-                    <br /><br />
-
-                    <div #QUOTES></div>
-                    <img src="/assets/images/graduation/greeting/banner/y-4.png" class="w100">
-                    <br /><br />
-                    <ol>
-                        <li>You've taken your place on the world stage, ready to shine with that diploma. I'm looking forward to seeing you shine even brighter! </li>
-                        <li>I'm thrilled to be a part of your graduation celebrations, and I'm incredibly proud of you!</li>
-                        <li>Today I'm sending you my warmest congratulations and best wishes.</li>
-                        <li>Congratulations, if you work as hard for the rest of your life as you did for the previous four years, you will be successful.</li>
-                        <li>Congratulations on your graduation. You've worked hard to attain your objectives, and now you're on your way to discovering new horizons, dreaming new ambitions, embracing life with zeal, and keep aiming for the stars. Take a chance.</li>
-                    </ol>
-                    <br /><br />
-
-                    <div class="row">
-                        <div class="col-md-3">
-                        <a href="https://fibeigreetings.com/card/Nsu0qoBRD9BEba73R4tN" class="f-mails" target="_blank" title="Education Is Our Passport To The Future, For Tomorrow, Belongs To The People Who Prepare For It Today">
-                            <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2FNsu0qoBRD9BEba73R4tN%2FlzppBy7pXwEwiosGFX6l?alt=media&token=a300ae38-8961-4334-807f-e41d2a3a183d" >
-                            <br/> <br/>
-                            <p>Education Is Our Passport To The Future, For Tomorrow, Belongs To The People Who Prepare For It Today</p>
-                            <b>P99.00</b>
-                        </a>
+                            </div>
                         </div>
-                        <div class="col-md-3">
-                            <a href="https://fibeigreetings.com/card/IXidBkQZhhCPW3kgwCvz" class="f-mails" target="_blank" title="Happy Graduation  Day. It Is Still Possible To Make A Difference">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2FIXidBkQZhhCPW3kgwCvz%2FaIPvwk6efhixAntJmQD1?alt=media&token=9333c6ea-ba1b-468c-bca5-1d05735171ea" >
-                                <br/> <br/>
-                                <p>Happy Graduation  Day. It Is Still Possible To Make A Difference</p>
-                                <b>P99.00</b>
-                            </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="https://fibeigreetings.com/card/JxhGxYYu8jjiRyr8joOp" class="f-mails" target="_blank" title="For Your Encouragement and Faith In Me">
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2FJxhGxYYu8jjiRyr8joOp%2FpdUIzMgR4V4bHXLJJTxc?alt=media&token=3b5983a1-4867-4af1-b69b-672c6fd0288d" >
-                                    <br/> <br/>
-                                    <p>For Your Encouragement and Faith In Me</p>
-                                    <b>P99.00</b>
+                        <br /><br />
+
+                        <div #FATHER></div>
+                        <img src="/assets/images/graduation/greeting/banner/y-5.png" class="w100">
+                        <br /><br />
+                        <ol>
+                            <li>You're slowly achieving your dreams, and you'll soon see the rewards of your labor.</li>
+                            <li>Another achievement unlocked. You deserved it! Let's celebrate your success.</li>
+                            <li>Congratulations! I am happy and ecstatic about your achievement. Be proud of your accomplishments and hard work.</li>
+                            <li>I'm so proud of you! My hopes for you are that you continue to smile and shine brightly in your life. It is a fantastic feat. Congrats!</li>
+                            <li>You always have the beauty, brains, a good heart, and now you will be receiving your diploma. You truly have it all! Congratulations!
+
+                            </li>
+                        </ol>
+                        <br /><br />
+
+                        <div class="row">
+                            <div class="col-md-3" *ngFor="let selectedCard of line3">
+                                <a *ngIf="selectedCard.card" class="f-mails" target="_blank" title="{{selectedCard.card.name}}" [routerLink]="['/card/' + selectedCard.id]">
+                                    <img *ngIf="selectedCard.url" src="{{selectedCard.url}}">
+                                    <br /> <br />
+                                    <p>{{selectedCard.card.name}}</p>
+                                    <b>P{{selectedCard.card.price | number:'1.2-2'}}</b>
                                 </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="https://fibeigreetings.com/card/k2hXiW1ruHyCQEKcn7go" class="f-mails" target="_blank" title="Congrats, You Did It!">
-                                        <img src="https://firebasestorage.googleapis.com/v0/b/fifi-greetings.appspot.com/o/cards%2Fk2hXiW1ruHyCQEKcn7go%2FBtp0N9Yra503hk47b7tr?alt=media&token=68692d40-935e-4ce0-ad9b-10c218f53cc5" >
-                                        <br/> <br/>
-                                        <p>Congrats, You Did It!</p>
-                                        <b>P99.00</b>
-                                    </a>
-                                    </div>
+                            </div>
+                        </div>
+                        <br /><br />
+
+                        <div #QUOTES></div>
+                        <img src="/assets/images/graduation/greeting/banner/y-4.png" class="w100">
+                        <br /><br />
+                        <ol>
+                            <li>You've taken your place on the world stage, ready to shine with that diploma. I'm looking forward to seeing you shine even brighter! </li>
+                            <li>I'm thrilled to be a part of your graduation celebrations, and I'm incredibly proud of you!</li>
+                            <li>Today I'm sending you my warmest congratulations and best wishes.</li>
+                            <li>Congratulations, if you work as hard for the rest of your life as you did for the previous four years, you will be successful.</li>
+                            <li>Congratulations on your graduation. You've worked hard to attain your objectives, and now you're on your way to discovering new horizons, dreaming new ambitions, embracing life with zeal, and keep aiming for the stars. Take a chance.</li>
+                        </ol>
+                        <br /><br />
+
+                        <div class="row">
+                            <div class="col-md-3" *ngFor="let selectedCard of line4">
+                                <a *ngIf="selectedCard.card" class="f-mails" target="_blank" title="{{selectedCard.card.name}}" [routerLink]="['/card/' + selectedCard.id]">
+                                    <img *ngIf="selectedCard.url" src="{{selectedCard.url}}">
+                                    <br /> <br />
+                                    <p>{{selectedCard.card.name}}</p>
+                                    <b>P{{selectedCard.card.price | number:'1.2-2'}}</b>
+                                </a>
+                            </div>
+                        </div>
+                        <br /><br />
                     </div>
-                    <br /><br />
                 </div>
             </div>
         </div>
-   </div>
     </section>
     <app-footer></app-footer>
 </ion-content>
