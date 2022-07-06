@@ -26,7 +26,7 @@
                                     <div class="row">
                                         <div class="col-md-2 col-3 lesspadding cursor" *ngFor="let card of batch.cards" routerLink="{{'/card/' + card!.id}}">
                                             <img class="img-thumbnail" src="{{card?.imageUrl}}" title="{{card?.name}}">
-                                            <p [ngClass]="{name: isMobile}" class="name text-center" style="font-size:12px;font-weight:bold;margin-top:5px;">{{card?.name}}</p>
+                                            <p [ngStyle]="isMobile?{'font-size': '12px'} : {'font-size': '15px'}" class="text-center" style="font-weight:bold;margin-top:5px;">{{card?.name}}</p>
                                         </div>
                                     </div>
                                 </div>
