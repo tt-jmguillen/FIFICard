@@ -1,0 +1,23 @@
+::ng-deep .carousel-control-prev,
+::ng-deep .carousel-control-next {
+    width: 5% !important;
+}
+
+::ng-deep .carousel-control-prev-icon,
+::ng-deep .carousel-control-next-icon {
+    filter: invert(100%) !important;
+}
+
+.lesspadding {
+    padding-left: 3px !important;
+    padding-right: 3px !important;
+}
+
+.middle {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.name {
+    font-size: 12px;
+}
