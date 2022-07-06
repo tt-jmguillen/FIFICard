@@ -1,9 +1,25 @@
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+
 <ion-content>
     <section class="section-name padding-y-sm">
         <div class="container mothersday-component">
             <div class="row">
+                <div class="col-md-4">
+                    <img src="/assets/images/signandsend/banner.png" class="img-fluid">
+                </div>
+                <div class="col-md-8 text-center">
+                    <img src="/assets/images/signandsend/sign-send-logo 2.png" class="img-fluid">
+                    <p style="font-size: 36px;">Sending cards much easier, simpler, and customizable</p>
+                </div>
+                <div class="col-md-12 text-center">
+                    <p  style="font-size: 48px;font-weight: bold;color:#6500bb">In a rush? Find and customize your card here!</p>
+
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="col-12 pt-3 pb-3">
-                    <ngb-carousel>
+                    <ngb-carousel style="background:#6602bb2e;padding:5% 0;">
                         <ng-template ngbSlide *ngFor="let batch of batches">
                             <div class="row">
                                 <div class="col-1 middle"></div>
@@ -11,7 +27,7 @@
                                     <div class="row">
                                         <div class="col-md-2 col-3 lesspadding cursor" *ngFor="let card of batch.cards" routerLink="{{'/card/' + card!.id}}">
                                             <img class="img-thumbnail" src="{{card?.imageUrl}}" title="{{card?.name}}">
-                                            <p [ngClass]="{name: isMobile}" class="name">{{card?.name}}</p>
+                                            <p [ngClass]="{name: isMobile}" class="name text-center" style="font-size:12px;font-weight:bold;margin-top:5px;">{{card?.name}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -21,6 +37,25 @@
                     </ngb-carousel>
                 </div>
             </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="/assets/images/signandsend/thumb-01.png" style="height:100px">
+                    <br />
+                    <h3>Sign & Customize</h3>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="/assets/images/signandsend/thumb-03.png" style="height:100px">
+                    <br />
+                    <h3>Pick a Card</h3>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="/assets/images/signandsend/thumb-02.png" style="height:100px">
+                    <br /> 
+                    <h3>Send with love</h3>
+                </div>
+            </div>
+            <br/><br/>
             <div class="row">
                 <div class="col-md-12">
                     <img src="/assets/images/signandsend/sign-and-send-01.png" class="img-fluid">
@@ -31,6 +66,11 @@
                 </div>
             </div>
         </div>
+        <style>
+          .mothersday-component > * {
+    font-family: 'Montserrat';font-size: 22px;
+}
+        </style>
     </section>
     <app-footer></app-footer>
 </ion-content>
