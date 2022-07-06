@@ -45,16 +45,16 @@
                                 </section>
                                 <section>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <h3 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h3>
                                             <a class="order" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)">Buy
                                                 Now</a>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping"
                                             *ngIf="card">
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <a href="/page/TermsAndCondition" target="_blank" title="See terms and Condititon" class="t-links">Terms And Condition</a><br/>
                                             <a href="/page/PrivacyPolicy"  target="_blank"  title="See Privacy Policy"  class="t-links">Privacy Policy</a>
                                         </div>
