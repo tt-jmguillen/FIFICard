@@ -169,8 +169,8 @@ export class CardListComponent implements OnInit {
   }
 
   loadRecipient(cards: Card[]) {
-    console.log(this.recipientConfig);
     this.recipients = [];
+    let withOther: boolean = false;
 
     this.cards.forEach(card => {
       card.recipients?.forEach(recipient => {
@@ -182,10 +182,13 @@ export class CardListComponent implements OnInit {
             }
           }
         }
+        else{
+          withOther = true;
+        }
       })
     });
 
-    if (this.recipients.length > 1){
+    if (withOther){
       this.recipients.unshift("All");
       this.selectedRecipient = "All";
     }
