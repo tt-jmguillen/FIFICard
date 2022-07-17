@@ -19,6 +19,7 @@ import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstr
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { Event } from '../models/event';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-order',
@@ -28,11 +29,14 @@ import { Event } from '../models/event';
 
 export class OrderComponent implements OnInit {
   id?: string;
+  form: FormGroup;
+  formBuilder: FormBuilder;
   card: Card = new Card();
-
-  order: Order = new Order();
+  submitted: boolean;
+  province: string;
+  shippingfee: number = 0;
+  isWithSignAndSend: boolean = false;
   SignAndSend: SignAndSendDetails[] = [];
-  isValidOrder: Boolean = false;
 
   titleService: Title;
   appComponent: AppComponent
@@ -79,6 +83,7 @@ export class OrderComponent implements OnInit {
 
   constructor(
     _titleService: Title,
+    _formBuilder: FormBuilder,
     _appComponent: AppComponent,
     _activateRoute: ActivatedRoute,
     _cardService: CardService,
@@ -93,6 +98,7 @@ export class OrderComponent implements OnInit {
     private _emailService: EmailService,
   ) {
     this.titleService = _titleService;
+    this.formBuilder = _formBuilder;
     this.appComponent = _appComponent;
     this.activateRoute = _activateRoute;
     this.cardService = _cardService;
@@ -112,28 +118,26 @@ export class OrderComponent implements OnInit {
     this.getAllEvents();
     this.getAllFees();
 
-    this.order.sender_name = '';
-    this.order.sender_phone = '';
-    this.order.sender_email = '';
-    this.order.receiver_name = '';
-    this.order.receiver_phone = '';
-    this.order.receiver_email = '';
-    this.order.address = '';
-    this.order.address1 = '';
-    this.order.address2 = '';
-    this.order.province = '';
-    this.order.city = '';
-    this.order.country = '';
-    this.order.postcode = '';
-    this.order.anonymously = false;
-    this.order.sendto = "Recipient";
-    this.order.message = '';
-    this.order.withSignAndSend = false;
-    this.order.count = 1;
+    this.form = this.formBuilder.group({
+      sender_name: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      sender_phone: ['', Validators.compose([Validators.required, Validators.maxLength(20)])],
+      sender_email: ['', Validators.compose([Validators.required, Validators.email])],
+      receiver_name: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      receiver_phone: ['', Validators.compose([Validators.required, Validators.maxLength(20)])],
+      receiver_email: ['', Validators.compose([Validators.required, Validators.email])],
+      address1: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      address2: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      province: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      city: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      country: ['Philippines', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      postcode: ['', Validators.compose([Validators.required, Validators.maxLength(20)])],
+      anonymously: [false],
+      sendto: ['Recipient', Validators.compose([Validators.required, Validators.maxLength(20)])],
+      message: [''],
+    }, {});
 
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.uid = userDetails?.uid;
-    this.order.user_id = this.uid;
 
     this.activateRoute.params.subscribe(params => {
       this.id = params['id'];
@@ -141,60 +145,51 @@ export class OrderComponent implements OnInit {
     });
 
     this.loadUser();
+  }
 
-    this.isValidOrder = this.validateOrder();
+  controls() {
+    return this.form.controls;
   }
 
   loadCard() {
     this.cardService.getCard(this.id!).subscribe(data => {
       this.card = data;
       this.titleService.setTitle(this.card?.name!);
-      this.order.card_id = data.id;
-      this.order.card_price = data.price;
-      this.getFeeAmount(this.order.province!, this.card.events!).then(amount => {
-        this.order.shipping_fee = Number(amount);
-        this.computeTotal();
-      })
       this.getAvailableURL(this.card.primary!).then(url => {
         this.primaryImageURL = url;
       });
-      this.isValidOrder = this.validateOrder();
     });
   }
 
   loadUser() {
     this.userService.getUser(this.uid).then(user => {
       if (user.firstname && user.lastname) {
-        this.order.sender_name = user.firstname + ' ' + user.lastname;
+        this.form.controls['sender_name'].patchValue(user.firstname + ' ' + user.lastname);
       }
       if (user.email) {
-        this.order.sender_email = user.email;
+        this.form.controls['sender_email'].patchValue(user.email);
       }
       if (user.address) {
         this.addressService.getAddress(user.address).then(address => {
+          this.form.controls['address1'].patchValue(address.address);
+          this.form.controls['address2'].patchValue(address.address2);
+          this.form.controls['province'].patchValue(address.province);
+          this.form.controls['city'].patchValue(address.city);
+          this.form.controls['country'].patchValue(address.country);
+          this.form.controls['postcode'].patchValue(address.postcode);
+          this.province = address.province;
           this.updateCity(address.province);
-          this.order.address1 = address.address;
-          this.order.address2 = address.address2;
-          this.order.province = address.province;
-          this.order.city = address.city;
-          this.order.country = address.country;
-          this.order.postcode = address.postcode;
-          this.generateFullAddress();
-          this.getFeeAmount(this.order.province!, this.card!.events!).then(amount => {
-            this.order.shipping_fee = Number(amount);
+          this.getFeeAmount(address.province!, this.card!.events!).then(amount => {
+            this.shippingfee = Number(amount);
             this.computeTotal();
-          })
+          });
         });
       }
-      else {
-        this.order.country = 'Philippines';
-      }
-      this.isValidOrder = this.validateOrder();
     })
   }
 
-  generateFullAddress() {
-    this.order.address = this.order.address1 + '\r\n' + this.order.address2 + '\r\n' + this.order.city + '\r\n' + this.order.province + '\r\n' + this.order.country + '\r\n ' + this.order.postcode;
+  generateFullAddress(order: Order): string {
+    return order.address1 + '\r\n' + order.address2 + '\r\n' + order.city + '\r\n' + order.province + '\r\n' + order.country + '\r\n ' + order.postcode;
   }
 
   getAddressConfig() {
@@ -209,104 +204,15 @@ export class OrderComponent implements OnInit {
     this.shippingService.getShippingFees().then(fees => this.allFees = fees);
   }
 
-  validateOrder(): boolean {
-    let isValid = true;
-    if (!this.order.sender_name || (this.order.sender_name == '')) {
-      isValid = false;
-    }
-    if (!this.order.sender_phone || (this.order.sender_phone == '')) {
-      isValid = false;
-    }
-    if (!this.order.sender_email || (this.order.sender_email == '')) {
-      isValid = false;
-    }
-    if (!this.order.receiver_name || (this.order.receiver_name == '')) {
-      isValid = false;
-    }
-    if (!this.order.receiver_phone || (this.order.receiver_phone == '')) {
-      isValid = false;
-    }
-    if (!this.order.address1 || (this.order.address1 == '')) {
-      isValid = false;
-    }
-    if (!this.order.address2 || (this.order.address2 == '')) {
-      isValid = false;
-    }
-    if (!this.order.province || (this.order.province == '')) {
-      isValid = false;
-    }
-    if (!this.order.city || (this.order.city == '')) {
-      isValid = false;
-    }
-    if (!this.order.country || (this.order.country == '')) {
-      isValid = false;
-    }
-    if (!this.order.postcode || (this.order.postcode == '')) {
-      isValid = false;
-    }
-    if (!this.order.sendto || (this.order.sendto == '')) {
-      isValid = false;
-    }
-    return isValid;
-  }
+  proviceChange(event: any) {
+    this.province = event.target.value;
+    this.form.controls['city'].patchValue('');
+    this.updateCity(event.target.value);
 
-  onChange(type: string, event: any) {
-    if (type == "Sender-Name") {
-      this.order.sender_name = event.target.value;
-    }
-    if (type == "Sender-Phone") {
-      this.order.sender_phone = event.target.value;
-    }
-    if (type == "Sender-Email") {
-      this.order.sender_email = event.target.value;
-    }
-    if (type == "Recipient-Name") {
-      this.order.receiver_name = event.target.value;
-    }
-    if (type == "Recipient-Phone") {
-      this.order.receiver_phone = event.target.value;
-    }
-    if (type == "Recipient-Email") {
-      this.order.receiver_email = event.target.value;
-    }
-    if (type == "Address1") {
-      this.order.address1 = event.target.value;
-      this.generateFullAddress();
-    }
-    if (type == "Address2") {
-      this.order.address2 = event.target.value;
-      this.generateFullAddress();
-    }
-    if (type == "Province") {
-      this.order.province == event.target.value;
-      this.updateCity(event.target.value);
-      this.generateFullAddress();
-      this.getFeeAmount(this.order.province!, this.card!.events!).then(amount => {
-        this.order.shipping_fee = Number(amount);
-        this.computeTotal();
-      })
-    }
-    if (type == "City") {
-      this.order.city = event.target.value;
-      this.generateFullAddress();
-    }
-    if (type == "Country") {
-      this.order.city = event.target.value;
-      this.generateFullAddress();
-    }
-    if (type == "PostCode") {
-      this.order.city = event.target.value;
-      this.generateFullAddress();
-    }
-    if (type == "Anonymously") {
-      this.order.anonymously = event.target.checked;
-    }
-    if (type == "SendTo") {
-      this.order.sendto = event.target.value;
-    }
-    if (type == "Message") {
-      this.order.message = event.target.value;
-    }
+    this.getFeeAmount(event.target.value, this.card!.events!).then(amount => {
+      this.shippingfee = Number(amount);
+      this.computeTotal();
+    })
   }
 
   updateCity(province: string) {
@@ -315,16 +221,23 @@ export class OrderComponent implements OnInit {
       this.cities = config.city;
   }
 
-  onKeyUp(type: string, event: any) {
-    if (type == "Province") {
-      this.updateCity(event.target.value);
-    }
-    this.isValidOrder = this.validateOrder();
-  }
-
   addToCart(confirm: any) {
+    this.submitted = true;
+    if (this.form.invalid) {
+      return;
+    }
+
+    let order: Order = this.form.value as Order;
+    order.user_id = this.uid;
+    order.card_id = this.card.id;
+    order.card_price = this.card.price;
+    order.count = 1;
+    order.withSignAndSend = this.isWithSignAndSend;
+    order.address = this.generateFullAddress(order);
+    order.shipping_fee = this.shippingfee;
+
     this.computeTotal();
-    this.createAnOrder(this.order).then(id => {
+    this.createAnOrder(order).then(id => {
       this.addMore.forEach(item => {
         if (item.count > 0) {
           console.log(item);
@@ -375,7 +288,7 @@ export class OrderComponent implements OnInit {
   }
 
   receiveSignAndSend(signAndSendDetails: SignAndSendDetails[]) {
-    this.order.withSignAndSend = true;
+    this.isWithSignAndSend = true;
     this.SignAndSend = signAndSendDetails;
   }
 
@@ -404,8 +317,8 @@ export class OrderComponent implements OnInit {
   addMoreChange(value: AddMore[]) {
     this.addMore = value;
     this.addMore.forEach(item => {
-      if ((item.shipping_fee == 0) && (item.count > 0)){
-        this.getFeeAmount(this.order.province!, item.card.events!).then(amount => {
+      if ((item.shipping_fee == 0) && (item.count > 0)) {
+        this.getFeeAmount(this.province, item.card.events!).then(amount => {
           this.updateAmount(item, amount);
         })
       }
@@ -413,22 +326,20 @@ export class OrderComponent implements OnInit {
     this.computeTotal();
   }
 
-  updateAmount(item: AddMore, amount: number){
+  updateAmount(item: AddMore, amount: number) {
     let i = this.addMore.find(x => x.card.id == item.card.id);
     if (i != undefined)
       i.shipping_fee = Number(amount);
   }
 
   computeTotal() {
-    if (this.order) {
-      this.total = (Number(this.order.card_price!) * Number(this.order.count!)) + Number(this.order.shipping_fee!|0);
-      this.totalCount = Number(this.order.count!);
-    }
+    this.total = (Number(this.card.price!) * Number(1)) + Number(this.shippingfee);
+    this.totalCount = Number(1);
 
     this.addMore.forEach(item => {
       if (item.count > 0) {
-        this.total = this.total + (Number(item.card.price!) * Number(item.count!)) + Number(item.shipping_fee!|0);
-        this.totalCount = this.totalCount +  Number(item.count!);
+        this.total = this.total + (Number(item.card.price!) * Number(item.count!)) + Number(item.shipping_fee! | 0);
+        this.totalCount = this.totalCount + Number(item.count!);
       }
     })
   }
@@ -464,7 +375,7 @@ export class OrderComponent implements OnInit {
         if (config != undefined)
           group = config.group;
 
-        if (group != ''){
+        if (group != '') {
           let y = this.allFees.forEach(fee => {
             if (isCard && (fee.name == 'Card')) {
               if (group == 'Metro Manila')
@@ -508,11 +419,11 @@ export class OrderComponent implements OnInit {
             }
           })
         }
-        else{
+        else {
           resolve(0);
         }
       }
-      else{
+      else {
         rejects("Not enough parameter");
       }
     });

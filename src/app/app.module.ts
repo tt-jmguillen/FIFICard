@@ -85,7 +85,6 @@ import { ProfileOrderThumbComponent } from './settings/profile/profile-orders/pr
 import { ProfilePaymentThumbComponent } from './settings/profile/profile-orders/profile-payment-thumb/profile-payment-thumb.component';
 import { CardListComponent } from './card-list/card-list.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -174,7 +173,7 @@ import { CardListComponent } from './card-list/card-list.component';
     NgxFeedbackModule,
     NgbModule,
     NgxImageZoomModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [{
     provide: MatDialogRef,

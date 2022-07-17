@@ -14,8 +14,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <!--<button (click)="test(confimation)">test</button>-->
                     <app-imagegrid id="{{id}}"></app-imagegrid>
-                    <app-add-more *ngIf="card" [id]="card!.id" [recipients]="card!.recipients" [limit]=4
-                        (selectedChange)="addMoreChange($event)"></app-add-more>
+                    <app-add-more *ngIf="card" [id]="card!.id" [recipients]="card!.recipients" [limit]=4 (selectedChange)="addMoreChange($event)"></app-add-more>
                 </div>
                 <div class="col-lg-6 col-sm-12 row" *ngIf="card != undefined">
                     <div class="col-12">
@@ -33,127 +32,158 @@
                         <h5 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h5>
                     </div>
                     <div class="col-6 mb-2 text-right">
-                        <button class="btn btn-light inst-but" (click)="showInstruction()">{{card!.signAndSend?'How to
-                            do Sign & Send':'How to Buy'}}</button>
+                        <button class="btn btn-light inst-but" (click)="showInstruction()">{{card!.signAndSend?'How to do Sign & Send':'How to Buy'}}</button>
                     </div>
                     <div class="col-12 mb-2">
                         <span class="text-muted">Sender</span>
                     </div>
-                    <div class="col-12 mb-2">
-                        <label class="form-label">* Sender Name</label>
-                        <span class="instruction" *ngIf="instruction">Insert Name of the Buyer</span>
-                        <input type="text" class="form-control" placeholder="Name" [value]="order.sender_name"
-                            (change)="onChange('Sender-Name', $event)" (keyup)="onKeyUp('Sender-Name', $event)">
-                    </div>
-                    <div class="col-12 mb-2">
-                        <label class="form-label">* Sender Phone Number</label>
-                        <span class="instruction" *ngIf="instruction">Insert Phone number of the Buyer</span>
-                        <input type="text" class="form-control" placeholder="Phone Number" [value]="order.sender_phone"
-                            (change)="onChange('Sender-Phone', $event)" (keyup)="onKeyUp('Sender-Phone', $event)">
-                    </div>
-                    <div class="col-12 mb-2">
-                        <label class="form-label">* Sender Email Address</label>
-                        <span class="instruction" *ngIf="instruction">Insert Valid Email Address of the Buyer</span>
-                        <input type="email" class="form-control" placeholder="Email Address"
-                            [value]="order.sender_email" (change)="onChange('Sender-Email', $event)"
-                            (keyup)="onKeyUp('Sender-Email', $event)">
-                    </div>
-                    <div class="col-12 mb-2">
-                        <span class="text-muted">Recipient</span>
-                    </div>
-                    <div class="col-12 mb-2">
-                        <label class="form-label">* Recipient Name</label>
-                        <span class="instruction" *ngIf="instruction">Insert Name of the Receiver</span>
-                        <input type="text" class="form-control" placeholder="Name" [value]="order.receiver_name"
-                            (change)="onChange('Recipient-Name', $event)" (keyup)="onKeyUp('Recipient-Email', $event)">
-                    </div>
-                    <div class="col-12 mb-2">
-                        <label class="form-label">* Recipient Phone Number</label>
-                        <span class="instruction" *ngIf="instruction">Insert Phone Number of the Receiver</span>
-                        <input type="text" class="form-control" placeholder="Phone Number"
-                            [value]="order.receiver_phone" (change)="onChange('Recipient-Phone', $event)"
-                            (keyup)="onKeyUp('Recipient-Phone', $event)">
-                    </div>
-                    <div class="col-12 mb-2">
-                        <label class="form-label">* Recipient Email Address</label>
-                        <span class="instruction" *ngIf="instruction">Insert Valid Email Address of the Receiver</span>
-                        <input type="email" class="form-control" placeholder="Email Address"
-                            [value]="order.receiver_email" (change)="onChange('Recipient-Email', $event)"
-                            (keyup)="onKeyUp('Recipient-Email', $event)">
-                    </div>
-                    <div class="col-12 mb-2">
-                        <span class="text-muted">Delivery Address</span>
-                        <span class="instruction" *ngIf="instruction">Insert Delivery Address of the Buyer or
-                            Receiver</span>
-                    </div>
-                    <div class="col-12 mb-2">
-                        <label class="form-label">* Address 1</label>
-                        <input type="text" class="form-control" placeholder="Address" [value]="order.address1"
-                            (change)="onChange('Address1', $event)" (keyup)="onKeyUp('Address1', $event)">
-                    </div>
-                    <div class="col-12 mb-2">
-                        <label class="form-label">* Address 2</label>
-                        <input type="text" class="form-control" placeholder="Address" [value]="order.address2"
-                            (change)="onChange('Address2', $event)" (keyup)="onKeyUp('Address2', $event)">
-                    </div>
-                    <div class="col-6 mb-2">
-                        <label class="form-label">* Province/Region</label>
-                        <input type="text" class="form-control" placeholder="Province/Region" [value]="order.province"
-                            (change)="onChange('Province', $event)" (keyup)="onKeyUp('Province', $event)"
-                            list="provinceIds">
-                        <datalist id="provinceIds">
-                            <option *ngFor="let item of addressConfig" value="{{item.name}}">{{item.name}}</option>
-                        </datalist>
-                    </div>
-                    <div class="col-6 mb-2">
-                        <label class="form-label">* City/Municipality</label>
-                        <input type="text" class="form-control" placeholder="City/Municipality" [value]="order.city"
-                            (change)="onChange('City', $event)" (keyup)="onKeyUp('City', $event)" list="cityIds">
-                        <datalist id="cityIds">
-                            <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
-                        </datalist>
-                    </div>
-                    <div class="col-6 mb-2">
-                        <label class="form-label">* Country</label>
-                        <input type="text" class="form-control" placeholder="Country" [value]="order.country"
-                            (change)="onChange('Country', $event)" (keyup)="onKeyUp('Country', $event)">
-                    </div>
-                    <div class="col-6 mb-2">
-                        <label class="form-label">* Postcode</label>
-                        <input type="text" class="form-control" placeholder="Postcode" [value]="order.postcode"
-                            (change)="onChange('Postcode', $event)" (keyup)="onKeyUp('Postcode', $event)">
-                    </div>
-                    <div class="col-12 mb-2 mt-2 pl-3 form-check">
-                        <input class="form-check-input" type="checkbox" [checked]="order.anonymously"
-                            (change)="onChange('Anonymously', $event)" (keyup)="onKeyUp('Anonymously', $event)">
-                        <label class="form-check-label">Send Anonymously</label>
-                        <span class="instruction" *ngIf="instruction">Check the Box if you want to send
-                            Anonymously</span>
-                    </div>
-                    <div class="col-12 mb-2">
-                        <label class="form-label">Send To</label>
-                        <span class="instruction" *ngIf="instruction">or you want to choose between Recipient (Receiver)
-                            or Sender (Buyer)</span>
-                        <select class="form-select form-control" [value]="order.sendto"
-                            (change)="onChange('SendTo', $event)">
-                            <option selected value="Recipient">Recipient</option>
-                            <option value="Sender">Sender</option>
-                        </select>
-                    </div>
-                    <div class="col-12 mb-2" *ngIf="card?.signAndSend">
-                        <span class="instruction" *ngIf="instruction">then Click Sign & Send</span>
-                        <app-sign-and-send (signAndSendEvent)="receiveSignAndSend($event)"></app-sign-and-send>
-                    </div>
-                    <div class="col-12 mb-2" *ngIf="!card?.signAndSend">
-                        <label class="form-label">Personal Message</label>
-                        <span class="instruction" *ngIf="instruction">Insert Personal Message (Optional)</span>
-                        <textarea class="form-control" placeholder="Personal Message" rows="5" [value]="order.message"
-                            (change)="onChange('Message', $event)" (keyup)="onKeyUp('Message ', $event)"></textarea>
-                    </div>
-                    <div class="col-12 mt-2">
-                        <button class="btn btn-primary full-size" (click)="addToCart(confimation)"
-                            [disabled]="isValidOrder == false">Add to Cart</button>
-                    </div>
+
+                    <form [formGroup]="form" (ngSubmit)="addToCart(confimation)">
+                        <div class="col-12 mb-2">
+                            <label class="form-label">* Sender Name</label>
+                            <span class="instruction" *ngIf="instruction">Insert Name of the Buyer</span>
+                            <input type="text" class="form-control" formControlName="sender_name" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && controls()['sender_name'].errors}">
+                            <div *ngIf="submitted && controls()['sender_name'].errors" class="invalid-feedback">
+                                <div *ngIf="controls()['sender_name'].errors!['required']">Sender name is required</div>
+                                <div *ngIf="controls()['sender_name'].errors!['maxlength']">Sender name must not exceed 50 characters</div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label class="form-label">* Sender Phone Number</label>
+                            <span class="instruction" *ngIf="instruction">Insert Phone number of the Buyer</span>
+                            <input type="text" class="form-control" formControlName="sender_phone" placeholder="Phone Number" [ngClass]="{ 'is-invalid': submitted && controls()['sender_phone'].errors}">
+                            <div *ngIf="submitted && controls()['sender_phone'].errors" class="invalid-feedback">
+                                <div *ngIf="controls()['sender_phone'].errors!['required']">Sender phone is required</div>
+                                <div *ngIf="controls()['sender_phone'].errors!['maxlength']">Sender phone must not exceed 20 characters</div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label class="form-label">* Sender Email Address</label>
+                            <span class="instruction" *ngIf="instruction">Insert Valid Email Address of the Buyer</span>
+                            <input type="email" class="form-control" formControlName="sender_email" placeholder="Email Address" [ngClass]="{ 'is-invalid': submitted && controls()['sender_email'].errors}">
+                            <div *ngIf="submitted && controls()['sender_email'].errors" class="invalid-feedback">
+                                <div *ngIf="controls()['sender_email'].errors!['required']">Sender email address is required</div>
+                                <div *ngIf="controls()['sender_email'].errors!['email']">Invalid email address</div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <span class="text-muted">Recipient</span>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label class="form-label">* Recipient Name</label>
+                            <span class="instruction" *ngIf="instruction">Insert Name of the Receiver</span>
+                            <input type="text" class="form-control" formControlName="receiver_name" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && controls()['receiver_name'].errors}">
+                            <div *ngIf="submitted && controls()['receiver_name'].errors" class="invalid-feedback">
+                                <div *ngIf="controls()['receiver_name'].errors!['required']">Receiver name is required</div>
+                                <div *ngIf="controls()['receiver_name'].errors!['maxlength']">Receiver name must not exceed 50 characters</div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label class="form-label">* Recipient Phone Number</label>
+                            <span class="instruction" *ngIf="instruction">Insert Phone Number of the Receiver</span>
+                            <input type="text" class="form-control" formControlName="receiver_phone" placeholder="Phone Number" [ngClass]="{ 'is-invalid': submitted && controls()['receiver_phone'].errors}">
+                            <div *ngIf="submitted && controls()['receiver_phone'].errors" class="invalid-feedback">
+                                <div *ngIf="controls()['receiver_phone'].errors!['required']">Receiver phone is required</div>
+                                <div *ngIf="controls()['receiver_phone'].errors!['maxlength']">Receiver phone must not exceed 20 characters</div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label class="form-label">* Recipient Email Address</label>
+                            <span class="instruction" *ngIf="instruction">Insert Valid Email Address of the Receiver</span>
+                            <input type="email" class="form-control" formControlName="receiver_email" placeholder="Email Address" [ngClass]="{ 'is-invalid': submitted && controls()['receiver_email'].errors}">
+                            <div *ngIf="submitted && controls()['receiver_email'].errors" class="invalid-feedback">
+                                <div *ngIf="controls()['receiver_email'].errors!['required']">Receiver email address is required</div>
+                                <div *ngIf="controls()['receiver_email'].errors!['email']">Invalid email address</div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <span class="text-muted">Delivery Address</span>
+                            <span class="instruction" *ngIf="instruction">Insert Delivery Address of the Buyer or Receiver</span>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label class="form-label">* Address 1</label>
+                            <input type="text" class="form-control" formControlName="address1" placeholder="Address" [ngClass]="{ 'is-invalid': submitted && controls()['address1'].errors}">
+                            <div *ngIf="submitted && controls()['address1'].errors" class="invalid-feedback">
+                                <div *ngIf="controls()['address1'].errors!['required']">Address is required</div>
+                                <div *ngIf="controls()['address1'].errors!['maxlength']">Address must not exceed 50 characters</div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label class="form-label">* Address 2</label>
+                            <input type="text" class="form-control" formControlName="address2" placeholder="Address" [ngClass]="{ 'is-invalid': submitted && controls()['address2'].errors}">
+                            <div *ngIf="submitted && controls()['address2'].errors" class="invalid-feedback">
+                                <div *ngIf="controls()['address2'].errors!['required']">Address is required</div>
+                                <div *ngIf="controls()['address2'].errors!['maxlength']">Address must not exceed 50 characters</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-2">
+                                <label class="form-label">* Province/Region</label>
+                                <input type="text" class="form-control" formControlName="province" placeholder="Province/Region" list="provinceIds" [ngClass]="{ 'is-invalid': submitted && controls()['province'].errors}" (change)="proviceChange($event)">
+                                <div *ngIf="submitted && controls()['province'].errors" class="invalid-feedback">
+                                    <div *ngIf="controls()['province'].errors!['required']">Province/Region is required</div>
+                                    <div *ngIf="controls()['province'].errors!['maxlength']">Province/Region must not exceed 50 characters</div>
+                                </div>
+                                <datalist id="provinceIds">
+                                    <option *ngFor="let item of addressConfig" value="{{item.name}}">{{item.name}}</option>
+                                </datalist>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-label">* City/Municipality</label>
+                                <input type="text" class="form-control" formControlName="city" placeholder="City/Municipality" list="cityIds" [ngClass]="{ 'is-invalid': submitted && controls()['city'].errors}">
+                                <div *ngIf="submitted && controls()['city'].errors" class="invalid-feedback">
+                                    <div *ngIf="controls()['city'].errors!['required']">City/Municipality is required</div>
+                                    <div *ngIf="controls()['city'].errors!['maxlength']">City/Municipality must not exceed 50 characters</div>
+                                </div>
+                                <datalist id="cityIds">
+                                    <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-2">
+                                <label class="form-label">* Country</label>
+                                <input type="text" class="form-control" formControlName="country" placeholder="Country" [ngClass]="{ 'is-invalid': submitted && controls()['country'].errors}">
+                                <div *ngIf="submitted && controls()['country'].errors" class="invalid-feedback">
+                                    <div *ngIf="controls()['country'].errors!['required']">Country is required</div>
+                                    <div *ngIf="controls()['country'].errors!['maxlength']">Country must not exceed 50 characters</div>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-label">* Postcode</label>
+                                <input type="text" class="form-control" formControlName="postcode" placeholder="Postcode" [ngClass]="{ 'is-invalid': submitted && controls()['postcode'].errors}">
+                                <div *ngIf="submitted && controls()['postcode'].errors" class="invalid-feedback">
+                                    <div *ngIf="controls()['postcode'].errors!['required']">Postcode is required</div>
+                                    <div *ngIf="controls()['postcode'].errors!['maxlength']">Postcode must not exceed 20 characters</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2 mt-2 pl-3 form-check">
+                            <input type="checkbox" class="form-check-input" formControlName="anonymously">
+                            <label class="form-check-label">Send Anonymously</label>
+                            <span class="instruction" *ngIf="instruction">Check the Box if you want to send Anonymously</span>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label class="form-label">Send To</label>
+                            <span class="instruction" *ngIf="instruction">or you want to choose between Recipient (Receiver) or Sender (Buyer)</span>
+                            <select class="form-select form-control" formControlName="sendto">
+                                <option selected value="Recipient">Recipient</option>
+                                <option value="Sender">Sender</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mb-2" *ngIf="card?.signAndSend">
+                            <span class="instruction" *ngIf="instruction">then Click Sign & Send</span>
+                            <app-sign-and-send (signAndSendEvent)="receiveSignAndSend($event)"></app-sign-and-send>
+                        </div>
+                        <div class="col-12 mb-2" *ngIf="!card?.signAndSend">
+                            <label class="form-label">Personal Message</label>
+                            <span class="instruction" *ngIf="instruction">Insert Personal Message (Optional)</span>
+                            <textarea class="form-control" placeholder="Personal Message" rows="5" formControlName="message"></textarea>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <button class="btn btn-primary full-size" type="submit">Add to Cart</button>
+                        </div>
+                    </form>
                 </div>
             </div>
 
@@ -169,8 +199,8 @@
                             <label>Shipping Fee</label>
                         </div>
                         <div class="col-3 allign-right">
-                            <label>{{order.card_price| number:'1.2-2'}}</label><br />
-                            <label>{{order.shipping_fee! > 0?(order.shipping_fee| number:'1.2-2'):'Free'}}</label>
+                            <label *ngIf="card">{{card.primary| number:'1.2-2'}}</label><br />
+                            <label>{{shippingfee! > 0?(shippingfee| number:'1.2-2'):'Free'}}</label>
                         </div>
                     </div>
                     <div class="border"></div>
