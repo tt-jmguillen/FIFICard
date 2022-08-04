@@ -27,6 +27,7 @@ import { SignAndSendPageComponent } from './sign-and-send-page/sign-and-send-pag
 import { GraduationComponent } from './graduation/graduation.component';
 import { GraduationGreetingsComponent } from './graduation/graduation-greetings/graduation-greetings.component';
 import { JustBecauseComponent } from './just-because/just-because.component';
+import { JustBecauseGreetingsComponent } from './just-because/just-because-greetings/just-because-greetings.component';
 
 const routes: Routes = [
   {
@@ -115,6 +116,9 @@ const routes: Routes = [
   },
   {
     path: 'justbecause', component: JustBecauseComponent
+  },
+  {
+    path: 'justbecause/greetings', component: JustBecauseGreetingsComponent
   }
 ];
 

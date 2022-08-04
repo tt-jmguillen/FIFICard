@@ -85,6 +85,7 @@ import { ProfileOrderThumbComponent } from './settings/profile/profile-orders/pr
 import { ProfilePaymentThumbComponent } from './settings/profile/profile-orders/profile-payment-thumb/profile-payment-thumb.component';
 import { CardListComponent } from './card-list/card-list.component';
 import { JustBecauseComponent } from './just-because/just-because.component';
+import { JustBecauseGreetingsComponent } from './just-because/just-because-greetings/just-because-greetings.component';
 
 @NgModule({
   declarations: [
@@ -149,7 +150,8 @@ import { JustBecauseComponent } from './just-because/just-because.component';
     ProfileOrderThumbComponent,
     ProfilePaymentThumbComponent,
     CardListComponent,
-    JustBecauseComponent
+    JustBecauseComponent,
+    JustBecauseGreetingsComponent
   ],
   imports: [
     BrowserModule,
