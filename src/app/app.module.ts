@@ -84,6 +84,7 @@ import { GraduationGreetingsComponent } from './graduation/graduation-greetings/
 import { ProfileOrderThumbComponent } from './settings/profile/profile-orders/profile-order-thumb/profile-order-thumb.component';
 import { ProfilePaymentThumbComponent } from './settings/profile/profile-orders/profile-payment-thumb/profile-payment-thumb.component';
 import { CardListComponent } from './card-list/card-list.component';
+import { JustBecauseComponent } from './just-because/just-because.component';
 
 @NgModule({
   declarations: [
@@ -147,7 +148,8 @@ import { CardListComponent } from './card-list/card-list.component';
     GraduationGreetingsComponent,
     ProfileOrderThumbComponent,
     ProfilePaymentThumbComponent,
-    CardListComponent
+    CardListComponent,
+    JustBecauseComponent
   ],
   imports: [
     BrowserModule,

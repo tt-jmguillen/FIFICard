@@ -26,6 +26,7 @@ import { FatherGreetingsComponent } from './fathers-day/father-greetings/father-
 import { SignAndSendPageComponent } from './sign-and-send-page/sign-and-send-page.component';
 import { GraduationComponent } from './graduation/graduation.component';
 import { GraduationGreetingsComponent } from './graduation/graduation-greetings/graduation-greetings.component';
+import { JustBecauseComponent } from './just-because/just-because.component';
 
 const routes: Routes = [
   {
@@ -111,6 +112,9 @@ const routes: Routes = [
   },
   {
     path: 'graduation/greetings', component: GraduationGreetingsComponent
+  },
+  {
+    path: 'justbecause', component: JustBecauseComponent
   }
 ];
 
