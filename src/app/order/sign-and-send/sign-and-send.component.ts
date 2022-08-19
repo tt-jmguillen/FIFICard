@@ -67,8 +67,6 @@ export class SignAndSendComponent implements OnInit {
   modalService: NgbModal;
   modalRef: NgbModalRef;
 
-   
-
   uid: string;
   fonts: string[] = [
     'Open Sans',
@@ -202,6 +200,7 @@ export class SignAndSendComponent implements OnInit {
         this.selected = item;
       }
     }); 
+    this.message = '';
     this.position = 0;
   }
 
