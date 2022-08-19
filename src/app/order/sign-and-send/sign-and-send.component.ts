@@ -1,13 +1,11 @@
-import { Order } from 'src/app/models/order';
 import { OrderService } from './../../services/order.service';
 import { SignAndSendDetails } from './../../models/sign-and-send-details';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardService } from 'src/app/services/card.service';
-import { sign } from 'crypto';
 import { FilterService } from 'src/app/services/filter.service';
-import { left } from '@popperjs/core';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { exit } from 'process';
 
 class Item {
   public image: string;
@@ -69,6 +67,8 @@ export class SignAndSendComponent implements OnInit {
   modalService: NgbModal;
   modalRef: NgbModalRef;
 
+   
+
   uid: string;
   fonts: string[] = [
     'Open Sans',
@@ -91,6 +91,9 @@ export class SignAndSendComponent implements OnInit {
   focusURL: URL;
   focusItems: Item[] = [];
   selected: Item = new Item();
+
+  message: string = ''
+  position: number = -1;
 
   ngbModalOptions: NgbModalOptions = {
     backdrop : 'static',
@@ -198,15 +201,26 @@ export class SignAndSendComponent implements OnInit {
       if (item.code == code){
         this.selected = item;
       }
-    });
+    }); 
+    this.position = 0;
   }
 
   textareaKeyup(event: any){
+    this.position = event.target.selectionEnd;
     this.focusItems.forEach(item => {
       if (item.code == this.selected.code){
         item.text = event.target.value;
       }
     });
+  }
+
+  areaClick(event: any){
+    if (this.selected)
+      this.position = event.target.selectionEnd;
+  }
+
+  textareaFocus(event: any){
+    this.position = event.target.selectionEnd;
   }
 
   fontChange(event: any){
@@ -250,6 +264,8 @@ export class SignAndSendComponent implements OnInit {
   }
 
   clickClear(){
+    this.message = '';
+    this.position = -1;
     this.items.forEach(item => { item.clear(); });
     this.focusItems.forEach(item => { item.clear(); })
   }
@@ -278,5 +294,26 @@ export class SignAndSendComponent implements OnInit {
 
     this.signAndSendEvent.emit(signDetails);
     this.modalRef.close('Done');
+  }
+
+  emoticon(emoji: string){
+    if(this.position == -1){
+      exit;
+    }
+
+    if (this.position == this.message.length){
+      this.message += emoji;
+    }
+    else{
+      this.message = this.message.substring(0, this.position) + emoji + this.message.substring(this.position);
+    }
+
+    this.focusItems.forEach(item => {
+      if (item.code == this.selected.code){
+        item.text = this.message;
+      }
+    });
+
+    this.position = this.position + 2;
   }
 }
