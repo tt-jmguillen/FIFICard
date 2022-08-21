@@ -7,7 +7,7 @@
     <div class="price mt-1">₱ {{card!.price | number:'1.2-2'}}</div> <!-- price-wrap.// -->
     <app-rating-decimal cardId="{{card!.id}}"></app-rating-decimal>
     <button class="btn btn-light pill" *ngIf="card.signAndSend">
-      Sign and Send: Yes
+      {{'cards.signandsend'|translate}}
     </button>
   </figcaption>
 </div>

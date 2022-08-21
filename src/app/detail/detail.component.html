@@ -8,7 +8,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <p routerLink="/" class="cursor">Home</p>
+                                    <p routerLink="/" class="cursor">{{'card.home'|translate}}</p>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">{{card?.name}}</li>
                             </ol>
@@ -47,21 +47,20 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <h3 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h3>
-                                            <a class="order" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)">Buy
-                                                Now</a>
+                                            <a class="order" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)">{{'card.buynow'|translate}}</a>
                                         </div>
                                         <div class="col-md-3">
                                             <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping"
                                             *ngIf="card">
                                         </div>
                                         <div class="col-md-6">
-                                            <a href="/page/TermsAndCondition" target="_blank" title="See terms and Condititon" class="t-links">Terms And Condition</a><br/>
-                                            <a href="/page/PrivacyPolicy"  target="_blank"  title="See Privacy Policy"  class="t-links">Privacy Policy</a>
+                                            <a href="/page/TermsAndCondition" target="_blank" title="Terms And Condition" class="t-links">{{'card.seeterms'|translate}}</a><br/>
+                                            <a href="/page/PrivacyPolicy"  target="_blank"  title="Privacy Policy"  class="t-links">{{'card.seeprivacy'|translate}}</a>
                                         </div>
                                     </div>
                                 </section>
                                 <section>
-                                    <span style="font-weight: 600;" *ngIf="card">Details:</span>
+                                    <span style="font-weight: 600;" *ngIf="card">{{'card.details'|translate}}:</span>
                                     <div style="white-space:pre-wrap">{{card?.details}}</div>
                                     <br />
                                     <img src="/assets/images/logo_fibeigreetings.png" routerLink="/"

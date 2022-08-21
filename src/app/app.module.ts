@@ -40,7 +40,7 @@ import { StickersComponent } from './stickers/stickers.component';
 import { RatingDecimalComponent } from './modules/rating-decimal/rating-decimal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TabsComponent } from './pages/tabs/tabs.component';
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ProfileComponent } from './settings/profile/profile.component';
 import { RatingSummaryComponent } from './modules/rating-summary/rating-summary.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -87,6 +87,11 @@ import { CardListComponent } from './card-list/card-list.component';
 import { JustBecauseComponent } from './just-because/just-because.component';
 import { JustBecauseGreetingsComponent } from './just-because/just-because-greetings/just-because-greetings.component';
 import { EmojiComponent } from './modules/emoji/emoji.component';
+
+// import ngx-translate and the http loader
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -179,7 +184,15 @@ import { EmojiComponent } from './modules/emoji/emoji.component';
     NgxFeedbackModule,
     NgbModule,
     NgxImageZoomModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,        
+    TranslateModule.forRoot({            
+      loader: {                
+        provide: TranslateLoader,                
+        useFactory: HttpLoaderFactory,                
+        deps: [HttpClient]            
+      }        
+    })
   ],
   providers: [{
     provide: MatDialogRef,
@@ -188,3 +201,8 @@ import { EmojiComponent } from './modules/emoji/emoji.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// required for AOT compilation
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {    
+  return new TranslateHttpLoader(http, './assets/lang/', '.json');
+}

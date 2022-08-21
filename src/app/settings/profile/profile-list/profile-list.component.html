@@ -1,18 +1,18 @@
 <h2>My Lists</h2>
 <nav ngbNav #nav="ngbNav" class="nav-tabs">
     <ng-container ngbNavItem>
-        <a ngbNavLink>Favorites</a>
+        <a ngbNavLink>{{'profile.favorites'|translate}}</a>
         <ng-template ngbNavContent>
             <div class="fav-card" *ngFor="let userFavorite of userFavorites">
                 <div class="row">
                     <div class="col-md-9 col-sm-12">
                         <a [routerLink]="['/card/{{userFavorite.card.id}}']"
                             class="bold">{{userFavorite.card!.name}}</a><br />
-                        <span>Description: </span><span
+                        <span>{{'profile.description'|translate}}: </span><span
                             class="bold">{{userFavorite.card!.description}}</span><br />
-                        <span>Event: </span><span class="bold">{{userFavorite.card!.event}}</span><br />
-                        <span>Recipient: </span><span class="bold">{{userFavorite.card!.recipient}}</span><br />
-                        <span>Price: </span><span class="bold">{{userFavorite.card!.price}}</span>
+                        <span>{{'profile.event'|translate}}: </span><span class="bold">{{userFavorite.card!.event}}</span><br />
+                        <span>{{'profile.recipient'|translate}}: </span><span class="bold">{{userFavorite.card!.recipient}}</span><br />
+                        <span>{{'profile.price'|translate}}: </span><span class="bold">{{userFavorite.card!.price}}</span>
                     </div>
                     <div class="col-md-3 col-sm-12 img-div">
                         <img src="{{userFavorite.image}}" class="thumbnail">
@@ -22,9 +22,9 @@
         </ng-template>
     </ng-container>
     <ng-container ngbNavItem>
-        <a ngbNavLink>Keepsake Wish List</a>
+        <a ngbNavLink>{{'profile.keepsake'|translate}}</a>
         <ng-template ngbNavContent>
-            <p>Keepsake Wish List</p>
+            <p>{{'profile.keepsake'|translate}}</p>
         </ng-template>
     </ng-container>
 </nav>

@@ -8,30 +8,27 @@
               <ul class="tab-head">
                 <li>
                   <a id="tab-1" [ngClass]="id=='info'?'tab-link active':'tab-link'" (click)="clickTab('info')"> <span
-                      class="material-icons tab-icon">face</span> <span class="tab-label">Profile</span></a>
+                      class="material-icons tab-icon">face</span> <span class="tab-label">{{'profile.profile'|translate}}</span></a>
                 </li>
                 <li>
                   <a id="tab-2" [ngClass]="id=='comm'?'tab-link active':'tab-link'" (click)="clickTab('comm')"> <span
-                      class="material-icons tab-icon">smartphone</span> <span class="tab-label">Communication
-                      Preferences</span></a>
+                      class="material-icons tab-icon">smartphone</span> <span class="tab-label">{{'profile.commpref'|translate}}</span></a>
                 </li>
                 <li>
                   <a id="tab-3" [ngClass]="id=='address'?'tab-link active':'tab-link'" (click)="clickTab('address')">
-                    <span class="material-icons tab-icon">local_shipping</span> <span class="tab-label">Shipping
-                      Address</span></a>
+                    <span class="material-icons tab-icon">local_shipping</span> <span class="tab-label">{{'profile.shippingaddress'|translate}}</span></a>
                 </li>
                 <li>
                   <a id="tab-4" [ngClass]="id=='list'?'tab-link active':'tab-link'" (click)="clickTab('list')"> <span
-                      class="material-icons tab-icon">toc</span> <span class="tab-label">My Lists</span></a>
+                      class="material-icons tab-icon">toc</span> <span class="tab-label">{{'profile.mylists'|translate}}</span></a>
                 </li>
                 <li>
                   <a id="tab-5" [ngClass]="id=='orders'?'tab-link active':'tab-link'" (click)="clickTab('orders')"> <span
-                      class="material-icons tab-icon">add_shopping_cart</span> <span class="tab-label">My
-                      Orders</span></a>
+                      class="material-icons tab-icon">add_shopping_cart</span> <span class="tab-label">{{'profile.myorders'|translate}}</span></a>
                 </li>
                 <li>
                   <a id="tab-6" class="tab-link" (click)="signOut()"> <span class="material-icons tab-icon">close</span>
-                    <span class="tab-label">Sign out</span></a>
+                    <span class="tab-label">{{'profile.signout'|translate}}</span></a>
                 </li>
               </ul>
 

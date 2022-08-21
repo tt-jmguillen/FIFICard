@@ -1,13 +1,13 @@
 <div class="row" *ngIf="(cards.length > 0)">
     <div class="col-md-7"></div>
     <div class="col-md-2 valign-center allign-right">
-        <p>Filter</p>
+        <p>{{'cards.filter'|translate}}</p>
     </div>
     <div class="col-md-3">
         <div class="row">
             <div class="col-md-6 col-6">
                 <select class="form-select" aria-label="Budget" (change)="changeBudget($event)">
-                    <option value="" [selected]="budget == ''">Budget</option>
+                    <option value="" [selected]="budget == ''">{{'cards.budget'|translate}}</option>
                     <option value="0 - 99" [selected]="budget == '0 - 99'">0 - 99.00</option>
                     <option value="100 - 199" [selected]="budget == '100 - 199'">100.00 - 199.00</option>
                     <option value="200 and Up" [selected]="budget == '200 and Up'">200.00 and Up</option>
@@ -15,16 +15,12 @@
             </div>
             <div class="col-md-6 col-6">
                 <select class="form-select" aria-label="Sort" (change)="changeSort($event)">
-                    <option value="" [selected]="sort == ''">Sort</option>
-                    <option value="Latest" [selected]="sort == 'Latest'">Latest</option>
+                    <option value="" [selected]="sort == ''">{{'cards.sort'|translate}}</option>
+                    <option value="Latest" [selected]="sort == 'Latest'">{{'cards.latest'|translate}}</option>
                     <option value="Price from Low to High" [selected]="sort == 'Price from Low to High'">
-                        Price from
-                        Low
-                        to High</option>
+                        {{'cards.lowtohigh'|translate}}</option>
                     <option value="Price from High to Low" [selected]="sort == 'Price from High to Low'">
-                        Price from
-                        High
-                        to Low</option>
+                        {{'cards.hightolow'|translate}}</option>
                     <option value="Highest Ratings" [selected]="sort == 'Highest Ratings'">Highest Ratings
                     </option>
                 </select>

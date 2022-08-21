@@ -4,7 +4,7 @@
             <div *ngIf="collection.length == 0">
                 <div class="row border">
                     <div class="col-12 allign-center">
-                        <label>No Items on the Cart</label>
+                        <label>{{'cart.noitems'|translate}}</label>
                     </div>
                 </div>
             </div>
@@ -21,14 +21,14 @@
                 
                 <div class="row total">
                     <div class="col-md-1"></div>
-                    <div class="col-12 col-md-9 allign-right">Total:</div>
+                    <div class="col-12 col-md-9 allign-right">{{'cart.total'|translate}}:</div>
                     <div class="col-12 col-md-2 allign-right">₱ <strong class="total">{{total | number:'1.2-2'}}</strong></div>
                 </div>
                 <div class="row total">
                     <div class="col-md-10"></div>
                     <div class="col-md-2 col-12 allign-right">
                         <button class="btn btn-primary full-size" [disabled]="total == 0"
-                            (click)="payNow(gcash_payment)">Pay via GCash</button>
+                            (click)="payNow(gcash_payment)">{{'cart.payviagcash'|translate}}</button>
                     </div>
                 </div>
                 <div class="row total">
@@ -42,7 +42,7 @@
 
         <ng-template #gcash_payment let-modal>
             <div class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title">Scan and Pay</h4>
+                <h4 class="modal-title" id="modal-basic-title">{{'cart.scanandpay'|translate}}</h4>
                 <button type="button" class="btn-close" aria-label="Close"
                     (click)="modal.dismiss('Cross click')"></button>
             </div>
@@ -55,21 +55,21 @@
                     </div>
                     <div class="row">
                         <div class="col-12 mb-2">
-                            <label class="form-label">Total Amount: ₱ <strong>{{total |
+                            <label class="form-label">{{'cart.totalamount'|translate}}: ₱ <strong>{{total |
                                     number:'1.2-2'}}</strong></label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 mb-2">
                             <input type="hidden" value="">
-                            <label for="formFile" class="form-label">Proof of Payment (Screenshot)</label>
+                            <label for="formFile" class="form-label">{{'cart.proofofpayment'|translate}}</label>
                             <input type="file" id="formFile" class="upload" (change)="uploadFile($event)">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 mb-2">
                             <button class="btn btn-primary full-size" [disabled]="gcashUploadedFile == ''"
-                                (click)="saveTransaction('GCash')">Submit</button>
+                                (click)="saveTransaction('GCash')">{{'button.submit'|translate}}</button>
                         </div>
                     </div>
                 </div>

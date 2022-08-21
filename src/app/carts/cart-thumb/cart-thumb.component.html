@@ -8,19 +8,19 @@
     <div class="col-md-6 col-12 valign-center">
         <div class="row">
             <div class="col-12" *ngIf="card">
-                <span>Add on: <strong>{{card.name}}</strong></span>
+                <span>{{'cart.addon'|translate}}: <strong>{{card.name}}</strong></span>
             </div>
             <div class="col-12" *ngIf="card">
-                Description: <strong>{{card.description}}</strong>
+                {{'cart.description'|translate}}: <strong>{{card.description}}</strong>
             </div>
             <div class="col-12" *ngIf="!order.parentOrder">
-                Receiver: <strong>{{order.receiver_name}}</strong>
+                {{'cart.receiver'|translate}}: <strong>{{order.receiver_name}}</strong>
             </div>
             <div class="col-12" *ngIf="!order.parentOrder">
-                Sign and Send: <strong>{{order.withSignAndSend?'Yes':'No'}}</strong>
+                {{'cart.signandsend'|translate}}: <strong>{{order.withSignAndSend?'Yes':'No'}}</strong>
             </div>
             <div class="col-12" *ngIf="order.created">
-                Date: {{order.created!.seconds * 1000 | date:'medium'}}
+                {{'cart.date'|translate}}: {{order.created!.seconds * 1000 | date:'medium'}}
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
     </div>
     <div class="col-md-2 col-6 valign-center allign-right">
         <span><strong>{{order.card_price| number:'1.2-2'}} x {{order.count}}</strong></span><br />
-        <span>Shipping Fee</span>
+        <span>{{'cart.shippingfee'|translate}}</span>
     </div>
     <div class="col-md-1 col-6 allign-right pr-0 valign-center">
         <span><strong>{{(order.card_price! * order.count!)| number:'1.2-2'}}</strong></span><br />

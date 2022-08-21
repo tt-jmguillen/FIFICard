@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { RecipientService } from './../services/recipient.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Card } from '../models/card';
@@ -27,6 +28,7 @@ export class CardListComponent implements OnInit {
   @Input() recipient: string;
 
   recipientService: RecipientService;
+  translateService: TranslateService;
 
   recipientConfig: Recipient[] = [];
 
@@ -47,17 +49,28 @@ export class CardListComponent implements OnInit {
   recipients: string[] = [];
   selectedRecipient: string;
 
+  //translation
+  page: string;
+  of: string;
+  showing: string;
+  to: string;
+  items: string;
+
   constructor(
-    _recipientService: RecipientService
+    _recipientService: RecipientService,
+    _translateService: TranslateService
   ) { 
     this.recipientService = _recipientService;
+    this.translateService = _translateService;
   }
 
   ngOnInit(): void {
+    this.loadTranslation();
+
     this.getRecipientConfig().then(recipients => {
       this.recipientConfig = recipients;
       this.loadCards();
-    })
+    });
   }
 
   getRecipientConfig(): Promise<Recipient[]>
@@ -73,6 +86,16 @@ export class CardListComponent implements OnInit {
     this.selectedRecipient = this.recipient!=undefined?this.recipient:this.selectedRecipient;
     this.filterCards = this.filterForRecipient();
     this.applyDisplayFilterAndSort();
+  }
+
+  loadTranslation(){    
+    this.translateService.get('cards').subscribe(data => {
+      this.page = data.page;
+      this.of = data.of;
+      this.showing = data.showing;
+      this.to = data.to;
+      this.items = data.items;
+    });
   }
 
   averageRatings(value?: number): number {
@@ -216,8 +239,9 @@ export class CardListComponent implements OnInit {
         page.start = page.end - (this.batchLimit - 1);
       else
         page.start = 1;
-      page.display = `Page ${i} of ${this.batchCount}`;
-      page.showing = `Showing ${page.start} - ${page.end} to ${this.sortCards.length} items`;
+      
+      page.display = `${this.page} ${i} ${this.of} ${this.batchCount}`;
+      page.showing = `${this.showing} ${page.start} - ${page.end} ${this.to} ${this.sortCards.length} ${this.items}`;
       this.pages.push(page);
     }
   }

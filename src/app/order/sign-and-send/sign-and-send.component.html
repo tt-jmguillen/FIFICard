@@ -1,10 +1,10 @@
 <button class="btn btn-primary full-size" (click)="clickSignAndSend(signandsend)">
-    Sign and Send
+    {{'sign.title'|translate}}
 </button>
 
 <ng-template #signandsend let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Sign and Send</h4>
+        <h4 class="modal-title" id="modal-basic-title">{{'sign.title'|translate}}</h4>
     </div>
     <div class="modal-body p-1">
         <div class="main-div">
@@ -31,10 +31,10 @@
             <div class="div-textarea">
                 <div class="row">
                     <div class="col-12" *ngIf="!selected.image">
-                        <label class="alert">Insert a Text</label>
+                        <label class="alert">{{'sign.insertatext'|translate}}</label>
                     </div>
                     <div class="col-12">
-                        <label class="form-label">Your Message</label>
+                        <label class="form-label">{{'sign.yourmessage'|translate}}</label>
                         <br />
                         <textarea 
                             class="form-control" 
@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-12">
                         <br />
-                        <label class="form-label">Font</label>
+                        <label class="form-label">{{'sign.font'|translate}}</label>
                         <br />
                         <select class="form-control" [value]="selected.style" (change)="fontChange($event)"
                             [(ngModel)]="selected.style">
@@ -58,13 +58,13 @@
                     </div>
                     <div class="col-12">
                         <br />
-                        <label class="form-label">Font Size</label>
+                        <label class="form-label">{{'sign.fontsize'|translate}}</label>
                         <br />
                         <input type="range" class="form-range" min="20" max="50" step="1" [value]="selected?selected.size:0"
                             (change)="sizeChange($event)">
                     </div>
                     <div class="col-12">
-                        <label class="form-label">Alignment</label>
+                        <label class="form-label">{{'sign.alignment'|translate}}</label>
                         <br />
                         <div class="btn-group" role="group" ngbRadioGroup name="radioBasic" [(ngModel)]="selected.alignment">
                             <button [ngClass]="selected.alignment == 'left' ? 'btn btn-primary btn-lg' : 'btn btn-light btn-lg'" (click)="alignmentClick('left')">
@@ -154,9 +154,9 @@
         -->
     </div>
     <div class="modal-footer">
-        <button class="btn btn-outline-primary action" (click)="clickDone()">Done</button>
-        <button class="btn btn-outline-secondary action" (click)="clickClear()">Clear</button>
-        <button class="btn btn-outline-danger action" (click)="clickCancel()">Cancel</button>
+        <button class="btn btn-outline-primary action" (click)="clickDone()">{{'button.done'|translate}}</button>
+        <button class="btn btn-outline-secondary action" (click)="clickClear()">{{'button.clear'|translate}}</button>
+        <button class="btn btn-outline-danger action" (click)="clickCancel()">{{'button.cancel'|translate}}</button>
     </div>
 </ng-template>
 <br /><br /><br />

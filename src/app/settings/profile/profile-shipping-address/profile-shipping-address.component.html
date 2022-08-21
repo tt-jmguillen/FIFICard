@@ -1,54 +1,54 @@
-<h2> Shipping Addresses</h2>
+<h2> {{'profile.shippingaddress'|translate}}</h2>
 <div class="card">
     <div class="card-body">
-        <h3> add a shipping address</h3>
-        <p> To make checkout even faster, you can save shipping addresses.</p>
+        <h3> {{'profile.addshipping'|translate}}</h3>
+        <p> {{'profile.shippingtagline'|translate}}</p>
         
         <div class="row">
             <div class="mb-3 col-12">
-                <label> Address nickname</label>
-                <input type="text" class="form-control" placeholder="ex: Home, Grandma's house, etc." (change)="changeData('name', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.name}}">
+                <label> {{'profile.addressnickname'|translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'profile.addrnicknameplace'|translate}}" (change)="changeData('name', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.name}}">
             </div>
             <div class="mb-3 col-6">
-                <label>* First Name</label>
-                <input type="text" class="form-control" placeholder="First Name" (change)="changeData('firstname', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.firstname}}">
+                <label>* {{'profile.firstname'|translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'profile.firstname'|translate}}" (change)="changeData('firstname', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.firstname}}">
             </div>
             <div class="mb-3 col-6">
-                <label>* Last Name</label>
-                <input type="text" class="form-control" placeholder="Last Name" (change)="changeData('lastname', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.lastname}}">
+                <label>* {{'profile.lastname'|translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'profile.lastname'|translate}}" (change)="changeData('lastname', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.lastname}}">
             </div>
             <div class="mb-3 col-12">
-                <label>* Address Line 1</label>
-                <input type="text" class="form-control" placeholder="Address Line 1" (change)="changeData('address', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.address}}">
+                <label>* {{'profile.addrline1'|translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'profile.addrline1'|translate}}" (change)="changeData('address', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.address}}">
             </div>
             <div class="mb-3 col-12">
-                <label>* Address Line 2</label>
-                <input type="text" class="form-control" placeholder="Address Line 2" (change)="changeData('address2', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.address2}}">
+                <label>* {{'profile.addrline2'|translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'profile.addrline2'|translate}}" (change)="changeData('address2', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.address2}}">
             </div>
             <div class="mb-3 col-6">
-                <label>* Province/Region</label>
-                <input type="text" class="form-control" placeholder="Province/Region" (change)="changeData('province', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.province}}" list="provinceIds">
+                <label>* {{'profile.province'|translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'profile.province'|translate}}" (change)="changeData('province', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.province}}" list="provinceIds">
                 <datalist id="provinceIds">
                     <option *ngFor="let item of addressConfig" value="{{item.name}}">{{item.name}}</option>
                 </datalist>
             </div>
             <div class="mb-3 col-6">
-                <label>* City/Municipality</label>
-                <input type="text" class="form-control" placeholder="City/Municipality" (change)="changeData('city', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.city}}" list="cityIds">
+                <label>* {{'profile.city'|translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'profile.city'|translate}}" (change)="changeData('city', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.city}}" list="cityIds">
                 <datalist id="cityIds">
                     <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
                 </datalist>
             </div>
             <div class="mb-3 col-6">
-                <label>* Country</label>
+                <label>* {{'profile.country'|translate}}</label>
                 <input type="text" class="form-control" placeholder="Country" (change)="changeData('country', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.country}}">
             </div>
             <div class="mb-3 col-6">
-                <label>* Post Code</label>
-                <input type="text" class="form-control" placeholder="Post Code" (change)="changeData('postcode', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.postcode}}">
+                <label>* {{'profile.postcode'|translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'profile.postcode'|translate}}" (change)="changeData('postcode', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.postcode}}">
             </div>
             <div class=" col-12">
-                <button type="button" class="btn btn-primary" (click)="saveAddress()" [disabled]="!isValid">SAVE ADDRESS</button>
+                <button type="button" class="btn btn-primary" (click)="saveAddress()" [disabled]="!isValid">{{'profile.saveaddr'|translate}}</button>
             </div>
         </div>
     </div>

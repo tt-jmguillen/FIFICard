@@ -2,18 +2,18 @@
   <div class="container">
     <div class="row mt-5">
       <div class="col-md-3">
-        <h5>CUSTOMER SERVICE</h5>
-        <div class="px-2"><a [routerLink]="['/page/ContactUs']">Contact Us</a></div>
-        <div class="px-2"><a [routerLink]="['/page/ChatNow']">Chat Now</a></div>
-        <div class="px-2"><a [routerLink]="['/page/ReviewProduct']">Review Product</a></div>
+        <h5>{{ 'footer.customerservice' | translate}}</h5>
+        <div class="px-2"><a [routerLink]="['/page/ContactUs']">{{ 'footer.contactus' | translate }}</a></div>
+        <div class="px-2"><a [routerLink]="['/page/ChatNow']">{{ 'footer.chatnow' | translate }}</a></div>
+        <div class="px-2"><a [routerLink]="['/page/ReviewProduct']">{{ 'footer.reviewproduct' | translate }}</a></div>
         <br />
-        <h5>KNOW MORE</h5>
-        <div class="px-2"><a [routerLink]="['/page/AboutUs']">About FibeiGreetings</a></div>
-        <div class="px-2"><a [routerLink]="['/page/PressPage']">Press Page</a></div>
-        <div class="px-2"><a [routerLink]="['/signandsendpage']">Sign And Send</a></div>
+        <h5>{{ 'footer.knowmore' | translate}}</h5>
+        <div class="px-2"><a [routerLink]="['/page/AboutUs']">{{ 'footer.about' | translate }} FibeiGreetings</a></div>
+        <div class="px-2"><a [routerLink]="['/page/PressPage']">{{ 'footer.presspage' | translate }}</a></div>
+        <div class="px-2"><a [routerLink]="['/signandsendpage']">{{ 'footer.signandsend' | translate }}</a></div>
         <br />
-        <h5>ORDER INFORMATION</h5>
-        <div class="px-2"><a [routerLink]="['/page/ShippingAndDelivery']">Shipping and Delivery</a></div>
+        <h5>{{ 'footer.orderinformation' | translate }}</h5>
+        <div class="px-2"><a [routerLink]="['/page/ShippingAndDelivery']">{{ 'footer.shippinganddelivery' | translate }}</a></div>
         <br />
       </div>
       <div class="col-md-6">
@@ -45,16 +45,16 @@
             </a>
           </div>
           <br />
-          <div>Copyright © 2022 FiBeiGreetings.com</div>
+          <div>{{ 'footer.copyright' | translate }} © 2022 FiBeiGreetings.com</div>
         </div>
 
       </div>
       <div class="col-md-3">
-        <h5>TERMS OF USE</h5>
-        <div class="px-2"><a [routerLink]="['/page/TermsAndCondition']">Terms and Condition</a></div>
-        <div class="px-2"><a [routerLink]="['/page/PrivacyPolicy']">Privacy Policy</a></div>
+        <h5>{{ 'footer.termsofuse' | translate }}</h5>
+        <div class="px-2"><a [routerLink]="['/page/TermsAndCondition']">{{'footer.termsandcondition'|translate}}</a></div>
+        <div class="px-2"><a [routerLink]="['/page/PrivacyPolicy']">{{'footer.privacypolicy' | translate}}</a></div>
         <br />
-        <h5>PAYMENT METHOD</h5>
+        <h5>{{'footer.paymentmethod'|translate}}</h5>
         <img src="/assets/images/payment_gcash.png" class="img-fluid" style="max-height:30px;">
         <br /><br />
         <img src="/assets/images/payment_PayPal.png" class="img-fluid" style="max-height:30px;">
@@ -64,7 +64,7 @@
           color: white;
           background: #7f0595;
           border-radius: 4px;
-          margin-top: 10px;"> <i class="fa fa-credit-card" aria-hidden="true"></i> Debit or Credit Card</p>
+          margin-top: 10px;"> <i class="fa fa-credit-card" aria-hidden="true"></i> {{'footer.debitorcreditcard'|translate}}</p>
       </div>
     </div>
   </div><!-- //container -->

@@ -5,9 +5,9 @@
                 <div class="col-12">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+                            <li class="breadcrumb-item"><a [routerLink]="['/']">{{'order.home'|translate}}</a></li>
                             <li class="breadcrumb-item"><a [routerLink]="['/card', id]">{{card?.name}}</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Order</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{'order.order'|translate}}</li>
                         </ol>
                     </nav>
                 </div>
@@ -32,108 +32,108 @@
                         <h5 class="section-title" *ngIf="card">₱{{card?.price | number:'1.2-2'}}</h5>
                     </div>
                     <div class="col-6 mb-2 text-right">
-                        <button class="btn btn-light inst-but" (click)="showInstruction()">{{card!.signAndSend?'How to do Sign & Send':'How to Buy'}}</button>
+                        <button class="btn btn-light inst-but" (click)="showInstruction()">{{(card!.signAndSend?'order.howtosignandsend':'order.howtobuy')|translate}}</button>
                     </div>
                     <div class="col-12 mb-2">
-                        <span class="text-muted">Sender</span>
+                        <span class="text-muted">{{'order.sender'|translate}}</span>
                     </div>
 
                     <form [formGroup]="form" (ngSubmit)="addToCart(confimation)">
                         <div class="col-12 mb-2">
-                            <label class="form-label">* Sender Name</label>
-                            <span class="instruction" *ngIf="instruction">Insert Name of the Buyer</span>
-                            <input type="text" class="form-control" formControlName="sender_name" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && controls()['sender_name'].errors}">
+                            <label class="form-label">* {{'order.sendername'|translate}}</label>
+                            <span class="instruction" *ngIf="instruction">{{'order.insertbuyer'|translate}}</span>
+                            <input type="text" class="form-control" formControlName="sender_name" placeholder="{{'order.name'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['sender_name'].errors}">
                             <div *ngIf="submitted && controls()['sender_name'].errors" class="invalid-feedback">
-                                <div *ngIf="controls()['sender_name'].errors!['required']">Sender name is required</div>
-                                <div *ngIf="controls()['sender_name'].errors!['maxlength']">Sender name must not exceed 50 characters</div>
+                                <div *ngIf="controls()['sender_name'].errors!['required']">{{'order.senderrequired'|translate}}</div>
+                                <div *ngIf="controls()['sender_name'].errors!['maxlength']">{{'order.sendercharlimit'|translate}}</div>
                             </div>
                         </div>
                         <div class="col-12 mb-2">
-                            <label class="form-label">* Sender Phone Number</label>
-                            <span class="instruction" *ngIf="instruction">Insert Phone number of the Buyer</span>
-                            <input type="text" class="form-control" formControlName="sender_phone" placeholder="Phone Number" [ngClass]="{ 'is-invalid': submitted && controls()['sender_phone'].errors}">
+                            <label class="form-label">* {{'order.senderphone'|translate}}</label>
+                            <span class="instruction" *ngIf="instruction">{{'order.insertsenderphone'|translate}}</span>
+                            <input type="text" class="form-control" formControlName="sender_phone" placeholder="{{'order.phonenumber'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['sender_phone'].errors}">
                             <div *ngIf="submitted && controls()['sender_phone'].errors" class="invalid-feedback">
-                                <div *ngIf="controls()['sender_phone'].errors!['required']">Sender phone is required</div>
-                                <div *ngIf="controls()['sender_phone'].errors!['maxlength']">Sender phone must not exceed 20 characters</div>
+                                <div *ngIf="controls()['sender_phone'].errors!['required']">{{'order.senderphonerequired'|translate}}</div>
+                                <div *ngIf="controls()['sender_phone'].errors!['maxlength']">{{'order.senderphonelimit'|translate}}</div>
                             </div>
                         </div>
                         <div class="col-12 mb-2">
-                            <label class="form-label">* Sender Email Address</label>
-                            <span class="instruction" *ngIf="instruction">Insert Valid Email Address of the Buyer</span>
-                            <input type="email" class="form-control" formControlName="sender_email" placeholder="Email Address" [ngClass]="{ 'is-invalid': submitted && controls()['sender_email'].errors}">
+                            <label class="form-label">* {{'order.senderemail'|translate}}</label>
+                            <span class="instruction" *ngIf="instruction">{{'order.insertsenderemail'|translate}}</span>
+                            <input type="email" class="form-control" formControlName="sender_email" placeholder="{{'order.email'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['sender_email'].errors}">
                             <div *ngIf="submitted && controls()['sender_email'].errors" class="invalid-feedback">
-                                <div *ngIf="controls()['sender_email'].errors!['required']">Sender email address is required</div>
-                                <div *ngIf="controls()['sender_email'].errors!['email']">Invalid email address</div>
+                                <div *ngIf="controls()['sender_email'].errors!['required']">{{'order.senderemailrequired'|translate}}</div>
+                                <div *ngIf="controls()['sender_email'].errors!['email']">{{'order.emailinvalid'|translate}}</div>
                             </div>
                         </div>
                         <div class="col-12 mb-2">
-                            <span class="text-muted">Recipient</span>
+                            <span class="text-muted">{{'order.recipient'|translate}}</span>
                         </div>
                         <div class="col-12 mb-2">
-                            <label class="form-label">* Recipient Name</label>
-                            <span class="instruction" *ngIf="instruction">Insert Name of the Receiver</span>
-                            <input type="text" class="form-control" formControlName="receiver_name" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && controls()['receiver_name'].errors}">
+                            <label class="form-label">* {{'order.recipientname'|translate}}</label>
+                            <span class="instruction" *ngIf="instruction">{{'order.recipientinsert'|translate}}</span>
+                            <input type="text" class="form-control" formControlName="receiver_name" placeholder="{{'order.name'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['receiver_name'].errors}">
                             <div *ngIf="submitted && controls()['receiver_name'].errors" class="invalid-feedback">
-                                <div *ngIf="controls()['receiver_name'].errors!['required']">Receiver name is required</div>
-                                <div *ngIf="controls()['receiver_name'].errors!['maxlength']">Receiver name must not exceed 50 characters</div>
+                                <div *ngIf="controls()['receiver_name'].errors!['required']">{{'order.recipientrequired'|translate}}</div>
+                                <div *ngIf="controls()['receiver_name'].errors!['maxlength']">{{'order.recipientcharlimit'|translate}}</div>
                             </div>
                         </div>
                         <div class="col-12 mb-2">
-                            <label class="form-label">* Recipient Phone Number</label>
-                            <span class="instruction" *ngIf="instruction">Insert Phone Number of the Receiver</span>
-                            <input type="text" class="form-control" formControlName="receiver_phone" placeholder="Phone Number" [ngClass]="{ 'is-invalid': submitted && controls()['receiver_phone'].errors}">
+                            <label class="form-label">* {{'order.recipientphone'|translate}}</label>
+                            <span class="instruction" *ngIf="instruction">{{'order.insertrecipientphone'|translate}}</span>
+                            <input type="text" class="form-control" formControlName="receiver_phone" placeholder="{{'order.phonenumber'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['receiver_phone'].errors}">
                             <div *ngIf="submitted && controls()['receiver_phone'].errors" class="invalid-feedback">
-                                <div *ngIf="controls()['receiver_phone'].errors!['required']">Receiver phone is required</div>
-                                <div *ngIf="controls()['receiver_phone'].errors!['maxlength']">Receiver phone must not exceed 20 characters</div>
+                                <div *ngIf="controls()['receiver_phone'].errors!['required']">{{'order.recipientphonerequired'|translate}}</div>
+                                <div *ngIf="controls()['receiver_phone'].errors!['maxlength']">{{'order.recipientphonelimit'|translate}}</div>
                             </div>
                         </div>
                         <div class="col-12 mb-2">
-                            <label class="form-label">* Recipient Email Address</label>
-                            <span class="instruction" *ngIf="instruction">Insert Valid Email Address of the Receiver</span>
-                            <input type="email" class="form-control" formControlName="receiver_email" placeholder="Email Address" [ngClass]="{ 'is-invalid': submitted && controls()['receiver_email'].errors}">
+                            <label class="form-label">* {{'order.recipientemail'|translate}}</label>
+                            <span class="instruction" *ngIf="instruction">{{'order.insertrecipientemail'|translate}}</span>
+                            <input type="email" class="form-control" formControlName="receiver_email" placeholder="{{'order.email'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['receiver_email'].errors}">
                             <div *ngIf="submitted && controls()['receiver_email'].errors" class="invalid-feedback">
-                                <div *ngIf="controls()['receiver_email'].errors!['required']">Receiver email address is required</div>
-                                <div *ngIf="controls()['receiver_email'].errors!['email']">Invalid email address</div>
+                                <div *ngIf="controls()['receiver_email'].errors!['required']">{{'order.recipientemailrequired'|translate}}</div>
+                                <div *ngIf="controls()['receiver_email'].errors!['email']">{{'order.emailinvalid'|translate}}</div>
                             </div>
                         </div>
                         <div class="col-12 mb-2">
-                            <span class="text-muted">Delivery Address</span>
-                            <span class="instruction" *ngIf="instruction">Insert Delivery Address of the Buyer or Receiver</span>
+                            <span class="text-muted">{{'order.deliveryaddress'|translate}}</span>
+                            <span class="instruction" *ngIf="instruction">{{'order.insertdeliveryaddress'|translate}}</span>
                         </div>
                         <div class="col-12 mb-2">
-                            <label class="form-label">* Address 1</label>
-                            <input type="text" class="form-control" formControlName="address1" placeholder="Address" [ngClass]="{ 'is-invalid': submitted && controls()['address1'].errors}">
+                            <label class="form-label">* {{'order.address1'|translate}}</label>
+                            <input type="text" class="form-control" formControlName="address1" placeholder="{{'order.address'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['address1'].errors}">
                             <div *ngIf="submitted && controls()['address1'].errors" class="invalid-feedback">
-                                <div *ngIf="controls()['address1'].errors!['required']">Address is required</div>
-                                <div *ngIf="controls()['address1'].errors!['maxlength']">Address must not exceed 50 characters</div>
+                                <div *ngIf="controls()['address1'].errors!['required']">{{'order.addressrequired'|translate}}</div>
+                                <div *ngIf="controls()['address1'].errors!['maxlength']">{{'order.addresscharlimit'|translate}}</div>
                             </div>
                         </div>
                         <div class="col-12 mb-2">
-                            <label class="form-label">* Address 2</label>
-                            <input type="text" class="form-control" formControlName="address2" placeholder="Address" [ngClass]="{ 'is-invalid': submitted && controls()['address2'].errors}">
+                            <label class="form-label">* {{'order.address2'|translate}}</label>
+                            <input type="text" class="form-control" formControlName="address2" placeholder="{{'order.address'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['address2'].errors}">
                             <div *ngIf="submitted && controls()['address2'].errors" class="invalid-feedback">
-                                <div *ngIf="controls()['address2'].errors!['required']">Address is required</div>
-                                <div *ngIf="controls()['address2'].errors!['maxlength']">Address must not exceed 50 characters</div>
+                                <div *ngIf="controls()['address2'].errors!['required']">{{'order.addressrequired'|translate}}</div>
+                                <div *ngIf="controls()['address2'].errors!['maxlength']">{{'order.addresscharlimit'|translate}}</div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6 mb-2">
-                                <label class="form-label">* Province/Region</label>
-                                <input type="text" class="form-control" formControlName="province" placeholder="Province/Region" list="provinceIds" [ngClass]="{ 'is-invalid': submitted && controls()['province'].errors}" (change)="proviceChange($event)">
+                                <label class="form-label">* {{'order.province'|translate}}</label>
+                                <input type="text" class="form-control" formControlName="province" placeholder="{{'order.province'|translate}}" list="provinceIds" [ngClass]="{ 'is-invalid': submitted && controls()['province'].errors}" (change)="proviceChange($event)">
                                 <div *ngIf="submitted && controls()['province'].errors" class="invalid-feedback">
-                                    <div *ngIf="controls()['province'].errors!['required']">Province/Region is required</div>
-                                    <div *ngIf="controls()['province'].errors!['maxlength']">Province/Region must not exceed 50 characters</div>
+                                    <div *ngIf="controls()['province'].errors!['required']">{{'order.provincerequired'|translate}}</div>
+                                    <div *ngIf="controls()['province'].errors!['maxlength']">{{'order.provincecharlimit'|translate}}</div>
                                 </div>
                                 <datalist id="provinceIds">
                                     <option *ngFor="let item of addressConfig" value="{{item.name}}">{{item.name}}</option>
                                 </datalist>
                             </div>
                             <div class="col-6 mb-2">
-                                <label class="form-label">* City/Municipality</label>
-                                <input type="text" class="form-control" formControlName="city" placeholder="City/Municipality" list="cityIds" [ngClass]="{ 'is-invalid': submitted && controls()['city'].errors}">
+                                <label class="form-label">* {{'order.city'|translate}}</label>
+                                <input type="text" class="form-control" formControlName="city" placeholder="{{'order.city'|translate}}" list="cityIds" [ngClass]="{ 'is-invalid': submitted && controls()['city'].errors}">
                                 <div *ngIf="submitted && controls()['city'].errors" class="invalid-feedback">
-                                    <div *ngIf="controls()['city'].errors!['required']">City/Municipality is required</div>
-                                    <div *ngIf="controls()['city'].errors!['maxlength']">City/Municipality must not exceed 50 characters</div>
+                                    <div *ngIf="controls()['city'].errors!['required']">{{'order.cityrequired'|translate}}</div>
+                                    <div *ngIf="controls()['city'].errors!['maxlength']">{{'order.citylimit'|translate}}</div>
                                 </div>
                                 <datalist id="cityIds">
                                     <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
@@ -142,46 +142,46 @@
                         </div>
                         <div class="row">
                             <div class="col-6 mb-2">
-                                <label class="form-label">* Country</label>
-                                <input type="text" class="form-control" formControlName="country" placeholder="Country" [ngClass]="{ 'is-invalid': submitted && controls()['country'].errors}">
+                                <label class="form-label">* {{'order.country'|translate}}</label>
+                                <input type="text" class="form-control" formControlName="country" placeholder="{{'order.country'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['country'].errors}">
                                 <div *ngIf="submitted && controls()['country'].errors" class="invalid-feedback">
-                                    <div *ngIf="controls()['country'].errors!['required']">Country is required</div>
-                                    <div *ngIf="controls()['country'].errors!['maxlength']">Country must not exceed 50 characters</div>
+                                    <div *ngIf="controls()['country'].errors!['required']">{{'order.countryrequired'|translate}}</div>
+                                    <div *ngIf="controls()['country'].errors!['maxlength']">{{'order.countrylimit'|translate}}</div>
                                 </div>
                             </div>
                             <div class="col-6 mb-2">
-                                <label class="form-label">* Postcode</label>
-                                <input type="text" class="form-control" formControlName="postcode" placeholder="Postcode" [ngClass]="{ 'is-invalid': submitted && controls()['postcode'].errors}">
+                                <label class="form-label">* {{'order.postcode'|translate}}</label>
+                                <input type="text" class="form-control" formControlName="postcode" placeholder="{{'order.postcode'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['postcode'].errors}">
                                 <div *ngIf="submitted && controls()['postcode'].errors" class="invalid-feedback">
-                                    <div *ngIf="controls()['postcode'].errors!['required']">Postcode is required</div>
-                                    <div *ngIf="controls()['postcode'].errors!['maxlength']">Postcode must not exceed 20 characters</div>
+                                    <div *ngIf="controls()['postcode'].errors!['required']">{{'order.postcoderequired'|translate}}</div>
+                                    <div *ngIf="controls()['postcode'].errors!['maxlength']">{{'order.postcodelimit'|translate}}</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 mb-2 mt-2 pl-3 form-check">
                             <input type="checkbox" class="form-check-input" formControlName="anonymously">
-                            <label class="form-check-label">Send Anonymously</label>
-                            <span class="instruction" *ngIf="instruction">Check the Box if you want to send Anonymously</span>
+                            <label class="form-check-label">{{'order.anonymously'|translate}}</label>
+                            <span class="instruction" *ngIf="instruction">{{'order.insertanonymously'|translate}}</span>
                         </div>
                         <div class="col-12 mb-2">
-                            <label class="form-label">Send To</label>
-                            <span class="instruction" *ngIf="instruction">or you want to choose between Recipient (Receiver) or Sender (Buyer)</span>
+                            <label class="form-label">{{'order.sendto'|translate}}</label>
+                            <span class="instruction" *ngIf="instruction">{{'order.insertsendto'|translate}}</span>
                             <select class="form-select form-control" formControlName="sendto">
-                                <option selected value="Recipient">Recipient</option>
-                                <option value="Sender">Sender</option>
+                                <option selected value="Recipient">{{'order.recipient'|translate}}</option>
+                                <option value="Sender">{{'order.sender'|translate}}</option>
                             </select>
                         </div>
                         <div class="col-12 mb-2" *ngIf="card?.signAndSend">
-                            <span class="instruction" *ngIf="instruction">then Click Sign & Send</span>
+                            <span class="instruction" *ngIf="instruction">{{'order.insertsignandsend'|translate}}</span>
                             <app-sign-and-send (signAndSendEvent)="receiveSignAndSend($event)"></app-sign-and-send>
                         </div>
                         <div class="col-12 mb-2" *ngIf="!card?.signAndSend">
-                            <label class="form-label">Personal Message</label>
-                            <span class="instruction" *ngIf="instruction">Insert Personal Message (Optional)</span>
-                            <textarea class="form-control" placeholder="Personal Message" rows="5" formControlName="message"></textarea>
+                            <label class="form-label">{{'order.personal'|translate}}</label>
+                            <span class="instruction" *ngIf="instruction">{{'order.insertpersonal'|translate}}</span>
+                            <textarea class="form-control" placeholder="{{'order.personal'|translate}}" rows="5" formControlName="message"></textarea>
                         </div>
                         <div class="col-12 mt-2">
-                            <button class="btn btn-primary full-size" type="submit">Add to Cart</button>
+                            <button class="btn btn-primary full-size" type="submit">{{'order.addtocart'|translate}}</button>
                         </div>
                     </form>
                 </div>
@@ -189,14 +189,14 @@
 
             <ng-template #confimation let-modal>
                 <div class="modal-header">
-                    <h4 class="modal-title" id="modal-basic-title">{{totalCount}} item added</h4>
+                    <h4 class="modal-title" id="modal-basic-title">{{totalCount}} {{'order.itemadded'|translate}}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-2"><img src="{{primaryImageURL}}"></div>
                         <div class="col-7">
                             <label>{{card?.name}}</label><br />
-                            <label>Shipping Fee</label>
+                            <label>{{'order.shippingfee'|translate}}</label>
                         </div>
                         <div class="col-3 allign-right">
                             <label *ngIf="card">{{card.primary| number:'1.2-2'}}</label><br />
@@ -209,7 +209,7 @@
                             <div class="col-2"></div>
                             <div class="col-8">
                                 <label>{{item.card.name}}</label><br />
-                                <label>Shipping Fee</label>
+                                <label>{{'order.shippingfee'|translate}}<</label>
                             </div>
                             <div class="col-2 allign-right">
                                 <label>{{item.card.price! * item.count!| number:'1.2-2'}}</label><br />
@@ -219,15 +219,15 @@
                         <div class="border" *ngIf="item.count > 0"></div>
                     </div>
                     <div class="row">
-                        <div class="col-6"><strong>Total:</strong></div>
+                        <div class="col-6"><strong>{{'order.total'|translate}}:</strong></div>
                         <div class="col-6">
                             <div class="col-12 allign-right"><strong>₱ {{total | number:'1.2-2'}}</strong></div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer footer">
-                    <button class="btn btn-link" (click)="keepShopping()">Keep Shopping</button>
-                    <button class="btn btn-primary" ngbAutofocus (click)="cart()">VIEW CART</button>
+                    <button class="btn btn-link" (click)="keepShopping()">{{'order.keepshopping'|translate}}</button>
+                    <button class="btn btn-primary" ngbAutofocus (click)="cart()">{{'order.viewcart'|translate}}</button>
                 </div>
             </ng-template>
         </div>

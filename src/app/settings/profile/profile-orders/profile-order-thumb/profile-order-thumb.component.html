@@ -6,15 +6,15 @@
         <div class="detail">
             <div class="detail-title">
                 <span><strong>{{card.name}}</strong></span><br/>
-                <span *ngIf="order.receiver_name != undefined">Receiver: <strong>{{order.receiver_name}}</strong><br/></span>
-                <span *ngIf="order.address != undefined">Address: <strong>{{order.address}}</strong><br/></span>
-                <span >Date: {{order.created!.toDate()?.toLocaleDateString()}}</span>
+                <span *ngIf="order.receiver_name != undefined">{{'profile.receiver'|translate}}: <strong>{{order.receiver_name}}</strong><br/></span>
+                <span *ngIf="order.address != undefined">{{'profile.address'|translate}}: <strong>{{order.address}}</strong><br/></span>
+                <span >{{'profile.date'|translate}}: {{order.created!.toDate()?.toLocaleDateString()}}</span>
             </div>
             <span class="detail-order">{{order.card_price | number:'1.2-2'}} x {{order.count}}</span>
             <span class="detail-total"><strong>{{total | number:'1.2-2'}}</strong></span>
         </div>
         <div class="shipping">
-            <span class="shipping-title">Shipping Fee:</span>
+            <span class="shipping-title">{{'profile.shippingfee'|translate}}:</span>
             <span class="shipping-value"><strong>{{order.shipping_fee==undefined?'Free':order.shipping_fee | number:'1.2-2'}}</strong></span>
         </div>
     </div>
