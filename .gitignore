@@ -105,3 +105,8 @@ output_upload_certificate.pem
 upload-keystore.jks
 *.Identifier
 
+
+!src/assets/images/event/banner/*.png
+!src/assets/emoticon.xml
+!src/assets/lang/*.json
+
