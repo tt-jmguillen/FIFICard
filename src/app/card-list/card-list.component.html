@@ -44,7 +44,8 @@
         <select class="form-select custom-select" aria-label="Default select example"
             (change)="changeSelected($event)">
             <option *ngFor="let page of pages" [selected]="page.selected == true" value="{{page.index}}">
-                {{page.display}}</option>
+                {{'cards.page'|translate}} {{page.index}} {{'cards.of'|translate}} {{batchCount}}
+            </option>
         </select>
         <button class="btn btn-light actionbtn" (click)="clickNext()" [disabled]="!disableNext"
             *ngIf="pages.length > 1">
@@ -53,7 +54,9 @@
     </div>
     <div class="col-12 text-center">
         <br />
-        <label>{{batchShowing}}</label>
+        <label>
+            {{'cards.showing'|translate}} {{selectedPage.start}} - {{selectedPage.end}} {{'cards.to'|translate}} {{sortCards.length}} {{'cards.items'|translate}}
+        </label>
         <br />
         <br />
     </div>
@@ -72,7 +75,8 @@
         <select class="form-select custom-select" aria-label="Default select example"
             (change)="changeSelected($event)">
             <option *ngFor="let page of pages" [selected]="page.selected == true" value="{{page.index}}">
-                {{page.display}}</option>
+                {{'cards.page'|translate}} {{page.index}} {{'cards.of'|translate}} {{batchCount}}
+            </option>
         </select>
         <button class="btn btn-light actionbtn" (click)="clickNext()" [disabled]="!disableNext"
             *ngIf="pages.length > 1">
@@ -81,8 +85,9 @@
     </div>
     <div class="col-md-12 text-center">
         <br />
-        <label>{{batchShowing}}</label>
-
+        <label>
+            {{'cards.showing'|translate}} {{selectedPage.start}} - {{selectedPage.end}} {{'cards.to'|translate}} {{sortCards.length}} {{'cards.items'|translate}}
+        </label>
         <br />
         <br /> <br />
     </div>

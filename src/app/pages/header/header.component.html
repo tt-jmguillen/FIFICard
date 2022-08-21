@@ -8,7 +8,16 @@
         </div>
         <div class="col-lg-9 col-8 my-search">
           <app-search></app-search>
-          <small style="color:indigo" class="tag-line"><b>{{ 'header.tagline' | translate }}</b></small>
+          <div class="row">
+            <div class="col-8">
+              <small style="color:indigo" class="tag-line"><b>{{ 'header.tagline' | translate }}</b></small>
+            </div>
+            <div class="col-4 d-flex justify-content-end">
+              <select class="lang" (change)="changeLang($event)" [(ngModel)]="lang">
+                <option *ngFor="let item of languages" value="{{item.code}}">{{item.name}}</option>
+              </select>
+            </div>
+          </div>
         </div> <!-- col.// -->
         <div class="col-lg-1 col-2 my-cart">
           <div class="widgets-wrap float-md-end">

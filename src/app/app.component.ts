@@ -32,8 +32,7 @@ export class AppComponent {
     public route: Router
     //public component: UserComponent
   ) { 
-    translate.setDefaultLang('en');    
-    translate.use('en');
+    this.setlanguage();
   }
 
   ngOnInit(): void {
@@ -90,5 +89,11 @@ export class AppComponent {
       .then(() =>this.onSignOut.emit())
       .catch((e) => console.error("An error happened while signing out!", e));
     window.location.href = "";   
+  }
+
+  setlanguage(){
+    this.translate.setDefaultLang('en');    
+    const lang = localStorage.getItem("language")!? localStorage.getItem("language")! : 'es';
+    this.translate.use(lang);
   }
 }

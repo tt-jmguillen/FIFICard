@@ -28,7 +28,6 @@ export class CardListComponent implements OnInit {
   @Input() recipient: string;
 
   recipientService: RecipientService;
-  translateService: TranslateService;
 
   recipientConfig: Recipient[] = [];
 
@@ -43,30 +42,20 @@ export class CardListComponent implements OnInit {
   batchLimit: number = 36;
   batchCount: number = 0;
   batchShowing: string = '';
+  selectedPage: Page;
   disablePrev: boolean;
   disableNext: boolean;
 
   recipients: string[] = [];
   selectedRecipient: string;
 
-  //translation
-  page: string;
-  of: string;
-  showing: string;
-  to: string;
-  items: string;
-
   constructor(
-    _recipientService: RecipientService,
-    _translateService: TranslateService
+    _recipientService: RecipientService
   ) { 
-    this.recipientService = _recipientService;
-    this.translateService = _translateService;
+    this.recipientService = _recipientService
   }
 
   ngOnInit(): void {
-    this.loadTranslation();
-
     this.getRecipientConfig().then(recipients => {
       this.recipientConfig = recipients;
       this.loadCards();
@@ -86,16 +75,6 @@ export class CardListComponent implements OnInit {
     this.selectedRecipient = this.recipient!=undefined?this.recipient:this.selectedRecipient;
     this.filterCards = this.filterForRecipient();
     this.applyDisplayFilterAndSort();
-  }
-
-  loadTranslation(){    
-    this.translateService.get('cards').subscribe(data => {
-      this.page = data.page;
-      this.of = data.of;
-      this.showing = data.showing;
-      this.to = data.to;
-      this.items = data.items;
-    });
   }
 
   averageRatings(value?: number): number {
@@ -240,8 +219,8 @@ export class CardListComponent implements OnInit {
       else
         page.start = 1;
       
-      page.display = `${this.page} ${i} ${this.of} ${this.batchCount}`;
-      page.showing = `${this.showing} ${page.start} - ${page.end} ${this.to} ${this.sortCards.length} ${this.items}`;
+      //page.display = `${this.page} ${i} ${this.of} ${this.batchCount}`;
+      //page.showing = `${this.showing} ${page.start} - ${page.end} ${this.to} ${this.sortCards.length} ${this.items}`;
       this.pages.push(page);
     }
   }
@@ -256,6 +235,7 @@ export class CardListComponent implements OnInit {
           this.displayCards.push(this.sortCards[i]);
         }
         this.batchShowing = page.showing;
+        this.selectedPage = page;
       }
       else {
         page.selected = false;
