@@ -9,6 +9,7 @@ export class FilterService {
   private searchInfo: BehaviorSubject<string>;
   private budgetInfo: BehaviorSubject<string>;
   private sortInfo: BehaviorSubject<string>;
+  private langInfo: BehaviorSubject<string>;
 
   private signAndSendInfo: BehaviorSubject<SignAndSendDetails[]>
 
@@ -16,6 +17,7 @@ export class FilterService {
     this.searchInfo = new BehaviorSubject<string>('');
     this.budgetInfo = new BehaviorSubject<string>('');
     this.sortInfo = new BehaviorSubject<string>('');
+    this.langInfo = new BehaviorSubject<string>('en');
     this.signAndSendInfo = new BehaviorSubject<SignAndSendDetails[]>([]);
   }
 
@@ -41,6 +43,14 @@ export class FilterService {
 
   setSort(newValue: string): void {
     this.sortInfo.next(newValue);
+  }
+
+  getLang(): Observable<string> {
+    return this.langInfo.asObservable();
+  }
+
+  setLang(newValue: string): void {
+    this.langInfo.next(newValue);
   }
 
   getSignAndSend(): Observable<SignAndSendDetails[]> {

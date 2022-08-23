@@ -1,3 +1,4 @@
+import { FilterService } from 'src/app/services/filter.service';
 import { environment } from 'src/environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -23,7 +24,8 @@ export class HeaderComponent implements OnInit {
   lang: string
 
   constructor(
-    private translate: TranslateService
+    private translate: TranslateService,
+    private filter: FilterService
   ) { }
 
   ngOnInit(): void {
@@ -33,7 +35,8 @@ export class HeaderComponent implements OnInit {
     this.languages.push(new Language('Spanish', 'es'));
     this.languages.push(new Language('French', 'fr'));
 
-    this.lang = localStorage.getItem("language")!? localStorage.getItem("language")! : 'es';
+    this.lang = localStorage.getItem("language")!? localStorage.getItem("language")! : 'en';
+    this.filter.setLang(this.lang);
 
     this.logo = "/assets/images/logo_fibeigreetings.png";
 
@@ -48,6 +51,7 @@ export class HeaderComponent implements OnInit {
   changeLang(event: any){
     this.translate.use(event.target.value);
     localStorage.setItem("language", event.target.value);
+    this.filter.setLang(event.target.value);
   }
 
 }
