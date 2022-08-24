@@ -93,7 +93,7 @@ export class AppComponent {
 
   setlanguage(){
     this.translate.setDefaultLang('en');    
-    const lang = localStorage.getItem("language")!? localStorage.getItem("language")! : 'es';
+    const lang = localStorage.getItem("language")!? localStorage.getItem("language")! : 'en';
     this.translate.use(lang);
   }
 }
