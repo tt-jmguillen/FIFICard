@@ -8,7 +8,7 @@
             </div>
             <div class="col-4 text-right">
                 <h6>
-                    <span (click)="updateMode()" class="mode">{{isEdit? 'button.save':'button.edit'|translate}}</span>
+                    <span (click)="updateMode()" class="mode">{{isEdit? ('button.save'|translate):('button.edit'|translate)}}</span>
                     <span (click)="cancelEdit()" class="mode" *ngIf="isEdit">{{'button.cancel'|translate}}</span>
                 </h6>
             </div>
