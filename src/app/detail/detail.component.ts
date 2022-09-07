@@ -26,6 +26,7 @@ export class DetailComponent implements OnInit {
   elementEvent: string;
 
   description: string = '';
+  language: string = 'en';
   descriptionTranslation: Translation;
 
   constructor(
@@ -57,41 +58,16 @@ export class DetailComponent implements OnInit {
     });
   }
 
-  getTranslation(id: string){
-    this.translationService.getTranslation(id, 'description').then(data => {
-      this.descriptionTranslation = data;
-      this.loadTranslation();
-    }).catch(err => {
-      this.translationService.addTranslation(id, 'description', this.description).finally(() => {
-        setTimeout(()=>{        
-          this.translationService.getTranslation(id, 'description').then(data => {
-            this.descriptionTranslation = data;
-            this.loadTranslation();
-          });
-        }, 2000);
-      });
-    });
-  }
-
-  loadTranslation(){
-    this.filter.getLang().subscribe(lang => {
-      if (lang == 'es') this.description = this.descriptionTranslation.es;
-      else if (lang == 'fr') this.description = this.descriptionTranslation.fr;
-      else if (lang == 'hi') this.description = this.descriptionTranslation.hi;
-      else if (lang == 'zh') this.description = this.descriptionTranslation.zh;
-      else this.description = this.descriptionTranslation.en;
-    });
-  }
-
-  
-
   loadCard(){
     this.service.getCard(this.id!).subscribe(data => {
       this.card! = data;
       this.event = this.card!.event;
       this.titleService.setTitle(this.card?.name!);
       this.description = this.card.description!;
+      
       this.getTranslation(this.card.id!);
+      this.subscribeLanguage();
+      this.subscribeTranslation(this.card.id!);
     });
   }
   
@@ -103,5 +79,58 @@ export class DetailComponent implements OnInit {
     else {
       this.router.navigate(['/order', id]);
     }
+  }
+
+  subscribeLanguage(){
+    this.filter.getLang().subscribe(lang => {
+      this.language = lang;
+      this.loadTranslation();
+    });
+  }
+
+  subscribeTranslation(id: string){
+    this.translationService.subscribeTranslation(id).subscribe(data => {
+      this.descriptionTranslation = data['translated']['description'] as Translation;
+      this.loadTranslation();
+    })
+  }
+
+  loadTranslation(){
+    if (this.descriptionTranslation){
+      if (this.language == 'es') this.description = this.descriptionTranslation.es ? this.descriptionTranslation.es : this.description;
+      else if (this.language == 'fr') this.description = this.descriptionTranslation.fr ? this.descriptionTranslation.fr : this.description;
+      else if (this.language == 'zh') this.description = this.descriptionTranslation.zh ? this.descriptionTranslation.zh : this.description;
+      else if (this.language == 'ja') this.description = this.descriptionTranslation.ja ? this.descriptionTranslation.ja : this.description;
+      else if (this.language == 'de') this.description = this.descriptionTranslation.de ? this.descriptionTranslation.de : this.description;
+      else this.description = this.descriptionTranslation.en ? this.descriptionTranslation.en : this.description;
+    }
+  }
+
+  getTranslation(id: string){
+    this.translationService.getTranslation(id).then(data => {
+      if (!this.verify(data))
+        this.updateTranslation(id, this.description);
+    }).catch(err => {
+      this.addTranslation(id, this.description);
+    });
+  }
+
+  addTranslation(id: string , description: string){
+    this.translationService.addTranslation(id, description);
+  }
+
+  updateTranslation(id: string, description: string){
+    this.translationService.updateTranslation(id, description + ' ');
+  }
+
+  verify(translation: Translation): boolean{
+    let valid: boolean = true;
+    if (translation.en && translation.zh && translation.es && translation.fr && translation.de && translation.ja){
+      valid = true;
+    }
+    else{
+      valid = false;
+    }
+    return valid;
   }
 }

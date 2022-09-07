@@ -20,6 +20,9 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { Event } from '../models/event';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Translation } from '../models/translation';
+import { TranslationService } from '../services/translation.service';
+import { FilterService } from '../services/filter.service';
 
 @Component({
   selector: 'app-order',
@@ -81,6 +84,12 @@ export class OrderComponent implements OnInit {
   allEvents: Event[] = [];
   allFees: Fee[] = [];
 
+  filter: FilterService;
+  translationService: TranslationService;
+  description: string = '';
+  language: string = 'en';
+  descriptionTranslation: Translation;
+
   constructor(
     _titleService: Title,
     _formBuilder: FormBuilder,
@@ -92,7 +101,9 @@ export class OrderComponent implements OnInit {
     _addressService: AddressService,
     _eventService: EventService,
     _shippingService: ShippingService,
+    _translationService: TranslationService,
     _modalService: NgbModal,
+    _filter: FilterService,
     _router: Router,
 
     private _emailService: EmailService,
@@ -107,7 +118,9 @@ export class OrderComponent implements OnInit {
     this.addressService = _addressService;
     this.eventService = _eventService;
     this.shippingService = _shippingService;
+    this.translationService = _translationService;
     this.modalService = _modalService;
+    this.filter = _filter;
     this.router = _router;
 
     this.emailService = _emailService;
@@ -158,6 +171,11 @@ export class OrderComponent implements OnInit {
       this.getAvailableURL(this.card.primary!).then(url => {
         this.primaryImageURL = url;
       });
+
+      this.description = this.card.description!;
+      this.getTranslation(this.card.id!);
+      this.subscribeLanguage();
+      this.subscribeTranslation(this.card.id!);
     });
   }
 
@@ -427,5 +445,59 @@ export class OrderComponent implements OnInit {
         rejects("Not enough parameter");
       }
     });
+  }
+
+  subscribeLanguage(){
+    this.filter.getLang().subscribe(lang => {
+      this.language = lang;
+      this.loadTranslation();
+    });
+  }
+
+  subscribeTranslation(id: string){
+    this.translationService.subscribeTranslation(id).subscribe(data => {
+      this.descriptionTranslation = data['translated']['description'] as Translation;
+      this.loadTranslation();
+    })
+  }
+
+  loadTranslation(){
+    if (this.descriptionTranslation){
+      if (this.language == 'es') this.description = this.descriptionTranslation.es ? this.descriptionTranslation.es : this.description;
+      else if (this.language == 'fr') this.description = this.descriptionTranslation.fr ? this.descriptionTranslation.fr : this.description;
+      else if (this.language == 'zh') this.description = this.descriptionTranslation.zh ? this.descriptionTranslation.zh : this.description;
+      else if (this.language == 'ja') this.description = this.descriptionTranslation.ja ? this.descriptionTranslation.ja : this.description;
+      else if (this.language == 'de') this.description = this.descriptionTranslation.de ? this.descriptionTranslation.de : this.description;
+      else this.description = this.descriptionTranslation.en ? this.descriptionTranslation.en : this.description;
+    }
+  }
+
+  getTranslation(id: string){
+    this.translationService.getTranslation(id).then(data => {
+      if (!this.verify(data))
+        this.updateTranslation(id, this.description);
+    }).catch(err => {
+      this.addTranslation(id, this.description);
+    });
+  }
+
+  addTranslation(id: string , description: string){
+    this.translationService.addTranslation(id, description);
+  }
+
+  updateTranslation(id: string, description: string){
+    console.log(description);
+    this.translationService.updateTranslation(id, description + ' ');
+  }
+
+  verify(translation: Translation): boolean{
+    let valid: boolean = true;
+    if (translation.en && translation.zh && translation.es && translation.fr && translation.de && translation.ja){
+      valid = true;
+    }
+    else{
+      valid = false;
+    }
+    return valid;
   }
 }
