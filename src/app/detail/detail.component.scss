@@ -63,3 +63,12 @@ section{
 .pad-botom{
     padding-bottom: 10px;
 }
+
+.card-other{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+}

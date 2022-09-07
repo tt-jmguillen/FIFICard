@@ -92,6 +92,7 @@ import { EmojiComponent } from './modules/emoji/emoji.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { OrdercountComponent } from './modules/ordercount/ordercount.component';
 
 @NgModule({
   declarations: [
@@ -158,7 +159,8 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
     CardListComponent,
     JustBecauseComponent,
     JustBecauseGreetingsComponent,
-    EmojiComponent
+    EmojiComponent,
+    OrdercountComponent
   ],
   imports: [
     BrowserModule,

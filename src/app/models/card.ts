@@ -22,6 +22,7 @@ export class Card {
   public imageUrl?: string;
   public ratings?: number;
   public signAndSend?: boolean;
+  public orders: string[] = [];
 }
 
 

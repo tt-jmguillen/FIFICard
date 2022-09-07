@@ -328,4 +328,19 @@ export class CardService {
     });
   }
 
+  updateCardOrder(id: string, orderId: string){
+    this.getACard(id).then(card => {
+      let orders: string[] = card.orders;
+      if (orders == undefined)
+        orders = [];
+
+      if (orders.find(x => x == orderId) == undefined){
+        orders.push(orderId);
+        const data = doc(this.store, 'cards/' + id);
+        updateDoc(data, {
+          'orders': orders
+        });
+      }
+    })
+  }
 }

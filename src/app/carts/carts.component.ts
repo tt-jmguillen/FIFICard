@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 
 class Collection {
   public id: string;
+  public cardid: string;
   public cardname: string;
   public receivername: string;
   public included: boolean;
@@ -23,6 +24,7 @@ class Collection {
 
   constructor(_id: string) {
     this.id = _id;
+    this.cardid = '';
     this.cardname = '';
     this.receivername = '';
     this.included = true;
@@ -117,6 +119,7 @@ export class CartsComponent implements OnInit {
     this.collection.forEach(item => {
       if (item.id == value[0]) {
         let card = value[1] as Card;
+        item.cardid = card.id!;
         item.cardname = card.name!;
       }
       this.computeTotal();
@@ -222,6 +225,11 @@ export class CartsComponent implements OnInit {
       items.forEach(id => {
         this.orderService.updatePaidOrder(id, paymentId);
         this.userService.addOrder(this.uid, id);
+
+        let cardId = this.collection.find(x => x.id == id)!.cardid!
+        if (cardId != undefined)
+          this.cardService.updateCardOrder(cardId, id);
+        
         //this.userService.removeItemOnCart(this.uid, id);
         let index: number = this.collection.findIndex(x => x.id == id);
         this.collection.splice(index, 1);

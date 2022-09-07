@@ -14,7 +14,8 @@
                             </ol>
                         </nav>
                     </div>
-                    <div class="col-md-4 col-sm-2" style="text-align: right;">
+                    <div class="col-md-4 col-sm-2 card-other">
+                        <app-ordercount *ngIf="card" [sold]="card.orders.length"></app-ordercount>
                         <app-favorite cardId="{{id}}" style="display: inline-block;"></app-favorite>
                     </div>
                 </div>
