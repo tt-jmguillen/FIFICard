@@ -1,3 +1,5 @@
+import { ECardsPageComponent } from './e-cards-page/e-cards-page.component';
+import { SpecialtyCardsPageComponent } from './specialty-cards-page/specialty-cards-page.component';
 import { SignAndSendCardsComponent } from './sign-and-send-cards/sign-and-send-cards.component';
 import { CartsComponent } from './carts/carts.component';
 import { SignAndSendComponent } from './order/sign-and-send/sign-and-send.component';
@@ -119,6 +121,12 @@ const routes: Routes = [
   },
   {
     path: 'justbecause/greetings', component: JustBecauseGreetingsComponent
+  },
+  {
+    path: 'specialtycardpage', component: SpecialtyCardsPageComponent
+  },
+  {
+    path: 'ecardspage', component: ECardsPageComponent
   }
 ];
 

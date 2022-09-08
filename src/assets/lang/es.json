@@ -105,7 +105,11 @@
 		"profile": "Perfil",
 		"shippingaddress": "Dirección de Envío",
 		"signout": "Desconectar",
-		"stickers": "Pegatinas"
+		"stickers": "Pegatinas",
+		"specialtycard": "Tarjeta de especialidad",
+		"signandsend": "Firma y envía",
+		"ecards": "Tarjetas electrónicas",
+		"bestcreations": "Mejor creación"
 	},
 	"month": {
 		"apr": "Abril",
@@ -253,6 +257,12 @@
 		"fontsize": "Tamaño de fuente",
 		"insertatext": "Insertar un texto",
 		"title": "Firmar y enviar",
-		"yourmessage": "Tu mensaje"
+		"yourmessage": "Tu mensaje",
+		"tagline": "Enviar tarjetas mucho más fácil, simple y personalizable",
+		"inarush": "¿Escapado? ¡Encuentre y personalice su tarjeta aquí!",
+		"signandcustomize": "Firmar y personalizar",
+		"pickacard": "Toma una carta",
+		"sendwithlove": "enviar con amor",
+		"titleno": "Firmar y enviar - No se encontró ninguna tarjeta"
 	}
 }

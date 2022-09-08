@@ -24,13 +24,13 @@ export class SignAndSendCardsComponent implements OnInit {
   }
 
   loadCards(){
-    this.caption = "Sign & Send";
+    this.caption = "sign.title";
     this.loading = true;
     this.cardService.getSignAndSendCards().then(cards => {
       this.cards = cards;
       this.loading = false;
     }).catch(err => {
-      this.caption = "Sign & Send - No card found";
+      this.caption = "sign.titleno";
       this.loading = false;
     })
   }

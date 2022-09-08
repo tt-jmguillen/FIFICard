@@ -105,7 +105,11 @@
 		"profile": "Profil",
 		"shippingaddress": "Adresse de livraison",
 		"signout": "Déconnexion",
-		"stickers": "Autocollants"
+		"stickers": "Autocollants",
+		"specialtycard": "Carte de spécialité",
+		"signandsend": "Signer et envoyer",
+		"ecards": "E-cartes",
+		"bestcreations": "Meilleure création"
 	},
 	"month": {
 		"apr": "Avril",
@@ -253,6 +257,12 @@
 		"fontsize": "Taille de la police",
 		"insertatext": "Insérer un texte",
 		"title": "Signer et envoyer",
-		"yourmessage": "Votre message"
+		"yourmessage": "Votre message",
+		"tagline": "Envoi de cartes beaucoup plus facile, simple et personnalisable",
+		"inarush": "Pressé? Trouvez et personnalisez votre carte ici !",
+		"signandcustomize": "Signez et personnalisez",
+		"pickacard": "Prenez une carte",
+		"sendwithlove": "Envoyer avec amour",
+		"titleno": "Signer et envoyer - Aucune carte trouvée"
 	}
 }

@@ -1,7 +1,7 @@
 <ion-content>
     <section class="section-name padding-y-sm">
         <div class="container animate main">
-            <div class="row">
+            <div class="row text-center">
                 <div class="col-md-12">
                     <img src="/assets/images/sticker-banner-2.png" class="img-fluid">
                     <br/>
@@ -9,20 +9,20 @@
                     <br/>
                 </div>
             </div>
-            <div class="row" *ngIf="caption">
+            <div class="row text-center" *ngIf="caption">
                 <div class="col-md-12">
                     <header class="section-heading">
                         <h3 class="section-title">{{caption}}</h3>
                     </header>
                 </div>
             </div>
-            <div class="row" *ngIf="loading">
+            <div class="row text-center" *ngIf="loading">
                 <div class="col-md-12">
                     <mat-progress-bar mode="indeterminate" value=100></mat-progress-bar>
                 </div>
             </div>
             <app-card-list *ngIf="cards.length > 0" [cards]="cards"></app-card-list>
-            <div class="row">
+            <div class="row text-center">
                 <div class="col-md-12">
                     <img src="/assets/images/fathers/fs-sticker.png">
                 </div>
@@ -32,7 +32,7 @@
     </section>
     <section style="background: #eff399;padding-top: 2%; padding-bottom: 2%;">
         <div class="container">
-            <div class="row">
+            <div class="row text-center">
                 <div class="col-md-6">
                     <a [routerLink]="['/events']">
                     <img src="/assets/images//fathers/shop-cards.png">

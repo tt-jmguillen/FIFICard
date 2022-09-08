@@ -45,6 +45,7 @@
 .full-width{
     width:100%;
 }
+
 .my-nav-btn    
 {
     padding: 0;
@@ -52,4 +53,9 @@
     margin: 0;
     height: 28px;
     line-height: 28px;
+}
+
+.disable {
+    cursor: not-allowed;
+    color: #aaa;
 }

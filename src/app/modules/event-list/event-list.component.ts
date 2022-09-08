@@ -24,7 +24,7 @@ export class EventListComponent implements OnInit {
   }
 
   loadEvents(){
-    this.service.getEventNonGift().then((data: Event[]) => {
+    this.service.getEvents().then((data: Event[]) => {
       data.forEach(event => {
         if (event.active){
           event.image = `assets/images/event/thumbnail/${this.replaceAll(event.name!)}-min.png`;

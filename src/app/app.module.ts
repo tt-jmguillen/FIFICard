@@ -93,6 +93,8 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { OrdercountComponent } from './modules/ordercount/ordercount.component';
+import { SpecialtyCardsPageComponent } from './specialty-cards-page/specialty-cards-page.component';
+import { ECardsPageComponent } from './e-cards-page/e-cards-page.component';
 
 @NgModule({
   declarations: [
@@ -160,7 +162,9 @@ import { OrdercountComponent } from './modules/ordercount/ordercount.component';
     JustBecauseComponent,
     JustBecauseGreetingsComponent,
     EmojiComponent,
-    OrdercountComponent
+    OrdercountComponent,
+    SpecialtyCardsPageComponent,
+    ECardsPageComponent
   ],
   imports: [
     BrowserModule,

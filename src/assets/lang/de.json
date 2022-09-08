@@ -105,7 +105,11 @@
 		"profile": "Profil",
 		"shippingaddress": "Lieferanschrift",
 		"signout": "Ausloggen",
-		"stickers": "Aufkleber"
+		"stickers": "Aufkleber",
+		"specialtycard": "Spezialitätenkarte",
+		"signandsend": "Unterschreiben und senden",
+		"ecards": "E-Karten",
+		"bestcreations": "Beste Kreation"
 	},
 	"month": {
 		"apr": "April",
@@ -253,6 +257,12 @@
 		"fontsize": "Schriftgröße",
 		"insertatext": "Fügen Sie einen Text ein",
 		"title": "Unterschreiben und senden",
-		"yourmessage": "Ihre Nachricht"
+		"yourmessage": "Ihre Nachricht",
+		"tagline": "Das Versenden von Karten ist viel einfacher, einfacher und anpassbar",
+		"inarush": "In Eile? Finden und personalisieren Sie Ihre Karte hier!",
+		"signandcustomize": "Signieren und anpassen",
+		"pickacard": "Nimm eine Karte",
+		"sendwithlove": "Senden Sie mit Liebe",
+		"titleno": "Unterschreiben und senden - Keine Karte gefunden"
 	}
 }

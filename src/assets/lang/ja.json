@@ -105,7 +105,11 @@
 		"profile": "プロフィール",
 		"shippingaddress": "お届け先の住所",
 		"signout": "サインアウト",
-		"stickers": "ステッカー"
+		"stickers": "ステッカー",
+		"specialtycard": "特殊カード",
+		"signandsend": "署名して送信",
+		"ecards": "Eカード",
+		"bestcreations": "最優秀作品"
 	},
 	"month": {
 		"apr": "4月",
@@ -253,6 +257,12 @@
 		"fontsize": "フォントサイズ",
 		"insertatext": "テキストを挿入する",
 		"title": "署名して送信",
-		"yourmessage": "あなたのメッセージ"
+		"yourmessage": "あなたのメッセージ",
+		"tagline": "カードの送信がはるかに簡単、シンプル、カスタマイズ可能",
+		"inarush": "大急ぎで？ここでカードを見つけてカスタマイズしましょう！",
+		"signandcustomize": "サイン＆カスタマイズ",
+		"pickacard": "カードを選ぶ",
+		"sendwithlove": "愛をこめて送る",
+		"titleno": "署名して送信 - カードが見つかりません"
 	}
 }

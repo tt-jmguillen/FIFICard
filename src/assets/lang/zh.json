@@ -105,7 +105,11 @@
 		"profile": "个人资料",
 		"shippingaddress": "收货地址",
 		"signout": "退出",
-		"stickers": "贴纸 "
+		"stickers": "贴纸 ",
+		"specialtycard": "专业卡",
+		"signandsend": "签名并发送",
+		"ecards": "电子贺卡",
+		"bestcreations": "最佳创作"
 	},
 	"month": {
 		"apr": "四月",
@@ -253,6 +257,12 @@
 		"fontsize": "字体大小",
 		"insertatext": "插入文本",
 		"title": "签名并发送",
-		"yourmessage": "你的消息"
+		"yourmessage": "你的消息",
+		"tagline": "发送卡片更容易、更简单且可自定义",
+		"inarush": "匆匆？在这里找到并定制您的卡片！",
+		"signandcustomize": "签名和定制",
+		"pickacard": "选择一张卡片",
+		"sendwithlove": "带着爱送",
+		"titleno": "签名并发送 - 未找到卡"
 	}
 }
