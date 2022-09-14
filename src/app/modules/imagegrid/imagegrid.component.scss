@@ -11,18 +11,12 @@
 }
 
 .mainimagediv {
-    //height: 500px;
-    // margin-top: 30px;
-    // margin-bottom: 50px;
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    min-height: 200px;
-    margin-bottom: 10px;
+    width: 100%;
+    min-height: 300px;
 }
 
 .imagediv {
-    margin-bottom: 20px;
+    min-height: 50px;
 }
 
 ::ng-deep .ngxImageZoomContainer{

@@ -13,7 +13,7 @@ export class CardComponent implements OnInit {
 
   service: CardService;
   card?: Card;
-  imageURL?: string;
+  imageURL: string = '';
   rateAve:  number;
   rateCount:  number;
 

@@ -1,4 +1,4 @@
-<div class="card card-product-grid" *ngIf="card">
+<div class="card" *ngIf="card">
   <a [routerLink]="['/card/' + card!.id]" class="img-wrap" title="{{card!.name}}">
     <img src="{{this.imageURL!}}">
   </a>

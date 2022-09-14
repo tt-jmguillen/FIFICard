@@ -54,7 +54,7 @@
     </div>
     <div class="col-12 text-center">
         <br />
-        <label>
+        <label *ngIf="selectedPage">
             {{'cards.showing'|translate}} {{selectedPage.start}} - {{selectedPage.end}} {{'cards.to'|translate}} {{sortCards.length}} {{'cards.items'|translate}}
         </label>
         <br />
@@ -85,7 +85,7 @@
     </div>
     <div class="col-md-12 text-center">
         <br />
-        <label>
+        <label *ngIf="selectedPage">
             {{'cards.showing'|translate}} {{selectedPage.start}} - {{selectedPage.end}} {{'cards.to'|translate}} {{sortCards.length}} {{'cards.items'|translate}}
         </label>
         <br />

@@ -110,4 +110,5 @@ upload-keystore.jks
 !src/assets/images/event/thumbnail/*.png
 !src/assets/emoticon.xml
 !src/assets/lang/*.json
+!src/assets/images/loading.gif
 

@@ -95,6 +95,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { OrdercountComponent } from './modules/ordercount/ordercount.component';
 import { SpecialtyCardsPageComponent } from './specialty-cards-page/specialty-cards-page.component';
 import { ECardsPageComponent } from './e-cards-page/e-cards-page.component';
+import { ImageLoaderComponent } from './modules/image-loader/image-loader.component';
 
 @NgModule({
   declarations: [
@@ -164,7 +165,8 @@ import { ECardsPageComponent } from './e-cards-page/e-cards-page.component';
     EmojiComponent,
     OrdercountComponent,
     SpecialtyCardsPageComponent,
-    ECardsPageComponent
+    ECardsPageComponent,
+    ImageLoaderComponent
   ],
   imports: [
     BrowserModule,

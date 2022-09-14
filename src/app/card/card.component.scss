@@ -8,17 +8,21 @@
 }
 
 img{
-  height: 200px;
+  max-width: 1005;
+  max-height: 200px;
 }
 
 .pill{
   border-radius: 80px;
   padding: 3px 20px 3px 20px !important
 }
+
 .card .img-wrap
 {
   background-color: #fbf4ff;
+  height: 200px;
 }
+
 .card card-product-grid:hover
 {
 border:1px solid darkviolet

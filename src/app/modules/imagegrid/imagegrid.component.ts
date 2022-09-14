@@ -1,5 +1,6 @@
+import { ImageLoaderComponent } from './../image-loader/image-loader.component';
 import { environment } from './../../../environments/environment';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { CardService } from 'src/app/services/card.service';
 
 export class ItemImage{
@@ -21,40 +22,33 @@ export class ItemImage{
 export class ImagegridComponent implements OnInit {
   @Input() id?: string;
 
-  url?: string;
-  urls: ItemImage[] = [];
-  service: CardService;
-  primary: string;
-
-  mode: string = 'hover';
-
   constructor(
     private _service: CardService
   ) { 
     this.service = _service;
   }
 
+  selectedimage: string;
+  images: string[] = [];
+  service: CardService;
+  primary: string;
+  mode: string = 'hover';
+
   ngOnInit(): void {
     this.service.getCard(this.id!).subscribe(data => {
-      if (this.urls.length == 0){
-        this.primary = data.primary!;
+      this.selectedimage = data.primary!;
 
-        if (data.images){
-          if (data.images.length > 0){
-            data.images.forEach(image => {
-              let itemImage: ItemImage = new ItemImage(image);
-              this.urls.push(itemImage);
-            });
-
-            this.urls.forEach(image => {
-              this.getImages(image.image!);
-            });
-          }
-        }
+      if (data.images){
+        this.images = data.images;
       }
     });
   }
 
+  changeImage(url: string){
+    this.selectedimage = url;
+  }
+
+ /*
   getImages(image: string){
     this.service.getImageURL(image + environment.imageSize.small).then(url => {
       this.AddURL(image, url, 1);
@@ -67,6 +61,7 @@ export class ImagegridComponent implements OnInit {
     });
   }
 
+  
   AddURL(_image: string, _url: string, type: number): Promise<boolean>{
     return new Promise((resolve) => {
       this.urls?.forEach(url => {
@@ -90,10 +85,11 @@ export class ImagegridComponent implements OnInit {
       resolve(true);
     })
   }
+  
 
   changeImage(_url: ItemImage){
     //console.log(_url);
     this.url = _url.url;
   }
-
+  */
 }
