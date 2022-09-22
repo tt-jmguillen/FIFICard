@@ -1,0 +1,15 @@
+img {
+    cursor: pointer;
+    opacity: 0.6;
+    padding: 1px 1px 1px 1px;
+}
+
+img:hover {
+    opacity: 1;
+}
+
+.selected {
+    opacity: 1;
+    border: solid #6610f2 2px;
+    cursor: not-allowed;
+}

@@ -28,4 +28,6 @@ export class Order {
     public paymentId?: string;
     public withSignAndSend?: boolean;
     public count?: number;
+    public type?: string;
+    public added_price?: number;
 }

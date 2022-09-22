@@ -1,3 +1,4 @@
+import { SettingService } from './../services/setting.service';
 import { ShippingService } from './../services/shipping.service';
 import { EventService } from './../services/event.service';
 import { Fee } from './../models/fee';
@@ -50,6 +51,7 @@ export class OrderComponent implements OnInit {
   addressService: AddressService;
   eventService: EventService;
   shippingService: ShippingService;
+  settingService: SettingService;
   modalService: NgbModal;
   router: Router;
 
@@ -90,6 +92,10 @@ export class OrderComponent implements OnInit {
   language: string = 'en';
   descriptionTranslation: Translation;
 
+  defaultType: string = '';
+  changeTo: string = '';
+  addedPrice: number = 0;
+
   constructor(
     _titleService: Title,
     _formBuilder: FormBuilder,
@@ -102,6 +108,7 @@ export class OrderComponent implements OnInit {
     _eventService: EventService,
     _shippingService: ShippingService,
     _translationService: TranslationService,
+    _settingService: SettingService,
     _modalService: NgbModal,
     _filter: FilterService,
     _router: Router,
@@ -119,6 +126,7 @@ export class OrderComponent implements OnInit {
     this.eventService = _eventService;
     this.shippingService = _shippingService;
     this.translationService = _translationService;
+    this.settingService = _settingService;
     this.modalService = _modalService;
     this.filter = _filter;
     this.router = _router;
@@ -176,6 +184,8 @@ export class OrderComponent implements OnInit {
       this.getTranslation(this.card.id!);
       this.subscribeLanguage();
       this.subscribeTranslation(this.card.id!);
+
+      this.getType(this.card.types![0]);
     });
   }
 
@@ -253,6 +263,8 @@ export class OrderComponent implements OnInit {
     order.withSignAndSend = this.isWithSignAndSend;
     order.address = this.generateFullAddress(order);
     order.shipping_fee = this.shippingfee;
+    order.type = this.changeTo;
+    order.added_price = this.addedPrice;
 
     this.computeTotal();
     this.createAnOrder(order).then(id => {
@@ -447,22 +459,22 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  subscribeLanguage(){
+  subscribeLanguage() {
     this.filter.getLang().subscribe(lang => {
       this.language = lang;
       this.loadTranslation();
     });
   }
 
-  subscribeTranslation(id: string){
+  subscribeTranslation(id: string) {
     this.translationService.subscribeTranslation(id).subscribe(data => {
       this.descriptionTranslation = data['translated']['description'] as Translation;
       this.loadTranslation();
     })
   }
 
-  loadTranslation(){
-    if (this.descriptionTranslation){
+  loadTranslation() {
+    if (this.descriptionTranslation) {
       if (this.language == 'es') this.description = this.descriptionTranslation.es ? this.descriptionTranslation.es : this.description;
       else if (this.language == 'fr') this.description = this.descriptionTranslation.fr ? this.descriptionTranslation.fr : this.description;
       else if (this.language == 'zh') this.description = this.descriptionTranslation.zh ? this.descriptionTranslation.zh : this.description;
@@ -472,7 +484,7 @@ export class OrderComponent implements OnInit {
     }
   }
 
-  getTranslation(id: string){
+  getTranslation(id: string) {
     this.translationService.getTranslation(id).then(data => {
       if (!this.verify(data))
         this.updateTranslation(id, this.description);
@@ -481,23 +493,39 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  addTranslation(id: string , description: string){
+  addTranslation(id: string, description: string) {
     this.translationService.addTranslation(id, description);
   }
 
-  updateTranslation(id: string, description: string){
+  updateTranslation(id: string, description: string) {
     console.log(description);
     this.translationService.updateTranslation(id, description + ' ');
   }
 
-  verify(translation: Translation): boolean{
+  verify(translation: Translation): boolean {
     let valid: boolean = true;
-    if (translation.en && translation.zh && translation.es && translation.fr && translation.de && translation.ja){
+    if (translation.en && translation.zh && translation.es && translation.fr && translation.de && translation.ja) {
       valid = true;
     }
-    else{
+    else {
       valid = false;
     }
     return valid;
+  }
+
+  getType(def: string) {
+    this.settingService.getCardType().then(data => {
+      data.forEach(cardType => {
+        if (def.toLowerCase() == cardType.name.toLowerCase()) {
+          this.defaultType = cardType.name;
+          this.changeTo = cardType.name;
+        }
+      })
+    })
+  }
+
+  upgrade(value: [string, number]) {
+    this.changeTo = value[0];
+    this.addedPrice = value[1];
   }
 }

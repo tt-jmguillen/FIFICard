@@ -16,12 +16,12 @@ export class OrderService {
   constructor(
     private _storage: Storage,
     private _store: Firestore
-  ) { 
+  ) {
     this.storage = _storage;
     this.store = _store;
   }
-  
-  async createOrder(order: Order): Promise<string>{
+
+  async createOrder(order: Order): Promise<string> {
     return new Promise((resolve, rejects) => {
       const data = collection(this.store, 'orders')
       addDoc(data, {
@@ -48,6 +48,8 @@ export class OrderService {
         isPaid: false,
         count: order.count,
         shipping_fee: order.shipping_fee,
+        type: order.type,
+        added_price: order.added_price,
         created: Timestamp.now()
       }).then(docRef => {
         resolve(docRef.id);
@@ -57,7 +59,7 @@ export class OrderService {
     });
   }
 
-  async createAddMore(order: Order): Promise<string>{
+  async createAddMore(order: Order): Promise<string> {
     return new Promise((resolve, rejects) => {
       const data = collection(this.store, 'orders')
       addDoc(data, {
@@ -77,21 +79,21 @@ export class OrderService {
     });
   }
 
-  getOrder(id: string): Promise<Order>{
+  getOrder(id: string): Promise<Order> {
     return new Promise((resolve) => {
       const data = doc(this.store, 'orders/' + id);
-      (docData(data, {idField: 'id'}) as Observable<Order>).subscribe(order => {
+      (docData(data, { idField: 'id' }) as Observable<Order>).subscribe(order => {
         resolve(order);
       });
     });
   }
 
-  subscribeOrder(id: string): Observable<Order>{
+  subscribeOrder(id: string): Observable<Order> {
     const data = doc(this.store, 'orders/' + id);
-    return docData(data, {idField: 'id'}) as Observable<Order>;
+    return docData(data, { idField: 'id' }) as Observable<Order>;
   }
 
-  updatePaidOrder(id: string, paymentId: string){
+  updatePaidOrder(id: string, paymentId: string) {
     const data = doc(this.store, 'orders/' + id);
     updateDoc(data, {
       isPaid: true,
@@ -99,7 +101,7 @@ export class OrderService {
     });
   }
 
-  updatePaidOrders(ids: string[], paymentId: string){
+  updatePaidOrders(ids: string[], paymentId: string) {
     ids.forEach(id => {
       const data = doc(this.store, 'orders/' + id);
       updateDoc(data, {
@@ -109,7 +111,7 @@ export class OrderService {
     });
   }
 
-  addSignAndSend(orderId: string, sign: SignAndSendDetails){
+  addSignAndSend(orderId: string, sign: SignAndSendDetails) {
     return new Promise((resolve, rejects) => {
       const data = collection(this.store, 'orders/' + orderId + '/signandsend')
       addDoc(data, {
@@ -125,7 +127,7 @@ export class OrderService {
         size: sign.size,
         alignment: sign.alignment
       }).then(docRef => {
-        const data = docData(docRef, {idField: 'id'}) as Observable<SignAndSendDetails>;
+        const data = docData(docRef, { idField: 'id' }) as Observable<SignAndSendDetails>;
         data.subscribe(doc => {
           resolve(doc);
         });
@@ -135,5 +137,5 @@ export class OrderService {
     });
   }
 
- 
+
 }

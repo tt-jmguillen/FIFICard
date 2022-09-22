@@ -96,6 +96,7 @@ import { OrdercountComponent } from './modules/ordercount/ordercount.component';
 import { SpecialtyCardsPageComponent } from './specialty-cards-page/specialty-cards-page.component';
 import { ECardsPageComponent } from './e-cards-page/e-cards-page.component';
 import { ImageLoaderComponent } from './modules/image-loader/image-loader.component';
+import { TypeUpgradeComponent } from './order/type-upgrade/type-upgrade.component';
 
 @NgModule({
   declarations: [
@@ -166,7 +167,8 @@ import { ImageLoaderComponent } from './modules/image-loader/image-loader.compon
     OrdercountComponent,
     SpecialtyCardsPageComponent,
     ECardsPageComponent,
-    ImageLoaderComponent
+    ImageLoaderComponent,
+    TypeUpgradeComponent
   ],
   imports: [
     BrowserModule,
