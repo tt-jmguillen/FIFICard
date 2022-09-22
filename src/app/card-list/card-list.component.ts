@@ -1,8 +1,10 @@
+import { SettingService } from './../services/setting.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RecipientService } from './../services/recipient.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Card } from '../models/card';
 import { Recipient } from '../models/recipient';
+import { Cardtype } from '../models/cardtype';
 
 export class Page {
   public index: number;
@@ -28,10 +30,12 @@ export class CardListComponent implements OnInit {
   @Input() recipient: string;
 
   recipientService: RecipientService;
+  settingService: SettingService;
 
   recipientConfig: Recipient[] = [];
 
   budget: string = '';
+  type: string = '';
   sort: string = '';
 
   filterCards: Card[] = [];
@@ -49,30 +53,41 @@ export class CardListComponent implements OnInit {
   recipients: string[] = [];
   selectedRecipient: string;
 
+  types: Cardtype[] = [];
+
   constructor(
-    _recipientService: RecipientService
-  ) { 
-    this.recipientService = _recipientService
+    _recipientService: RecipientService,
+    _settingService: SettingService
+  ) {
+    this.recipientService = _recipientService;
+    this.settingService = _settingService;
   }
 
   ngOnInit(): void {
+    this.getTypes();
+
     this.getRecipientConfig().then(recipients => {
       this.recipientConfig = recipients;
       this.loadCards();
     });
   }
 
-  getRecipientConfig(): Promise<Recipient[]>
-  {
+  getRecipientConfig(): Promise<Recipient[]> {
     return new Promise((resolve) => {
       this.recipientService.getRecipients().then(recipients => resolve(recipients));
     })
   }
 
-  loadCards(){
+  getTypes() {
+    this.settingService.getCardType().then(types => {
+      this.types = types;
+    })
+  }
+
+  loadCards() {
     this.filterCards = this.cards;
     this.loadRecipient(this.cards);
-    this.selectedRecipient = this.recipient!=undefined?this.recipient:this.selectedRecipient;
+    this.selectedRecipient = this.recipient != undefined ? this.recipient : this.selectedRecipient;
     this.filterCards = this.filterForRecipient();
     this.applyDisplayFilterAndSort();
   }
@@ -95,11 +110,14 @@ export class CardListComponent implements OnInit {
     if (this.budget) {
       this.sortCards = this.filterForBudget(this.budget, this.sortCards);
     }
+    if (this.type) {
+      this.sortCards = this.filterForType(this.type, this.sortCards);
+    }
     this.sortCards = this.sortRecord(this.sort, this.sortCards);
 
-    if (this.priority != undefined){
+    if (this.priority != undefined) {
       let index: number = this.sortCards.findIndex(x => x.id! == this.priority);
-      if (index >= 0){
+      if (index >= 0) {
         let card = this.sortCards[index];
         this.sortCards.splice(index, 1);
         this.sortCards.unshift(card);
@@ -111,17 +129,17 @@ export class CardListComponent implements OnInit {
   }
 
   filterForRecipient(): Card[] {
-    if(this.selectedRecipient != "All"){
+    if (this.selectedRecipient != "All") {
       let cards: Card[] = []
       this.cards.forEach(card => {
-        let recipients = card.recipients != undefined? card.recipients: card.recipient!.split(',');
-        if (recipients.findIndex(x => x.toLowerCase() == this.selectedRecipient.toLocaleLowerCase()) >= 0){
+        let recipients = card.recipients != undefined ? card.recipients : card.recipient!.split(',');
+        if (recipients.findIndex(x => x.toLowerCase() == this.selectedRecipient.toLocaleLowerCase()) >= 0) {
           cards.push(card);
         }
       });
       return cards;
     }
-    else{
+    else {
       return this.cards;
     }
   }
@@ -143,6 +161,21 @@ export class CardListComponent implements OnInit {
         if (200 <= Number(card.price!)) {
           filtered.push(card);
         }
+      }
+    });
+    return filtered;
+  }
+
+  filterForType(_type: string, data: Card[]): Card[] {
+    let filtered: Card[] = [];
+    data.forEach(card => {
+      if (card.types) {
+        card.types.forEach(type => {
+          if (type.toUpperCase() == _type.toUpperCase()) {
+            filtered.push(card);
+          }
+        })
+
       }
     });
     return filtered;
@@ -176,21 +209,21 @@ export class CardListComponent implements OnInit {
 
     this.cards.forEach(card => {
       card.recipients?.forEach(recipient => {
-        if ((recipient.toLocaleLowerCase() != 'all') && (recipient.toLocaleLowerCase() != 'any') && (recipient != '')){
-          if (this.recipientConfig.findIndex(x => x.name.trim().toLowerCase() ==  recipient.trim().toLowerCase()) >= 0){
-            if (this.recipients.findIndex(x => x.trim().toLowerCase() == recipient.trim().toLowerCase()) < 0){
+        if ((recipient.toLocaleLowerCase() != 'all') && (recipient.toLocaleLowerCase() != 'any') && (recipient != '')) {
+          if (this.recipientConfig.findIndex(x => x.name.trim().toLowerCase() == recipient.trim().toLowerCase()) >= 0) {
+            if (this.recipients.findIndex(x => x.trim().toLowerCase() == recipient.trim().toLowerCase()) < 0) {
               this.recipients.push(recipient.trim());
               this.selectedRecipient = recipient.trim();
             }
           }
         }
-        else{
+        else {
           withOther = true;
         }
       })
     });
 
-    if (withOther){
+    if (withOther) {
       this.recipients.unshift("All");
       this.selectedRecipient = "All";
     }
@@ -218,7 +251,7 @@ export class CardListComponent implements OnInit {
         page.start = page.end - (this.batchLimit - 1);
       else
         page.start = 1;
-      
+
       //page.display = `${this.page} ${i} ${this.of} ${this.batchCount}`;
       //page.showing = `${this.showing} ${page.start} - ${page.end} ${this.to} ${this.sortCards.length} ${this.items}`;
       this.pages.push(page);
@@ -269,6 +302,13 @@ export class CardListComponent implements OnInit {
 
   changeBudget(event: any) {
     this.budget = event.target.value;
+    if (this.filterCards.length > 0) {
+      this.applyDisplayFilterAndSort();
+    }
+  }
+
+  changeType(event: any) {
+    this.type = event.target.value;
     if (this.filterCards.length > 0) {
       this.applyDisplayFilterAndSort();
     }
