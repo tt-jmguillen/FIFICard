@@ -49,7 +49,6 @@ export class OrderService {
         count: order.count,
         shipping_fee: order.shipping_fee,
         type: order.type,
-        added_price: order.added_price,
         created: Timestamp.now()
       }).then(docRef => {
         resolve(docRef.id);

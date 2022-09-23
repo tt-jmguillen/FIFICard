@@ -7,12 +7,12 @@ import { throws } from 'assert';
 import { Recipient } from '../models/recipient';
 import { RecipientService } from '../services/recipient.service';
 
-export class EventSetting{
+export class EventSetting {
   public event: string;
   public mainCard: string;
   public bannerLink: string;
 
-  constructor(_event: string, _mainCard: string, _bannerLink: string){
+  constructor(_event: string, _mainCard: string, _bannerLink: string) {
     this.event = _event;
     this.mainCard = _mainCard;
     this.bannerLink = _bannerLink;
@@ -55,7 +55,7 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.eventSettings.push(new EventSetting('Confirmation','tdvYzC3lT3vPdZzTkP7D', '/card/9gJZdaXDGk74siRExTrd'));
+    this.eventSettings.push(new EventSetting('Confirmation', 'tdvYzC3lT3vPdZzTkP7D', '/card/9gJZdaXDGk74siRExTrd'));
     this.eventSettings.push(new EventSetting('Wedding', 'P390wMwR8PGyAgy51vrY', '/card/B7xwfIgXhIUFxfNhI8xX'));
     this.eventSettings.push(new EventSetting('Thinking Of You', 'mAyLGGHHq8x1XqawDacL', '/card/6utqlq60ud67qCKbOcm4'));
     this.eventSettings.push(new EventSetting('Halloween', 'wkrjkOcpYUX3eUyJ08tj', '/card/07F8gW94f6mGFHISQpWx'));
@@ -69,7 +69,7 @@ export class CardsComponent implements OnInit {
     this.eventSettings.push(new EventSetting('MILITARY APPRECIATION', 'vP08uWaWJ2fNePPpHeoT', '/card/dEQWrVtbl3Q5IYUFmIGn'));
     this.eventSettings.push(new EventSetting('MOTHERS DAY', '6C3GEEQumsH9rh1iRV9y', '/card/qlYBuR3MbsgYQIwTCLBh'));
     this.eventSettings.push(new EventSetting('RETIREMENT', 'rmpdW3x0NH2r8LZr9l8U', '/card/excJgjQ91iECBWEkR51p'));
-    this.eventSettings.push(new EventSetting('LOVE YOUR ENEMY','caUWVUzKKJui3hmnalaQ', '/card/ttTvbl6pLgKC9FdWOp5u'));
+    this.eventSettings.push(new EventSetting('LOVE YOUR ENEMY', 'caUWVUzKKJui3hmnalaQ', '/card/ttTvbl6pLgKC9FdWOp5u'));
     this.eventSettings.push(new EventSetting('DISTRESS', 'z3Vlo33fi5BUTEOcJ0t1', '/card/xC9akQ3IwA9QsE9jRbw4'));
     this.eventSettings.push(new EventSetting('GRADUATION', 'hYCJwp6kDMHVgXY4FMuJ', '/card/LG91AKqkj1dsvvql51Zv'));
     this.eventSettings.push(new EventSetting('CONGRATULATIONS', 'LT6CjyAyAqmYYTihNOx1', '/card/nkUZxp04stsB8SVxCVhy'));
@@ -97,8 +97,8 @@ export class CardsComponent implements OnInit {
       }
 
       if ((this.event) && (this.event! != 'All')) {
-        let index = this.eventSettings.findIndex(x => this.replaceAll(x.event) ==  this.replaceAll(this.event!));
-        if (index >= 0){
+        let index = this.eventSettings.findIndex(x => this.replaceAll(x.event) == this.replaceAll(this.event!));
+        if (index >= 0) {
           this.eventSetting = this.eventSettings[index];
         }
         this.getCardsForEvent(this.event!);
@@ -143,7 +143,6 @@ export class CardsComponent implements OnInit {
       this.loading = false;
       this.caption! = "Search: " + this.search;
       this.cards = data;
-      console.log(data);
     }).catch(err => {
       this.loading = false;
       this.caption! = "Search: " + this.search + " - No Record Found";

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12" *ngIf="choices.length > 1" class="pb-2">
-        Change to:
+        {{'order.changeto'|translate}}:
     </div>
     <div class="col-4" *ngFor="let choice of choices">
         <img src="../../../assets/images/cardtype/t-STANDARD.png" title="Standard" *ngIf="choice.type == 'STANDARD'" [ngClass]="selected.toUpperCase() == 'STANDARD'?'selected':''" (click)="change(choice)">

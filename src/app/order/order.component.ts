@@ -94,7 +94,7 @@ export class OrderComponent implements OnInit {
 
   defaultType: string = '';
   changeTo: string = '';
-  addedPrice: number = 0;
+  cardPrice: number = 0;
 
   constructor(
     _titleService: Title,
@@ -175,7 +175,8 @@ export class OrderComponent implements OnInit {
   loadCard() {
     this.cardService.getCard(this.id!).subscribe(data => {
       this.card = data;
-      this.titleService.setTitle(this.card?.name!);
+      this.cardPrice = this.card!.price!;
+      this.titleService.setTitle(this.card!.name!);
       this.getAvailableURL(this.card.primary!).then(url => {
         this.primaryImageURL = url;
       });
@@ -258,13 +259,12 @@ export class OrderComponent implements OnInit {
     let order: Order = this.form.value as Order;
     order.user_id = this.uid;
     order.card_id = this.card.id;
-    order.card_price = this.card.price;
+    order.card_price = this.cardPrice;
     order.count = 1;
     order.withSignAndSend = this.isWithSignAndSend;
     order.address = this.generateFullAddress(order);
     order.shipping_fee = this.shippingfee;
     order.type = this.changeTo;
-    order.added_price = this.addedPrice;
 
     this.computeTotal();
     this.createAnOrder(order).then(id => {
@@ -526,6 +526,6 @@ export class OrderComponent implements OnInit {
 
   upgrade(value: [string, number]) {
     this.changeTo = value[0];
-    this.addedPrice = value[1];
+    this.cardPrice = this.card!.price! + value[1];
   }
 }

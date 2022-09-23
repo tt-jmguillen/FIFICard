@@ -32,7 +32,7 @@
                         <app-type-upgrade [def]="defaultType" [sel]="changeTo" (additional)=" upgrade($event)"></app-type-upgrade>
                     </div>
                     <div class="col-6 mb-2">
-                        <h5 class="section-title" *ngIf="card">₱{{((card!.price!-0) + (addedPrice-0))| number:'1.2-2'}}</h5>
+                        <h5 class="section-title" *ngIf="card">₱{{cardPrice| number:'1.2-2'}}</h5>
                     </div>
                     <div class="col-6 mb-2 d-flex align-items-center justify-content-end">
                         <button class="btn btn-light inst-but" (click)="showInstruction()">{{(card!.signAndSend?'order.howtosignandsend':'order.howtobuy')|translate}}</button>
@@ -198,11 +198,11 @@
                     <div class="row">
                         <div class="col-2"><img src="{{primaryImageURL}}"></div>
                         <div class="col-7">
-                            <label>{{card?.name}}</label><br />
+                            <label>{{card!.name}}</label><br />
                             <label>{{'order.shippingfee'|translate}}</label>
                         </div>
                         <div class="col-3 allign-right">
-                            <label *ngIf="card">{{card.primary| number:'1.2-2'}}</label><br />
+                            <label *ngIf="card">{{cardPrice| number:'1.2-2'}}</label><br />
                             <label>{{shippingfee! > 0?(shippingfee| number:'1.2-2'):'Free'}}</label>
                         </div>
                     </div>

@@ -19,6 +19,9 @@
             <div class="col-12" *ngIf="!order.parentOrder">
                 {{'cart.signandsend'|translate}}: <strong>{{order.withSignAndSend?'Yes':'No'}}</strong>
             </div>
+            <div class="col-12" *ngIf="!order.parentOrder">
+                {{'cart.type'|translate}}: <strong>{{order.type}}</strong>
+            </div>
             <div class="col-12" *ngIf="order.created">
                 {{'cart.date'|translate}}: {{order.created!.seconds * 1000 | date:'medium'}}
             </div>

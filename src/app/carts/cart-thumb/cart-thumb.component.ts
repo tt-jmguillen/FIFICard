@@ -28,7 +28,7 @@ export class CartThumbComponent implements OnInit {
   constructor(
     _orderService: OrderService,
     _cardService: CardService
-  ) { 
+  ) {
     this.orderService = _orderService;
     this.cardService = _cardService;
   }
@@ -37,7 +37,7 @@ export class CartThumbComponent implements OnInit {
     this.getOrder();
   }
 
-  getOrder(){
+  getOrder() {
     this.orderService.getOrder(this.id).then(order => {
       this.order = order;
       this.updateOrder.emit(order);
@@ -45,7 +45,7 @@ export class CartThumbComponent implements OnInit {
     })
   }
 
-  getCard(id: string){
+  getCard(id: string) {
     this.cardService.getACard(id).then(card => {
       this.card = card;
       this.updateCard.emit([this.id, this.card]);
@@ -53,22 +53,22 @@ export class CartThumbComponent implements OnInit {
     })
   }
 
-  getAvailableURL(image: string){
+  getAvailableURL(image: string) {
     this.cardService.getImageURL(image + environment.imageSize.small).then(url => {
       this.url = url;
     }).catch(err => {
       this.cardService.getImageURL(image).then(url => {
         this.url = url;
-      }).catch(err => {});
+      }).catch(err => { });
     });
   }
 
-  updateInclude(){
+  updateInclude() {
     this.selected = !this.selected;
     this.changeInclude.emit([this.id, this.selected]);
   }
 
-  delete(){
+  delete() {
     this.deleteItem.emit(this.id);
   }
 }
