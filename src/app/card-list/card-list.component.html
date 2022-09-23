@@ -15,7 +15,7 @@
             </div>
             <div class="col-md-4 col-4">
                 <select class="form-select" aria-label="Type" (change)="changeType($event)">
-                    <option value="" [selected]="type == ''">Type</option>
+                    <option value="" [selected]="type == ''">{{'cards.type'|translate}}</option>
                     <option *ngFor="let item of types" [value]="item.name" [selected]="type == item.name">{{item.name}}</option>
                 </select>
             </div>
@@ -35,7 +35,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12 my-recipient">
+    <div class="col-md-12 my-recipient pb-2">
         <span class="imagediv hover-target" *ngFor="let recipient of recipients" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient ? 'blueviolet' : '', 'color': selectedRecipient==recipient ? 'white' : ''}">
             {{recipient}}
         </span>
@@ -62,7 +62,7 @@
         <br />
     </div>
 </div>
-<div class="row">
+<div class="row pb-5">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-6 pb-2" *ngFor="let card of displayCards">
         <app-card id="{{card?.id}}"></app-card>
     </div>
