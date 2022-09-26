@@ -8,7 +8,7 @@ import { Event } from '../../models/event';
   styleUrls: ['./gift-events.component.scss']
 })
 export class GiftEventsComponent implements OnInit {
-  @Input() order?: string[];
+  @Input() order: string[] = [];
 
   service: EventService;
   events: Event[] = [];
@@ -20,45 +20,25 @@ export class GiftEventsComponent implements OnInit {
     this.service = _service;
   }
 
-
   ngOnInit(): void {
     this.loadEvents();
   }
 
   loadEvents() {
-    this.service.getEventGift().then(data => {
-      if (this.order!.length > 0){
-        this.order!.forEach(name => {
-          let event: Event = data.find(x => x.name?.toLowerCase().trim() === name.toLowerCase().trim()) || {}
-          if (event != {}) {
-            this.addEvent(event);
-          }
-        });
-      }
-      else{
-        data.forEach(event => {
-          this.addEvent(event);
+    this.service.getEvents().then((data: Event[]) => {
+      if (this.order.length > 0) {
+        this.order.forEach(x => {
+          data.forEach(y => {
+            if (x.toLowerCase() == y.name!.toLowerCase()) {
+              this.events.push(y);
+            }
+          })
         })
       }
-    })
-  }
-
-  addEvent(event: Event) {
-    event.image = `../../assets/images/gift/${this.replaceAll(event.name!)}-min.png`;
-    if (event.name?.toUpperCase() == 'CREATIONS') {
-      this.ak.url = "/creations";
-    }
-    else {
-      event.url = `/cards/events/${event.name}`;
-    }
-    this.events.push(event);
-  }
-
-  replaceAll(value: string): string {
-    let newValue = value.split(' ').join('');
-    newValue = newValue.split("’").join('');
-    newValue = newValue.split("'").join('');
-    return newValue.toLocaleLowerCase();
+      else {
+        this.events = data;
+      }
+    });
   }
 
 }

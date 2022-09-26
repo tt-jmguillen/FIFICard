@@ -1,0 +1,37 @@
+.my-event div {
+    opacity: 0.8
+}
+
+.my-event div:hover,
+.my-event div:active {
+    opacity: 1
+}
+
+.title {
+    text-align: center;
+    background: #000;
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+
+.cursor {
+    cursor: pointer;
+    opacity: 0.8
+}
+
+.cursor:hover,
+.cursor:active {
+    opacity: 1;
+
+    .title {
+        background: #630ca5;
+    }
+}
+
+.none {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: .3;
+}

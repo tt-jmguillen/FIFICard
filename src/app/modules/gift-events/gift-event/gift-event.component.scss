@@ -1,19 +1,14 @@
-.my-event {
-    opacity: 0.8;
-    cursor: pointer;
-}
-
 .my-event img {
     border-radius: 50%;
     margin-bottom: 10px;
 }
 
-.my-event:hover,
-.my-event div:active {
+.cursor:hover,
+.cursor:active {
     opacity: 1
 }
 
-.my-event:hover img {
+.cursor:hover img {
 
     border-style: inset;
     border-width: 5px;
@@ -31,8 +26,8 @@
     color: white;
 }
 
-.my-event:hover div,
-.my-eventz:active div {
+.cursor:hover,
+.cursor:active {
     background: #630ca5;
 }
 
@@ -42,4 +37,15 @@
     padding-bottom: 10px;
     font-weight: bolder;
 
+}
+
+.cursor {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.none {
+    cursor: none;
+    pointer-events: none;
+    opacity: .3;
 }

@@ -8,64 +8,37 @@ import { Event } from '../../models/event';
   styleUrls: ['./event-list.component.scss']
 })
 export class EventListComponent implements OnInit {
-  @Input() order?: string[];
+  @Input() order: string[] = [];
+
   service: EventService;
-  events: Event[] = [];
-  displayEvents: Event[] = [];
 
   constructor(
     private _service: EventService
-  ) { 
+  ) {
     this.service = _service;
   }
+
+  events: Event[] = [];
 
   ngOnInit(): void {
     this.loadEvents();
   }
 
-  loadEvents(){
+  loadEvents() {
     this.service.getEvents().then((data: Event[]) => {
-      data.forEach(event => {
-        if (event.active){
-          event.image = `assets/images/event/thumbnail/${this.replaceAll(event.name!)}-min.png`;
-          if (event.name?.includes('Easter')){
-            event.url = `/cards/events/Easter`;
-          }
-          else if (event.name?.toUpperCase() == 'CREATIONS'){
-            event.url = "/creations"
-          }
-          else{
-            event.url = `/cards/events/${event.name}`;
-          }
-         
-          this.events.push(event);
-        }
-      });
-
-      if(this.order){
-        this.orderEvents();
+      if (this.order.length > 0) {
+        this.order.forEach(x => {
+          data.forEach(y => {
+            if (x.toLowerCase() == y.name!.toLowerCase()) {
+              this.events.push(y);
+            }
+          })
+        })
       }
-      else{
-        this.displayEvents = this.events;
+      else {
+        this.events = data;
       }
-    })
-  }
-
-  orderEvents(){
-    this.order?.forEach(name => {
-      this.events.forEach(event => {
-        if(event.name?.toLowerCase().replace("’",'').replace("'",'') == name.toLowerCase()){
-          this.displayEvents.push(event);
-        }
-      })
-    })
-  }
-
-  replaceAll(value: string): string{
-    let newValue = value.split(' ').join('');
-    newValue = newValue.split("’").join('');
-    newValue = newValue.split("'").join('');
-    return newValue.toLocaleLowerCase();
+    });
   }
 
 }

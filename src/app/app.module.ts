@@ -97,6 +97,8 @@ import { SpecialtyCardsPageComponent } from './specialty-cards-page/specialty-ca
 import { ECardsPageComponent } from './e-cards-page/e-cards-page.component';
 import { ImageLoaderComponent } from './modules/image-loader/image-loader.component';
 import { TypeUpgradeComponent } from './order/type-upgrade/type-upgrade.component';
+import { EventComponent } from './modules/event-list/event/event.component';
+import { GiftEventComponent } from './modules/gift-events/gift-event/gift-event.component';
 
 @NgModule({
   declarations: [
@@ -168,7 +170,9 @@ import { TypeUpgradeComponent } from './order/type-upgrade/type-upgrade.componen
     SpecialtyCardsPageComponent,
     ECardsPageComponent,
     ImageLoaderComponent,
-    TypeUpgradeComponent
+    TypeUpgradeComponent,
+    EventComponent,
+    GiftEventComponent
   ],
   imports: [
     BrowserModule,
