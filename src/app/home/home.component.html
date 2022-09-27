@@ -7,9 +7,37 @@
                         <!-- <img src="/assets/images/graduation/homepage-main-banner-min.png" routerLink="/graduation"
                             class="img-fluid cursor" title="Happy Graduation"> -->
 
-                            <img src="/assets/images/justbecause/homepage banner/home-just-because.png" routerLink="/justbecause"
-                            class="img-fluid cursor" title="/just because">
+                            <!-- <img src="/assets/images/justbecause/homepage banner/home-just-because.png" routerLink="/justbecause"
+                            class="img-fluid cursor" title="/just because"> -->
 
+                            <ngb-carousel #carousel>
+                                <ng-template ngbSlide>
+                                  <div class="picsum-img-wrapper">
+                                    <a href="#"><img src="/assets/images/slider/s-main.png" alt="FibeiGreetings"></a>
+                                  </div>
+                                </ng-template> 
+                                <ng-template ngbSlide>
+                                    <div class="picsum-img-wrapper">
+                                      <a href="#"><img src="/assets/images/slider/s-halloween.png" alt="FibeiGreetings"></a>
+                                    </div>
+                                  </ng-template>
+                                  <ng-template ngbSlide>
+                                    <div class="picsum-img-wrapper">
+                                      <a href="#"><img src="/assets/images/slider/s-xmas.png" alt="FibeiGreetings"></a>
+                                    </div>
+                                  </ng-template>
+                                  <ng-template ngbSlide>
+                                    <div class="picsum-img-wrapper">
+                                      <a href="#"><img src="/assets/images/slider/s-just-because.png" alt="FibeiGreetings"></a>
+                                    </div>
+                                  </ng-template>
+                                  <ng-template ngbSlide>
+                                    <div class="picsum-img-wrapper">
+                                      <a href="#"><img src="/assets/images/slider/s-sands.png" alt="FibeiGreetings"></a>
+                                    </div>
+                                  </ng-template>
+                              </ngb-carousel>
+                        
                     </div>
                 </div>
             </div>

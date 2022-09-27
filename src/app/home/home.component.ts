@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { Card } from '../models/card';
 import { CardService } from '../services/card.service';
@@ -10,7 +11,7 @@ import { CardService } from '../services/card.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  @ViewChild('carousel', {static : true}) carousel: NgbCarousel;
   service: CardService;
   bestsellerCards: Card[] = [];
   cards: Card[] = [];
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit {
   index: number;
   disablePrev: boolean;
   disableNext: boolean;
+  images: string[] =[];
 
   constructor(
     private router: Router,
@@ -31,6 +33,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.carousel.cycle();
     environment.redirect.forEach(element => {
       if (window.location.hostname.toLowerCase() == element.host.toLowerCase()){
         this.router.navigate([element.main]);

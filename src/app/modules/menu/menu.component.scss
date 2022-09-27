@@ -46,6 +46,14 @@
     width:100%;
 }
 
+// .my-nav-btn    
+// {
+//     padding: 0;
+//     font-size: 12px;
+//     margin: 0;
+//     height: 28px;
+//     line-height: 28px;
+// }
 .my-nav-btn    
 {
     padding: 0;
@@ -53,9 +61,21 @@
     margin: 0;
     height: 28px;
     line-height: 28px;
+    background: #6b2d98;
+    border: 2px solid #dc17be;
+    color: white;
 }
-
 .disable {
     cursor: not-allowed;
     color: #aaa;
+}
+
+#dropdownBasic1 
+{
+    color:whitesmoke;
+    font-weight: bold;
+}
+#dropdownBasic:hover
+{
+    color:white
 }
