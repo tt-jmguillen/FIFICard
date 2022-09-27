@@ -27,13 +27,13 @@ export class GiftEventComponent implements OnInit {
     this.checkCardCount(name);
     this.image = `assets/images/gift/${this.replaceAll(name)}-min.png`;
     if (name.includes('Easter')) {
-      this.url = `/gift/events/Easter`;
+      this.url = `/cards/events/Easter`;
     }
     else if (name.toUpperCase() == 'CREATIONS') {
       this.url = "/creations"
     }
     else {
-      this.url = `/gift/events/${name}`;
+      this.url = `/cards/events/${name}`;
     }
   }
 

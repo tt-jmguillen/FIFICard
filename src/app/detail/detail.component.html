@@ -10,7 +10,7 @@
                                 <li class="breadcrumb-item">
                                     <p routerLink="/" class="cursor">{{'card.home'|translate}}</p>
                                 </li>
-                                <li class="breadcrumb-item active" aria-current="page">{{card!.name}}</li>
+                                <li class="breadcrumb-item active" aria-current="page" *ngIf="card">{{card!.name}}</li>
                             </ol>
                         </nav>
                     </div>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-lg-6 col-sm-12">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body" *ngIf="card">
                                 <header class="section-heading" style="margin:0 !Important">
                                     <div class="header">
                                         <h3 class="section-title" style="color:indigo;font-weight:bolder">{{card!.name}}</h3>
