@@ -89,9 +89,9 @@ import { JustBecauseGreetingsComponent } from './just-because/just-because-greet
 import { EmojiComponent } from './modules/emoji/emoji.component';
 
 // import ngx-translate and the http loader
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { OrdercountComponent } from './modules/ordercount/ordercount.component';
 import { SpecialtyCardsPageComponent } from './specialty-cards-page/specialty-cards-page.component';
 import { ECardsPageComponent } from './e-cards-page/e-cards-page.component';
@@ -99,6 +99,11 @@ import { ImageLoaderComponent } from './modules/image-loader/image-loader.compon
 import { TypeUpgradeComponent } from './order/type-upgrade/type-upgrade.component';
 import { EventComponent } from './modules/event-list/event/event.component';
 import { GiftEventComponent } from './modules/gift-events/gift-event/gift-event.component';
+import { HalloweenComponent } from './halloween/halloween.component';
+import { HalloweenGreetingsComponent } from './halloween/halloween-greetings/halloween-greetings.component';
+import { CardsSliderComponent } from './modules/cards-slider/cards-slider.component';
+import { CardSliderThumbComponent } from './modules/cards-slider/card-slider-thumb/card-slider-thumb.component';
+import { HalloweenCardComponent } from './halloween/halloween-card/halloween-card.component';
 
 @NgModule({
   declarations: [
@@ -172,7 +177,12 @@ import { GiftEventComponent } from './modules/gift-events/gift-event/gift-event.
     ImageLoaderComponent,
     TypeUpgradeComponent,
     EventComponent,
-    GiftEventComponent
+    GiftEventComponent,
+    HalloweenComponent,
+    HalloweenGreetingsComponent,
+    CardsSliderComponent,
+    CardSliderThumbComponent,
+    HalloweenCardComponent
   ],
   imports: [
     BrowserModule,
@@ -199,13 +209,13 @@ import { GiftEventComponent } from './modules/gift-events/gift-event/gift-event.
     NgbModule,
     NgxImageZoomModule,
     AppRoutingModule,
-    HttpClientModule,        
-    TranslateModule.forRoot({            
-      loader: {                
-        provide: TranslateLoader,                
-        useFactory: HttpLoaderFactory,                
-        deps: [HttpClient]            
-      }        
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
     })
   ],
   providers: [{
@@ -217,6 +227,6 @@ import { GiftEventComponent } from './modules/gift-events/gift-event/gift-event.
 export class AppModule { }
 
 // required for AOT compilation
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {    
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/lang/', '.json');
 }
