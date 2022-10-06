@@ -1,4 +1,4 @@
-.cursor{
+.cursor {
     cursor: pointer;
 }
 
@@ -21,8 +21,7 @@
     border: 4px solid blueviolet;
 }
 
-.btn-more-card
-{
+.btn-more-card {
     background: #7030a0;
     color: white;
     padding: 10px 30px;
@@ -31,6 +30,7 @@
     border-radius: 6px;
     font-weight: bold;
 }
+
 // .cursor
 // {
 //     cursor: pointer;
@@ -41,13 +41,20 @@
 // {
 //     opacity:1;
 // }
-.cus-text-title
-{
-    color:#4b0082;
+.cus-text-title {
+    color: #4b0082;
     text-transform: uppercase;
     font-weight: bolder;
 }
-.w100
-{
-width:100% !important
+
+.w100 {
+    width: 100% !important
+}
+
+.left .carousel-item.active {
+    animation-name: slideLeftIn;
+}
+
+.right .carousel-item.active {
+    animation-name: slideRightIn;
 }

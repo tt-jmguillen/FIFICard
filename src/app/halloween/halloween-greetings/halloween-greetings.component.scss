@@ -1,0 +1,58 @@
+.title {
+    width: 70%;
+}
+
+.hover-effect {
+    opacity: .9;
+}
+
+.hover-effect:hover {
+    opacity: 1;
+}
+
+.category {
+    background-image: url("../../../assets/images/halloween/category_bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    aspect-ratio: 4/1;
+}
+
+.cardimg {
+    max-height: 200px;
+}
+
+.message p {
+    margin-bottom: 0.2rem;
+    font-size: 18px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.card-display {
+    width: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: stretch;
+    gap: 1.5rem;
+}
+
+.card-display div {
+    flex-grow: 2;
+}
+
+.div-btn button {
+    width: 400px;
+    font-weight: 800;
+    background-color: #ffa827;
+    border: none;
+    opacity: .8;
+    border-radius: 18px;
+}
+
+.div-btn button:hover {
+    opacity: 1;
+    font-weight: 1000;
+}

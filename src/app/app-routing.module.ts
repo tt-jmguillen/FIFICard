@@ -1,3 +1,5 @@
+import { HalloweenGreetingsComponent } from './halloween/halloween-greetings/halloween-greetings.component';
+import { HalloweenComponent } from './halloween/halloween.component';
 import { ECardsPageComponent } from './e-cards-page/e-cards-page.component';
 import { SpecialtyCardsPageComponent } from './specialty-cards-page/specialty-cards-page.component';
 import { SignAndSendCardsComponent } from './sign-and-send-cards/sign-and-send-cards.component';
@@ -127,6 +129,12 @@ const routes: Routes = [
   },
   {
     path: 'ecardspage', component: ECardsPageComponent
+  },
+  {
+    path: 'halloween', component: HalloweenComponent
+  },
+  {
+    path: 'halloween/greetings', component: HalloweenGreetingsComponent
   }
 ];
 
@@ -135,7 +143,7 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class AppRoutingModule {}
+export class AppRoutingModule { }
 
 
 
