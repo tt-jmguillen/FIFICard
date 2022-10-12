@@ -62,7 +62,8 @@
     "graduation": "Graduation",
     "petcards": "Pet Cards",
     "signandsend": "Sign and Send",
-    "sympathy": "Sympathy"
+    "sympathy": "Sympathy",
+    "halloween": "Halloween"
   },
   "footer": {
     "about": "About",
@@ -92,7 +93,7 @@
   "home": {
     "bestsellercards": "BEST SELLER CARDS",
     "featuredcategories": "Featured Categories",
-    "featuredtitle": "FEATURED GRADUATION DAY CARDS",
+    "featuredtitle": "FEATURED CARDS",
     "morecardcategories": "More Card Categories"
   },
   "menu": {

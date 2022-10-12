@@ -40,8 +40,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.carousel.animation = true;
-    this.carousel.cycle();
+    //this.carousel.animation = true;
+    //this.carousel.cycle();
 
     environment.redirect.forEach(element => {
       if (window.location.hostname.toLowerCase() == element.host.toLowerCase()) {

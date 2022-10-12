@@ -124,6 +124,8 @@ export class CardsComponent implements OnInit {
     this.service.getCards().then(data => {
       this.loading = false;
       this.cards = data;
+    }).catch(err => {
+      this.loading = false;
     });
   }
 
@@ -132,7 +134,9 @@ export class CardsComponent implements OnInit {
     this.service.getCardsByEvent(event).then(data => {
       this.loading = false;
       this.cards = data;
-    })
+    }).catch(err => {
+      this.loading = false;
+    });
   }
 
   getSearchCard(search: string) {
