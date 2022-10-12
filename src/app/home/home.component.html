@@ -86,8 +86,7 @@
                     </div>
 
                     <div class="col-md-12 sns-no-label">
-                        <a (click)="false"><img src="/assets/images/hw/sign-and-send-02.png" style="width:100%"></a>
-
+                       <div [routerLink]="['/signandsendpage']"  class="to-link"> <img src="/assets/images/hw/sign-and-send-02.png" style="width:100%"></div>
                         <app-home-featured caption="{{'event.signandsend'|translate}}" [isSignAndSend]=true></app-home-featured>
                     </div>
                     <div class="col-md-12">
@@ -115,10 +114,10 @@
             <br /> <br />
             <div class="hw-con-cards">
                 <div class="row">
-                    <div class="col-md-2"><img src="/assets/images/hw/c-1.png"></div>
-                    <div class="col-md-2"><img src="/assets/images/hw/c-2.png"></div>
-                    <div class="col-md-2"><img src="/assets/images/hw/c-3.png"></div>
-                    <div class="col-md-4">
+                    <div class="col-md-2 col-sm-6 col-6"><img src="/assets/images/hw/c-1.png"></div>
+                    <div class="col-md-2 col-sm-6 col-6"><img src="/assets/images/hw/c-2.png"></div>
+                    <div class="col-md-2 col-sm-6 col-6"><img src="/assets/images/hw/c-3.png"></div>
+                    <div class="col-md-4 col-sm-12 col-12">
                         <div class="row text-center">
                             <div class="col-md-12">
                                 <h2>MORE CARDS</h2>
@@ -128,7 +127,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2"><img src="/assets/images/hw/c-4.png"></div>
+                    <div class="col-md-2 hidden-sm"><img src="/assets/images/hw/c-4.png"></div>
                 </div>
             </div>
             <div>
