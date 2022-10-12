@@ -1,27 +1,40 @@
-.cursor{
+.cursor {
     cursor: pointer;
     opacity: 0.9;
-   
     padding: 20px;
 }
+
 .cursor:active,
-.cursor:hover
-{
+.cursor:hover {
     background: whitesmoke;
-    opacity:1;
+    opacity: 1;
 }
 
 .cursor a {
     text-decoration: none;
-    color: black;;
+    color: black;
+    ;
 }
 
 ::ng-deep .carousel-control-prev,
-::ng-deep .carousel-control-next{
-    width: 5% !important;
+::ng-deep .carousel-control-next {
+    width: 3% !important;
 }
 
 ::ng-deep .carousel-control-prev-icon,
-::ng-deep .carousel-control-next-icon{
+::ng-deep .carousel-control-next-icon {
     filter: invert(100%) !important;
+}
+
+::ng-deep .carousel-indicators {
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+::ng-deep .carousel-item {
+    transition: transform 1.5s ease-in-out !important;
+}
+
+h6 {
+    font-size: 12px;
 }

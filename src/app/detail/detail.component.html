@@ -30,7 +30,6 @@
                                 <header class="section-heading" style="margin:0 !Important">
                                     <div class="header">
                                         <h3 class="section-title" style="color:indigo;font-weight:bolder">{{card!.name}}</h3>
-
                                     </div>
                                 </header>
                                 <section>
@@ -70,7 +69,7 @@
                     </div>
                 </div>
                 <div class="row" *ngIf="card">
-                    <div class="col-12">
+                    <div class="col-12 px-0">
                         <app-suggestion-list [card]="card"></app-suggestion-list>
                     </div>
                 </div>

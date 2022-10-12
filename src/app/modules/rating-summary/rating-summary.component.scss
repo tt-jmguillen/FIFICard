@@ -1,59 +1,62 @@
-.visually-hidden{
-    display: none!important;
- }
+.visually-hidden {
+  display: none !important;
+}
 
- .star {
-    position: relative;
-    display: inline-block;
-    font-size: 2.5rem;
-    color: #d3d3d3;
-  }
-  .full {
-    color: darkviolet;
-  }
-  .half {
-    position: absolute;
-    display: inline-block;
-    overflow: hidden;
-    color: darkviolet;
-  }
+.star {
+  position: relative;
+  display: inline-block;
+  font-size: 2.5rem;
+  color: #d3d3d3;
+}
 
-  
+.full {
+  color: darkviolet;
+}
+
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: darkviolet;
+}
+
+
 .mat-progress-bar {
-    height: 18px!important;
-    width: 82%!important;
-    border-style: solid;
-    border-color: black;
-    border-width: 1px;
+  height: 18px !important;
+  width: 82% !important;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
 }
 
-.progress-bar-span{
-    display: flex!important;
-}
-.my-bar div .mat-progress-bar-buffer
-{
-  background:#ccc !important;
-}
-.my-bars div .mat-progress-bar-fill::after
-{
-  background-color:darkviolet !important;
-}
-.my-bar
-{
-  border:none !important
+.progress-bar-span {
+  display: flex !important;
 }
 
-.main{
+.my-bar div .mat-progress-bar-buffer {
+  background: #ccc !important;
+}
+
+.my-bars div .mat-progress-bar-fill::after {
+  background-color: darkviolet !important;
+}
+
+.my-bar {
+  border: none !important
+}
+
+.main {
+  margin: 10px 10px 10px 10px;
   padding: 10px 10px 10px 10px;
 }
 
-.v-align{
+.v-align {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.progress{
+.progress {
   width: 100% !important;
 }

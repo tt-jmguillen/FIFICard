@@ -29,7 +29,7 @@ export class SuggestionListComponent implements OnInit {
     private config: NgbCarouselConfig
   ) {
     this.service = _service;
-    config.interval = 10000;
+    config.interval = 7000;
     config.wrap = true;
     config.pauseOnHover = true;
     config.showNavigationArrows = true;
@@ -48,7 +48,7 @@ export class SuggestionListComponent implements OnInit {
     });
   }
 
-  getImages(){
+  getImages() {
     this.batches.forEach(batch => {
       batch.cards.forEach(card => {
         this.getImage(card);
@@ -79,13 +79,13 @@ export class SuggestionListComponent implements OnInit {
   loadBatch(list: Card[]) {
     let newList: Card[] = list;
     let index: number = newList.findIndex(x => x.id == this.card.id);
-    if (index >=0 ){
+    if (index >= 0) {
       list.splice(index, 1);
     }
     newList = newList.splice(0, 12);
 
     this.batches = [];
-    const displayCount = this.isMobile ? 2 : 4;
+    const displayCount = this.isMobile ? 3 : 6;
     let counter: number = 1;
     let cards: Card[] = []
 
