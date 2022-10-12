@@ -13,7 +13,6 @@
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <app-imagegrid id="{{id}}"></app-imagegrid>
-                    <app-add-more *ngIf="card" [id]="card!.id" [recipients]="card!.recipients" [limit]=4 (selectedChange)="addMoreChange($event)"></app-add-more>
                 </div>
                 <div class="col-lg-6 col-sm-12 row">
                     <div class="col-12">
@@ -185,6 +184,9 @@
                             <button class="btn btn-primary full-size" type="submit">{{'order.addtocart'|translate}}</button>
                         </div>
                     </form>
+                </div>
+                <div class="col-12">
+                    <app-add-more *ngIf="card" [id]="card!.id" [recipients]="card!.recipients" [limit]=4 (selectedChange)="addMoreChange($event)"></app-add-more>
                 </div>
             </div>
 

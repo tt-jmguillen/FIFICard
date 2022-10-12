@@ -46,6 +46,7 @@ export class AddMoreComponent implements OnInit {
     this.eventService = _eventService;
     config.interval = 0;
     config.wrap = true;
+    config.pauseOnHover = true;
     config.showNavigationArrows = true;
   }
 
@@ -89,6 +90,7 @@ export class AddMoreComponent implements OnInit {
         }
       }
     });
+    this.cards = this.cards.sort(() => Math.random() - Math.random()).slice(0, 30);
     this.loadBatch();
   }
 
@@ -96,7 +98,7 @@ export class AddMoreComponent implements OnInit {
     this.batches = [];
     let items: AddMore[] = [];
     let counter: number = 1;
-    const displayCount: number = this.isMobile ? 2 : 4;
+    const displayCount: number = this.isMobile ? 3 : 6;
 
     this.cards.forEach(item => {
       items.push(item);
