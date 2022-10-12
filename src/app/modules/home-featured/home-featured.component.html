@@ -7,7 +7,6 @@
       <ngb-carousel>
         <ng-template ngbSlide *ngFor="let batch of batches">
           <div class="row justify-content-md-center">
-            <!--<div class="col-1 middle px-0"></div>-->
             <div class="col-11">
               <div class="row justify-content-md-center">
                 <div class="col-md-2 col-6 cursor" *ngFor="let card of batch.cards" routerLink="{{'/card/' + card!.id}}">
@@ -17,7 +16,6 @@
                 </div>
               </div>
             </div>
-            <!--<div class="col-1 middle px-0"></div>-->
           </div>
         </ng-template>
       </ngb-carousel>

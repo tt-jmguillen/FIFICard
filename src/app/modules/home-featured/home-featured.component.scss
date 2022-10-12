@@ -78,3 +78,7 @@
     margin-bottom: 0;
     bottom: -25px;
 }
+
+::ng-deep .carousel-item {
+    transition: transform 1.5s ease-in-out !important;
+}

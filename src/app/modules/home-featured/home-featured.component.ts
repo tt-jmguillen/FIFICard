@@ -38,10 +38,11 @@ export class HomeFeaturedComponent implements OnInit {
     private config: NgbCarouselConfig
   ) {
     this.service = _service;
-    config.interval = 7000;
+    config.interval = 5000;
     config.wrap = true;
     config.pauseOnHover = false;
     config.showNavigationArrows = true;
+    config.animation = true;
   }
   ngOnInit() {
     if (this.isSignAndSend) {
