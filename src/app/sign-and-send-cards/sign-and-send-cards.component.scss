@@ -1,12 +1,12 @@
 .actionbtn {
-    border-radius: 50%;
-  }
+  border-radius: 50%;
+}
 
 .custom-select {
   position: relative;
   font-family: Arial;
   width: 200px;
-  text-align-last:center;
+  text-align-last: center;
   border-radius: 0rem;
   margin-left: 20px;
   margin-right: 20px;
@@ -16,7 +16,8 @@
 }
 
 .custom-select select {
-  display: none; /*hide original SELECT element: */
+  display: none;
+  /*hide original SELECT element: */
 }
 
 .select-selected {
@@ -42,7 +43,8 @@
 }
 
 /* style the items (options), including the selected item: */
-.select-items div,.select-selected {
+.select-items div,
+.select-selected {
   color: #ffffff;
   padding: 8px 16px;
   border: 1px solid transparent;
@@ -65,11 +67,16 @@
   display: none;
 }
 
-.select-items div:hover, .same-as-selected {
+.select-items div:hover,
+.same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
 .hover-target:hover {
   background-color: blueviolet;
   /* whatever styles you want to apply */
+}
+
+.pointer {
+  cursor: pointer;
 }

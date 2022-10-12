@@ -28,6 +28,7 @@ export class CardListComponent implements OnInit {
   @Input() cards: Card[];
   @Input() priority: string;
   @Input() recipient: string;
+  @Input() footer: boolean = true;
 
   recipientService: RecipientService;
   settingService: SettingService;

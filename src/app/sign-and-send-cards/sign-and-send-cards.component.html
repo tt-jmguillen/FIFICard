@@ -2,10 +2,16 @@
     <section class="section-name padding-y-sm">
         <div class="container animate main">
             <div class="row">
+                <div class="col-md-12 mb-4">
+                    <img src="../../assets/images/signandsend/v2/ss-1-min.png" class="img-fluid pointer" style="border-radius:6px; width:100% Impo !important">
+                </div>
                 <div class="col-md-12">
-                    <header class="section-heading">
-                        <h3 class="section-title" *ngIf="caption">{{caption|translate}}</h3>
+                    <header class="section-heading mb-1">
+                        <h3 class="section-title mb-0" *ngIf="caption">Sign and Send Cards</h3>
                     </header>
+                </div>
+                <div class="col-md-12 mb-2">
+                    <button class="btn btn-primary" type="button" [routerLink]="['/signandsendpage']">Click here to Know More About Sign and Send</button>
                 </div>
             </div>
             <div class="row" *ngIf="loading">
@@ -13,7 +19,21 @@
                     <mat-progress-bar mode="indeterminate" value=100></mat-progress-bar>
                 </div>
             </div>
-            <app-card-list *ngIf="cards.length > 0" [cards]="cards"></app-card-list>
+            <app-card-list [footer]="false" *ngIf="cards.length > 0" [cards]="cards"></app-card-list>
+            <div class="row">
+                <div class="col-md-12 mb-3 mt-3">
+                    <img src="../../assets/images/signandsend/v2/ss-2-min.png" class="img-fluid pointer" [routerLink]="['/stickers']">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <img src="../../assets/images/signandsend/v2/ss-3-min.png" class="img-fluid pointer" [routerLink]="['/specialtycardpage']">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <img src="../../assets/images/signandsend/v2/ss-4-min.png" class="img-fluid pointer" [routerLink]="['/gifts']">
+                </div>
+                <div class="col-md-12 mb-3">
+                    <img src="../../assets/images/signandsend/v2/ss-5-min.png" class="img-fluid pointer">
+                </div>
+            </div>
         </div>
     </section>
     <app-footer></app-footer>
