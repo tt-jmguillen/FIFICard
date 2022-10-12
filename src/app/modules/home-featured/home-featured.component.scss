@@ -1,57 +1,52 @@
-.custom-ico .bg-blue
-{
+.custom-ico .bg-blue {
     // background:#deebf7 -fathersday;
-// background:#f1a6262e -mothersday;
-background:#6b2d9836;
-    padding-top:20px;
+    // background:#f1a6262e -mothersday;
+    background: #6b2d9836;
+    padding-top: 20px;
+    padding-bottom: 20px;
     min-height: 100px;
 }
 
-.custom-ico .btn.btn-default
-{
+.custom-ico .btn.btn-default {
     padding: 0;
     display: block;
     height: auto;
     width: auto;
     margin: 0 !important;
-    border:none !important;
+    border: none !important;
 }
 
-.custom-ico .btn.btn-default:hover
-{
-    border:none !important;
+.custom-ico .btn.btn-default:hover {
+    border: none !important;
 }
 
-.cursor
-{
+.cursor {
     cursor: pointer !important;
 }
 
-.cursor img, 
-.cursor p{
+.cursor img,
+.cursor p {
     width: 100%;
 }
 
-.custom-ico .material-icons
-{
- 
+.custom-ico .material-icons {
+
     font-size: 60px !important;
     height: 60px;
     display: table-cell;
-    color:#3a63ab;
+    color: #3a63ab;
     padding: 0 !important;
     margin: 0 !important;
 
 }
-.custom-ico .material-icons:hover
-{
-    background:#3a63ab;
-    color:#fff;
+
+.custom-ico .material-icons:hover {
+    background: #3a63ab;
+    color: #fff;
     border-radius: 50%;
 }
 
-.custom-ico p
-{
+.custom-ico p {
     color: #7840a1;
     font-size: 14px;
     line-height: 16px;
@@ -61,7 +56,7 @@ background:#6b2d9836;
     text-align: center;
 }
 
-.middle{
+.middle {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -69,11 +64,17 @@ background:#6b2d9836;
 }
 
 ::ng-deep .carousel-control-prev,
-::ng-deep .carousel-control-next{
-    width: 5% !important;
+::ng-deep .carousel-control-next {
+    width: 3% !important;
 }
 
 ::ng-deep .carousel-control-prev-icon,
-::ng-deep .carousel-control-next-icon{
+::ng-deep .carousel-control-next-icon {
     filter: invert(100%) !important;
+}
+
+::ng-deep .carousel-indicators {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    bottom: -25px;
 }

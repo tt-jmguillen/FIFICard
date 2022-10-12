@@ -1,15 +1,15 @@
 <div class="container custom-ico" ng-app="app">
-  <div class="">
+  <div *ngIf="caption != ''">
     <h5><b>{{caption}}</b></h5>
   </div>
   <div class="row center-content bg-blue" ng-controller="appController">
     <div class="col-12">
       <ngb-carousel>
         <ng-template ngbSlide *ngFor="let batch of batches">
-          <div class="row">
-            <div class="col-1 middle"></div>
-            <div class="col-10">
-              <div class="row">
+          <div class="row justify-content-md-center">
+            <!--<div class="col-1 middle px-0"></div>-->
+            <div class="col-11">
+              <div class="row justify-content-md-center">
                 <div class="col-md-2 col-6 cursor" *ngFor="let card of batch.cards" routerLink="{{'/card/' + card!.id}}">
                   <img class="img-thumbnail" src="{{card?.imageUrl}}" title="{{card?.name}}">
                   <p>{{card?.name}}</p>
@@ -17,32 +17,10 @@
                 </div>
               </div>
             </div>
-            <div class="col-1 middle"></div>
+            <!--<div class="col-1 middle px-0"></div>-->
           </div>
         </ng-template>
       </ngb-carousel>
     </div>
-    <!--
-    <div class="col-md-1 middle">
-      <button class="btn btn-default" (click)="leftClick()" [hidden]="disablePrev" >
-        <mat-icon>keyboard_arrow_left</mat-icon>
-      </button>
-    </div>
-    <div class="col-md-10">
-      <div class="row">
-        <div class="col-md-2 col-6 cursor" routerLink="{{'/card/' + displayCard!.id}}"
-          *ngFor="let displayCard of displayCards">
-          <img class="img-thumbnail" src="{{displayCard?.imageUrl}}" title="{{displayCard?.name}}">
-          <p>{{displayCard?.name}}</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-1 middle">
-      <button class="btn btn-default" (click)="rightClick()" [hidden]="disableNext">
-        <mat-icon>keyboard_arrow_right</mat-icon>
-      </button>
-    </div>
-  </div>
-  -->
   </div>
   <br /> <br />

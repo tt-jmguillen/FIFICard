@@ -22,7 +22,7 @@ class Batch {
 })
 
 export class HomeFeaturedComponent implements OnInit {
-  @Input() caption?: string;
+  @Input() caption: string = '';
   @Input() homeCardEvent?: string;
   @Input() limit: Number;
   @Input() isSignAndSend: boolean;
@@ -40,7 +40,7 @@ export class HomeFeaturedComponent implements OnInit {
     this.service = _service;
     config.interval = 7000;
     config.wrap = true;
-    config.pauseOnHover = true;
+    config.pauseOnHover = false;
     config.showNavigationArrows = true;
   }
   ngOnInit() {
