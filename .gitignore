@@ -111,4 +111,5 @@ upload-keystore.jks
 !src/assets/emoticon.xml
 !src/assets/lang/*.json
 !src/assets/images/loading.gif
+!src/assets/images/halloween/*
 

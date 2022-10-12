@@ -1,0 +1,63 @@
+<ion-content>
+    <section class="section-name padding-y-sm">
+        <div class="container animate">
+            <div class="row">
+                <div class="col-6 mb-4">
+                    <button type="button" class="btn btn-primary btn-lg bg-black w-100 rounded-0 button" [routerLink]="['/cards/events/Halloween']">SHOP HALLOWEEN CARDS</button>
+                </div>
+                <div class="col-6 mb-4">
+                    <button type="button" class="btn btn-primary btn-lg bg-black w-100 rounded-0 button" [routerLink]="['/cards/events/Gifts for Halloween']">SHOP HALLOWEEN GIFTS</button>
+                </div>
+                <div class="col-md-12 text-center">
+                    <img src="/assets/images/halloween/halloween-title.png" class="img-fluid title hover-effect">
+                </div>
+                <div class="col-md-12 text-center ps-0 pe-0">
+                    <img src="/assets/images/halloween/banner.png" class="img-fluid hover-effect">
+                </div>
+                <!--
+                <div class="col-12 text-center mt-4 mb-4  bg-white">
+                    <p class="featured">FEATURED HAPPY HALLOWEEN DAY CARDS</p>
+                </div>
+                <div class="col-12 text-center mb-4 bg-white">
+                    <app-cards-slider [cards]="featured"></app-cards-slider>
+                </div>
+                <div class="col-12 text-center mb-1 bg-white">
+                    <p class="categories">CATEGORIES</p>
+                </div>
+                -->
+                <!--<div class="col-6 text-center my-2 ps-2 pe-1">
+                    <div class="banner-left">
+
+                    </div>
+                </div>
+                <div class="col-6 text-center my-2 ps- pe-2">
+                    <div class="banner-right">
+
+                    </div>
+                </div>-->
+
+                <div class="col-md-12 text-center ps-0 pe-0 mt-1">
+                    <a [routerLink]="['/cards/events/Gifts for Halloween']">
+                        <img src="/assets/images/halloween/banner-gifts.png" class="img-fluid hover-effect rounded-4 w-100">
+                    </a>
+                </div>
+
+                <div class="col-6 text-center py-2 ps-2 pe-1">
+                    <a [routerLink]="['/cards/events/Halloween']">
+                        <img src="/assets/images/halloween/banner-left.png" class="img-fluid hover-effect rounded-4">
+
+                    </a>
+                </div>
+                <div class="col-6 text-center py-2 ps-1 pe-2">
+                    <a [routerLink]="['/halloween/greetings']">
+                        <img src="/assets/images/halloween/banner-right.png" class="img-fluid hover-effect rounded-4">
+                    </a>
+                </div>
+                <div class="col-md-12 hover-effect ps-0 pe-0">
+                    <img src="/assets/images/halloween/freesticker.png" class="img-fluid hover-effect">
+                </div>
+            </div>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

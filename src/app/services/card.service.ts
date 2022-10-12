@@ -29,8 +29,8 @@ export class CardService {
   getBestsellerCards(): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
       this.db.collection('cards', ref => ref
-          .where('active', "==", true)
-          .where('bestseller', "==", true)
+        .where('active', "==", true)
+        .where('bestseller', "==", true)
       ).get().subscribe(data => {
         if (!data.empty) {
           let cards: Card[] = [];
@@ -143,28 +143,28 @@ export class CardService {
   getSearchCards(field: string, search: string): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
       this.db.collection('cards', ref => ref
-          .orderBy(field)
-          .startAt(search)
-          .endAt(search + "\uf8ff")
-        ).get().subscribe(data => {
-          if (!data.empty) {
-            let cards: Card[] = [];
-            data.forEach(doc => {
-              let card: Card = doc.data() as Card;
-              if (card.active){
-                card.id = doc.id;
-                cards.push(card);
-              }
-            });
-            if (cards.length > 0)
-              resolve(cards);
-            else
+        .orderBy(field)
+        .startAt(search)
+        .endAt(search + "\uf8ff")
+      ).get().subscribe(data => {
+        if (!data.empty) {
+          let cards: Card[] = [];
+          data.forEach(doc => {
+            let card: Card = doc.data() as Card;
+            if (card.active) {
+              card.id = doc.id;
+              cards.push(card);
+            }
+          });
+          if (cards.length > 0)
+            resolve(cards);
+          else
             rejects("No cards found.");
-          }
-          else {
-            rejects("No cards found.");
-          }
-        });
+        }
+        else {
+          rejects("No cards found.");
+        }
+      });
     });
   }
 
@@ -217,20 +217,20 @@ export class CardService {
     return new Promise((resolve, rejects) => {
       this.db.collection('cards', ref => ref
         .where('active', "==", true)
-        ).get().subscribe(data => {
-          if (!data.empty) {
-            let cards: Card[] = [];
-            data.forEach(doc => {
-              let card: Card = doc.data() as Card;
-              card.id = doc.id;
-              cards.push(card);
-            });
-            resolve(cards);
-          }
-          else {
-            rejects("No cards found.");
-          }
-        });
+      ).get().subscribe(data => {
+        if (!data.empty) {
+          let cards: Card[] = [];
+          data.forEach(doc => {
+            let card: Card = doc.data() as Card;
+            card.id = doc.id;
+            cards.push(card);
+          });
+          resolve(cards);
+        }
+        else {
+          rejects("No cards found.");
+        }
+      });
 
       let data = collection(this.store, 'cards');
       let qry = query(data, where('active', "==", true));
@@ -328,13 +328,13 @@ export class CardService {
     });
   }
 
-  updateCardOrder(id: string, orderId: string){
+  updateCardOrder(id: string, orderId: string) {
     this.getACard(id).then(card => {
       let orders: string[] = card.orders;
       if (orders == undefined)
         orders = [];
 
-      if (orders.find(x => x == orderId) == undefined){
+      if (orders.find(x => x == orderId) == undefined) {
         orders.push(orderId);
         const data = doc(this.store, 'cards/' + id);
         updateDoc(data, {

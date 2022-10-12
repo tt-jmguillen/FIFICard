@@ -2,7 +2,17 @@
     <section class="section-name padding-y-sm">
         <div class="container animate main">
             <div class="row">
+                <div class="col-md-12 mb-2">
+                    <h2 class="text-center cus-text-title mt-1 mb-3">Occasions</h2>
+                    <app-event-list [order]="[
+                        'Birthday',
+                        'Wedding',
+                        'Anniversary',
+                        'Retirement',
+                    ]"></app-event-list>
+                </div>
                 <div class="col-md-12">
+                    <h2 class="text-center cus-text-title mt-1 mb-3">Events</h2>
                     <app-event-list [order]="[
                         'Graduation',
                         'Teacher Appreciation',
@@ -13,15 +23,14 @@
                         'Valentines Day',
                         'Mothers Day',
                         'Fathers day',
-                        'Birthday',
-                        'Wedding',
                         'Baby',
                         'Baptism',
                         'Confirmation',
                         'First Communion',
                         'Parents Appreciation',
                         'Easter',
-                        'Thanksgiving'
+                        'Thanksgiving',
+                        'Military Appreciation'
                     ]">
                     </app-event-list>
                 </div>
