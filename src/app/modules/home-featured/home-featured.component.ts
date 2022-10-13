@@ -59,7 +59,7 @@ export class HomeFeaturedComponent implements OnInit {
     this.service.getFeaturedCards(this.homeCardEvent?.trim()!, this.limit == 0 ? 12 : Number(this.limit)).then(data => {
       this.cards = [];
       let ctr = 1;
-      data.forEach(card => {
+      data.sort(() => Math.random() - Math.random()).forEach(card => {
         this.cards.push(card);
         this.getImage(card);
         ctr = ctr + 1;
@@ -72,7 +72,7 @@ export class HomeFeaturedComponent implements OnInit {
     this.service.getSignAndSendFeaturedCards().then(data => {
       this.cards = [];
       let ctr = 1;
-      data.forEach(card => {
+      data.sort(() => Math.random() - Math.random()).forEach(card => {
         this.cards.push(card);
         this.getImage(card);
         ctr = ctr + 1;

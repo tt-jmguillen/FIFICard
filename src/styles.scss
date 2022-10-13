@@ -1,64 +1,82 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+   font-family: Constantia;
+   src: url(assets/webfonts/Constantia/Constantia.otf) format("opentype");
+}
+
 @import "ngx-material-pages_theme.scss";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+   --ion-font-family: Constantia;
+   --ion-default-font: Constantia;
+   --bs-body-font-family: Constantia;
+}
+
+html,
+body {
+   height: 100%;
+}
+
+body {
+   margin: 0;
+   font-family: Constantia;
+}
 
 .full-width-dialog .mat-dialog-container {
-    max-width: 40vw !important;
-  }
-  
- .sign-out-button{
-   display: none!important;
- }
-
-.modal-backdrop{
-   z-index: 1!important;
+   max-width: 40vw !important;
 }
 
-.visually-hidden{
-   display: none!important;
+.sign-out-button {
+   display: none !important;
 }
 
-.rate-count{
+.modal-backdrop {
+   z-index: 1 !important;
+}
+
+.visually-hidden {
+   display: none !important;
+}
+
+.rate-count {
    padding-top: 3%;
 }
 
-.center-content{
+.center-content {
    justify-content: center;
 }
 
 @media(min-width: 768px) {
    ion-header {
-       display: block;
-   }
-   app-footer {
-       display: block;
+      display: block;
    }
 
- }
-  
- @media(max-width: 768px) {
+   app-footer {
+      display: block;
+   }
+
+}
+
+@media(max-width: 768px) {
    ion-header {
       display: block !important;
    }
-   .fb_dialog_content > iframe
-   {
-     bottom: 70px !Important;
+
+   .fb_dialog_content>iframe {
+      bottom: 70px !Important;
    }
 
    .navbar.navbar-main,
    .tag-line,
-   .my-cart
-   {
+   .my-cart {
       display: none !important;
    }
+
    app-footer {
-       display: none;
+      display: none;
    }
 }
 
-.fb_dialog_content > iframe
-{
-  bottom: 90px !Important;
+.fb_dialog_content>iframe {
+   bottom: 90px !Important;
 }

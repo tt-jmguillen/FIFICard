@@ -18,10 +18,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <img src="/assets/images/signandsend/page/SandS-banner1.png" class="img-fluid">
-                </div>    
+                </div>
             </div>
             <br />
-            
+
             <div class="row">
                 <div class="col-md-4 col-4 text-center">
                     <img src="/assets/images/signandsend/thumb-01.png" [ngStyle]="isMobile?{'height': '50px'} : {'height': '100px'}">
@@ -39,25 +39,27 @@
                     <h3 [ngStyle]="isMobile?{'font-size': '15px'} : {'font-size': '22px'}">{{"sign.sendwithlove"|translate}}</h3>
                 </div>
             </div>
-            <br/>
+            <br />
             <div class="row">
                 <div class="col-md-12">
                     <img src="/assets/images/signandsend/page/1-min.png" style="width:100%">
                     <img src="/assets/images/signandsend/page/glitter.gif" class="img-fluid">
-                    <br/>
-                    <h2 class="text-center">How	To Add Your Personalized Message</h2>
-                    <br/>
-                    <img src="/assets/images/signandsend/page/2-min.png"  style="width:100%">
-                    <img src="/assets/images/signandsend/page/3-min.png"  style="width:100%">
+                    <br />
+                    <h2 class="text-center">How To Add Your Personalized Message</h2>
+                    <br />
+                    <img src="/assets/images/signandsend/page/2-min.png" style="width:100%">
+                    <img src="/assets/images/signandsend/page/3-min.png" style="width:100%">
                     <img src="/assets/images/signandsend/page/glitter.gif" class="img-fluid">
                     <h2>Send a card made with love to your loved ones.Check out our selections.</h2>
-                    
-                </div>    
+
+                </div>
             </div>
             <br />
             <div class="row">
                 <div class="col-12 pt-3 pb-3">
-                    <ngb-carousel style="background:#6602bb2e;padding:5% 0;">
+                    <app-home-featured [isSignAndSend]=true></app-home-featured>
+
+                    <!--<ngb-carousel style="background:#6602bb2e;padding:5% 0;">
                         <ng-template ngbSlide *ngFor="let batch of batches">
                             <div class="row">
                                 <div class="col-1 middle"></div>
@@ -72,11 +74,11 @@
                                 <div class="col-1 middle"></div>
                             </div>
                         </ng-template>
-                    </ngb-carousel>
+                    </ngb-carousel>-->
                 </div>
             </div>
-            <div  routerLink="/signandsend" class="to-link"><img src="/assets/images/signandsend/page/SandS-banner2.png" class="img-fluid"></div>
-            <br/>
+            <div routerLink="/signandsend" class="to-link"><img src="/assets/images/signandsend/page/SandS-banner2.png" class="img-fluid"></div>
+            <br />
             <img src="/assets/images/signandsend/page/free-shipping.png" class="img-fluid">
             <!-- <br />
             <div class="row">
@@ -91,25 +93,25 @@
         </div>
         <style>
             .mothersday-component>* {
-                font-family: 'Montserrat';
+                /*font-family: 'Montserrat';*/
                 font-size: 22px;
             }
-            h2
-            {
+
+            h2 {
                 text-align: center;
                 font-weight: bolder;
                 color: #6b2d98;
                 font-size: 30px;
             }
-            .to-link
-            {
-                opacity:0.9;
+
+            .to-link {
+                opacity: 0.9;
                 cursor: pointer;
             }
+
             .to-link:hover,
-            .to-link:active
-            {
-                opacity:1;
+            .to-link:active {
+                opacity: 1;
             }
         </style>
     </section>
