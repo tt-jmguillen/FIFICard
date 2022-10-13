@@ -3,7 +3,7 @@
 <ion-content>
     <section class="section-name padding-y-sm">
         <div class="container mothersday-component">
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-4">
                     <img src="/assets/images/signandsend/banner.png" class="img-fluid">
                 </div>
@@ -14,8 +14,47 @@
                 <div class="col-md-12 text-center">
                     <p [ngStyle]="isMobile?{'font-size': '15px'} : {'font-size': '48px'}" style="font-weight: bold;color:#6500bb">{{"sign.inarush"|translate}}</p>
                 </div>
+            </div> -->
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="/assets/images/signandsend/page/SandS-banner1.png" class="img-fluid">
+                </div>    
             </div>
-
+            <br />
+            
+            <div class="row">
+                <div class="col-md-4 col-4 text-center">
+                    <img src="/assets/images/signandsend/thumb-01.png" [ngStyle]="isMobile?{'height': '50px'} : {'height': '100px'}">
+                    <br />
+                    <h3 [ngStyle]="isMobile?{'font-size': '15px'} : {'font-size': '22px'}">{{"sign.signandcustomize"|translate}}</h3>
+                </div>
+                <div class="col-md-4 col-4 text-center">
+                    <img src="/assets/images/signandsend/thumb-03.png" [ngStyle]="isMobile?{'height': '50px'} : {'height': '100px'}">
+                    <br />
+                    <h3 [ngStyle]="isMobile?{'font-size': '15px'} : {'font-size': '22px'}">{{"sign.pickacard"|translate}}</h3>
+                </div>
+                <div class="col-md-4 col-4 text-center">
+                    <img src="/assets/images/signandsend/thumb-02.png" [ngStyle]="isMobile?{'height': '50px'} : {'height': '100px'}">
+                    <br />
+                    <h3 [ngStyle]="isMobile?{'font-size': '15px'} : {'font-size': '22px'}">{{"sign.sendwithlove"|translate}}</h3>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="/assets/images/signandsend/page/1-min.png" style="width:100%">
+                    <img src="/assets/images/signandsend/page/glitter.gif" class="img-fluid">
+                    <br/>
+                    <h2 class="text-center">How	To Add Your Personalized Message</h2>
+                    <br/>
+                    <img src="/assets/images/signandsend/page/2-min.png"  style="width:100%">
+                    <img src="/assets/images/signandsend/page/3-min.png"  style="width:100%">
+                    <img src="/assets/images/signandsend/page/glitter.gif" class="img-fluid">
+                    <h2>Send a card made with love to your loved ones.Check out our selections.</h2>
+                    
+                </div>    
+            </div>
+            <br />
             <div class="row">
                 <div class="col-12 pt-3 pb-3">
                     <ngb-carousel style="background:#6602bb2e;padding:5% 0;">
@@ -36,25 +75,10 @@
                     </ngb-carousel>
                 </div>
             </div>
-            <br />
-            <div class="row">
-                <div class="col-md-4 col-4 text-center">
-                    <img src="/assets/images/signandsend/thumb-01.png" [ngStyle]="isMobile?{'height': '50px'} : {'height': '100px'}">
-                    <br />
-                    <h3 [ngStyle]="isMobile?{'font-size': '15px'} : {'font-size': '22px'}">{{"sign.signandcustomize"|translate}}</h3>
-                </div>
-                <div class="col-md-4 col-4 text-center">
-                    <img src="/assets/images/signandsend/thumb-03.png" [ngStyle]="isMobile?{'height': '50px'} : {'height': '100px'}">
-                    <br />
-                    <h3 [ngStyle]="isMobile?{'font-size': '15px'} : {'font-size': '22px'}">{{"sign.pickacard"|translate}}</h3>
-                </div>
-                <div class="col-md-4 col-4 text-center">
-                    <img src="/assets/images/signandsend/thumb-02.png" [ngStyle]="isMobile?{'height': '50px'} : {'height': '100px'}">
-                    <br />
-                    <h3 [ngStyle]="isMobile?{'font-size': '15px'} : {'font-size': '22px'}">{{"sign.sendwithlove"|translate}}</h3>
-                </div>
-            </div>
-            <br />
+            <div  routerLink="/signandsend" class="to-link"><img src="/assets/images/signandsend/page/SandS-banner2.png" class="img-fluid"></div>
+            <br/>
+            <img src="/assets/images/signandsend/page/free-shipping.png" class="img-fluid">
+            <!-- <br />
             <div class="row">
                 <div class="col-md-12">
                     <img src="/assets/images/signandsend/sign-and-send-01.png" class="img-fluid">
@@ -63,12 +87,29 @@
                     <a href="/signandsend"> <img src="/assets/images/signandsend/sign-and-send-02.png" class="img-fluid"></a>
 
                 </div>
-            </div>
+            </div> -->
         </div>
         <style>
             .mothersday-component>* {
                 font-family: 'Montserrat';
                 font-size: 22px;
+            }
+            h2
+            {
+                text-align: center;
+                font-weight: bolder;
+                color: #6b2d98;
+                font-size: 30px;
+            }
+            .to-link
+            {
+                opacity:0.9;
+                cursor: pointer;
+            }
+            .to-link:hover,
+            .to-link:active
+            {
+                opacity:1;
             }
         </style>
     </section>
