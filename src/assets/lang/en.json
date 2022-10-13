@@ -85,7 +85,8 @@
   },
   "gifts": {
     "categorytext": "SHOP BY CATEGORY",
-    "recipienttext": "SHOP BY RECIPIENT"
+    "recipienttext": "SHOP BY RECIPIENT",
+    "eventtext": "SHOP BY EVENT"
   },
   "header": {
     "tagline": "Free Shipping on All Purchases. Applied at Checkout."
