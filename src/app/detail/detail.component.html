@@ -22,36 +22,37 @@
                 <div class="row">
                     <div class="col-lg-6 col-sm-12">
                         <app-imagegrid id="{{id}}"></app-imagegrid>
-                        <app-rating id2="{{id}}"></app-rating>
+                        <app-rating id2="{{id}}" class="d-none d-sm-block d-md-block d-lg-block d-xl-block "></app-rating>
+                        <!--d-sm-none -->
                     </div>
                     <div class="col-lg-6 col-sm-12">
                         <div class="card">
                             <div class="card-body" *ngIf="card">
-                                <header class="section-heading" style="margin:0 !Important">
-                                    <div class="header">
+                                <div class="row">
+                                    <div class="col-md-9">
                                         <h3 class="section-title" style="color:indigo;font-weight:bolder">{{card!.name}}</h3>
                                     </div>
-                                </header>
-                                <section>
-                                    <img src="/assets/images/cardtype/t-{{type}}.png" *ngFor="let type of card!.types" style="height: 40px;margin-right:10px;" title="card type {{type}}">
-                                    <img src="assets/images/sign-send-logo.png" style=" height: 40px;" *ngIf="card?.signAndSend">
-                                    <br /> <br />
-                                    <p>{{description}}</p>
-                                </section>
-                                <section>
-                                    <span class="text-muted">{{card!.event}}</span><br />
-                                    <span class="text-muted">{{card!.recipient}}</span>
+                                    <div class="col-md-3 text-right">
+                                        <img src="assets/images/sign-send-logo.png" style=" height: 40px;" *ngIf="card?.signAndSend">
+                                    </div>
+                                </div>
+                                <!-- <img src="/assets/images/cardtype/t-{{type}}.png" *ngFor="let type of card!.types" style="height: 40px;margin-right:10px;" title="card type {{type}}"> -->
+                              
+                                <section><div>Available in: <span *ngFor="let type of card!.types" >{{type}}</span> </div>
+                                    <div>Description: "{{description}}"</div>
+                                    <span class="text-muted">Card Event: {{card!.event}}</span><br />
+                                    <span class="text-muted">Card Recipient: {{card!.recipient}}</span>
                                 </section>
                                 <section>
                                     <div class="row">
-                                        <div class="col-md-3">
-                                            <h3 class="section-title" *ngIf="card">₱{{card!.price | number:'1.2-2'}}</h3>
-                                            <a class="order" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)">{{'card.buynow'|translate}}</a>
+                                        <div class="col-md-6">
+                                            <h3 class="section-title" *ngIf="card">Price: ₱{{card!.price | number:'1.2-2'}}</h3>
+                                            <a class="order " mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)" style="display:block">{{'card.buynow'|translate}}</a>
                                         </div>
                                         <div class="col-md-3">
                                             <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping" *ngIf="card">
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <a href="/page/TermsAndCondition" target="_blank" title="Terms And Condition" class="t-links">{{'card.seeterms'|translate}}</a><br />
                                             <a href="/page/PrivacyPolicy" target="_blank" title="Privacy Policy" class="t-links">{{'card.seeprivacy'|translate}}</a>
                                         </div>
@@ -68,6 +69,7 @@
                         </div>
                     </div>
                 </div>
+                <app-rating id2="{{id}}" class="d-md-none d-lg-none d-xl-none d-block "></app-rating>
                 <div class="row" *ngIf="card">
                     <div class="col-12 px-0">
                         <app-suggestion-list [card]="card"></app-suggestion-list>
