@@ -11,12 +11,25 @@
 }
 
 .category {
-    background-image: url("../../../assets/images/halloween/category_bg.png");
+    background-image: url("../../../assets/images/halloween/v2/bk-selection.png");
     background-repeat: no-repeat;
     background-size: cover;
     aspect-ratio: 4/1;
 }
+.btn-selections
+{
+    height:50px;
+    opacity: 0.9;
+    cursor:pointer;
 
+}
+.btn-selections:hover,
+.btn-selections:active
+{
+    height:50px;
+    opacity: 1;
+
+}
 .cardimg {
     max-height: 200px;
 }

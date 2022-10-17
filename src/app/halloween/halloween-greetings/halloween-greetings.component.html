@@ -3,89 +3,131 @@
         <div class="container animate">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <img src="/assets/images/halloween/halloween-title.png" class="img-fluid title hover-effect">
+                    <img src="/assets/images/halloween/v2/hw-header.gif" style="width:100%">
                 </div>
                 <div class="col-md-12 text-center mb-1 ps-0 pe-0">
-                    <img src="/assets/images/halloween/scareup.png" class="img-fluid hover-effect">
+                    <img src="/assets/images/halloween/v2/sub-header.png" class="img-fluid hover-effect">
                 </div>
-                <div class="col-md-12 category d-flex align-items-center">
-                    <div class=" row w-100">
-                        <div class="col-6 text-center div-btn mb-4">
-                            <button type="button" class="btn btn-primary btn-lg" (click)="scroll(ALL)">FOR ALL</button>
+                <div class="col-md-12 category align-items-center">
+                    <div class="col-md-10 offset-md-1 text-center">
+                        <br/><br/><br/>
+                        <div class=" row w-100">
+                            <div class="col-6 text-center div-btn mb-4">
+                                <img src="/assets/images/halloween/v2/select/for_all-min.png" (click)="scroll(ALL)" class="btn-selections">
+                            </div>
+                            <div class="col-6 text-center div-btn mb-4">
+                                <img src="/assets/images/halloween/v2/select/for_son-min.png" (click)="scroll(SON)"   class="btn-selections">
+                            </div>
+                            <div class="col-6 text-center div-btn mb-4">
+                                <img src="/assets/images/halloween/v2/select/for_mother-min.png" (click)="scroll(MOTHER)"  class="btn-selections">
+                            </div>
+                            <div class="col-6 text-center div-btn mb-4">
+                                <img src="/assets/images/halloween/v2/select/for_daugther-min.png" (click)="scroll(DAUGHTER)"  class="btn-selections" >
+                            </div>
+                            <div class="col-12 text-center div-btn">
+                                <img src="/assets/images/halloween/v2/select/for_father-min.png" (click)="scroll(FATHER)"  class="btn-selections">
+                            </div>
+                           
                         </div>
-                        <div class="col-6 text-center div-btn mb-4">
-                            <button type="button" class="btn btn-primary btn-lg" (click)="scroll(SON)">FROM SON</button>
-                        </div>
-                        <div class="col-6 text-center div-btn mb-4">
-                            <button type="button" class="btn btn-primary btn-lg" (click)="scroll(MOTHER)">FROM MOTHERS</button>
-                        </div>
-                        <div class="col-6 text-center div-btn mb-4">
-                            <button type="button" class="btn btn-primary btn-lg" (click)="scroll(DAUGHTER)">FROM DAUGHTER</button>
-                        </div>
-                        <div class="col-6 text-center div-btn">
-                            <button type="button" class="btn btn-primary btn-lg" (click)="scroll(FATHER)">FROM FATHERS</button>
-                        </div>
-                        <div class="col-6 text-center div-btn">
-                            <button type="button" class="btn btn-primary btn-lg" (click)="scroll(QOUTES)">HALLOWEEN QOUTES</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                             <img src="/assets/images/halloween/v2/select/hw-qoutes-min.png" (click)="scroll(QOUTES)" class="btn-selections" style="height:80px">
+                             <br/><br/>
                         </div>
                     </div>
                 </div>
                 <div #ALL></div>
-                <div class="col-md-12 text-center ps-0 pe-0">
-                    <img src="/assets/images/halloween/messageforall.png" class="img-fluid hover-effect">
+
+                <div class="col-md-12 text-center ps-0 pe-0"> 
+                    <img src="/assets/images/halloween/v2/hw-looks.gif" style="width:100%">
+                    <img src="/assets/images/halloween/v2/messageforall.png" class="img-fluid hover-effect">
+                    <img src="/assets/images/halloween/v2/messageforall_msg.png" class="img-fluid hover-effect">
                 </div>
-                <div class="col-md-12 my-4 message">
+               
+                <!-- <div class="col-md-12 my-4 message">
                     <p>1. I wish you a happy Halloween! Get scared and have a good time!</p>
                     <p>2. Happy Halloween! Tonight, may you be showered with sweets and pranks!</p>
                     <p>3. I wish you a spooky Halloween filled with sweets! But keep in mind that if you eat them all at once, you might turn into a green monster.</p>
                     <p>4. There isn't enough time to eat all the sweets. Happy Halloween!</p>
                     <p>5. Happy Halloween! Have a scary good time!</p>
-                </div>
+                </div> -->
                 <div class="col-md-12 text-center mt-2 mb-4 cards">
                     <div class="card-display">
-                        <app-halloween-card id="VfqG2BfpdB8G8xts6OKo"></app-halloween-card>
-                        <app-halloween-card id="S5Tb9xOUzCkL4Cd1H0aa"></app-halloween-card>
-                        <app-halloween-card id="K3lCZIGbZEbolRxODIAX"></app-halloween-card>
-                        <app-halloween-card id="ntMPBABBMTQKAoaGWZNm"></app-halloween-card>
-                        <app-halloween-card id="8ji8mewinjB6JNLLOVgM"></app-halloween-card>
+                        <app-halloween-card id="mPz75dte1ZA0M8MU6El4"></app-halloween-card>
+                        <app-halloween-card id="44hSuW9TdXvmrVkAxnQ6"></app-halloween-card>
+                        <app-halloween-card id="ME1MHrldVRunL630Adbu"></app-halloween-card>
+                        <app-halloween-card id="j4BCGt6IYEY8fBX0jsJW"></app-halloween-card>
+                        <app-halloween-card id="sJyxlGzDj94n2RIsKPnE"></app-halloween-card>
                     </div>
                 </div>
                 <div #SON></div>
-                <div class="col-md-12 text-center ps-0 pe-0">
-                    <img src="/assets/images/halloween/messageforson.png" class="img-fluid hover-effect">
-                </div>
-                <div class="col-md-12 my-4 message">
-                    <p>1. Have A Night Of Fright</p>
-                    <p>2. Happy Halloween</p>
-                    <p>3. Halloween Candies</p>
-                    <p>4. Tricks and treat's!</p>
-                    <p>5. Trick or Treat!</p>
+                <div class="col-md-12 text-center ps-0 pe-0"> 
+                    <img src="/assets/images/halloween/v2/messageforson.png" class="img-fluid hover-effect">
+                    <img src="/assets/images/halloween/v2/messageforson_msg.png" class="img-fluid hover-effect">
                 </div>
                 <div class="col-md-12 text-center mt-2 mb-4 cards">
                     <div class="card-display">
-                        <app-halloween-card id="3Kl22SprWkFMhitvS8ft"></app-halloween-card>
-                        <app-halloween-card id="1R51VvC5KW0NcTxZmkAy"></app-halloween-card>
-                        <app-halloween-card id="BeOvpyyxeSf9HdTS3xKr"></app-halloween-card>
-                        <app-halloween-card id="zOmqaiug47r6oqq90YAd"></app-halloween-card>
-                        <app-halloween-card id="msD3LycUBIcuGcUfOaXO"></app-halloween-card>
+                        <app-halloween-card id="xdGXUDkiHSr6RbNMbNl5"></app-halloween-card>
+                        <app-halloween-card id="h8kHGGmlXVj4ZdfWYJCA"></app-halloween-card>
+                        <app-halloween-card id="eVmHhnFPL7UApop5zGYA"></app-halloween-card>
+                        <app-halloween-card id="34XTKjRHDXydXH0jMo1K"></app-halloween-card>
+                        <app-halloween-card id="GFu5Trp0wfgvcB4hGsay"></app-halloween-card>
                     </div>
                 </div>
+                <br/><br/>
                 <div #MOTHER></div>
-                <div class="col-md-12 text-center ps-0 pe-0">
-                    <img src="/assets/images/halloween/messageformother.png" class="img-fluid hover-effect">
-                </div>
-                <div #DAUGHTER></div>
-                <div class="col-md-12 text-center ps-0 pe-0">
-                    <img src="/assets/images/halloween/messagefordaughter.png" class="img-fluid hover-effect">
-                </div>
-                <div class="col-md-12 my-4 message">
-                    <p>1. Halloween is Here</p>
-                    <p>2. Open to see your future</p>
-                    <p>3. Trick Or Treat?</p>
-                    <p>4. All Dressed Up</p>
-                    <p>5. Be The Best Halloween</p>
+                <div class="col-md-12 text-center ps-0 pe-0"> 
+                    <img src="/assets/images/halloween/v2/messageformother.png" class="img-fluid hover-effect">
+                    <img src="/assets/images/halloween/v2/messageformother_msg.png" class="img-fluid hover-effect">
                 </div>
                 <div class="col-md-12 text-center mt-2 mb-4 cards">
+                    <div class="card-display">
+                        <app-halloween-card id="gEFHGTO78MyhVmfaesnJ"></app-halloween-card>
+                        <app-halloween-card id="RB6RO8wVh6Ups8RONX3t"></app-halloween-card>
+                        <app-halloween-card id="erJ24Sfgjmw95QY4Fy1T"></app-halloween-card>
+                        <app-halloween-card id="S1i9sQzprwmVW4uAjZyC"></app-halloween-card>
+                        <app-halloween-card id="vyVfqSAzoT5B5h8qyzjM"></app-halloween-card>
+                    </div>
+                </div>
+                <br/><br/>
+                <div #DAUGHTER></div>
+                <div class="col-md-12 text-center ps-0 pe-0"> 
+                    <img src="/assets/images/halloween/v2/messagefordaughter.png" class="img-fluid hover-effect">
+                    <img src="/assets/images/halloween/v2/messagefordaughter_msg.png" class="img-fluid hover-effect">
+                </div>
+                <div class="col-md-12 text-center mt-2 mb-4 cards">
+                    <div class="card-display">
+                        <app-halloween-card id="HDh0PmRIVySCiQyomSiH"></app-halloween-card>
+                        <app-halloween-card id="ART0N50x4WaXcJxHDKk4"></app-halloween-card>
+                        <app-halloween-card id="55qyqLBJJvuTru29YyMt"></app-halloween-card>
+                        <app-halloween-card id="Pk90EsEtGrnXOTp9nD2f"></app-halloween-card>
+                        <app-halloween-card id="xR4B3B2h628HqKLslqvv"></app-halloween-card>
+                    </div>
+                </div>
+                <br/><br/>
+                <div #FATHER></div>
+                <div class="col-md-12 text-center ps-0 pe-0"> 
+                    <img src="/assets/images/halloween/v2/messageforfather.png" class="img-fluid hover-effect">
+                    <img src="/assets/images/halloween/v2/messageforfather_msg.png" class="img-fluid hover-effect">
+                </div>
+                <div class="col-md-12 text-center mt-2 mb-4 cards">
+                    <div class="card-display">
+                        <app-halloween-card id="RpX35fD0VU0u98sFvqHj"></app-halloween-card>
+                        <app-halloween-card id="4bTy75JODzHKx1YqEq5M"></app-halloween-card>
+                        <app-halloween-card id="P7E7NkmP7nymnmx99j6H"></app-halloween-card>
+                        <app-halloween-card id="tkn5PXEOgCOoCDNIYIZz"></app-halloween-card>
+                        <app-halloween-card id="8dpMqEkhlu3kCOgL7v4D"></app-halloween-card>
+                    </div>
+                </div>
+                <br/><br/>
+                <img src="/assets/images/halloween/v2/hw-looks.gif" style="width:100%">
+                <div #QOUTES></div>
+                <div class="col-md-12 text-center ps-0 pe-0">
+                    <img src="/assets/images/halloween/v2/quotes.png" class="img-fluid hover-effect">
+                    <img src="/assets/images/halloween/v2/quotes_msg.png" class="img-fluid hover-effect">
+                </div>
+                <!-- <div class="col-md-12 text-center mt-2 mb-4 cards">
                     <div class="card-display">
                         <app-halloween-card id="QX4FFaSi8gzZ1z0OI4tI"></app-halloween-card>
                         <app-halloween-card id="0zgT0L8d1TjF76qFoD1r"></app-halloween-card>
@@ -93,14 +135,17 @@
                         <app-halloween-card id="M3lPQ1vujN9pCCpT8vZc"></app-halloween-card>
                         <app-halloween-card id="p67Mlh740c1hlpYUjj1g"></app-halloween-card>
                     </div>
+                </div> -->
+                
+                <div class="col-md-6">
+                    <img src="/assets/images/halloween/v2/cards-min.png" class="img-fluid hover-effect" [routerLink]="['/specialtycardpage']">
                 </div>
-                <div #FATHER></div>
-                <div class="col-md-12 text-center ps-0 pe-0">
-                    <img src="/assets/images/halloween/messageforfather.png" class="img-fluid hover-effect">
+                <div class="col-md-6">
+                    <img src="/assets/images/halloween/v2/gifts-min.png" class="img-fluid hover-effect" [routerLink]="['/gifts']">
                 </div>
-                <div #QOUTES></div>
-                <div class="col-md-12 text-center ps-0 pe-0">
-                    <img src="/assets/images/halloween/qoutes.png" class="img-fluid hover-effect">
+                <div class="col-md-12">
+                    <br/>
+                    <img src="/assets/images/halloween/v2/free-fs.png" class="img-fluid hover-effect">
                 </div>
             </div>
         </div>
