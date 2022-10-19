@@ -1,0 +1,35 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { ImageService } from 'src/app/services/image.service';
+
+@Component({
+  selector: 'app-imagegrid-view',
+  templateUrl: './imagegrid-view.component.html',
+  styleUrls: ['./imagegrid-view.component.scss']
+})
+export class ImagegridViewComponent implements OnInit {
+  @Input() set img(_img: string) {
+    this.url = '';
+    this.loadImage(_img);
+  }
+
+  service: ImageService;
+
+  constructor(
+    _service: ImageService
+  ) {
+    this.service = _service;
+  }
+
+  defaulurl: string = '/assets/images/loading.gif';
+  url: string = '';
+
+  ngOnInit(): void {
+  }
+
+  loadImage(_img: string) {
+    this.service.getImageURL(_img).then(url => {
+      this.url = url;
+    });
+  }
+
+}

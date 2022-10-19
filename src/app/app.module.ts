@@ -104,6 +104,7 @@ import { HalloweenGreetingsComponent } from './halloween/halloween-greetings/hal
 import { CardsSliderComponent } from './modules/cards-slider/cards-slider.component';
 import { CardSliderThumbComponent } from './modules/cards-slider/card-slider-thumb/card-slider-thumb.component';
 import { HalloweenCardComponent } from './halloween/halloween-card/halloween-card.component';
+import { ImagegridViewComponent } from './modules/imagegrid/imagegrid-view/imagegrid-view.component';
 
 @NgModule({
   declarations: [
@@ -182,7 +183,8 @@ import { HalloweenCardComponent } from './halloween/halloween-card/halloween-car
     HalloweenGreetingsComponent,
     CardsSliderComponent,
     CardSliderThumbComponent,
-    HalloweenCardComponent
+    HalloweenCardComponent,
+    ImagegridViewComponent
   ],
   imports: [
     BrowserModule,

@@ -1,16 +1,15 @@
-<div class="row align-items-center">
-    <div class="col-12 d-flex align-items-center justify-content-center mainimagediv pb-2" *ngIf="selectedimage">
-        <app-image-loader [zoom]="true" [size]="0" [img]="selectedimage"></app-image-loader>
+<div class="card mb-3">
+    <div class="card-body text-center main-img align-middle">
+        <app-imagegrid-view [img]="selectedimage"></app-imagegrid-view>
     </div>
-    <div class="col-md-12">
-    <div class="card">
-        <div class="card-body pb-0 pt-2">
-             <div class="row">
-                <div class="col-2 mb-2 imagediv d-flex align-items-center justify-content-center" *ngFor="let image of images">
-                    <app-image-loader [size]="3" [img]="image!" (click)="changeImage($event)"></app-image-loader>
-                </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-2 mt-2 mb-2  imagediv d-flex align-items-center justify-content-center" *ngFor="let image of images">
+                <app-image-loader [size]="3" [img]="image!" (click)="changeImage($event)"></app-image-loader>
             </div>
         </div>
     </div>
-   </div>
 </div>
