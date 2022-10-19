@@ -2,6 +2,7 @@ import { ImageLoaderComponent } from './../image-loader/image-loader.component';
 import { environment } from './../../../environments/environment';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { CardService } from 'src/app/services/card.service';
+import { CardImage } from 'src/app/models/card-image';
 
 export class ItemImage {
   public image?: string;
@@ -20,7 +21,9 @@ export class ItemImage {
   styleUrls: ['./imagegrid.component.scss']
 })
 export class ImagegridComponent implements OnInit {
-  @Input() id?: string;
+  @Input() id: string;
+
+  service: CardService;
 
   constructor(
     private _service: CardService
@@ -28,68 +31,65 @@ export class ImagegridComponent implements OnInit {
     this.service = _service;
   }
 
+  images: CardImage[] = [];
   selectedimage: string;
-  images: string[] = [];
-  service: CardService;
-  primary: string;
-  mode: string = 'hover';
 
   ngOnInit(): void {
-    this.service.getCard(this.id!).subscribe(data => {
-      this.selectedimage = data.primary!;
+    this.service.getCardImages(this.id).then(cardimages => {
+      environment.imagetitles.forEach(title => {
+        cardimages.forEach(cardimage => {
+          if (cardimage.title == title) {
+            this.images.push(cardimage);
+          }
+        });
+      });
 
-      if (data.images) {
-        this.images = data.images;
+      if (this.images.length > 0)
+        this.selectedimage = this.images[0].url;
+    }).catch(err => {
+      this.loadOldPhotos();
+    });
+  }
+
+  loadOldPhotos() {
+    this.service.getCard(this.id!).subscribe(data => {
+      if (data.primary) {
+        let primary: CardImage = new CardImage();
+        primary.url = data.primary;
+        primary.active = true;
+        primary.title = 'Other';
+        this.images.push(primary);
+
+        data.images!.forEach(image => {
+          if (data.primary! != image) {
+            let cardimage: CardImage = new CardImage();
+            cardimage.url = image;
+            cardimage.active = true;
+            cardimage.title = 'Other';
+            this.images.push(cardimage);
+          }
+        });
       }
+      else {
+        if (data.images) {
+          data.images!.forEach(image => {
+            if (data.primary! != image) {
+              let cardimage: CardImage = new CardImage();
+              cardimage.url = image;
+              cardimage.active = true;
+              cardimage.title = 'Other';
+              this.images.push(cardimage);
+            }
+          });
+        }
+      }
+
+      if (this.images.length > 0)
+        this.selectedimage = this.images[0].url;
     });
   }
 
   changeImage(url: string) {
     this.selectedimage = url;
   }
-
-  /*
-   getImages(image: string){
-     this.service.getImageURL(image + environment.imageSize.small).then(url => {
-       this.AddURL(image, url, 1);
-     });
-     this.service.getImageURL(image + environment.imageSize.large).then(url => {
-       this.AddURL(image, url, 2);
-     });
-     this.service.getImageURL(image).then(url => {
-       this.AddURL(image, url, 0);
-     });
-   }
- 
-   
-   AddURL(_image: string, _url: string, type: number): Promise<boolean>{
-     return new Promise((resolve) => {
-       this.urls?.forEach(url => {
-         if (url.image == _image){
-           if (type == 0){
-             url.url = _url;
-             if (this.primary == _image){
-               this.url = _url;
-             }
-           }
-           if (type == 1)
-             url.small = _url;
-           if (type == 2)
-             url.large = _url;
-         }
-       });
- 
-       if (!this.primary || (this.primary == '')){
-         this.url = this.urls[0].url;
-       }
-       resolve(true);
-     })
-   }
-   
- 
-   changeImage(_url: ItemImage){
-     //console.log(_url);
-     this.url = _url.url;
-   }
-   */
 }

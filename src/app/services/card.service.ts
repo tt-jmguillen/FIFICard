@@ -1,9 +1,10 @@
+import { CardImage } from './../models/card-image';
 import { SignAndSend } from './../models/sign-and-send';
 import { Injectable, Query } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { collection, collectionData, doc, docData, Firestore, orderBy, QueryConstraint, Timestamp, updateDoc } from '@angular/fire/firestore';
+import { collection, collectionData, doc, docData, Firestore, orderBy, QueryConstraint, Timestamp, updateDoc, where } from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
-import { query, where } from '@firebase/firestore';
+import { query } from '@firebase/firestore';
 import { Observable } from 'rxjs';
 import { Card } from '../models/card';
 import { Rating } from '../models/rating';
@@ -342,5 +343,26 @@ export class CardService {
         });
       }
     })
+  }
+
+  getCardImages(id: string): Promise<CardImage[]> {
+    return new Promise((resolve, rejects) => {
+      this.db.collection('cards').doc(id).collection('cardimages', ref =>
+        ref.where('active', '==', true)).get().subscribe(data => {
+          if (!data.empty) {
+            let cardimages: CardImage[] = [];
+            data.forEach(doc => {
+              //console.log(doc.data()["date"].toDate());
+              let cardimage: CardImage = doc.data() as CardImage;
+              cardimage.id = doc.id;
+              cardimages.push(cardimage);
+            });
+            resolve(cardimages);
+          }
+          else {
+            rejects("No card images found.");
+          }
+        });
+    });
   }
 }

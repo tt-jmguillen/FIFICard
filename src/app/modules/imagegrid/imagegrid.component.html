@@ -8,7 +8,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-2 mt-2 mb-2  imagediv d-flex align-items-center justify-content-center" *ngFor="let image of images">
-                <app-image-loader [size]="3" [img]="image!" (click)="changeImage($event)"></app-image-loader>
+                <app-image-loader [size]="3" [img]="image.url" (click)="changeImage($event)"></app-image-loader>
             </div>
         </div>
     </div>

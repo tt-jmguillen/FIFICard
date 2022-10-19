@@ -17,12 +17,23 @@ export const environment = {
     large: "_282x400",
     xlarge: "_564x800"
   },
-  redirect:[
+  redirect: [
     {
       host: "fibeimothersday.com",
       main: "/mother",
       logo: "/assets/images/logo_fibiemothersday.png",
       event: "mothers day"
     }
+  ],
+  imagetitles: [
+    'Front',
+    'Back',
+    'Inside',
+    'Outside',
+    'Side by Side',
+    'Envelope',
+    'Sign & Send',
+    'Stickers',
+    'Other'
   ]
 };
