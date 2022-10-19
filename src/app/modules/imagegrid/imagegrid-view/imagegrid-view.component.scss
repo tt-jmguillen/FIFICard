@@ -1,0 +1,13 @@
+img {
+    max-height: 600px;
+    max-width: 100%;
+}
+
+.main-img {
+    min-height: 400px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
