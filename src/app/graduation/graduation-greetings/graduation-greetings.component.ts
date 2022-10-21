@@ -18,6 +18,7 @@ class SelectedCard {
   templateUrl: './graduation-greetings.component.html',
   styleUrls: ['./graduation-greetings.component.scss']
 })
+
 export class GraduationGreetingsComponent implements OnInit {
   cardService: CardService
   line1: SelectedCard[] = [];
@@ -62,15 +63,17 @@ export class GraduationGreetingsComponent implements OnInit {
     items.forEach(selectedCard => {
       this.cardService.getACard(selectedCard.id).then(card => {
         selectedCard.card = card;
-        this.getImage(selectedCard);
+        this.loadImage(selectedCard);
       })
     })
   }
 
-  getImage(selectedCard: SelectedCard) {
-    this.getAvailableURL(selectedCard.card.primary!).then(url => {
-      selectedCard.url = url;
-    })
+  loadImage(card: SelectedCard) {
+    this.cardService.getPrimaryImage(card.id!).then(img => {
+      this.getAvailableURL(img).then(url => {
+        card.url = url;
+      })
+    });
   }
 
   getAvailableURL(image: string): Promise<string> {

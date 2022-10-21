@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { CardImage } from './../models/card-image';
 import { SignAndSend } from './../models/sign-and-send';
 import { Injectable, Query } from '@angular/core';
@@ -352,7 +353,6 @@ export class CardService {
           if (!data.empty) {
             let cardimages: CardImage[] = [];
             data.forEach(doc => {
-              //console.log(doc.data()["date"].toDate());
               let cardimage: CardImage = doc.data() as CardImage;
               cardimage.id = doc.id;
               cardimages.push(cardimage);
@@ -363,6 +363,68 @@ export class CardService {
             rejects("No card images found.");
           }
         });
+    });
+  }
+
+  getImages(id: string): Promise<CardImage[]> {
+    return new Promise((resolve, rejects) => {
+      let cardimages: CardImage[] = [];
+      this.getCardImages(id).then(images => {
+        environment.imagetitles.forEach(title => {
+          images.forEach(image => {
+            if (image.title == title) {
+              cardimages.push(image);
+            }
+          });
+        });
+        resolve(cardimages);
+      }).catch(err => {
+        this.getACard(id).then(card => {
+          if (card.primary) {
+            let primary: CardImage = new CardImage();
+            primary.title = environment.imagetitles[0];
+            primary.active = true;
+            primary.url = card.primary!;
+            cardimages.push(primary);
+          }
+
+          if (card.images) {
+            card.images.forEach(img => {
+              if (img != card.primary!) {
+                let image: CardImage = new CardImage();
+                image.title = 'Other';
+                image.active = true;
+                image.url = img;
+                cardimages.push(image);
+              }
+            })
+          }
+          resolve(cardimages);
+        })
+      });
+    });
+  }
+
+  getPrimaryImage(id: string): Promise<string> {
+    return new Promise((resolve, rejects) => {
+      this.getCardImages(id).then(images => {
+        let index = images.findIndex(x => x.title == environment.imagetitles[0]);
+        if (index >= 0) {
+          resolve(images[index].url);
+        }
+        else {
+          resolve(images[0].url);
+        }
+      }).catch(err => {
+        this.getACard(id).then(card => {
+          if (card.primary) {
+            resolve(card.primary);
+          }
+          if (card.images) {
+            resolve(card.images[0]);
+          }
+        });
+      })
     });
   }
 }

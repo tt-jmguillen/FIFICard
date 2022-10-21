@@ -57,8 +57,10 @@ export class SuggestionListComponent implements OnInit {
   }
 
   getImage(card: Card) {
-    this.getAvailableURL(card.primary!).then(url => {
-      card.imageUrl = url;
+    this.service.getPrimaryImage(card.id!).then(image => {
+      this.getAvailableURL(image).then(url => {
+        card.imageUrl = url;
+      });
     });
   }
 

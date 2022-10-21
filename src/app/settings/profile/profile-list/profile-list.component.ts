@@ -5,7 +5,7 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 
-export class UserFavorite{
+export class UserFavorite {
   public id: string;
   public card: Card;
   public image: string;
@@ -28,22 +28,22 @@ export class ProfileListComponent implements OnInit {
     private _userService: UserService,
     private _cardService: CardService,
     private _router: Router
-  ) { 
+  ) {
     this.userService = _userService;
     this.cardService = _cardService;
     this.router = _router;
   }
 
   ngOnInit(): void {
-    const userDetails = JSON.parse(localStorage.getItem('user')!); 
+    const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.uid = userDetails?.uid;
     this.loadUser();
   }
 
-  loadUser(){
+  loadUser() {
     this.userService.getUser(this.uid).then(user => {
       this.user = user;
-      if(user.favorites){
+      if (user.favorites) {
         user.favorites.forEach(favorite => {
           let userFavorite = new UserFavorite();
           userFavorite.id = favorite;
@@ -54,10 +54,10 @@ export class ProfileListComponent implements OnInit {
     })
   }
 
-  getCard(cardId: string){
+  getCard(cardId: string) {
     this.cardService.getACard(cardId).then(card => {
       this.userFavorites.forEach(userFavorite => {
-        if(userFavorite.id == card.id){
+        if (userFavorite.id == card.id) {
           userFavorite.card = card;
           this.updateImage(userFavorite);
         }
@@ -65,14 +65,15 @@ export class ProfileListComponent implements OnInit {
     });
   }
 
-  updateImage(userFavorite: UserFavorite)
-  {
-    this.cardService.getImageURL(userFavorite.card.primary!).then(value => {
-      this.userFavorites.forEach(userFav => {
-        if(userFav.id == userFavorite.id){
-          userFav.image = value;
-        }
-      })
+  updateImage(userFavorite: UserFavorite) {
+    this.cardService.getPrimaryImage(userFavorite.card.id!).then(image => {
+      this.cardService.getImageURL(image).then(value => {
+        this.userFavorites.forEach(userFav => {
+          if (userFav.id == userFavorite.id) {
+            userFav.image = value;
+          }
+        })
+      });
     });
   }
 }

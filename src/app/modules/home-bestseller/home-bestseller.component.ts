@@ -34,14 +34,15 @@ export class HomeBestsellerComponent implements OnInit {
     });
   }
 
-
   getImage(card: Card) {
-    this.temp = this.getAvailableURL(card.primary!).then(url => {
-      this.randomBestsellerCards.forEach(value => {
-        if (card.id == value.id) {
-          card.imageUrl = url;
-        }
-      })
+    this.service.getPrimaryImage(card.id!).then(image => {
+      this.getAvailableURL(image).then(url => {
+        this.randomBestsellerCards.forEach(value => {
+          if (card.id == value.id) {
+            card.imageUrl = url;
+          }
+        })
+      });
     });
   }
 

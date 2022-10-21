@@ -9,50 +9,42 @@ import { CardService } from '../services/card.service';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  @Input() id?: string;
+  @Input() set id(_id: string) {
+    this.loadCard(_id);
+  }
 
   service: CardService;
   card?: Card;
   imageURL: string = '';
-  rateAve:  number;
-  rateCount:  number;
 
   constructor(
     private _service: CardService
-  ) { 
+  ) {
     this.service = _service
   }
 
-  ngOnInit(): void {
-    this.service.getCard(this.id!).subscribe(val => {
+  ngOnInit(): void { }
+
+  loadCard(_id: string) {
+    this.service.getCard(_id).subscribe(val => {
       this.card = val;
-      this.loadImage();
+      this.loadImage(_id);
     });
-
-    this.rateAve = 4.5;
-    this.rateCount = 99;
   }
 
-  loadImage(){
-    if(this.card){
-      if (this.card.primary){
-        this.getImage(this.card.primary)
-      }
-      else{
-        if (this.card.images!.length > 0){
-          this.getImage(this.card.images![0]);
-        }
-      }
-    }
+  loadImage(id: string) {
+    this.service.getPrimaryImage(id).then(img => {
+      this.getImage(img);
+    });
   }
 
-  getImage(image: string){
+  getImage(image: string) {
     this.getAvailableURL(image).then(url => {
       this.imageURL = url;
     });
   }
 
-  getAvailableURL(image: string): Promise<string>{
+  getAvailableURL(image: string): Promise<string> {
     return new Promise((resolve) => {
       this.service.getImageURL(image + environment.imageSize.xlarge).then(url => {
         resolve(url);
@@ -62,11 +54,11 @@ export class CardComponent implements OnInit {
         }).catch(err => {
           this.service.getImageURL(image).then(url => {
             resolve(url);
-          }).catch(err => {});
+          }).catch(err => { });
         });
       });
     });
-    
+
   }
 
 }

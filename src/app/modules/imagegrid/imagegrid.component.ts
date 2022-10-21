@@ -21,7 +21,9 @@ export class ItemImage {
   styleUrls: ['./imagegrid.component.scss']
 })
 export class ImagegridComponent implements OnInit {
-  @Input() id: string;
+  @Input() set id(_id: string) {
+    this.loadImage(_id);
+  }
 
   service: CardService;
 
@@ -34,59 +36,15 @@ export class ImagegridComponent implements OnInit {
   images: CardImage[] = [];
   selectedimage: string;
 
-  ngOnInit(): void {
-    this.service.getCardImages(this.id).then(cardimages => {
-      environment.imagetitles.forEach(title => {
-        cardimages.forEach(cardimage => {
-          if (cardimage.title == title) {
-            this.images.push(cardimage);
-          }
-        });
-      });
+  ngOnInit(): void { }
 
+  loadImage(_id: string) {
+    this.service.getImages(_id).then(cardimages => {
+      console.log(cardimages);
+      this.images = cardimages;
       if (this.images.length > 0)
         this.selectedimage = this.images[0].url;
-    }).catch(err => {
-      this.loadOldPhotos();
-    });
-  }
-
-  loadOldPhotos() {
-    this.service.getCard(this.id!).subscribe(data => {
-      if (data.primary) {
-        let primary: CardImage = new CardImage();
-        primary.url = data.primary;
-        primary.active = true;
-        primary.title = 'Other';
-        this.images.push(primary);
-
-        data.images!.forEach(image => {
-          if (data.primary! != image) {
-            let cardimage: CardImage = new CardImage();
-            cardimage.url = image;
-            cardimage.active = true;
-            cardimage.title = 'Other';
-            this.images.push(cardimage);
-          }
-        });
-      }
-      else {
-        if (data.images) {
-          data.images!.forEach(image => {
-            if (data.primary! != image) {
-              let cardimage: CardImage = new CardImage();
-              cardimage.url = image;
-              cardimage.active = true;
-              cardimage.title = 'Other';
-              this.images.push(cardimage);
-            }
-          });
-        }
-      }
-
-      if (this.images.length > 0)
-        this.selectedimage = this.images[0].url;
-    });
+    })
   }
 
   changeImage(url: string) {

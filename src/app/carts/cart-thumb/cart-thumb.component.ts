@@ -49,8 +49,14 @@ export class CartThumbComponent implements OnInit {
     this.cardService.getACard(id).then(card => {
       this.card = card;
       this.updateCard.emit([this.id, this.card]);
-      this.getAvailableURL(this.card.primary!);
+      this.loadImage(this.id)
     })
+  }
+
+  loadImage(id: string) {
+    this.cardService.getPrimaryImage(id).then(img => {
+      this.getAvailableURL(img);
+    });
   }
 
   getAvailableURL(image: string) {

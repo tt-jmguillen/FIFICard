@@ -22,7 +22,7 @@ export class ProfileOrderThumbComponent implements OnInit {
   constructor(
     _orderService: OrderService,
     _cardService: CardService
-  ) { 
+  ) {
     this.orderService = _orderService;
     this.cardService = _cardService;
   }
@@ -31,7 +31,7 @@ export class ProfileOrderThumbComponent implements OnInit {
     this.getOrder(this.id);
   }
 
-  getOrder(id: string){
+  getOrder(id: string) {
     this.orderService.getOrder(id).then(order => {
       this.order = order;
       this.total = order.card_price! * this.order.count!;
@@ -39,14 +39,20 @@ export class ProfileOrderThumbComponent implements OnInit {
     })
   }
 
-  getCard(id: string){
+  getCard(id: string) {
     this.cardService.getACard(id).then(card => {
       this.card = card;
-      this.getImage(this.card.primary!);
+      this.loadimage(this.card.id!);
     });
   }
 
-  getImage(image: string){
+  loadimage(id: string) {
+    this.cardService.getPrimaryImage(id).then(image => {
+      this.getImage(image);
+    })
+  }
+
+  getImage(image: string) {
     this.cardService.getImageURL(image).then(value => {
       this.image = value;
     });

@@ -22,7 +22,13 @@ export class CardSliderThumbComponent implements OnInit {
   url: string;
 
   ngOnInit(): void {
-    this.getimage(this.card.primary!).then(url => this.url = url);
+    this.loadImage();
+  }
+
+  loadImage() {
+    this.service.getPrimaryImage(this.card.id!).then(image => {
+      this.getimage(image).then(url => this.url = url);
+    });
   }
 
   getimage(image: string): Promise<string> {

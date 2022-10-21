@@ -26,17 +26,13 @@ export class AddMoreItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentCount = this.count;
-    if (this.card.primary) {
-      this.getImage(this.card.primary)
-    }
-    else {
-      if (this.card.images) {
-        if (this.card.images!.length > 0) {
-          this.getImage(this.card.images![0]);
-        }
-      }
-    }
+    this.loadImage(this.card.id!);
+  }
+
+  loadImage(id: string) {
+    this.service.getPrimaryImage(id).then(img => {
+      this.getImage(img);
+    });
   }
 
   getImage(image: string) {

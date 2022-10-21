@@ -31,10 +31,14 @@ export class HalloweenCardComponent implements OnInit {
     this.service.getACard(this.id).then(card => {
       this.title = card.name!;
       this.price = card.price!;
-      this.getimage(card.primary!).then(url => {
-        this.image = url;
-      });
+      this.loadImage(card.id!);
     })
+  }
+
+  loadImage(id: string) {
+    this.service.getPrimaryImage(id).then(img => {
+      this.getimage(img).then(image => this.image = image);
+    });
   }
 
   getimage(image: string): Promise<string> {

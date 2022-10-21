@@ -82,14 +82,14 @@ export class HomeFeaturedComponent implements OnInit {
   }
 
   getImage(card: Card) {
-    this.getAvailableURL(card.primary!).then(url => {
-      this.cards.forEach(value => {
-        if (card.id == value.id) {
-          card.imageUrl = url;
-
-        }
-        //this.loadBatch(1);
-      })
+    this.service.getPrimaryImage(card.id!).then(image => {
+      this.getAvailableURL(image).then(url => {
+        this.cards.forEach(value => {
+          if (card.id == value.id) {
+            card.imageUrl = url;
+          }
+        })
+      });
     });
   }
 

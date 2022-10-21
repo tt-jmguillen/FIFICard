@@ -39,10 +39,10 @@ export const environment = {
   ],
   imagetitles: [
     'Front',
-    'Back',
     'Inside',
     'Outside',
     'Side by Side',
+    'Back',
     'Envelope',
     'Sign & Send',
     'Stickers',

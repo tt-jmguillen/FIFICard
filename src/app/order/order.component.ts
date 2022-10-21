@@ -177,9 +177,8 @@ export class OrderComponent implements OnInit {
       this.card = data;
       this.cardPrice = this.card!.price!;
       this.titleService.setTitle(this.card!.name!);
-      this.getAvailableURL(this.card.primary!).then(url => {
-        this.primaryImageURL = url;
-      });
+
+      this.loadImage(this.card.id!);
 
       this.description = this.card.description!;
       this.getTranslation(this.card.id!);
@@ -188,6 +187,14 @@ export class OrderComponent implements OnInit {
 
       this.getType(this.card.types![0]);
     });
+  }
+
+  loadImage(id: string) {
+    this.cardService.getPrimaryImage(id).then(image => {
+      this.getAvailableURL(image).then(url => {
+        this.primaryImageURL = url;
+      });
+    })
   }
 
   loadUser() {
