@@ -40,7 +40,6 @@ export class ImagegridComponent implements OnInit {
 
   loadImage(_id: string) {
     this.service.getImages(_id).then(cardimages => {
-      console.log(cardimages);
       this.images = cardimages;
       if (this.images.length > 0)
         this.selectedimage = this.images[0].url;

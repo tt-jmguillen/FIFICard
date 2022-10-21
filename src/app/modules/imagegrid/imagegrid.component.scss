@@ -16,7 +16,16 @@
 }
 
 .imagediv {
-    min-height: 50px;
+    height: 100px;
+    opacity: .5;
+}
+
+.imagediv:hover {
+    opacity: 1;
+}
+
+.active {
+    opacity: 1;
 }
 
 ::ng-deep .ngxImageZoomContainer {

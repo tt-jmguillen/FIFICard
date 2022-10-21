@@ -8,25 +8,25 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./image-loader.component.scss']
 })
 export class ImageLoaderComponent implements OnInit {
-  @Input() set img(img: string){
+  @Input() set img(img: string) {
     this.image = img;
     this.loadImage();
   }
 
-  @Input() set size(size: number){
+  @Input() set size(size: number) {
     this.default = size;
     this.loadImage();
   }
 
   @Input() zoom: boolean = false;
 
-  @Output() click: EventEmitter<string> = new EventEmitter<string>();
+  @Output() select: EventEmitter<string> = new EventEmitter<string>();
 
   service: ImageService;
 
   constructor(
     _service: ImageService
-  ) { 
+  ) {
     this.service = _service;
   }
 
@@ -38,10 +38,10 @@ export class ImageLoaderComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  loadImage(){
+  loadImage() {
     this.url = this.defaulurl;
-    
-    if (this.image){
+
+    if (this.image) {
       let imagefull = this.image;
 
       if (this.default == 4)
@@ -55,20 +55,19 @@ export class ImageLoaderComponent implements OnInit {
       else
         imagefull = this.image;
 
-      
+
 
       this.service.getImageURL(imagefull).then(url => {
         this.url = url;
       }).catch(err => {
-        if (imagefull != this.image){
+        if (imagefull != this.image) {
           this.service.getImageURL(this.image).then(url => this.url = url);
         }
-        console.log(err);
       })
     }
   }
 
-  select(){
-    this.click.emit(this.image);
+  selectimage() {
+    this.select.emit(this.image);
   }
 }
