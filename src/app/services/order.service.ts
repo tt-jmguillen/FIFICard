@@ -49,6 +49,7 @@ export class OrderService {
         count: order.count,
         shipping_fee: order.shipping_fee,
         type: order.type,
+        bundle: order.bundle,
         created: Timestamp.now()
       }).then(docRef => {
         resolve(docRef.id);

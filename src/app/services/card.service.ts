@@ -9,6 +9,7 @@ import { query } from '@firebase/firestore';
 import { Observable } from 'rxjs';
 import { Card } from '../models/card';
 import { Rating } from '../models/rating';
+import { Bundle } from '../models/bundle';
 
 @Injectable({
   providedIn: 'root'
@@ -266,7 +267,6 @@ export class CardService {
         if (!data.empty) {
           let ratings: Rating[] = [];
           data.forEach(doc => {
-            //console.log(doc.data()["date"].toDate());
             let rating: Rating = doc.data() as Rating;
             rating.id = doc.id;
             rating.date = doc.data()["date"].toDate();
@@ -420,11 +420,31 @@ export class CardService {
           if (card.primary) {
             resolve(card.primary);
           }
-          if (card.images) {
+          else if (card.images) {
             resolve(card.images[0]);
           }
         });
       })
+    });
+  }
+
+  getBundles(id: string): Promise<Bundle[]> {
+    return new Promise((resolve, rejects) => {
+      this.db.collection('cards').doc(id).collection('bundles',
+        ref => ref.where('active', "==", true).orderBy('count', 'asc')).get().subscribe(data => {
+          if (!data.empty) {
+            let bundles: Bundle[] = [];
+            data.forEach(doc => {
+              let bundle: Bundle = doc.data() as Bundle;
+              bundle.id = doc.id;
+              bundles.push(bundle);
+            });
+            resolve(bundles);
+          }
+          else {
+            rejects("No bundles found.");
+          }
+        });
     });
   }
 }

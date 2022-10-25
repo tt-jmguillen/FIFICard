@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-lg-6 col-sm-12 row">
                     <div class="col-12">
-                        <header class="section-heading mt-0">
+                        <header class="section-heading mt-0 mb-0">
                             <div class="header">
                                 <h3 class="section-title">{{card!.name}}</h3>
                             </div>
@@ -26,10 +26,13 @@
                         <p>{{description}}</p>
                     </div>
                     <div class="col-12 pt-3 pb-3">
-                        <app-type-upgrade [def]="defaultType" [sel]="changeTo" (additional)=" upgrade($event)"></app-type-upgrade>
+                        <app-type-upgrade [def]="defaultType" [sel]="changeTo" (additional)="upgrade($event)"></app-type-upgrade>
                     </div>
-                    <div class="col-6 mb-2">
-                        <h5 class="section-title" *ngIf="card">₱{{cardPrice| number:'1.2-2'}}</h5>
+                    <div class="col-12 pt-3 pb-3">
+                        <app-bundle [card]="card" (bundle)="bundle($event)"></app-bundle>
+                    </div>
+                    <div class=" col-6 mb-2">
+                        <h3 class="section-title" *ngIf="card"><b>₱{{cardPrice| number:'1.2-2'}}</b></h3>
                     </div>
                     <div class="col-6 mb-2 d-flex align-items-center justify-content-end">
                         <button class="btn btn-light inst-but" (click)="showInstruction()">{{(card!.signAndSend?'order.howtosignandsend':'order.howtobuy')|translate}}</button>

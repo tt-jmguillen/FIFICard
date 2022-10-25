@@ -1,6 +1,6 @@
-import { Cardtype } from './../../models/cardtype';
 import { SettingService } from './../../services/setting.service';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Card } from 'src/app/models/card';
 
 export class Choice {
   public type: string;

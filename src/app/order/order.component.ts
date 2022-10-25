@@ -24,6 +24,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Translation } from '../models/translation';
 import { TranslationService } from '../services/translation.service';
 import { FilterService } from '../services/filter.service';
+import { Bundle } from '../models/bundle';
 
 @Component({
   selector: 'app-order',
@@ -95,6 +96,8 @@ export class OrderComponent implements OnInit {
   defaultType: string = '';
   changeTo: string = '';
   cardPrice: number = 0;
+  count: number = 1;
+  isBundle: boolean = false;
 
   constructor(
     _titleService: Title,
@@ -205,6 +208,9 @@ export class OrderComponent implements OnInit {
       if (user.email) {
         this.form.controls['sender_email'].patchValue(user.email);
       }
+      if (user.contact) {
+        this.form.controls['sender_phone'].patchValue(user.contact);
+      }
       if (user.address) {
         this.addressService.getAddress(user.address).then(address => {
           this.form.controls['address1'].patchValue(address.address);
@@ -267,13 +273,15 @@ export class OrderComponent implements OnInit {
     order.user_id = this.uid;
     order.card_id = this.card.id;
     order.card_price = this.cardPrice;
-    order.count = 1;
+    order.count = this.count;
     order.withSignAndSend = this.isWithSignAndSend;
     order.address = this.generateFullAddress(order);
     order.shipping_fee = this.shippingfee;
     order.type = this.changeTo;
+    order.bundle = this.isBundle;
 
     this.computeTotal();
+
     this.createAnOrder(order).then(id => {
       this.addMore.forEach(item => {
         if (item.count > 0) {
@@ -370,8 +378,8 @@ export class OrderComponent implements OnInit {
   }
 
   computeTotal() {
-    this.total = (Number(this.card.price!) * Number(1)) + Number(this.shippingfee);
-    this.totalCount = Number(1);
+    this.total = Number(this.card.price!) + Number(this.shippingfee);
+    this.totalCount = Number(this.count);
 
     this.addMore.forEach(item => {
       if (item.count > 0) {
@@ -505,7 +513,6 @@ export class OrderComponent implements OnInit {
   }
 
   updateTranslation(id: string, description: string) {
-    console.log(description);
     this.translationService.updateTranslation(id, description + ' ');
   }
 
@@ -534,5 +541,12 @@ export class OrderComponent implements OnInit {
   upgrade(value: [string, number]) {
     this.changeTo = value[0];
     this.cardPrice = this.card!.price! + value[1];
+  }
+
+  bundle(bundle: Bundle) {
+    this.changeTo = this.defaultType;
+    this.isBundle = bundle.count > 1;
+    this.count = bundle.count;
+    this.cardPrice = bundle.price;
   }
 }

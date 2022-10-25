@@ -21,6 +21,7 @@ class Collection {
   public qty: number;
   public shipping: number;
   public parent: string;
+  public bundle: boolean;
 
   constructor(_id: string) {
     this.id = _id;
@@ -32,6 +33,7 @@ class Collection {
     this.qty = 0;
     this.shipping = 0;
     this.parent = '';
+    this.bundle = false;
   }
 }
 
@@ -107,6 +109,7 @@ export class CartsComponent implements OnInit {
         item.parent = value.parentOrder!;
         item.price = value.card_price!;
         item.qty = value.count!;
+        item.bundle = value.bundle!;
         if (value.shipping_fee! > 0) {
           item.shipping = Number(value.shipping_fee);
         }
@@ -176,7 +179,10 @@ export class CartsComponent implements OnInit {
     let currentTotal: number = 0;
     this.collection.forEach(item => {
       if (item.included) {
-        currentTotal = currentTotal + (Number(item.price) * Number(item.qty)) + item.shipping;
+        if (!item.bundle)
+          currentTotal = currentTotal + (Number(item.price) * Number(item.qty)) + item.shipping;
+        else
+          currentTotal = currentTotal + Number(item.price) + item.shipping;
       }
     });
 
@@ -229,7 +235,7 @@ export class CartsComponent implements OnInit {
         let cardId = this.collection.find(x => x.id == id)!.cardid!
         if (cardId != undefined)
           this.cardService.updateCardOrder(cardId, id);
-        
+
         //this.userService.removeItemOnCart(this.uid, id);
         let index: number = this.collection.findIndex(x => x.id == id);
         this.collection.splice(index, 1);

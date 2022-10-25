@@ -34,7 +34,10 @@ export class ProfileOrderThumbComponent implements OnInit {
   getOrder(id: string) {
     this.orderService.getOrder(id).then(order => {
       this.order = order;
-      this.total = order.card_price! * this.order.count!;
+      if (!order.bundle)
+        this.total = order.card_price! * this.order.count!;
+      else
+        this.total = order.card_price!;
       this.getCard(this.order.card_id!);
     })
   }
