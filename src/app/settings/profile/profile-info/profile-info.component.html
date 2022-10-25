@@ -17,38 +17,43 @@
         <form [formGroup]="form" class="row">
             <div class="mb-3 col-6">
                 <label>* {{'profile.firstname'|translate}}</label>
-                <input type="text" class="form-control" placeholder="{{'profile.firstname'|translate}}" formControlName="firstname"
-                    readonly="{{isEdit? '': 'readonly'}}">
+                <input type="text" class="form-control" placeholder="{{'profile.firstname'|translate}}" formControlName="firstname" readonly="{{isEdit? '': 'readonly'}}">
             </div>
             <div class="mb-3 col-6">
                 <label>* {{'profile.lastname'|translate}}</label>
-                <input type="text" class="form-control" placeholder="{{'profile.lastname'|translate}}" formControlName="lastname"
-                    readonly="{{isEdit? '': 'readonly'}}">
+                <input type="text" class="form-control" placeholder="{{'profile.lastname'|translate}}" formControlName="lastname" readonly="{{isEdit? '': 'readonly'}}">
             </div>
-            <div class="mb-3 col-6">
+
+            <div class="mb-3 col-4">
+                <label>* {{'profile.contact'|translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'profile.contact'|translate}}" formControlName="contact" readonly="{{isEdit? '': 'readonly'}}">
+            </div>
+            <div class="mb-3 col-4">
                 <label>* {{'profile.email'|translate}}</label>
-                <input type="email" class="form-control" placeholder="{{'profile.email'|translate}}" formControlName="email"
-                    readonly="readonly">
+                <input type="email" class="form-control" placeholder="{{'profile.email'|translate}}" formControlName="email" readonly="readonly">
             </div>
-            <div class="mb-3 col-6">
-                <label>* {{'profile.gender'|translate}}</label>
-                <br />
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input"
-                        value="Female" formControlName="gender">
-                    <label class="custom-control-label" for="customRadioInline1">{{'profile.female'|translate}}</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input"
-                        value="Male" formControlName="gender">
-                    <label class="custom-control-label" for="customRadioInline2">{{'profile.male'|translate}}</label>
+            <div class="mb-3 col-4">
+                <div class="row">
+                    <div class="col-12 mb-2">
+                        <label>* {{'profile.gender'|translate}}</label>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="form-check-input" value="Female" formControlName="gender">
+                            <label class="form-check-label" for="customRadioInline1">{{'profile.female'|translate}}</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="form-check-input" value="Male" formControlName="gender">
+                            <label class="form-check-label" for="customRadioInline2">{{'profile.male'|translate}}</label>
+                        </div>
+                    </div>
                 </div>
             </div>
+
             <div class="mb-3 col-12">
                 <label>* {{'profile.birthday'|translate}}</label>
                 <div class="input-group ">
-                    <select aria-label="Month" class="form-control" placeholder="Month"
-                        [attr.disabled]="!isEdit ? '' : null" formControlName="month">
+                    <select aria-label="Month" class="form-control" placeholder="Month" [attr.disabled]="!isEdit ? '' : null" formControlName="month">
                         <option value=""></option>
                         <option value="1">{{'month.jan'|translate}}</option>
                         <option value="2">{{'month.feb'|translate}}</option>
@@ -63,10 +68,8 @@
                         <option value="11">{{'month.nov'|translate}}</option>
                         <option value="12">{{'month.dec'|translate}}</option>
                     </select>
-                    <input type="number" aria-label="Day" class="form-control" placeholder="{{'profile.day'|translate}}" min="1" max="31"
-                        readonly="{{isEdit? '': 'readonly'}}" formControlName="day">
-                    <input type="number" aria-label="Year" class="form-control" placeholder="{{'profile.year'|translate}}" min="1950"
-                        max="{{currentYear}}" readonly="{{isEdit? '': 'readonly'}}" formControlName="year">
+                    <input type="number" aria-label="Day" class="form-control" placeholder="{{'profile.day'|translate}}" min="1" max="31" readonly="{{isEdit? '': 'readonly'}}" formControlName="day">
+                    <input type="number" aria-label="Year" class="form-control" placeholder="{{'profile.year'|translate}}" min="1950" max="{{currentYear}}" readonly="{{isEdit? '': 'readonly'}}" formControlName="year">
                 </div>
             </div>
         </form>

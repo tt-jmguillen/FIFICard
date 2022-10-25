@@ -210,7 +210,7 @@ export class CardListComponent implements OnInit {
 
     this.cards.forEach(card => {
       card.recipients?.forEach(recipient => {
-        if ((recipient.toLocaleLowerCase() != 'all') && (recipient.toLocaleLowerCase() != 'any') && (recipient != '')) {
+        if ((recipient.trim().toLocaleLowerCase() != 'all') && (recipient.trim().toLocaleLowerCase() != 'any') && (recipient != '')) {
           if (this.recipientConfig.findIndex(x => x.name.trim().toLowerCase() == recipient.trim().toLowerCase()) >= 0) {
             if (this.recipients.findIndex(x => x.trim().toLowerCase() == recipient.trim().toLowerCase()) < 0) {
               this.recipients.push(recipient.trim());
@@ -223,6 +223,8 @@ export class CardListComponent implements OnInit {
         }
       })
     });
+
+    this.recipients = this.recipients.sort();
 
     if (withOther) {
       this.recipients.unshift("All");

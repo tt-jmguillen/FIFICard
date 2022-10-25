@@ -41,7 +41,8 @@ export class UserService {
       'lastname': user.lastname,
       'displayName': user.displayName,
       'gender': user.gender,
-      'birthday': user.birthday
+      'birthday': user.birthday,
+      'contact': user.contact
     });
   }
 
@@ -150,21 +151,21 @@ export class UserService {
     return new Promise((resolve) => {
       this.getUser(userId).then(user => {
         let carts: string[] = [];
-  
+
         user.carts.forEach(id => {
           let isFound = false;
-  
+
           orderIds.forEach(orderId => {
-            if (orderId == id){
+            if (orderId == id) {
               isFound = true;
             }
           })
-  
-          if (!isFound){
+
+          if (!isFound) {
             carts.push(id);
           }
         });
-  
+
         const data = doc(this.store, 'users/' + userId);
         updateDoc(data, {
           carts: carts

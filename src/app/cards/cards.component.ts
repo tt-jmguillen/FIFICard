@@ -163,7 +163,7 @@ export class CardsComponent implements OnInit {
         this.service.getSearchCards('search_name', value).then(data => {
           resolve(data);
         }).catch(e => {
-          this.service.getSearchCards('search_escription', value).then(data => {
+          this.service.getSearchCards('search_description', value).then(data => {
             resolve(data);
           }).catch(e => {
             rejects('No Records Found');

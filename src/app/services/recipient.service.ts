@@ -13,12 +13,12 @@ export class RecipientService {
   storage: Storage;
 
   constructor(private _store: Firestore,
-    private _storage: Storage) { 
+    private _storage: Storage) {
     this.store = _store;
     this.storage = _storage;
   }
 
-  getRecipients(): Promise<Recipient[]>{
+  getRecipients(): Promise<Recipient[]> {
     return new Promise((resolve, rejects) => {
       let data = collection(this.store, 'recipients');
       let qry = query(data, where('active', "==", true));
@@ -33,9 +33,9 @@ export class RecipientService {
     });
   }
 
-  getRecipient(id: string): Observable<Recipient>{
+  getRecipient(id: string): Observable<Recipient> {
     const data = doc(this.store, 'recipients/' + id);
-    return docData(data, {idField: 'id'}) as Observable<Recipient>;
+    return docData(data, { idField: 'id' }) as Observable<Recipient>;
   }
 
 }

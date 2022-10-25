@@ -16,4 +16,5 @@ export class User {
     public favorites: string[];
     public carts: string[];
     public payments: string[];
+    public contact: string;
 }

@@ -20,7 +20,7 @@ export class ProfileInfoComponent implements OnInit {
   constructor(
     private _userService: UserService,
     private _fb: FormBuilder
-  ) { 
+  ) {
     this.userService = _userService;
     this.fb = _fb;
   }
@@ -31,58 +31,58 @@ export class ProfileInfoComponent implements OnInit {
       lastname: ['', [Validators.required]],
       email: ['', [Validators.required]],
       gender: ['', [Validators.required]],
+      contact: ['', [Validators.required]],
       month: ['', [Validators.required]],
       day: [Number(0), [Validators.required, Validators.min(1), Validators.max(31)]],
       year: [Number(0), [Validators.required, Validators.min(1950), Validators.max((new Date).getFullYear())]]
     });
 
-    const userDetails = JSON.parse(localStorage.getItem('user')!); 
+    const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.uid = userDetails?.uid;
     this.loadUser();
   }
 
-  loadUser(){
+  loadUser() {
     this.userService.getUser(this.uid).then(user => {
       this.user = user;
       this.loadUserDisplay();
     })
   }
 
-  loadUserDisplay()
-  {
+  loadUserDisplay() {
     let bday: Date = new Date(this.user.birthday);
     this.form.patchValue({
       firstname: this.user.firstname,
       lastname: this.user.lastname,
       email: this.user.email,
       gender: this.user.gender,
+      contact: this.user.contact,
       month: bday.getMonth() + 1,
       day: bday.getDate(),
       year: bday.getFullYear()
     });
   }
 
-  updateMode(){
-    if(this.isEdit){
-      if (this.form.valid)
-      {
+  updateMode() {
+    if (this.isEdit) {
+      if (this.form.valid) {
         let user: User = this.form.value as User;
         this.user.firstname = user.firstname;
         this.user.lastname = user.lastname;
         this.user.displayName = user.firstname + " " + user.lastname;
         this.user.gender = user.gender;
+        this.user.contact = user.contact;
         this.user.birthday = this.form.value.year + "-" + this.form.value.month + "-" + this.form.value.day;
-        //g(this.user);
         this.userService.updateUser(this.user);
         this.isEdit = false;
       }
     }
-    else{
+    else {
       this.isEdit = true;
     }
   }
 
-  cancelEdit(){
+  cancelEdit() {
     this.loadUserDisplay();
     this.isEdit = false;
   }
