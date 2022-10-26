@@ -2,24 +2,24 @@
     <div class="col-md-12">
         <h2 class="text-center cus-text-title">{{'home.bestsellercards'|translate}}</h2>
     </div>
-    <div class="col-md-12  my-panel">
-    <div class="row my-selections ">
-        <div class="col-md-3 col-6" *ngFor="let card of randomBestsellerCards; index as i">
-            <div routerLink="{{'/card/' + card!.id}}" class=" selection text-center" *ngIf="i<4">
-                <img src="{{card?.imageUrl}}" alt="{{card?.event}}" title="{{card?.event}}" style="margin:auto !Important">
-                <h5  class="text-center">{{card?.event}}</h5>
+    <div class="col-md-12 my-panel mt-2">
+        <div class="row my-selections ">
+            <div class="col-md-3 col-6" *ngFor="let card of randomBestsellerCards; index as i">
+                <div routerLink="{{'/card/' + card!.id}}" class=" selection text-center" *ngIf="i<4">
+                    <img src="{{card?.imageUrl}}" alt="{{card?.event}}" title="{{card?.event}}" style="margin:auto !important; width: 180px;">
+                    <h5 class="text-center">{{card?.event}}</h5>
+                </div>
             </div>
         </div>
-    </div>
-<br/><br/>
-    <div class="row my-selections">
-        <div class="col-md-3 col-6" *ngFor="let card of randomBestsellerCards; index as i">
-            <div routerLink="{{'/card/' + card!.id}}" class=" selection text-center" *ngIf="i>=4">
-                <img src="{{card?.imageUrl}}" alt="{{card?.event}}" title="{{card?.event}}" style="margin:auto !Important">
-                <h5 class="text-center">{{card?.event}}</h5>
+        <br /><br />
+        <div class="row my-selections">
+            <div class="col-md-3 col-6" *ngFor="let card of randomBestsellerCards; index as i">
+                <div routerLink="{{'/card/' + card!.id}}" class=" selection text-center" *ngIf="i>=4">
+                    <img src="{{card?.imageUrl}}" alt="{{card?.event}}" title="{{card?.event}}" style="margin:auto !important; width: 180px;">
+                    <h5 class="text-center">{{card?.event}}</h5>
+                </div>
             </div>
         </div>
     </div>
 </div>
-</div>
-<br/><br/><br/>
+<br /><br /><br />

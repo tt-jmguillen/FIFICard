@@ -1,24 +1,20 @@
-.cus-text-title
-{
-    color:#4b0082;
+.cus-text-title {
+    color: #4b0082;
     text-transform: uppercase;
     font-weight: bolder;
 }
-.my-panel
-{
-padding:20px;
-// background:#deebf7 -fathersday;
-// background:#f1a6262e -mothersday;
-background:#6b2d9836;
+
+.my-panel {
+    padding: 20px;
+    background: #6b2d9836;
 }
 
-.cursor
-{
+.cursor {
     cursor: pointer;
     opacity: 0.7;
     transition: 0.3s;
 }
-.cursor:hover
-{
-    opacity:1;
+
+.cursor:hover {
+    opacity: 1;
 }
