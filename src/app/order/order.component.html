@@ -28,17 +28,20 @@
                     <div class="col-12 pt-3 pb-3">
                         <app-type-upgrade [def]="defaultType" [sel]="changeTo" (additional)="upgrade($event)"></app-type-upgrade>
                     </div>
-                    <div class="col-12 pt-3 pb-3">
+                    <div class="col-12">
                         <app-bundle [card]="card" (bundle)="bundle($event)"></app-bundle>
                     </div>
                     <div class=" col-6 mb-2">
                         <h3 class="section-title" *ngIf="card"><b>₱{{cardPrice| number:'1.2-2'}}</b></h3>
                     </div>
                     <div class="col-6 mb-2 d-flex align-items-center justify-content-end">
-                        <button class="btn btn-light inst-but" (click)="showInstruction()">{{(card!.signAndSend?'order.howtosignandsend':'order.howtobuy')|translate}}</button>
+                        <button class="btn btn-light text-primary" (click)="loadUserProfile()" [disabled]="isUserProfileLoaded" *ngIf="isWithUserProfile">Use Default Profile Information</button>
                     </div>
-                    <div class="col-12 mb-2">
+                    <div class="col-6 mb-2  d-flex align-items-end">
                         <span class="text-muted">{{'order.sender'|translate}}</span>
+                    </div>
+                    <div class="col-6 mb-2 d-flex align-items-center justify-content-end">
+                        <button class="btn btn-light inst-but" (click)="showInstruction()">{{(card!.signAndSend?'order.howtosignandsend':'order.howtobuy')|translate}}</button>
                     </div>
 
                     <form [formGroup]="form" (ngSubmit)="addToCart(confimation)">

@@ -98,6 +98,8 @@ export class OrderComponent implements OnInit {
   cardPrice: number = 0;
   count: number = 1;
   isBundle: boolean = false;
+  isUserProfileLoaded: boolean = false;
+  isWithUserProfile: boolean = false;
 
   constructor(
     _titleService: Title,
@@ -133,7 +135,6 @@ export class OrderComponent implements OnInit {
     this.modalService = _modalService;
     this.filter = _filter;
     this.router = _router;
-
     this.emailService = _emailService;
   }
 
@@ -202,32 +203,41 @@ export class OrderComponent implements OnInit {
 
   loadUser() {
     this.userService.getUser(this.uid).then(user => {
-      if (user.firstname && user.lastname) {
-        this.form.controls['sender_name'].patchValue(user.firstname + ' ' + user.lastname);
-      }
-      if (user.email) {
-        this.form.controls['sender_email'].patchValue(user.email);
-      }
-      if (user.contact) {
-        this.form.controls['sender_phone'].patchValue(user.contact);
-      }
-      if (user.address) {
-        this.addressService.getAddress(user.address).then(address => {
-          this.form.controls['address1'].patchValue(address.address);
-          this.form.controls['address2'].patchValue(address.address2);
-          this.form.controls['province'].patchValue(address.province);
-          this.form.controls['city'].patchValue(address.city);
-          this.form.controls['country'].patchValue(address.country);
-          this.form.controls['postcode'].patchValue(address.postcode);
-          this.province = address.province;
-          this.updateCity(address.province);
-          this.getFeeAmount(address.province!, this.card!.events!).then(amount => {
-            this.shippingfee = Number(amount);
-            this.computeTotal();
-          });
-        });
-      }
+      this.user = user;
+      if ((this.user.firstname && this.user.lastname) || this.user.email || this.user.contact || this.user.address)
+        this.isWithUserProfile = true;
+      else
+        this.isWithUserProfile = false;
     })
+  }
+
+  loadUserProfile() {
+    if (this.user.firstname && this.user.lastname) {
+      this.form.controls['sender_name'].patchValue(this.user.firstname + ' ' + this.user.lastname);
+    }
+    if (this.user.email) {
+      this.form.controls['sender_email'].patchValue(this.user.email);
+    }
+    if (this.user.contact) {
+      this.form.controls['sender_phone'].patchValue(this.user.contact);
+    }
+    if (this.user.address) {
+      this.addressService.getAddress(this.user.address).then(address => {
+        this.form.controls['address1'].patchValue(address.address);
+        this.form.controls['address2'].patchValue(address.address2);
+        this.form.controls['province'].patchValue(address.province);
+        this.form.controls['city'].patchValue(address.city);
+        this.form.controls['country'].patchValue(address.country);
+        this.form.controls['postcode'].patchValue(address.postcode);
+        this.province = address.province;
+        this.updateCity(address.province);
+        this.getFeeAmount(address.province!, this.card!.events!).then(amount => {
+          this.shippingfee = Number(amount);
+          this.computeTotal();
+        });
+      });
+    }
+    this.isUserProfileLoaded = true;
   }
 
   generateFullAddress(order: Order): string {
