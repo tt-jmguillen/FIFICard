@@ -44,7 +44,9 @@
                                     <p>Card Event: <span *ngFor="let event of card!.events" class="custom-pill">{{event}}</span></p>
                                     <!-- <p class="text-muted">Card Recipient: <span class="pill">{{card!.recipient}}</span></p> -->
                                     <p>Card Recipient: <span *ngFor="let recipient of card!.recipients" class="custom-pill">{{recipient}}</span></p>
-                                    <br />
+                                </section>
+                                <section>
+                                    <app-bundle [view]="true" [card]="card"></app-bundle>
                                 </section>
                                 <section>
                                     <div class="row">

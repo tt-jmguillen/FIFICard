@@ -9,6 +9,7 @@ import { Card } from 'src/app/models/card';
   styleUrls: ['./bundle.component.scss']
 })
 export class BundleComponent implements OnInit {
+  @Input() view: boolean = false;
   @Input() set card(_card: Card) {
     this.singleprice = _card.price!;
     this.loadBundle(_card.id!);
