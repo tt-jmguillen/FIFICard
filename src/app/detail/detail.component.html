@@ -37,10 +37,9 @@
                                     </div>
                                 </div>
                                 <!-- <img src="/assets/images/cardtype/t-{{type}}.png" *ngFor="let type of card!.types" style="height: 40px;margin-right:10px;" title="card type {{type}}"> -->
-
                                 <section>
                                     <p>Available in: <span *ngFor="let type of card!.types" class="custom-pill">{{type}}</span></p>
-                                    <p>Description: "{{description}}"</p>
+                                    <p>Description: "{{card!.description}}"</p>
                                     <!--<p>Card Event: {{card!.event}}</p>-->
                                     <p>Card Event: <span *ngFor="let event of card!.events" class="custom-pill">{{event}}</span></p>
                                     <!-- <p class="text-muted">Card Recipient: <span class="pill">{{card!.recipient}}</span></p> -->
