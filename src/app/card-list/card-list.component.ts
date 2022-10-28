@@ -224,8 +224,11 @@ export class CardListComponent implements OnInit {
 
     this.recipients = this.recipients.sort();
 
-    this.recipients.unshift("All");
-    this.selectedRecipient = "All";
+    if (this.recipients.length > 1) {
+      this.recipients.unshift("All");
+    }
+
+    this.selectedRecipient = this.recipients[0];
   }
 
   initializeBatch() {
