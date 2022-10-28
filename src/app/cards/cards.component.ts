@@ -155,7 +155,12 @@ export class CardsComponent implements OnInit {
   }
 
   doSearch(search: string): Promise<Card[]> {
-    let value = search.toLowerCase().trim();
+    let value = search.toLowerCase()
+      .replace(",", " ")
+      .replace("!", " ")
+      .replace(".", " ")
+      .trim();
+
     return new Promise((resolve, rejects) => {
       this.service.getCardsByEvent(search).then(data => {
         resolve(data);
