@@ -67,16 +67,14 @@ export class CardListComponent implements OnInit {
   ngOnInit(): void {
     this.getTypes();
 
-    this.getRecipientConfig().then(recipients => {
+    this.loadRecipients();
+  }
+
+  loadRecipients() {
+    this.recipientService.getRecipients().then(recipients => {
       this.recipientConfig = recipients;
       this.loadCards();
     });
-  }
-
-  getRecipientConfig(): Promise<Recipient[]> {
-    return new Promise((resolve) => {
-      this.recipientService.getRecipients().then(recipients => resolve(recipients));
-    })
   }
 
   getTypes() {
@@ -226,10 +224,8 @@ export class CardListComponent implements OnInit {
 
     this.recipients = this.recipients.sort();
 
-    if (withOther) {
-      this.recipients.unshift("All");
-      this.selectedRecipient = "All";
-    }
+    this.recipients.unshift("All");
+    this.selectedRecipient = "All";
   }
 
   initializeBatch() {
