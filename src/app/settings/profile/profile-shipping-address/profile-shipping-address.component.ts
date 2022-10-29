@@ -1,7 +1,7 @@
 import { AddressConfig } from './../../../models/address-config';
 import { AddressService } from './../../../services/address.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Address } from 'src/app/models/address';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
@@ -27,7 +27,7 @@ export class ProfileShippingAddressComponent implements OnInit {
   constructor(
     private _userService: UserService,
     private _adddressService: AddressService,
-    private _fb: FormBuilder
+    private _fb: UntypedFormBuilder
   ) {
     this.userService = _userService;
     this.addressService = _adddressService;

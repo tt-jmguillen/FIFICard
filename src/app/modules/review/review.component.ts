@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LoginComponent } from 'src/app/login/login.component';
 import { Rating } from 'src/app/models/rating';
@@ -11,13 +11,13 @@ import { Rating } from 'src/app/models/rating';
 })
 export class ReviewComponent implements OnInit {
   rating: number;
-  form: FormGroup;
+  form: UntypedFormGroup;
   data: Rating;
   userDetails: any;
   displayName: string;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public dialogRef: MatDialogRef<ReviewComponent>,
     @Inject(MAT_DIALOG_DATA) data: any
   ) {

@@ -20,7 +20,7 @@ import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstr
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { Event } from '../models/event';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Translation } from '../models/translation';
 import { TranslationService } from '../services/translation.service';
 import { FilterService } from '../services/filter.service';
@@ -34,8 +34,8 @@ import { Bundle } from '../models/bundle';
 
 export class OrderComponent implements OnInit {
   id?: string;
-  form: FormGroup;
-  formBuilder: FormBuilder;
+  form: UntypedFormGroup;
+  formBuilder: UntypedFormBuilder;
   card: Card = new Card();
   submitted: boolean;
   province: string;
@@ -103,7 +103,7 @@ export class OrderComponent implements OnInit {
 
   constructor(
     _titleService: Title,
-    _formBuilder: FormBuilder,
+    _formBuilder: UntypedFormBuilder,
     _appComponent: AppComponent,
     _activateRoute: ActivatedRoute,
     _cardService: CardService,

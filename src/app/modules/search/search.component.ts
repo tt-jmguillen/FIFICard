@@ -1,6 +1,6 @@
 import { FilterService } from './../../services/filter.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,16 +10,16 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
   filterService: FilterService;
-  fb: FormBuilder;
+  fb: UntypedFormBuilder;
   router: Router;
-  searchForm: FormGroup;
+  searchForm: UntypedFormGroup;
   search: string;
   budget: string = '';
   sort: string = '';
 
   constructor(
     private _filterService: FilterService,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _router: Router
   ) { 
     this.filterService = _filterService

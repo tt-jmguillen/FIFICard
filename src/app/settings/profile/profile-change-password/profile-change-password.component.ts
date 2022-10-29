@@ -2,7 +2,7 @@ import { User } from 'src/app/models/user';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/services/user.service';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-change-password',
@@ -14,14 +14,14 @@ export class ProfileChangePasswordComponent implements OnInit {
   uid: string;
   userService: UserService;
   user: User;
-  fb: FormBuilder;
-  form: FormGroup;
+  fb: UntypedFormBuilder;
+  form: UntypedFormGroup;
   modal: NgbModalRef;
 
   constructor(
     private _modalService: NgbModal,
     private _userService: UserService,
-    private _fb: FormBuilder
+    private _fb: UntypedFormBuilder
   ) { 
     this.modalService = _modalService;
     this.userService = _userService;

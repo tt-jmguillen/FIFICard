@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
@@ -13,14 +13,14 @@ export class ProfileCommunicationComponent implements OnInit {
   uid: string;
   user: User;
   userService: UserService;
-  fb: FormBuilder;
-  form: FormGroup;
+  fb: UntypedFormBuilder;
+  form: UntypedFormGroup;
   modalService: NgbModal;
   modal: NgbModalRef;
 
   constructor(
     private _userService: UserService,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _modalService: NgbModal
   ) { 
     this.userService = _userService;

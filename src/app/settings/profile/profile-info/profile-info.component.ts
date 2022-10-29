@@ -1,7 +1,7 @@
 import { User } from './../../../models/user';
 import { UserService } from './../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-info',
@@ -12,14 +12,14 @@ export class ProfileInfoComponent implements OnInit {
   uid: string;
   user: User;
   userService: UserService;
-  fb: FormBuilder;
-  form: FormGroup;
+  fb: UntypedFormBuilder;
+  form: UntypedFormGroup;
   currentYear: Number = new Date().getFullYear();
   isEdit: boolean = false;
 
   constructor(
     private _userService: UserService,
-    private _fb: FormBuilder
+    private _fb: UntypedFormBuilder
   ) {
     this.userService = _userService;
     this.fb = _fb;
