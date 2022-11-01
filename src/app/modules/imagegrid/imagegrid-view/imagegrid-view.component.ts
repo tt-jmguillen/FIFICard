@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ImageService } from 'src/app/services/image.service';
 
 @Component({
@@ -11,6 +11,7 @@ export class ImagegridViewComponent implements OnInit {
     this.url = '';
     this.loadImage(_img);
   }
+  @Output() select: EventEmitter<string> = new EventEmitter<string>();
 
   service: ImageService;
 
@@ -30,6 +31,10 @@ export class ImagegridViewComponent implements OnInit {
     this.service.getImageURL(_img).then(url => {
       this.url = url;
     });
+  }
+
+  click() {
+    this.select.emit(this.url);
   }
 
 }

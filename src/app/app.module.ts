@@ -106,7 +106,8 @@ import { CardSliderThumbComponent } from './modules/cards-slider/card-slider-thu
 import { HalloweenCardComponent } from './halloween/halloween-card/halloween-card.component';
 import { ImagegridViewComponent } from './modules/imagegrid/imagegrid-view/imagegrid-view.component';
 import { BundleComponent } from './order/bundle/bundle.component';
-import { LightgalleryModule } from 'lightgallery/angular/13';
+import { LightboxComponent } from './modules/lightbox/lightbox.component';
+
 
 @NgModule({
   declarations: [
@@ -187,7 +188,8 @@ import { LightgalleryModule } from 'lightgallery/angular/13';
     CardSliderThumbComponent,
     HalloweenCardComponent,
     ImagegridViewComponent,
-    BundleComponent
+    BundleComponent,
+    LightboxComponent
   ],
   imports: [
     BrowserModule,
@@ -215,7 +217,6 @@ import { LightgalleryModule } from 'lightgallery/angular/13';
     NgxImageZoomModule,
     AppRoutingModule,
     HttpClientModule,
-    LightgalleryModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

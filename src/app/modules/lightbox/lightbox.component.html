@@ -1,0 +1,27 @@
+<ng-template #modal>
+    <div class="modal-header">
+        <h4 class="my-0">{{current.id}} / {{items.length}}</h4>
+        <button type="button" class="btn-close" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="top d-flex flex-row">
+            <div class="control d-flex align-items-center justify-content-center">
+                <span class="carousel-control-prev-icon" (click)="prev()"></span>
+            </div>
+            <div class="img-div text-center d-flex align-items-center justify-content-center">
+                <img [src]="current.image" class="img">
+            </div>
+            <div class="control d-flex align-items-center justify-content-center">
+                <span class="carousel-control-next-icon" (click)="next()"></span>
+            </div>
+        </div>
+        <div class="bottom text-center d-flex align-items-center justify-content-center">
+            <h5>{{current.title}}</h5>
+        </div>
+    </div>
+    <div class="modal-footer text-center d-flex flex-row align-items-center justify-content-center">
+        <div class="img-slide text-center d-flex flex-row align-items-center justify-content-center">
+            <img *ngFor="let item of items" [src]="item.image" class="mx-2 item-slide" (click)="open(item.id)" [ngClass]="current.image==item.image?'active':''">
+        </div>
+    </div>
+</ng-template>

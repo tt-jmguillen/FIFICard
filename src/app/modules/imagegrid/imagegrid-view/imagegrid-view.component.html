@@ -1,6 +1,6 @@
 <div class="card mb-3">
     <div class="card-body text-center main-img align-middle">
-        <img class="main" [src]="url" *ngIf="url!=''">
+        <img class="main" [src]="url" *ngIf="url!=''" (click)="click()">
         <img [src]="defaulurl" *ngIf="url==''">
     </div>
 </div>

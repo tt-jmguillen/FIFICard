@@ -32,7 +32,7 @@ export class BundleComponent implements OnInit {
   }
 
   loadBundle(_id: string) {
-    console.log(_id);
+    //console.log(_id);
     this.sevice.getBundles(_id).then(bundles => {
       this.bundles = bundles;
 

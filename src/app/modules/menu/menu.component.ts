@@ -25,7 +25,7 @@ export class MenuComponent implements OnInit {
   ak: Event;
   user: any;
   userDetails: any;
-  userProfile: User;
+  userProfile: User = new User();
   isLogIn = false;
   @Output() onSignOut: EventEmitter<void> = new EventEmitter();
   redirectEvent: string;
@@ -38,14 +38,14 @@ export class MenuComponent implements OnInit {
     public dialog: MatDialog,
     public auth: AngularFireAuth,
     public authProcess: AuthProcessService
-  ) { 
+  ) {
     this.service = _service;
     this.userService = _userService;
   }
 
   ngOnInit(): void {
     environment.redirect.forEach(element => {
-      if (window.location.hostname.toLowerCase() == element.host.toLowerCase()){
+      if (window.location.hostname.toLowerCase() == element.host.toLowerCase()) {
         this.redirectEvent = element.event;
         this.isMothersDay = this.redirectEvent == element.event;
       }
@@ -61,8 +61,8 @@ export class MenuComponent implements OnInit {
     //console.log("isLogIn ->",   String(this.isLogIn));
   }
 
-  getProfile(){
-    if (this.userDetails){
+  getProfile() {
+    if (this.userDetails) {
       this.userService.subscribeUser(this.userDetails.uid).subscribe(user => {
         this.userProfile = user;
         //console.log(user);
@@ -70,14 +70,14 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  loadEvents(){
+  loadEvents() {
     this.service.getEvents().then((data: Event[]) => {
       data.forEach(event => {
-        if (event.active){
-          if (event.name?.toUpperCase() == 'CREATIONS'){
+        if (event.active) {
+          if (event.name?.toUpperCase() == 'CREATIONS') {
             this.ak = event;
           }
-          else{
+          else {
             this.events.push(event);
           }
         }
@@ -94,8 +94,8 @@ export class MenuComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       //console.log('The dialog was closed', result);
-  
-     const _users = this.authProcess.user$.pipe(
+
+      const _users = this.authProcess.user$.pipe(
         take(1),
         map((currentUser: firebase.User | null) => {
           return currentUser;
@@ -108,22 +108,22 @@ export class MenuComponent implements OnInit {
         //console.log("emailVerified ->",  userDetails?.emailVerified);
         //console.log("IdToken ->",  userDetails?.getIdToken());
 
-        this.isLogIn = this.userDetails == null  ? true : false;
+        this.isLogIn = this.userDetails == null ? true : false;
         //console.log("isLogIn ->",  String(this.isLogIn));
-        
 
-        if(!this.isLogIn){
-        localStorage.setItem("user", JSON.stringify(userDetails));
-            if(id != null) {
-              window.location.href = "/order/" + id;
-            }else{
-              //console.log("RELOAD");
-              window.location.reload();
-            }
+
+        if (!this.isLogIn) {
+          localStorage.setItem("user", JSON.stringify(userDetails));
+          if (id != null) {
+            window.location.href = "/order/" + id;
+          } else {
+            //console.log("RELOAD");
+            window.location.reload();
+          }
         }
 
       });
-       
+
     });
   }
 
@@ -133,8 +133,8 @@ export class MenuComponent implements OnInit {
     localStorage.removeItem("user");
     this.auth
       .signOut()
-      .then(() =>this.onSignOut.emit())
+      .then(() => this.onSignOut.emit())
       .catch((e) => console.error("An error happened while signing out!", e));
-    window.location.href = "";  
+    window.location.href = "";
   }
 }

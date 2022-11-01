@@ -8,7 +8,7 @@
                 <span><strong>{{card.name}}</strong></span><br />
                 <span *ngIf="order.receiver_name != undefined">{{'profile.receiver'|translate}}: <strong>{{order.receiver_name}}</strong><br /></span>
                 <span *ngIf="order.address != undefined">{{'profile.address'|translate}}: <strong>{{order.address}}</strong><br /></span>
-                <span>{{'profile.date'|translate}}: {{order.created!.toDate()?.toLocaleDateString()}}</span>
+                <span>{{'profile.date'|translate}}: {{order.created!.toDate()!.toLocaleDateString()}}</span>
             </div>
             <span class="detail-order" *ngIf="!order.bundle">{{order.card_price | number:'1.2-2'}} x {{order.count}}</span>
             <span class="detail-order" *ngIf="order.bundle">{{order.count}} for {{order.card_price | number:'1.2-2'}}</span>

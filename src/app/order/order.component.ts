@@ -295,7 +295,7 @@ export class OrderComponent implements OnInit {
     this.createAnOrder(order).then(id => {
       this.addMore.forEach(item => {
         if (item.count > 0) {
-          console.log(item);
+          //console.log(item);
           let order: Order = new Order();
           order.card_id = item.card.id;
           order.card_price = item.card.price;
@@ -303,7 +303,7 @@ export class OrderComponent implements OnInit {
           order.parentOrder = id;
           order.shipping_fee = item.shipping_fee;
           order.user_id = this.uid;
-          console.log(order);
+          //console.log(order);
           this.createAnAddMoreOrder(order).then(_id => {
             //console.log(_id);
           });

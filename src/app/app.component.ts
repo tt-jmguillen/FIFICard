@@ -1,11 +1,10 @@
-import { ConvertPropertyBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from './login/login.component';
 import { AuthProcessService } from 'ngx-auth-firebaseui';
 import { map, take } from 'rxjs';
 import firebase from "firebase/compat/app";
-import {UserComponent} from 'ngx-auth-firebaseui';
+import { UserComponent } from 'ngx-auth-firebaseui';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,7 +21,7 @@ export class AppComponent {
   userDetails: any;
   isLogIn = true;
   @Output() onSignOut: EventEmitter<void> = new EventEmitter();
-  
+
 
   constructor(
     private translate: TranslateService,
@@ -31,12 +30,12 @@ export class AppComponent {
     public authProcess: AuthProcessService,
     public route: Router
     //public component: UserComponent
-  ) { 
+  ) {
     this.setlanguage();
   }
 
   ngOnInit(): void {
-   
+
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.userDetails = userDetails;
     //console.log("userDetails ->",  userDetails);
@@ -53,8 +52,8 @@ export class AppComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       //console.log('The dialog was closed', result);
-  
-     const _users = this.authProcess.user$.pipe(
+
+      const _users = this.authProcess.user$.pipe(
         take(1),
         map((currentUser: firebase.User | null) => {
           return currentUser;
@@ -67,16 +66,16 @@ export class AppComponent {
         //console.log("emailVerified ->",  userDetails?.emailVerified);
         //console.log("IdToken ->",  userDetails?.getIdToken());
 
-        this.isLogIn = userDetails == null  ? true : false;
+        this.isLogIn = userDetails == null ? true : false;
         //console.log("isLogIn ->",  String(this.isLogIn));
 
-        if(!this.isLogIn){
-        localStorage.setItem("user", JSON.stringify(userDetails));
-        if(id != null) window.location.href = "/order/" + id;
+        if (!this.isLogIn) {
+          localStorage.setItem("user", JSON.stringify(userDetails));
+          if (id != null) window.location.href = "/order/" + id;
         }
 
       });
-       
+
     });
   }
 
@@ -86,14 +85,14 @@ export class AppComponent {
     localStorage.removeItem("user");
     this.auth
       .signOut()
-      .then(() =>this.onSignOut.emit())
+      .then(() => this.onSignOut.emit())
       .catch((e) => console.error("An error happened while signing out!", e));
-    window.location.href = "";   
+    window.location.href = "";
   }
 
-  setlanguage(){
-    this.translate.setDefaultLang('en');    
-    const lang = localStorage.getItem("language")!? localStorage.getItem("language")! : 'en';
+  setlanguage() {
+    this.translate.setDefaultLang('en');
+    const lang = localStorage.getItem("language")! ? localStorage.getItem("language")! : 'en';
     this.translate.use(lang);
   }
 }

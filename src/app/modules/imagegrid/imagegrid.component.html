@@ -1,13 +1,17 @@
-<app-imagegrid-view [img]="selectedimage"></app-imagegrid-view>
+<app-imagegrid-view [img]="selectedimage.url" (select)="openItem($event)"></app-imagegrid-view>
 
 <div class="card">
     <div class="card-body pb-0 mb-0">
         <div class="row">
-            <div class="col-2 mt-2 mb-2 ps-1 pe-1 imagediv d-flex align-items-center justify-content-center" [ngClass]="image.url == selectedimage?'active':''" *ngFor="let image of images">
+            <div class="col-2 mt-2 mb-2 ps-1 pe-1 imagediv d-flex align-items-center justify-content-center" [ngClass]="image.url == selectedimage.url?'active':''" *ngFor="let image of images">
                 <app-image-loader [size]="3" [img]="image.url" (select)="changeImage($event)"></app-image-loader>
+            </div>
+        </div>
+        <div class="row" *ngIf="isGalleryAvailable">
+            <div class="col-12 text-center">
+                <span class="text-gallery" (click)="open()" #gallery>Open Gallery</span>
+                <app-lightbox [images]="lightboxImages" #lightbox></app-lightbox>
             </div>
         </div>
     </div>
 </div>
-
-<div class="inline-gallery-container" #gallery></div>

@@ -1,12 +1,12 @@
+import { LightboxImage } from './../lightbox/lightbox-image';
 import { ImageService } from 'src/app/services/image.service';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { CardService } from 'src/app/services/card.service';
 import { CardImage } from 'src/app/models/card-image';
-import { LightGalleryAllSettings } from 'lightgallery/lg-settings';
-import { GalleryItem } from 'lightgallery/lg-utils';
-import { LightGallery } from 'lightgallery/lightgallery';
+import { LightboxComponent } from '../lightbox/lightbox.component';
 
 export class ItemImage {
+  public id: number;
   public cardImage: CardImage;
   public image: string;
 
@@ -21,11 +21,10 @@ export class ItemImage {
   styleUrls: ['./imagegrid.component.scss']
 })
 export class ImagegridComponent implements OnInit {
-  @ViewChild('gallery', { static: true }) gallery: HTMLElement;
-
   @Input() set id(_id: string) {
     this.loadImage(_id);
   }
+  @ViewChild('lightbox') lightbox: LightboxComponent;
 
   service: CardService;
   imageService: ImageService;
@@ -39,13 +38,11 @@ export class ImagegridComponent implements OnInit {
   }
 
   images: CardImage[] = [];
-  selectedimage: string;
+  selectedimage: CardImage = new CardImage();
   itemImages: ItemImage[] = [];
-
-  settings: Partial<LightGalleryAllSettings>;
-  dynamicEl: GalleryItem[] = []
-
   x: number = 0;
+  isGalleryAvailable: boolean = false;
+  lightboxImages: LightboxImage[] = [];
 
   ngOnInit(): void { }
 
@@ -53,7 +50,7 @@ export class ImagegridComponent implements OnInit {
     this.service.getImages(_id).then(cardimages => {
       this.images = cardimages;
       if (this.images.length > 0)
-        this.selectedimage = this.images[0].url;
+        this.selectedimage = this.images[0];
 
       this.images.forEach(image => {
         this.itemImages.push(new ItemImage(image));
@@ -64,7 +61,13 @@ export class ImagegridComponent implements OnInit {
   }
 
   changeImage(url: string) {
-    this.selectedimage = url;
+    let index: number = this.images.findIndex(x => x.url == url);
+    this.selectedimage = this.images[index];
+  }
+
+  openItem(url: string) {
+    let index: number = this.itemImages.findIndex(x => x.image == url);
+    this.lightbox.open(this.itemImages[index].id);
   }
 
   loadImageFiles() {
@@ -76,6 +79,7 @@ export class ImagegridComponent implements OnInit {
           this.x++;
 
           if (this.x == this.itemImages.length) {
+            this.isGalleryAvailable = true;
             this.loadGallery();
           }
         }
@@ -84,31 +88,15 @@ export class ImagegridComponent implements OnInit {
   }
 
   loadGallery() {
-
-    this.itemImages.forEach(image => {
-      let gallery: GalleryItem = {
-        src: image.image,
-        thumb: image.image,
-        subHtml: `<div class="lightGallery-captions">
-                    <h4>` + image.cardImage.title + `</h4>
-                  </div>`
-      }
-      this.dynamicEl.push(gallery);
+    let x: number = 1;
+    this.itemImages.forEach(item => {
+      item.id = x;
+      this.lightboxImages.push(new LightboxImage(x, item.image, item.cardImage.title));
+      x++;
     });
+  }
 
-    this.settings = {
-      container: this.gallery,
-      dynamic: true,
-      hash: false,
-      closable: false,
-      showMaximizeIcon: true,
-      appendSubHtmlTo: '.lg-item',
-      slideDelay: 400,
-      dynamicEl: this.dynamicEl
-    }
-
-    //console.log(this.gallery);
-    //const inlineGallery: LightGallery = new LightGallery(this.gallery, this.settings);
-    //inlineGallery.openGallery();
+  open() {
+    this.lightbox.open(0);
   }
 }

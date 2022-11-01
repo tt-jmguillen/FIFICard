@@ -37,7 +37,7 @@ export class SuggestionListComponent implements OnInit {
 
   ngOnInit() {
     this.isMobile = window.innerWidth <= 500;
-    console.log(this.isMobile);
+    //console.log(this.isMobile);
     this.getEventCard(this.card.events![0]);
   }
 
