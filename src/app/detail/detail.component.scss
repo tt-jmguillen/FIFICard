@@ -1,21 +1,21 @@
-section{
+section {
     padding-bottom: 10px;
 }
 
-.order{
-    background-color: #3167eb; 
-    color: #fff; 
+.order {
+    background-color: #3167eb;
+    color: #fff;
     font-size: 18px;
-    padding-top: 10px; 
-    padding-bottom: 10px; 
+    padding-top: 10px;
+    padding-bottom: 10px;
     padding-left: 30px;
     padding-right: 30px;
     margin-bottom: 10px;
-    
+
 }
 
-.order:hover{
-    background-color: #6610f2; 
+.order:hover {
+    background-color: #6610f2;
     font-weight: 500px;
 }
 
@@ -26,11 +26,11 @@ section{
 
 }
 
-.cursor{
+.cursor {
     cursor: pointer;
 }
 
-.header{
+.header {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -39,8 +39,8 @@ section{
     align-content: center;
     gap: 10px 10px;
 }
-.t-links
-{
+
+.t-links {
     color: indigo;
     font-size: 12px;
     border: 2px solid indigo;
@@ -55,16 +55,16 @@ section{
     text-align: center;
 }
 
-.t-links:hover{
-    color:white;
+.t-links:hover {
+    color: white;
     background: indigo;
 }
 
-.pad-botom{
+.pad-botom {
     padding-bottom: 10px;
 }
 
-.card-other{
+.card-other {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -72,12 +72,13 @@ section{
     align-content: center;
     gap: 10px;
 }
-.custom-pill
-{
+
+.custom-pill {
     color: white;
     padding: 6px 10px;
     background: #6b2d98;
     font-size: 14px;
-    border-radius: 14px;
+    border-radius: 16px;
     margin-right: 5px;
+    display: inline-block;
 }
