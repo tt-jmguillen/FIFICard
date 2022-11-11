@@ -1,5 +1,5 @@
 import { LightboxImage } from './lightbox-image';
-import { Component, Input, OnInit, Renderer2, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, Renderer2, TemplateRef, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -10,6 +10,9 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 export class LightboxComponent implements OnInit {
   @Input() set images(_images: LightboxImage[]) {
     this.loadImages(_images);
+  }
+  @Input() set title(_title: string) {
+    this.cardtitle = _title;
   }
   @ViewChild('modal', { static: true }) modal: TemplateRef<LightboxComponent>;
 
@@ -28,6 +31,7 @@ export class LightboxComponent implements OnInit {
 
   items: LightboxImage[] = [];
   current: LightboxImage = new LightboxImage(0, '', '');
+  cardtitle: string;
 
   ngOnInit(): void {
     this.globalListenFunc = this.renderer.listen('document', 'keydown', e => {
@@ -45,6 +49,11 @@ export class LightboxComponent implements OnInit {
   }
 
   open(_id: number) {
+    this.change(_id);
+    this.modalRef = this.modalService.open(this.modal, { animation: true, fullscreen: true });
+  }
+
+  change(_id: number) {
     if (_id == 0) {
       if (this.current.id == 0) {
         this.current = this.items[this.items.findIndex(x => x.id == 1)];
@@ -55,8 +64,6 @@ export class LightboxComponent implements OnInit {
         this.current = this.items[this.items.findIndex(x => x.id == _id)];
       }
     }
-
-    this.modalRef = this.modalService.open(this.modal, { animation: true, fullscreen: true });
   }
 
   prev() {

@@ -10,7 +10,7 @@
         <div class="row" *ngIf="isGalleryAvailable">
             <div class="col-12 text-center">
                 <span class="text-gallery" (click)="open()" #gallery>Open Gallery</span>
-                <app-lightbox [images]="lightboxImages" #lightbox></app-lightbox>
+                <app-lightbox [images]="lightboxImages" [title]="title" #lightbox></app-lightbox>
             </div>
         </div>
     </div>

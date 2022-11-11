@@ -1,11 +1,11 @@
-.img-div {
-    height: 100%;
-    width: 94%;
-}
-
 .img {
     max-height: 100%;
     max-width: 100%;
+}
+
+.img-div {
+    height: 100%;
+    width: 100%;
 }
 
 .img-slide {
@@ -30,20 +30,44 @@
     cursor: pointer;
 }
 
-.control {
-    width: 3%;
+.control-left {
+    width: 100px;
+    position: fixed;
+    left: 0;
 }
 
-.control span {
+.control-right {
+    width: 100px;
+    position: fixed;
+    right: 0;
+}
+
+.control-left span,
+.control-right span {
     cursor: pointer;
+}
+
+.control-left span:active,
+.control-right span:active {
+    transform: scale(0.80);
 }
 
 .top {
     width: 100%;
-    height: 95%;
+    height: 100%;
 }
 
 .bottom {
     width: 100%;
     height: 5%;
+}
+
+.img-zoom {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+::ng-deep .ngxImageZoomThumbnail {
+    max-width: 100% !important;
+    max-height: 100% !important;
 }

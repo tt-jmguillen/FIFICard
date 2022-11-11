@@ -1,27 +1,29 @@
-<ng-template #modal>
+<ng-template #modal let-modal>
     <div class="modal-header">
-        <h4 class="my-0">{{current.id}} / {{items.length}}</h4>
-        <button type="button" class="btn-close" aria-label="Close"></button>
+        <div class="col-2">
+            <h4 class="my-0">{{current.id}} / {{items.length}}</h4>
+        </div>
+        <div class="col-8 text-center">
+            <h4 class="my-0">{{cardtitle}} - {{current.title}}</h4>
+        </div>
+        <div class="col-2 text-end">
+            <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+        </div>
     </div>
-    <div class="modal-body">
-        <div class="top d-flex flex-row">
-            <div class="control d-flex align-items-center justify-content-center">
+    <div class="modal-body px-0">
+        <div class="w-100 h-100 text-center d-flex flex-row align-items-center justify-content-center" #imgdiv>
+            <div class="control-left d-flex align-items-center justify-content-center">
                 <span class="carousel-control-prev-icon" (click)="prev()"></span>
             </div>
-            <div class="img-div text-center d-flex align-items-center justify-content-center">
-                <img [src]="current.image" class="img">
-            </div>
-            <div class="control d-flex align-items-center justify-content-center">
+            <img class="img" [src]="current.image" class="img">
+            <div class="control-right d-flex align-items-center justify-content-center">
                 <span class="carousel-control-next-icon" (click)="next()"></span>
             </div>
-        </div>
-        <div class="bottom text-center d-flex align-items-center justify-content-center">
-            <h5>{{current.title}}</h5>
         </div>
     </div>
     <div class="modal-footer text-center d-flex flex-row align-items-center justify-content-center">
         <div class="img-slide text-center d-flex flex-row align-items-center justify-content-center">
-            <img *ngFor="let item of items" [src]="item.image" class="mx-2 item-slide" (click)="open(item.id)" [ngClass]="current.image==item.image?'active':''">
+            <img *ngFor="let item of items" [src]="item.image" class="mx-2 item-slide" (click)="change(item.id)" [ngClass]="current.image==item.image?'active':''">
         </div>
     </div>
 </ng-template>

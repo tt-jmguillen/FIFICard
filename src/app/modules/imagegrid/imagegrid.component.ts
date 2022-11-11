@@ -4,6 +4,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { CardService } from 'src/app/services/card.service';
 import { CardImage } from 'src/app/models/card-image';
 import { LightboxComponent } from '../lightbox/lightbox.component';
+import { title } from 'process';
 
 export class ItemImage {
   public id: number;
@@ -43,6 +44,7 @@ export class ImagegridComponent implements OnInit {
   x: number = 0;
   isGalleryAvailable: boolean = false;
   lightboxImages: LightboxImage[] = [];
+  title: string = '';
 
   ngOnInit(): void { }
 
@@ -57,6 +59,10 @@ export class ImagegridComponent implements OnInit {
       });
 
       this.loadImageFiles();
+    });
+
+    this.service.getACard(_id).then(card => {
+      this.title = card.name!;
     })
   }
 
