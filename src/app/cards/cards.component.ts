@@ -1,3 +1,4 @@
+import { ImageService } from 'src/app/services/image.service';
 import { FilterService } from './../services/filter.service';
 import { Card } from './../models/card';
 import { CardService } from './../services/card.service';
@@ -6,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { throws } from 'assert';
 import { Recipient } from '../models/recipient';
 import { RecipientService } from '../services/recipient.service';
+import { EventService } from '../services/event.service';
+import { Title } from '@angular/platform-browser';
 
 export class EventSetting {
   public event: string;
@@ -32,9 +35,12 @@ export class CardsComponent implements OnInit {
   caption: string = '';
   banner: string = '';
   service: CardService;
+  eventService: EventService;
+  imageService: ImageService;
   filterService: FilterService;
   serviceRecipient: RecipientService;
   activateRoute: ActivatedRoute;
+  titleService: Title;
 
   cards: Card[] = [];
   loading: boolean = true;
@@ -44,14 +50,20 @@ export class CardsComponent implements OnInit {
 
   constructor(
     private _service: CardService,
+    private _eventService: EventService,
+    private _imageService: ImageService,
     private _filterService: FilterService,
     private _serviceRecipient: RecipientService,
-    private _activateRoute: ActivatedRoute
+    private _activateRoute: ActivatedRoute,
+    private _titleService: Title
   ) {
     this.service = _service;
+    this.eventService = _eventService;
+    this.imageService = _imageService;
     this.filterService = _filterService;
     this.serviceRecipient = _serviceRecipient;
     this.activateRoute = _activateRoute;
+    this.titleService = _titleService;
   }
 
   ngOnInit(): void {
@@ -92,8 +104,19 @@ export class CardsComponent implements OnInit {
       this.recipient = params['recipient'];
 
       if (this.event) {
+        this.titleService.setTitle(this.event);
         this.caption = this.event;
         this.banner = `/assets/images/event/banner/${this.replaceAll(this.caption) || 'All'}-min.png`;
+
+        this.eventService.getByName(this.event!).then(events => {
+          if (events.length > 0) {
+            if (events[0].banner != undefined) {
+              this.imageService.getImageURL(events[0].banner).then(img => {
+                this.banner = img;
+              });
+            }
+          }
+        });
       }
 
       if ((this.event) && (this.event! != 'All')) {
@@ -104,9 +127,11 @@ export class CardsComponent implements OnInit {
         this.getCardsForEvent(this.event!);
       }
       else if ((this.search) && (this.search != '')) {
+        this.titleService.setTitle('Fibei');
         this.getSearchCard(this.search);
       }
       else {
+        this.titleService.setTitle('Fibei');
         this.getAllCards();
       }
     });

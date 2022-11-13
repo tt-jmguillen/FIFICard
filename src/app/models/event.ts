@@ -6,5 +6,9 @@ export class Event {
     public isCreations?: boolean;
     public isSticker?: boolean;
     public image?: string;
-    public url?: string; 
+    public url?: string;
+    public thumbnail: string;
+    public thumbnails: string[];
+    public banner: string;
+    public banners: string[];
 }

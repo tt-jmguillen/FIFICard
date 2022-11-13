@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, collectionData, Firestore, orderBy } from '@angular/fire/firestore';
+import { collection, collectionData, Firestore, orderBy, where } from '@angular/fire/firestore';
 import { query } from '@firebase/firestore';
 import { Observable } from 'rxjs';
 import { Event } from '../models/event';
@@ -12,11 +12,22 @@ export class EventService {
 
   constructor(
     private _store: Firestore
-  ) { 
+  ) {
     this.store = _store;
   }
 
-  getEvents(): Promise<Event[]>{
+  getByName(event: string): Promise<Event[]> {
+    return new Promise((resolve, rejects) => {
+      let data = collection(this.store, 'events');
+      let qry = query(data, where('name', '==', event));
+      (collectionData(qry, { idField: 'id' }) as Observable<Event[]>).subscribe(
+        events => resolve(events),
+        err => rejects(err)
+      );
+    });
+  }
+
+  getEvents(): Promise<Event[]> {
     return new Promise((resolve, rejects) => {
       let data = collection(this.store, 'events');
       let qry = query(data, orderBy('name', 'asc'));
@@ -27,12 +38,13 @@ export class EventService {
     });
   }
 
-  getEventNonGift(): Promise<Event[]>{
+
+  getEventNonGift(): Promise<Event[]> {
     return new Promise((resolve, rejects) => {
       let nonGifts: Event[] = [];
       this.getEvents().then(events => {
         events.forEach(event => {
-          if (!event.isGift && !event.isCreations && !event.isSticker && event.active){
+          if (!event.isGift && !event.isCreations && !event.isSticker && event.active) {
             nonGifts.push(event);
           }
         })
@@ -41,12 +53,12 @@ export class EventService {
     })
   }
 
-  getEventGift(): Promise<Event[]>{
+  getEventGift(): Promise<Event[]> {
     return new Promise((resolve, rejects) => {
       let gifts: Event[] = [];
       this.getEvents().then(events => {
         events.forEach(event => {
-          if (event.isGift && event.active){
+          if (event.isGift && event.active) {
             gifts.push(event);
           }
         })
@@ -55,12 +67,12 @@ export class EventService {
     })
   }
 
-  getEventCreation(): Promise<Event[]>{
+  getEventCreation(): Promise<Event[]> {
     return new Promise((resolve, rejects) => {
       let creations: Event[] = [];
       this.getEvents().then(events => {
         events.forEach(event => {
-          if (event.isCreations && event.active){
+          if (event.isCreations && event.active) {
             creations.push(event);
           }
         })
@@ -69,12 +81,12 @@ export class EventService {
     })
   }
 
-  getEventSticker(): Promise<Event[]>{
+  getEventSticker(): Promise<Event[]> {
     return new Promise((resolve, rejects) => {
       let stickers: Event[] = [];
       this.getEvents().then(events => {
         events.forEach(event => {
-          if (event.isSticker && event.active){
+          if (event.isSticker && event.active) {
             stickers.push(event);
           }
         })
