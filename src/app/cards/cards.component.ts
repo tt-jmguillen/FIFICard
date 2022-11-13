@@ -127,11 +127,11 @@ export class CardsComponent implements OnInit {
         this.getCardsForEvent(this.event!);
       }
       else if ((this.search) && (this.search != '')) {
-        this.titleService.setTitle('Fibei');
+        this.titleService.setTitle('Fibei Greetings');
         this.getSearchCard(this.search);
       }
       else {
-        this.titleService.setTitle('Fibei');
+        this.titleService.setTitle('Fibei Greetings');
         this.getAllCards();
       }
     });

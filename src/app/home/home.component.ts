@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
@@ -32,16 +33,20 @@ export class HomeComponent implements OnInit {
   ];
 
   router: Router;
+  titleService: Title;
 
   constructor(
-    _router: Router
+    _router: Router,
+    _titleService: Title
   ) {
     this.router = _router;
+    this.titleService = _titleService;
   }
 
   ngOnInit(): void {
     //this.carousel.animation = true;
     //this.carousel.cycle();
+    this.titleService.setTitle('Fibei Greetings');
 
     environment.redirect.forEach(element => {
       if (window.location.hostname.toLowerCase() == element.host.toLowerCase()) {
