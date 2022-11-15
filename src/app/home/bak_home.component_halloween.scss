@@ -42,13 +42,9 @@
 //     opacity:1;
 // }
 .cus-text-title {
-    // color: #4b0082;
+    color: #4b0082;
     text-transform: uppercase;
     font-weight: bolder;
-    background: green;
-    color: white;
-    padding: 20px;
-    margin: 0;
 }
 
 .w100
@@ -70,10 +66,10 @@
 }
 .bk-hw
 {
-    background-image: url('../../assets/images/xmas/snow.gif');
-    // background-size: contain;
-    // background-attachment: fixed;
-    // background-repeat: no-repeat;
+    background-image: url('../../assets/images/hw/hw-bg.png');
+    background-size: contain;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 .btn-hw
@@ -96,7 +92,8 @@
 }
 .hw-con-cards
 {
-    background: #aa0d08;
+    background: #b9bacc;
+    padding: 2%;
 }
 .btn-more-cards
 {
@@ -115,11 +112,11 @@
 }
 .btn-more-cards.s-event
 {
-    background:#567633;
+    background:#737373;
 }
 .btn-more-cards.s-specialty
 {
-    background:#567633
+    background:#5d73c8
 }
 .to-link
 {
