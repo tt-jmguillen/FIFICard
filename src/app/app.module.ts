@@ -107,6 +107,8 @@ import { HalloweenCardComponent } from './halloween/halloween-card/halloween-car
 import { ImagegridViewComponent } from './modules/imagegrid/imagegrid-view/imagegrid-view.component';
 import { BundleComponent } from './order/bundle/bundle.component';
 import { LightboxComponent } from './modules/lightbox/lightbox.component';
+import { ChristmasComponent } from './christmas/christmas.component';
+import { ChristmasGreetingsComponent } from './christmas/christmas-greetings/christmas-greetings.component';
 
 
 @NgModule({
@@ -189,7 +191,9 @@ import { LightboxComponent } from './modules/lightbox/lightbox.component';
     HalloweenCardComponent,
     ImagegridViewComponent,
     BundleComponent,
-    LightboxComponent
+    LightboxComponent,
+    ChristmasComponent,
+    ChristmasGreetingsComponent
   ],
   imports: [
     BrowserModule,

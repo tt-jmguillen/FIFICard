@@ -32,6 +32,8 @@ import { GraduationComponent } from './graduation/graduation.component';
 import { GraduationGreetingsComponent } from './graduation/graduation-greetings/graduation-greetings.component';
 import { JustBecauseComponent } from './just-because/just-because.component';
 import { JustBecauseGreetingsComponent } from './just-because/just-because-greetings/just-because-greetings.component';
+import { ChristmasComponent } from './christmas/christmas.component';
+import { ChristmasGreetingsComponent } from './christmas/christmas-greetings/christmas-greetings.component';
 
 const routes: Routes = [
   {
@@ -135,6 +137,12 @@ const routes: Routes = [
   },
   {
     path: 'halloween/greetings', component: HalloweenGreetingsComponent
+  },
+  {
+    path: 'christmas', component: ChristmasComponent
+  },
+  {
+    path: 'christmas/greetings', component: ChristmasGreetingsComponent
   }
 ];
 

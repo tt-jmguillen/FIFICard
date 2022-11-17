@@ -50,7 +50,7 @@
                 <div style="padding: 2%;background: #20563a;">
                     <div class="row">
                         <div class="col-md-3">
-                            <a [routerLink]="['#']" class="to-link">
+                            <a [routerLink]="['/christmas/greetings']" class="to-link">
                                 <img src="/assets/images/xmas/xmas-1-1-min.png" style="height: 430px;">
                             </a>
                         </div>
@@ -97,10 +97,10 @@
                         <app-home-featured caption="Anniversary" homeCardEvent="Anniversary" [limit]="100"></app-home-featured>
                     </div>
                     <div class="col-md-12">
-                        <app-home-featured caption="Be Your Self" homeCardEvent="Be Your Self" [limit]="100"></app-home-featured>
+                        <app-home-featured caption="Sympathy" homeCardEvent="Sympathy" [limit]="100"></app-home-featured>
                     </div>
                     <div class="col-md-12">
-                        <app-home-featured caption="Best Gift" homeCardEvent="Best Gift" [limit]="100"></app-home-featured>
+                        <app-home-featured caption="{{'event.petcards'|translate}}" homeCardEvent="Pet Cards" [limit]="100"></app-home-featured>
                     </div>
 
                     <!-- <div class="col-md-12 text-center">
