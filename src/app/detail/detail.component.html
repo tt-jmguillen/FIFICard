@@ -30,7 +30,7 @@
                             <div class="card-body" *ngIf="card">
                                 <div class="row">
                                     <div class="col-md-9">
-                                        <h2 class="section-title" style="color:indigo;font-weight:bolder">{{card!.name}}</h2>
+                                        <h2 class="section-title" style="color:indigo;font-weight:bolder">{{card!.name}} <sub *ngIf="card.featured"><span class="tag">Featured</span></sub><sub *ngIf="card.bestseller"><span class="tag">Best Seller</span></sub></h2>
                                     </div>
                                     <div class="col-md-3 text-right">
                                         <img src="assets/images/sign-send-logo.png" style=" height: 40px;" *ngIf="card?.signAndSend">

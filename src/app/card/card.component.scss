@@ -1,29 +1,32 @@
-.info-wrap
-{
+.info-wrap {
   padding: 18px 20px !Important;
 }
 
-.cursor{
+.cursor {
   cursor: pointer;
 }
 
-img{
+img {
   max-width: 1005;
   max-height: 200px;
 }
 
-.pill{
+.pill {
   border-radius: 80px;
   padding: 3px 20px 3px 20px !important
 }
 
-.card .img-wrap
-{
+.card .img-wrap {
   background-color: #fbf4ff;
   height: 200px;
 }
 
-.card card-product-grid:hover
-{
-border:1px solid darkviolet
+.card card-product-grid:hover {
+  border: 1px solid darkviolet
+}
+
+.tag {
+  color: #d518bb;
+  background-color: white;
+  border: none;
 }
