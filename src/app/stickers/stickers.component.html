@@ -2,32 +2,31 @@
     <section class="section-name padding-y-sm">
         <div class="container animate main">
             <div class="row text-center">
-                <div class="col-md-12 mb-2">
+                <div class="col-md-12 mb-4">
                     <img src="/assets/images/sticker-banner-2.png" class="img-fluid">
                     <br />
                     <img src="/assets/images/sticker-sub-banner-2.png" class="img-fluid">
                     <br />
                 </div>
             </div>
-            <div class="row text-center" *ngIf="caption">
+            <div class="row text-center mt-4 mb-4" *ngIf="caption">
                 <div class="col-md-12">
                     <header class="section-heading">
                         <h3 class="section-title">{{caption}}</h3>
                     </header>
                 </div>
             </div>
-            <div class="row text-center" *ngIf="loading">
+            <div class="row text-center mt-4 mb-4" *ngIf="loading">
                 <div class="col-md-12">
                     <mat-progress-bar mode="indeterminate" value=100></mat-progress-bar>
                 </div>
             </div>
             <app-card-list *ngIf="cards.length > 0" [cards]="cards"></app-card-list>
-            <div class="row text-center">
+            <div class="row mt-4 text-center">
                 <div class="col-md-12">
                     <img src="/assets/images/fathers/fs-sticker.png">
                 </div>
             </div>
-
         </div>
     </section>
     <section style="background: #eff399;padding-top: 2%; padding-bottom: 2%;">
