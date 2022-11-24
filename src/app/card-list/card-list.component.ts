@@ -228,6 +228,10 @@ export class CardListComponent implements OnInit {
       this.recipients.unshift("All");
     }
 
+    if (this.recipients.length == 0) {
+      this.recipients.push("All");
+    }
+
     this.selectedRecipient = this.recipients[0];
   }
 
