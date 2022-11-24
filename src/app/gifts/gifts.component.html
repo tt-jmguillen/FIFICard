@@ -17,7 +17,7 @@
                     <h2 [class]="mode =='Event'?'text-center my-header active':'text-center my-header'" (click)="modeChange('Event')">{{'gifts.eventtext'|translate}}</h2>
                 </div>
             </div>
-            <app-gift-events *ngIf="mode=='Category'" [order]="['Gifts for Halloween','Bath and Body','Candies and Chocolates','Candles and Fragrances','Computers and Peripherals','Flowers','Fruit Baskets','Gift Set','Mugs & Teacups','Picture Frames','Stuffed Toys']">
+            <app-gift-events *ngIf="mode=='Category'" [order]="['Bath and Body','Candies and Chocolates','Candles and Fragrances','Computers and Peripherals','Flowers','Fruit Baskets','Gift Set','Mugs & Teacups','Picture Frames','Stuffed Toys']">
             </app-gift-events>
             <app-gift-events *ngIf="mode=='Recipient'" [order]="['Gifts for Graduates','Gifts for Mothers','Gifts for Fathers']">
             </app-gift-events>
