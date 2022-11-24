@@ -27,6 +27,7 @@ export class HomeFeaturedComponent implements OnInit {
   @Input() limit: Number;
   @Input() isSignAndSend: boolean;
   @Input() withPrice: boolean = false;
+  @Input() ids: string[] = [];
 
   service: CardService;
   cards: Card[] = [];
@@ -44,12 +45,18 @@ export class HomeFeaturedComponent implements OnInit {
     config.showNavigationArrows = true;
     config.animation = true;
   }
+
   ngOnInit() {
-    if (this.isSignAndSend) {
-      this.loadSignAndSend();
+    if (this.ids.length == 0) {
+      if (this.isSignAndSend) {
+        this.loadSignAndSend();
+      }
+      else {
+        this.loadFeatured();
+      }
     }
     else {
-      this.loadFeatured();
+      this.getCard(0);
     }
 
     this.isMobile = window.innerWidth <= 500;
@@ -79,6 +86,19 @@ export class HomeFeaturedComponent implements OnInit {
       });
       this.loadBatch(1);
     })
+  }
+
+  getCard(count: number) {
+    if (count < this.ids.length) {
+      this.service.getACard(this.ids[count]).then(card => {
+        this.cards.push(card);
+        this.getImage(card);
+        this.getCard(count + 1);
+      });
+    }
+    else {
+      this.loadBatch(1);
+    }
   }
 
   getImage(card: Card) {

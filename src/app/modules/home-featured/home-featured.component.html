@@ -2,30 +2,30 @@
   <div class="row">
     <div class="col-md-12">
       <div *ngIf="caption != ''">
-    <h5 class="xmas-draft"><b>{{caption}}</b></h5>
-  </div>
+        <h5 class="xmas-draft"><b>{{caption}}</b></h5>
+      </div>
     </div>
   </div>
   <div class="center-content bg-blue">
-  <div class="row " ng-controller="appController">
-    <div class="col-12">
-      <ngb-carousel>
-        <ng-template ngbSlide *ngFor="let batch of batches">
-          <div class="row justify-content-md-center">
-            <div class="col-11">
-              <div class="row justify-content-md-center">
-                <div class="col-md-2 col-6 cursor" *ngFor="let card of batch.cards" routerLink="{{'/card/' + card!.id}}">
-                  <img class="img-thumbnail" src="{{card?.imageUrl}}" title="{{card?.name}}">
-                  <p>{{card?.name}}</p>
-                  <p *ngIf="withPrice">₱{{card?.price | number:'1.2-2'}}</p>
+    <div class="row " ng-controller="appController">
+      <div class="col-12">
+        <ngb-carousel>
+          <ng-template ngbSlide *ngFor="let batch of batches">
+            <div class="row justify-content-md-center">
+              <div class="col-11">
+                <div class="row justify-content-md-center">
+                  <div class="col-md-2 col-6 cursor" *ngFor="let card of batch.cards" routerLink="{{'/card/' + card!.id}}">
+                    <img class="img-thumbnail" src="{{card?.imageUrl}}" title="{{card?.name}}">
+                    <p>{{card?.name}}</p>
+                    <p *ngIf="withPrice">₱{{card?.price | number:'1.2-2'}}</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </ng-template>
-      </ngb-carousel>
-    </div>
+          </ng-template>
+        </ngb-carousel>
+      </div>
     </div>
   </div>
 </div>
-  <br /> <br />
+<br /> <br />

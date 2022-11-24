@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TransitionCheckState } from '@angular/material/checkbox';
 import { Card } from 'src/app/models/card';
 import { CardService } from 'src/app/services/card.service';
@@ -10,6 +10,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./home-bestseller.component.scss']
 })
 export class HomeBestsellerComponent implements OnInit {
+  @Input() caption: string = '';
+  @Input() ids: string[] = [];
 
   service: CardService;
   bestsellerCards: Card[] = [];
@@ -21,7 +23,12 @@ export class HomeBestsellerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadBestseller();
+    if (this.ids.length == 0) {
+      this.loadBestseller();
+    }
+    else {
+      this.getCard(0);
+    }
   }
 
   loadBestseller() {
@@ -32,6 +39,16 @@ export class HomeBestsellerComponent implements OnInit {
         this.getImage(card);
       });
     });
+  }
+
+  getCard(count: number) {
+    if (count < this.ids.length) {
+      this.service.getACard(this.ids[count]).then(card => {
+        this.randomBestsellerCards.push(card);
+        this.getImage(card);
+        this.getCard(count + 1);
+      });
+    }
   }
 
   getImage(card: Card) {
