@@ -27,16 +27,10 @@ export class GiftEventComponent implements OnInit {
   enable: boolean = false;
 
   ngOnInit(): void {
-    if (this.event.thumbnail != undefined) {
-      this.imageService.getImageURL(this.event.thumbnail).then(image => {
-        this.image = image;
-        this.checkCardCount(this.event!.name!);
-      })
-    }
-    else {
-      this.image = this.getDefaultThumbnail();
+    this.imageService.getImageURL(this.event.thumbnail).then(image => {
+      this.image = image;
       this.checkCardCount(this.event!.name!);
-    }
+    })
     this.loadURL();
   }
 
@@ -53,11 +47,6 @@ export class GiftEventComponent implements OnInit {
     newValue = newValue.split("’").join('');
     newValue = newValue.split("'").join('');
     return newValue.toLocaleLowerCase();
-  }
-
-  getDefaultThumbnail(): string {
-    let name = this.event!.name!;
-    return `assets/images/gift/${this.replaceAll(name)}-min.png`;
   }
 
   loadURL() {

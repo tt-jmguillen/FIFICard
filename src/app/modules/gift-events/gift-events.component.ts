@@ -8,37 +8,16 @@ import { Event } from '../../models/event';
   styleUrls: ['./gift-events.component.scss']
 })
 export class GiftEventsComponent implements OnInit {
-  @Input() order: string[] = [];
-
-  service: EventService;
-  events: Event[] = [];
-  ak: Event;
-
-  constructor(
-    private _service: EventService
-  ) {
-    this.service = _service;
+  @Input() set events(_events: Event[]) {
+    this.eventList = _events
   }
+
+  constructor() {
+  }
+
+  eventList: Event[] = [];
 
   ngOnInit(): void {
-    this.loadEvents();
-  }
-
-  loadEvents() {
-    this.service.getEvents().then((data: Event[]) => {
-      if (this.order.length > 0) {
-        this.order.forEach(x => {
-          data.forEach(y => {
-            if (x.toLowerCase() == y.name!.toLowerCase()) {
-              this.events.push(y);
-            }
-          })
-        })
-      }
-      else {
-        this.events = data;
-      }
-    });
   }
 
 }

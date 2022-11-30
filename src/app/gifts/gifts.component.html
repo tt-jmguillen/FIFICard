@@ -17,11 +17,11 @@
                     <h2 [class]="mode =='Event'?'text-center my-header active':'text-center my-header'" (click)="modeChange('Event')">{{'gifts.eventtext'|translate}}</h2>
                 </div>
             </div>
-            <app-gift-events *ngIf="mode=='Category'" [order]="['Bath and Body','Candies and Chocolates','Candles and Fragrances','Computers and Peripherals','Flowers','Fruit Baskets','Gift Set','Mugs & Teacups','Picture Frames','Stuffed Toys']">
+            <app-gift-events *ngIf="mode=='Category'" [events]="categories">
             </app-gift-events>
-            <app-gift-events *ngIf="mode=='Recipient'" [order]="['Gifts for Graduates','Gifts for Mothers','Gifts for Fathers']">
+            <app-gift-events *ngIf="mode=='Recipient'" [events]="recipients">
             </app-gift-events>
-            <app-gift-events *ngIf="mode=='Event'" [order]="['Gifts for Halloween','Gifts for Christmas']">
+            <app-gift-events *ngIf="mode=='Event'" [events]="events">
             </app-gift-events>
         </div>
     </section>
@@ -29,7 +29,7 @@
     <section class="section-name padding-y-sm mother-background-footer">
         <div class="container animate main">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 text-center">
                     <img src="/assets/images/layout2/Gifts Landing Page_3-min.png" class="img-fluid" style="margin-top:-50px">
                     <br><br>
                 </div>

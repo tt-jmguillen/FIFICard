@@ -8,7 +8,9 @@ import { Event } from '../../models/event';
   styleUrls: ['./event-list.component.scss']
 })
 export class EventListComponent implements OnInit {
-  @Input() order: string[] = [];
+  @Input() set events(_event: Event[]) {
+    this.eventlist = _event;
+  }
 
   service: EventService;
 
@@ -18,27 +20,9 @@ export class EventListComponent implements OnInit {
     this.service = _service;
   }
 
-  events: Event[] = [];
+  eventlist: Event[] = [];
 
   ngOnInit(): void {
-    this.loadEvents();
-  }
-
-  loadEvents() {
-    this.service.getEvents().then((data: Event[]) => {
-      if (this.order.length > 0) {
-        this.order.forEach(x => {
-          data.forEach(y => {
-            if (x.toLowerCase() == y.name!.toLowerCase()) {
-              this.events.push(y);
-            }
-          })
-        })
-      }
-      else {
-        this.events = data;
-      }
-    });
   }
 
 }

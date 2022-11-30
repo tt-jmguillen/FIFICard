@@ -38,7 +38,6 @@ export class EventService {
     });
   }
 
-
   getEventNonGift(): Promise<Event[]> {
     return new Promise((resolve, rejects) => {
       let nonGifts: Event[] = [];
@@ -93,5 +92,16 @@ export class EventService {
         resolve(stickers);
       })
     })
+  }
+
+  getByTag(tag: string): Promise<Event[]> {
+    return new Promise((resolve, rejects) => {
+      let data = collection(this.store, 'events');
+      let qry = query(data, where('tag', '==', tag), where('active', '==', true));
+      (collectionData(qry, { idField: 'id' }) as Observable<Event[]>).subscribe(
+        events => resolve(events),
+        err => rejects(err)
+      );
+    });
   }
 }

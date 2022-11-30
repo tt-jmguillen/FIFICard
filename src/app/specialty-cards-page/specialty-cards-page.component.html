@@ -1,25 +1,7 @@
 <ion-content>
     <section class="section-name padding-y-sm">
         <div class="container animate main">
-            <div class="row">
-                <div class="col-md-12">
-                    <app-event-list [order]="[
-                        'Just Because',
-                        'Love Your Enemy',
-                        'Pet Cards',
-                        'Friendship',
-                        'Thinking of you',
-                        'Get Well',
-                        'Sympathy',
-                        'Congratulations',
-                        'Love',
-                        'Distress',
-                        'Funny',
-                        'Thank You'
-                    ]">
-                    </app-event-list>
-                </div>
-            </div>
+            <app-event-list [events]="events"></app-event-list>
         </div>
     </section>
     <app-footer></app-footer>
