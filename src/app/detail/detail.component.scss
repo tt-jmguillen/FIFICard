@@ -20,9 +20,11 @@ section {
 }
 
 .icon-free-shipping {
-    display: inline-block;
-    height: 110px;
-    padding-left: 20px;
+    // display: block;
+    // 
+    // float: right;
+    height: 70px;
+    margin-bottom: 18px;
 
 }
 
@@ -51,8 +53,9 @@ section {
     text-decoration: none;
     font-weight: bold;
     border-radius: 0 0 8px 0;
-    width: 130px;
+    width: 160px;
     text-align: center;
+    float: right;
 }
 
 .t-links:hover {
