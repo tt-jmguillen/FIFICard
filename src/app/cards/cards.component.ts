@@ -48,6 +48,8 @@ export class CardsComponent implements OnInit {
   eventSettings: EventSetting[] = [];
   eventSetting: EventSetting;
 
+  type: string = '';
+
   constructor(
     private _service: CardService,
     private _eventService: EventService,
@@ -114,6 +116,13 @@ export class CardsComponent implements OnInit {
               this.imageService.getImageURL(events[0].banner).then(img => {
                 this.banner = img;
               });
+            }
+
+            if (events[0].isGift) {
+              this.type = 'Gifts'
+            }
+            if (!events[0].isGift && !events[0].isSticker && !events[0].isCreations) {
+              this.type = 'Cards'
             }
           }
         });
