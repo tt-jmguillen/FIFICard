@@ -9,8 +9,8 @@
         <div class="price">₱ {{card!.price | number:'1.2-2'}}</div>
       </div>
       <div class="col-6 text-end">
-        <span class="tag" *ngIf="card.bestseller">Best Seller</span>
-        <span class="tag" *ngIf="card.featured">Featured</span>
+        <span class="tag tag-bestseller" *ngIf="card.bestseller"> <i class="fa fa-thumbs-up"></i> Best Seller</span>
+        <span class="tag tag-featured" *ngIf="card.featured"><i class="fa fa-gem"></i> Featured</span>
       </div>
     </div>
     <app-rating-decimal cardId="{{card!.id}}"></app-rating-decimal>

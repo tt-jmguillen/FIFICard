@@ -33,8 +33,8 @@
                                         <h2 class="section-title" style="color:indigo;font-weight:bolder">{{card!.name}} </h2>
                                     </div>
                                     <div class="col-md-3 text-right" style="text-align:right">
-                                        <h2><sub *ngIf="card.featured"><span class="tag">Featured</span></sub><sub *ngIf="card.bestseller"><span class="tag">Best Seller</span></sub>
-                                                    </h2>
+                                        <span *ngIf="card.featured"class="tag tag-featured" ><i class="fa fa-gem"></i> Featured</span>
+                                        <span *ngIf="card.bestseller" class="tag tag-bestseller"> <i class="fa fa-thumbs-up"></i> Best Seller</span>
                                     </div>
                                 </div>
                                 <!-- <img src="/assets/images/cardtype/t-{{type}}.png" *ngFor="let type of card!.types" style="height: 40px;margin-right:10px;" title="card type {{type}}"> -->

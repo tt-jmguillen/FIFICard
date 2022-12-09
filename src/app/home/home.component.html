@@ -34,12 +34,22 @@
                         <br /> <br />
                     </div>
                     <br />
-                    <div class="col-md-12 sns-no-label">
-                        <div [routerLink]="['/signandsendpage']" class="to-link"> <img src="/assets/images/hw/sign-and-send-02.png" style="width:100%"></div>
-                        <br /> <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div [routerLink]="['/signandsendpage']" class="to-link"> <img src="/assets/images/homepage/s-and-s-banner.png" style="width:100%"></div>
+                            <br/> <br/>
+                        </div>
+                        <div class="col-md-6">
+                                <div [routerLink]="['/signandsendpage']" class="to-link"> <img src="/assets/images/homepage/poetry-banner.png" style="width:100%"></div>
+                         <br/> <br/>
+                        </div>
+                    </div>
+                  <div class="col-md-12 sns-no-label">
+                          <!-- <div [routerLink]="['/signandsendpage']" class="to-link"> <img src="/assets/images/hw/sign-and-send-02.png" style="width:100%"></div>
+                        <br /> <br />-->
                         <app-home-featured caption="Sign and Send" [isSignAndSend]=true></app-home-featured>
 
-                    </div>
+                    </div> 
                     <div class="col-md-12">
                         <br />
                         <h2 class="text-center cus-text-title">{{'home.featuredcategories'|translate}}</h2>
