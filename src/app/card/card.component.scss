@@ -1,5 +1,5 @@
 .info-wrap {
-  padding: 18px 20px !Important;
+  padding: 16px 14px !Important;
 }
 
 .cursor {
@@ -31,8 +31,7 @@ img {
   border: none;
 }
 
-.tag-bestseller
-{
+.tag-bestseller {
   background: #d518bb;
   color: white;
   padding: 2px 12px;
@@ -40,11 +39,22 @@ img {
   border-radius: 12px;
 }
 
-.tag-featured
-{
+.tag-featured {
   background: #6b2d98;
   color: white;
   padding: 2px 12px;
   margin: 0;
-  border-radius: 12px; 
+  border-radius: 12px;
+}
+
+.poerty {
+  width: 100px;
+}
+
+.bestseller {
+  height: 50px;
+}
+
+.featured {
+  height: 50px;
 }

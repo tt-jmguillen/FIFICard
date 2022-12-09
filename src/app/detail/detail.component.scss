@@ -92,22 +92,31 @@ section {
     border: none;
     font-weight: normal;
 }
-.tag-bestseller
-{
-  background: #d518bb;
-  color: white;
-  padding: 2px 12px;
-  margin: 0;
-  border-radius: 12px;
-  margin-bottom:4px;
+
+.tag-bestseller {
+    background: #d518bb;
+    color: white;
+    padding: 2px 12px;
+    margin: 0;
+    border-radius: 12px;
+    margin-bottom: 4px;
 }
 
-.tag-featured
-{
-  background: #6b2d98;
-  color: white;
-  padding: 2px 12px;
-  margin: 0;
-  border-radius: 12px; 
-  margin-bottom:4px;
+.tag-featured {
+    background: #6b2d98;
+    color: white;
+    padding: 2px 12px;
+    margin: 0;
+    border-radius: 12px;
+    margin-bottom: 4px;
+}
+
+.bestseller {
+    height: 70px;
+    aspect-ratio: 1.2/1;
+}
+
+.featured {
+    height: 70px;
+    aspect-ratio: 1/1;
 }
