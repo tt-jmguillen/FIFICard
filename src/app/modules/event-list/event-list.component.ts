@@ -1,5 +1,5 @@
+import { CardService } from 'src/app/services/card.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { EventService } from 'src/app/services/event.service';
 import { Event } from '../../models/event';
 
 @Component({
@@ -9,21 +9,53 @@ import { Event } from '../../models/event';
 })
 export class EventListComponent implements OnInit {
   @Input() set events(_event: Event[]) {
-    this.eventlist = _event;
+    this.loadEventList(_event);
   }
   @Input() type: 'card' | 'signandsend' = 'card';
+  @Input() showalways: boolean = true;
 
-  service: EventService;
+  service: CardService;
 
   constructor(
-    private _service: EventService
+    private _service: CardService
   ) {
     this.service = _service;
   }
 
   eventlist: Event[] = [];
+  tempEvent: Event[] = [];
 
   ngOnInit(): void {
+  }
+
+  loadEventList(_event: Event[]) {
+    if (this.showalways) {
+      this.eventlist = _event;
+    }
+    else {
+      this.tempEvent = _event;
+      this.check(0);
+    }
+  }
+
+  check(index: number) {
+    if (this.tempEvent[index]) {
+
+      if (this.type == 'card') {
+        this.service.getCardsByEvent(this.tempEvent[index].name!).then(cards => {
+          if (cards.length > 0)
+            this.eventlist.push(this.tempEvent[index]);
+        });
+      }
+      else {
+        this.service.getSignAndSendByEvent(this.tempEvent[index].name!).then(cards => {
+          if (cards.length > 0)
+            this.eventlist.push(this.tempEvent[index]);
+        });
+      }
+
+      this.check(index + 1);
+    }
   }
 
 }

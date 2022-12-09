@@ -11,6 +11,7 @@ import { Event } from '../../../models/event';
 export class EventComponent implements OnInit {
   @Input() event: Event;
   @Input() type: 'card' | 'signandsend' = 'card';
+  @Input() checkrequire: boolean = true;
 
   service: CardService;
   imageService: ImageService;
@@ -30,7 +31,10 @@ export class EventComponent implements OnInit {
   ngOnInit(): void {
     this.imageService.getImageURL(this.event.thumbnail).then(image => {
       this.image = image;
-      this.checkCardCount(this.event!.name!);
+      if (this.checkrequire)
+        this.checkCardCount(this.event!.name!);
+      else
+        this.enable = true;
     })
     this.loadURL();
   }
