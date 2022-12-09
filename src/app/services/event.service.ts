@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, collectionData, Firestore, orderBy, where } from '@angular/fire/firestore';
+import { collection, collectionData, doc, docData, Firestore, orderBy, where } from '@angular/fire/firestore';
 import { query } from '@firebase/firestore';
 import { Observable } from 'rxjs';
 import { Event } from '../models/event';
@@ -14,6 +14,15 @@ export class EventService {
     private _store: Firestore
   ) {
     this.store = _store;
+  }
+
+  getById(id: string): Promise<Event> {
+    return new Promise((resolve) => {
+      const data = doc(this.store, 'events/' + id);
+      (docData(data, { idField: 'id' }) as Observable<Event>).subscribe(event => {
+        resolve(event);
+      });
+    });
   }
 
   getByName(event: string): Promise<Event[]> {

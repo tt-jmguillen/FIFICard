@@ -147,6 +147,28 @@ export class CardService {
     });
   }
 
+  getSignAndSendByEvent(_event: string): Promise<Card[]> {
+    return new Promise((resolve, rejects) => {
+      this.db.collection('cards', ref => ref
+        .where('active', "==", true)
+        .where('signAndSend', "==", true)
+        .where('events', "array-contains", _event.trim())).get().subscribe(data => {
+          if (!data.empty) {
+            let cards: Card[] = [];
+            data.forEach(doc => {
+              let card: Card = doc.data() as Card;
+              card.id = doc.id;
+              cards.push(card);
+            });
+            resolve(cards);
+          }
+          else {
+            rejects("No cards found.");
+          }
+        });
+    });
+  }
+
   getCardsByRecipient(_recipient: string): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
       this.db.collection('cards', ref => ref

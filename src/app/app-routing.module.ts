@@ -1,3 +1,4 @@
+import { SignAndSendEventsComponent } from './sign-and-send-events/sign-and-send-events.component';
 import { HalloweenGreetingsComponent } from './halloween/halloween-greetings/halloween-greetings.component';
 import { HalloweenComponent } from './halloween/halloween.component';
 import { ECardsPageComponent } from './e-cards-page/e-cards-page.component';
@@ -79,7 +80,10 @@ const routes: Routes = [
     path: 'stickers', component: StickersComponent
   },
   {
-    path: 'signandsend', component: SignAndSendCardsComponent
+    path: 'signandsend', component: SignAndSendEventsComponent
+  },
+  {
+    path: 'signandsendcards/:id', component: SignAndSendCardsComponent
   },
   {
     path: 'cards/events/:event', component: CardsComponent

@@ -109,6 +109,7 @@ import { BundleComponent } from './order/bundle/bundle.component';
 import { LightboxComponent } from './modules/lightbox/lightbox.component';
 import { ChristmasComponent } from './christmas/christmas.component';
 import { ChristmasGreetingsComponent } from './christmas/christmas-greetings/christmas-greetings.component';
+import { SignAndSendEventsComponent } from './sign-and-send-events/sign-and-send-events.component';
 
 
 @NgModule({
@@ -193,7 +194,8 @@ import { ChristmasGreetingsComponent } from './christmas/christmas-greetings/chr
     BundleComponent,
     LightboxComponent,
     ChristmasComponent,
-    ChristmasGreetingsComponent
+    ChristmasGreetingsComponent,
+    SignAndSendEventsComponent
   ],
   imports: [
     BrowserModule,

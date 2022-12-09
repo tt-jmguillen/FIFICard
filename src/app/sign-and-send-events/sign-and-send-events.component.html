@@ -1,0 +1,26 @@
+<ion-content>
+    <section class="section-name padding-y-sm bk-hw">
+        <div class="container animate main">
+            <div class="panel-xmas">
+                <div class="row">
+                    <div class="col-md-8 mb-2">
+                        <img src="assets/images/sign-send-logo.png" class="signandsend me-2">
+                        <button class="btn btn-primary" type="button" [routerLink]="['/signandsendpage']">Click here to Know More About Sign and Send</button>
+                    </div>
+                    <div class="col-md-4 mb-2 text-end">
+                        <button class="btn btn-outline-info" type="button" [routerLink]="['/signandsendcards/all']">VIEW ALL CARDS</button>
+                    </div>
+                    <div class="col-md-12">
+                        <h2 class="text-center cus-text-title mt-1 mb-3">Events</h2>
+                        <app-event-list type="signandsend" [events]="events"></app-event-list>
+                    </div>
+                    <div class="col-md-12 mb-2">
+                        <h2 class="text-center cus-text-title mt-1 mb-3">Occasions</h2>
+                        <app-event-list type="signandsend" [events]="occassions"></app-event-list>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>
