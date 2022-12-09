@@ -11,6 +11,7 @@ export class EventListComponent implements OnInit {
   @Input() set events(_event: Event[]) {
     this.eventlist = _event;
   }
+  @Input() type: 'card' | 'signandsend' = 'card';
 
   service: EventService;
 

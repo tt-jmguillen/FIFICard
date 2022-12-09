@@ -10,6 +10,7 @@ import { Event } from '../../../models/event';
 })
 export class EventComponent implements OnInit {
   @Input() event: Event;
+  @Input() type: 'card' | 'signandsend' = 'card';
 
   service: CardService;
   imageService: ImageService;
@@ -35,11 +36,20 @@ export class EventComponent implements OnInit {
   }
 
   checkCardCount(name: string) {
-    this.service.getCardsByEvent(name).then(cards => {
-      this.enable = cards.length > 0;
-    }).catch(err => {
-      this.enable = false;
-    })
+    if (this.type == 'card') {
+      this.service.getCardsByEvent(name).then(cards => {
+        this.enable = cards.length > 0;
+      }).catch(err => {
+        this.enable = false;
+      })
+    }
+    else {
+      this.service.getSignAndSendByEvent(name).then(cards => {
+        this.enable = cards.length > 0;
+      }).catch(err => {
+        this.enable = false;
+      })
+    }
   }
 
   replaceAll(value: string): string {
@@ -50,15 +60,20 @@ export class EventComponent implements OnInit {
   }
 
   loadURL() {
-    let name = this.event!.name!;
-    if (name.includes('Easter')) {
-      this.url = `/cards/events/Easter`;
-    }
-    else if (name.toUpperCase() == 'CREATIONS') {
-      this.url = "/creations"
+    if (this.type == 'card') {
+      let name = this.event!.name!;
+      if (name.includes('Easter')) {
+        this.url = `/cards/events/Easter`;
+      }
+      else if (name.toUpperCase() == 'CREATIONS') {
+        this.url = "/creations"
+      }
+      else {
+        this.url = `/cards/events/${name}`;
+      }
     }
     else {
-      this.url = `/cards/events/${name}`;
+      this.url = '/signandsendcards/' + this.event.id!
     }
   }
 }
