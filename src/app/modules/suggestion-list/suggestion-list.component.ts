@@ -1,3 +1,4 @@
+import { SignAndSend } from './../../models/sign-and-send';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Card } from 'src/app/models/card';
@@ -42,10 +43,18 @@ export class SuggestionListComponent implements OnInit {
   }
 
   getEventCard(event: string) {
-    this.service.getSuggestions(event.trim(), 13).then(data => {
-      this.loadBatch(data);
-      this.getImages();
-    });
+    if (this.card.signAndSend!) {
+      this.service.getSignAndSendSuggestions(event.trim(), 13).then(data => {
+        this.loadBatch(data);
+        this.getImages();
+      });
+    }
+    else {
+      this.service.getSuggestions(event.trim(), 13).then(data => {
+        this.loadBatch(data);
+        this.getImages();
+      });
+    }
   }
 
   getImages() {
