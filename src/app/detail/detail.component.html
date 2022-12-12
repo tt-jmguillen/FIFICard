@@ -29,15 +29,15 @@
                         <div class="card">
                             <div class="card-body" *ngIf="card">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-8">
                                         <h2 class="section-title" style="color:indigo;font-weight:bolder">{{card!.name}} </h2>
                                     </div>
-                                    <div class="col-md-6 text-end my-auto">
+                                    <div class="col-md-4 text-end my-auto">
                                         <!--<img src="../assets/images/badge-bestseller.png" class="bestseller ms-2" *ngIf="card!.bestseller" />-->
                                         <img src="../assets/images/badge-sticker-free-2.png" class="sticker ms-2 cursor" *ngIf="card!.type == 'sticker' && card!.price == 18" [routerLink]="getStickerLink()" />
 
-                                        <img src="../assets/images/badge-poetry.png" class="poerty ms-2" *ngIf="card.messagetype=='poetry'" />
                                         <img src="../assets/images/badge-featured.png" class="featured ms-2" *ngIf="card!.featured" />
+                                        <img src="../assets/images/badge-poetry.png" class="poerty ms-2" *ngIf="card.messagetype=='poetry'" />
                                         <!--<span *ngIf="card.featured" class="tag tag-featured"><i class="fa fa-gem"></i> Featured</span>
                                         <span *ngIf="card.bestseller" class="tag tag-bestseller"> <i class="fa fa-thumbs-up"></i> Best Seller</span>-->
                                     </div>

@@ -1,7 +1,6 @@
 import { SettingService } from './../services/setting.service';
-import { TranslateService } from '@ngx-translate/core';
 import { RecipientService } from './../services/recipient.service';
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Card } from '../models/card';
 import { Recipient } from '../models/recipient';
 import { Cardtype } from '../models/cardtype';
@@ -29,8 +28,7 @@ export class CardListComponent implements OnInit {
   @Input() priority: string;
   @Input() recipient: string;
   @Input() footer: boolean = true;
-
-  @ViewChild('start') start: HTMLDivElement;
+  @Input() mode: 'card' | 'gift' | 'sticker' = 'card';
 
   recipientService: RecipientService;
   settingService: SettingService;
@@ -40,6 +38,8 @@ export class CardListComponent implements OnInit {
   budget: string = '';
   type: string = '';
   sort: string = '';
+  message: '' | 'regular' | 'poetry' = '';
+  select: '' | 'featured' | 'bestseller' = '';
 
   filterCards: Card[] = [];
   sortCards: Card[] = [];
@@ -67,8 +67,8 @@ export class CardListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.mode);
     this.getTypes();
-
     this.loadRecipients();
   }
 
@@ -108,11 +108,17 @@ export class CardListComponent implements OnInit {
   applyDisplayFilterAndSort() {
     this.sortCards = this.filterCards;
 
-    if (this.budget) {
+    if (this.budget != '') {
       this.sortCards = this.filterForBudget(this.budget, this.sortCards);
     }
-    if (this.type) {
+    if (this.type != '') {
       this.sortCards = this.filterForType(this.type, this.sortCards);
+    }
+    if (this.message != '') {
+      this.sortCards = this.filterForMessageType(this.message, this.sortCards);
+    }
+    if (this.select != '') {
+      this.sortCards = this.filterForSelect(this.select, this.sortCards);
     }
     this.sortCards = this.sortRecord(this.sort, this.sortCards);
 
@@ -180,6 +186,19 @@ export class CardListComponent implements OnInit {
       }
     });
     return filtered;
+  }
+
+  filterForMessageType(_type: 'regular' | 'poetry', data: Card[]): Card[] {
+    return data.filter(x => x.messagetype == _type);
+  }
+
+  filterForSelect(_type: 'featured' | 'bestseller', data: Card[]): Card[] {
+    if (_type == 'featured') {
+      return data.filter(x => x.featured! == true);
+    }
+    else {
+      return data.filter(x => x.bestseller! == true);
+    }
   }
 
   sortRecord(_sort: string, data: Card[]): Card[] {
@@ -302,12 +321,10 @@ export class CardListComponent implements OnInit {
 
   clickNext() {
     this.loadBatch(this.index + 1);
-    this.start.scrollIntoView({ behavior: 'smooth' });
   }
 
   clickPrev() {
     this.loadBatch(this.index - 1);
-    this.start.scrollIntoView({ behavior: 'smooth' });
   }
 
   changeBudget(event: any) {
@@ -331,4 +348,17 @@ export class CardListComponent implements OnInit {
     }
   }
 
+  changeMessage(event: any) {
+    this.message = event.target.value;
+    if (this.filterCards.length > 0) {
+      this.applyDisplayFilterAndSort();
+    }
+  }
+
+  changeSelect(event: any) {
+    this.select = event.target.value;
+    if (this.filterCards.length > 0) {
+      this.applyDisplayFilterAndSort();
+    }
+  }
 }

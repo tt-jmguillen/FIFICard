@@ -108,7 +108,6 @@ export class CardsComponent implements OnInit {
       if (this.event) {
         this.titleService.setTitle(this.event);
         this.caption = this.event;
-        //this.banner = `/assets/images/event/banner/${this.replaceAll(this.caption) || 'All'}-min.png`;
 
         this.eventService.getByName(this.event!).then(events => {
           if (events.length > 0) {

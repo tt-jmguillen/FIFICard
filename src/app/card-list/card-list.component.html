@@ -1,40 +1,45 @@
-<div class="row" *ngIf="(cards.length > 0)" #start>
-    <div class="col-md-6"></div>
-    <div class="col-md-1 valign-center allign-right">
+<div class="row justify-content-end mb-4" *ngIf="(cards.length > 0)">
+    <div class="col-1 my-auto text-end">
         <p>{{'cards.filter'|translate}}</p>
     </div>
-    <div class="col-md-5">
-        <div class="row">
-            <div class="col-md-4 col-4">
-                <select class="form-select" aria-label="Budget" (change)="changeBudget($event)">
-                    <option value="" [selected]="budget == ''">{{'cards.budget'|translate}}</option>
-                    <option value="0 - 99" [selected]="budget == '0 - 99'">0 - 99.00</option>
-                    <option value="100 - 199" [selected]="budget == '100 - 199'">100.00 - 199.00</option>
-                    <option value="200 and Up" [selected]="budget == '200 and Up'">200.00 and Up</option>
-                </select>
-            </div>
-            <div class="col-md-4 col-4">
-                <select class="form-select" aria-label="Type" (change)="changeType($event)">
-                    <option value="" [selected]="type == ''">{{'cards.type'|translate}}</option>
-                    <option *ngFor="let item of types" [value]="item.name" [selected]="type == item.name">{{item.name}}</option>
-                </select>
-            </div>
-            <div class="col-md-4 col-4">
-                <select class="form-select" aria-label="Sort" (change)="changeSort($event)">
-                    <option value="" [selected]="sort == ''">{{'cards.sort'|translate}}</option>
-                    <option value="Latest" [selected]="sort == 'Latest'">{{'cards.latest'|translate}}</option>
-                    <option value="Price from Low to High" [selected]="sort == 'Price from Low to High'">
-                        {{'cards.lowtohigh'|translate}}</option>
-                    <option value="Price from High to Low" [selected]="sort == 'Price from High to Low'">
-                        {{'cards.hightolow'|translate}}</option>
-                    <option value="Highest Ratings" [selected]="sort == 'Highest Ratings'">Highest Ratings
-                    </option>
-                </select>
-            </div>
-        </div>
+    <div class="col-2">
+        <select class="form-select" aria-label="Select" (change)="changeSelect($event)">
+            <option value="" [selected]="select == ''">Select</option>
+            <option value="featured" [selected]="select == 'featured'">Featured</option>
+            <option value="bestseller" [selected]="select == 'bestseller'">Best Seller</option>
+        </select>
+    </div>
+    <div class="col-2" *ngIf="mode == 'card'">
+        <select class="form-select" aria-label="Message" (change)="changeMessage($event)">
+            <option value="" [selected]="message == ''">Message Type</option>
+            <option value="regular" [selected]="message == 'regular'">Regular Message</option>
+            <option value="poetry" [selected]="message == 'poetry'">Poetry Message</option>
+        </select>
+    </div>
+    <div class="col-2" *ngIf="mode == 'card'">
+        <select class="form-select" aria-label="Type" (change)="changeType($event)">
+            <option value="" [selected]="type == ''">Card Type</option>
+            <option *ngFor="let item of types" [value]="item.name" [selected]="type == item.name">{{item.name}}</option>
+        </select>
+    </div>
+    <div class="col-2">
+        <select class="form-select" aria-label="Budget" (change)="changeBudget($event)">
+            <option value="" [selected]="budget == ''">{{'cards.budget'|translate}}</option>
+            <option value="0 - 99" [selected]="budget == '0 - 99'">0 - 99.00</option>
+            <option value="100 - 199" [selected]="budget == '100 - 199'">100.00 - 199.00</option>
+            <option value="200 and Up" [selected]="budget == '200 and Up'">200.00 and Up</option>
+        </select>
+    </div>
+    <div class="col-2">
+        <select class="form-select" aria-label="Sort" (change)="changeSort($event)">
+            <option value="" [selected]="sort == ''">{{'cards.sort'|translate}}</option>
+            <option value="Latest" [selected]="sort == 'Latest'">{{'cards.latest'|translate}}</option>
+            <option value="Price from Low to High" [selected]="sort == 'Price from Low to High'">{{'cards.lowtohigh'|translate}}</option>
+            <option value="Price from High to Low" [selected]="sort == 'Price from High to Low'">{{'cards.hightolow'|translate}}</option>
+            <option value="Highest Ratings" [selected]="sort == 'Highest Ratings'">Highest Ratings</option>
+        </select>
     </div>
 </div>
-<br /><br />
 <div class="row">
     <div class="col-md-12 my-recipient pb-2">
         <span class="imagediv hover-target" *ngFor="let recipient of recipients" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient ? 'blueviolet' : '', 'color': selectedRecipient==recipient ? 'white' : ''}">

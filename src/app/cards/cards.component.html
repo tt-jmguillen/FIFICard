@@ -17,7 +17,7 @@
                     <mat-progress-bar mode="indeterminate" value=100></mat-progress-bar>
                 </div>
             </div>
-            <app-card-list *ngIf="cards.length > 0" [cards]="cards" [priority]="eventSetting?eventSetting.mainCard:''" [recipient]="recipient!"></app-card-list>
+            <app-card-list *ngIf="cards.length > 0" [cards]="cards" [priority]="eventSetting?eventSetting.mainCard:''" [recipient]="recipient!" [mode]="type == 'Cards'?'card':'gift'"></app-card-list>
         </div>
     </section>
     <br><br>
