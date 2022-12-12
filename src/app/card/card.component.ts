@@ -61,4 +61,12 @@ export class CardComponent implements OnInit {
 
   }
 
+  getStickerLink(): string {
+    let link: string = '';
+
+    link = '/cards/events/' + this.card!.name!.split(' ')[0];
+
+    return link;
+  }
+
 }

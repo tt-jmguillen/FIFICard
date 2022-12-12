@@ -31,7 +31,7 @@ export class StickersComponent implements OnInit {
 
   loadStickers() {
     this.service.getEventSticker().then((events: Event[]) => {
-      if (events.length > 0){
+      if (events.length > 0) {
         events.forEach(event => {
           this.loading = true;
           this.cardService.getCardsByEvent(event.name!).then(cards => {
@@ -42,13 +42,13 @@ export class StickersComponent implements OnInit {
               }
             })
             this.loading = false;
-            if (this.cards.length == 0){
+            if (this.cards.length == 0) {
               this.caption = "No cards found";
             }
           })
         })
       }
-      else{
+      else {
         this.caption = "No cards found";
       }
     }).catch(err => {

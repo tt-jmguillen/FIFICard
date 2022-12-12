@@ -1,15 +1,16 @@
-<div class="card" *ngIf="card">
+<div class="card position-relative" *ngIf="card">
   <a [routerLink]="['/card/' + card!.id]" class="img-wrap" title="{{card!.name}}">
     <img src="{{this.imageURL!}}">
   </a>
   <figcaption class="info-wrap">
     <p routerLink="{{'/card/' + card!.id}}" class="title cursor mb-2">{{card!.name}}</p>
     <div class="row">
-      <div class="col-6 my-auto">
+      <div class="col-5 my-auto">
         <div class="price">₱ {{card!.price | number:'1.2-2'}}</div>
       </div>
-      <div class="col-6 text-end">
-        <img src="../assets/images/badge-bestseller.png" class="bestseller ms-2" *ngIf="card!.bestseller" />
+      <div class="col-7 text-end">
+        <img src="../assets/images/badge-sticker-free.png" class="sticker ms-2 cursor" *ngIf="card!.type == 'sticker' && card!.price == 18" [routerLink]="getStickerLink()" />
+
         <img src="../assets/images/badge-featured.png" class="featured ms-2" *ngIf="card!.featured" />
       </div>
       <div class="col-6">
@@ -24,4 +25,7 @@
       {{'cards.signandsend'|translate}}
     </button>
   </figcaption>
+  <span class="position-absolute bestseller" *ngIf="card.bestseller">
+    <img src="../assets/images/badge-bestseller.png" />
+  </span>
 </div>

@@ -111,12 +111,20 @@ section {
     margin-bottom: 4px;
 }
 
+.poerty {
+    width: 120px;
+}
+
 .bestseller {
     height: 70px;
     aspect-ratio: 1.2/1;
 }
 
 .featured {
-    height: 70px;
-    aspect-ratio: 1/1;
+    width: 125px;
+}
+
+.sticker {
+    height: 90px;
+    aspect-ratio: 2/1;
 }

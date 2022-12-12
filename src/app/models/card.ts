@@ -22,6 +22,7 @@ export class Card {
   public imageUrl?: string;
   public ratings?: number;
   public signAndSend?: boolean;
+  public type: 'card' | 'gift' | 'sticker';
   public messagetype: 'regular' | 'poetry';
   public orders: string[] = [];
 }

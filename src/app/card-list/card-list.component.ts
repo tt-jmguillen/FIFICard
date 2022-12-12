@@ -1,7 +1,7 @@
 import { SettingService } from './../services/setting.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RecipientService } from './../services/recipient.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Card } from '../models/card';
 import { Recipient } from '../models/recipient';
 import { Cardtype } from '../models/cardtype';
@@ -29,6 +29,8 @@ export class CardListComponent implements OnInit {
   @Input() priority: string;
   @Input() recipient: string;
   @Input() footer: boolean = true;
+
+  @ViewChild('start') start: HTMLDivElement;
 
   recipientService: RecipientService;
   settingService: SettingService;
@@ -300,10 +302,12 @@ export class CardListComponent implements OnInit {
 
   clickNext() {
     this.loadBatch(this.index + 1);
+    this.start.scrollIntoView({ behavior: 'smooth' });
   }
 
   clickPrev() {
     this.loadBatch(this.index - 1);
+    this.start.scrollIntoView({ behavior: 'smooth' });
   }
 
   changeBudget(event: any) {
