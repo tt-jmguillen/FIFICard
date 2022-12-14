@@ -110,6 +110,7 @@ import { LightboxComponent } from './modules/lightbox/lightbox.component';
 import { ChristmasComponent } from './christmas/christmas.component';
 import { ChristmasGreetingsComponent } from './christmas/christmas-greetings/christmas-greetings.component';
 import { SignAndSendEventsComponent } from './sign-and-send-events/sign-and-send-events.component';
+import { PoetryComponent } from './poetry/poetry.component';
 
 
 @NgModule({
@@ -195,7 +196,8 @@ import { SignAndSendEventsComponent } from './sign-and-send-events/sign-and-send
     LightboxComponent,
     ChristmasComponent,
     ChristmasGreetingsComponent,
-    SignAndSendEventsComponent
+    SignAndSendEventsComponent,
+    PoetryComponent
   ],
   imports: [
     BrowserModule,

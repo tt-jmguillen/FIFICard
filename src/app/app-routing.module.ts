@@ -1,3 +1,4 @@
+import { PoetryComponent } from './poetry/poetry.component';
 import { SignAndSendEventsComponent } from './sign-and-send-events/sign-and-send-events.component';
 import { HalloweenGreetingsComponent } from './halloween/halloween-greetings/halloween-greetings.component';
 import { HalloweenComponent } from './halloween/halloween.component';
@@ -147,7 +148,10 @@ const routes: Routes = [
   },
   {
     path: 'christmas/greetings', component: ChristmasGreetingsComponent
-  }
+  },
+  {
+    path: 'poetry', component: PoetryComponent
+  },
 ];
 
 @NgModule({
