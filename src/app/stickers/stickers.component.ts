@@ -13,9 +13,6 @@ import { Card } from '../models/card';
 export class StickersComponent implements OnInit {
   service: EventService;
   cardService: CardService;
-  cards: Card[] = [];
-  loading: boolean;
-  caption: string;
 
   constructor(
     private _service: EventService,
@@ -25,34 +22,50 @@ export class StickersComponent implements OnInit {
     this.cardService = _cardService;
   }
 
+  cards: Card[] = [];
+  filtered: Card[] = [];
+  loading: boolean;
+  caption: string;
+  events: Event[] = [];
+  eventName: string = 'All';
+
   ngOnInit(): void {
     this.loadStickers();
   }
 
   loadStickers() {
     this.service.getEventSticker().then((events: Event[]) => {
-      if (events.length > 0) {
-        events.forEach(event => {
-          this.loading = true;
-          this.cardService.getCardsByEvent(event.name!).then(cards => {
-            cards.forEach(card => {
-              let index = this.cards.findIndex(x => x.id! == card.id!)
-              if (index < 0) {
-                this.cards.push(card);
-              }
-            })
-            this.loading = false;
-            if (this.cards.length == 0) {
-              this.caption = "No cards found";
-            }
-          })
-        })
-      }
-      else {
-        this.caption = "No cards found";
-      }
+      this.events = events;
     }).catch(err => {
       this.caption = "No cards found";
     })
+
+    this.loading = true;
+    this.cardService.getCardsByType('sticker').then(cards => {
+      this.cards = cards;
+      this.filtered = this.cards;
+      this.loading = false;
+
+      if (this.cards.length == 0) {
+        this.caption = "No sticker found";
+      }
+    })
+  }
+
+  clickEvent(eventName: string) {
+    this.eventName = eventName;
+    this.filtered = [];
+    if (eventName == 'All') {
+      this.filtered = this.cards;
+    }
+    else {
+      this.cards.forEach(card => {
+        if (card.events) {
+          if (card.events.findIndex(x => x == eventName) >= 0) {
+            this.filtered.push(card);
+          }
+        }
+      })
+    }
   }
 }
