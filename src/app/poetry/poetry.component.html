@@ -1,8 +1,100 @@
 <ion-content>
     <section class="section-name padding-y-sm bk-hw">
         <div class="container animate main">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <img src="/assets/images/poetry/Banner.png" class="img-fluid">
+                    <br />
+                </div>
+            </div>
+            <div class="panel" style="background: white;padding: 5%;">
+                <!-- <div class="row">
+                    <div class="col-md-3">
+                        <a class="btn-featured" (click)="clickEvent('Christmas')"><img src="/assets/images/sticker/btn-featured.png"></a>
+                    </div>
+                    <div class="col-md-9 my-auto">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a class="btn-category" [ngClass]="eventName == 'All'?'active':''" (click)="clickEvent('All')">
+                                    All
+                                </a>
+                            </div>
+                            <div class="col-md-4" *ngFor="let event of events">
+                                <a class="btn-category" [ngClass]="eventName == event.name!?'active':''" (click)="clickEvent(event.name!)">
+                                    {{event.name}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <img src="/assets/images/poetry/Sub-banner.png" class="img-fluid">
+                    <br />
+                    <br />
+                </div>
+            </div>
+            <div class="panel" style="background: white;padding: 5%;">
+                <div class="row">
+                   <div class="col-md-12">
+                    <h2>Occasions</h2>
+                   </div>
+                    <!-- <div class="col-md-8 my-auto">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a class="btn-category" [ngClass]="eventName == 'All'?'active':''" (click)="clickEvent('All')">
+                                    All
+                                </a>
+                            </div>
+                            <div class="col-md-6" *ngFor="let event of events">
+                                <a class="btn-category" [ngClass]="eventName == event.name!?'active':''" (click)="clickEvent(event.name!)">
+                                    {{event.name}}
+                                </a>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
 
+            <div class="panel" style="background: white;padding: 5%;">
+                <div class="row">
+                   <div class="col-md-12">
+                    <h2>Specialty Card</h2>
+                   </div>
+                    <!-- <div class="col-md-12 my-auto">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a class="btn-category" [ngClass]="eventName == 'All'?'active':''" (click)="clickEvent('All')">
+                                    All
+                                </a>
+                            </div>
+                            <div class="col-md-4" *ngFor="let event of events">
+                                <a class="btn-category" [ngClass]="eventName == event.name!?'active':''" (click)="clickEvent(event.name!)">
+                                    {{event.name}}
+                                </a>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
         </div>
     </section>
+    <!-- <section style="background: #eff399;padding-top: 2%; padding-bottom: 2%;">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-6">
+                    <a [routerLink]="['/events']">
+                        <img src="/assets/images//fathers/shop-cards.png">
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a [routerLink]="['/gifts']">
+                        <img src="/assets/images/fathers/shop-gifts.png">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section> -->
     <app-footer></app-footer>
 </ion-content>
