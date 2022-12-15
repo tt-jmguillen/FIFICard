@@ -47,16 +47,10 @@ export class EventService {
     });
   }
 
-  getEventNonGift(): Promise<Event[]> {
+  getEventCard(): Promise<Event[]> {
     return new Promise((resolve, rejects) => {
-      let nonGifts: Event[] = [];
       this.getEvents().then(events => {
-        events.forEach(event => {
-          if (!event.isGift && !event.isCreations && !event.isSticker && event.active) {
-            nonGifts.push(event);
-          }
-        })
-        resolve(nonGifts);
+        resolve(events.filter(x => x.active! == true).filter(x => x.isGift! == false).filter(x => x.isSticker! == false).filter(x => x.isSignAndSend! == false));
       })
     })
   }
@@ -99,6 +93,14 @@ export class EventService {
           }
         })
         resolve(stickers);
+      })
+    })
+  }
+
+  getEventSignAndSend(): Promise<Event[]> {
+    return new Promise((resolve, rejects) => {
+      this.getEvents().then(events => {
+        resolve(events.filter(x => x.active! == true).filter(x => x.isSignAndSend! == true));
       })
     })
   }

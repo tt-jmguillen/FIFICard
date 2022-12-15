@@ -20,30 +20,15 @@ export class EventsComponent implements OnInit {
   events: Event[] = [];
 
   ngOnInit(): void {
-    this.loadoccasions();
     this.loadevents();
   }
 
-  loadoccasions() {
-    this.service.getByTag('Occasions').then(events => {
-      events.forEach(event => {
-        if (event.thumbnail) {
-          this.occassions.push(event);
-        }
-      })
-      this.occassions = this.sort(this.occassions);
-    })
-  }
-
   loadevents() {
-    this.service.getByTag('Events').then(events => {
-      events.forEach(event => {
-        if (event.thumbnail) {
-          this.events.push(event);
-        }
-      })
-      this.events = this.sort(this.events);
-    });
+    this.service.getEventCard().then(events => {
+      console.log(events);
+      this.events = this.sort(events.filter(x => x.tag == 'Events'))
+      this.occassions = this.sort(events.filter(x => x.tag == 'Occasions'))
+    })
   }
 
   sort(events: Event[]): Event[] {
