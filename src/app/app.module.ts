@@ -111,6 +111,8 @@ import { ChristmasComponent } from './christmas/christmas.component';
 import { ChristmasGreetingsComponent } from './christmas/christmas-greetings/christmas-greetings.component';
 import { SignAndSendEventsComponent } from './sign-and-send-events/sign-and-send-events.component';
 import { PoetryComponent } from './poetry/poetry.component';
+import { NewyearComponent } from './newyear/newyear.component';
+import { NewyearGreetingsComponent } from './newyear/newyear-greetings/newyear-greetings.component';
 
 
 @NgModule({
@@ -197,7 +199,9 @@ import { PoetryComponent } from './poetry/poetry.component';
     ChristmasComponent,
     ChristmasGreetingsComponent,
     SignAndSendEventsComponent,
-    PoetryComponent
+    PoetryComponent,
+    NewyearComponent,
+    NewyearGreetingsComponent
   ],
   imports: [
     BrowserModule,

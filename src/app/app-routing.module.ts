@@ -36,6 +36,8 @@ import { JustBecauseComponent } from './just-because/just-because.component';
 import { JustBecauseGreetingsComponent } from './just-because/just-because-greetings/just-because-greetings.component';
 import { ChristmasComponent } from './christmas/christmas.component';
 import { ChristmasGreetingsComponent } from './christmas/christmas-greetings/christmas-greetings.component';
+import { NewyearComponent } from './newyear/newyear.component';
+import { NewyearGreetingsComponent } from './newyear/newyear-greetings/newyear-greetings.component';
 
 const routes: Routes = [
   {
@@ -151,6 +153,12 @@ const routes: Routes = [
   },
   {
     path: 'poetry', component: PoetryComponent
+  },
+  {
+    path: 'newyear', component: NewyearComponent
+  },
+  {
+    path: 'newyear/greetings', component: NewyearGreetingsComponent
   },
 ];
 
