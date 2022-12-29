@@ -34,29 +34,42 @@ export class SignAndSendEventsComponent implements OnInit {
 
   sort(events: Event[]): Event[] {
     let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-    let newEvents: Event[] = [];
+    let eventsWithSched: Event[] = events.filter(x => x.month != '');
     let date: Date = new Date();
     let monthId: number = date.getMonth();
+    let day: number = date.getDate();
 
-    for (let i = 0; i < 12; i++) {
-      events.forEach(event => {
-        if (event.month == monthNames[monthId]) {
-          newEvents.push(event);
-        }
-      })
+    let newEvents: Event[] = [];
+    let temp: Event[] = [];
 
-      if (monthId < 11)
-        monthId = monthId + 1;
-      else
-        monthId = 0;
+    if (eventsWithSched.length > 0) {
+      for (let i = 0; i < 12; i++) {
+        eventsWithSched.forEach(event => {
+          if (event.month == monthNames[monthId]) {
+            if (event.date) {
+              if ((event.month == monthNames[date.getMonth()]) && (event.date < day)) {
+                temp.push(event)
+              }
+              else {
+                newEvents.push(event);
+              }
+            }
+            else {
+              newEvents.push(event);
+            }
+          }
+        })
+
+        if (monthId < 11)
+          monthId = monthId + 1;
+        else
+          monthId = 0;
+      }
+
+      newEvents.push(...temp);
     }
 
-    events.forEach(event => {
-      if (newEvents.findIndex(x => x.id == event.id) < 0) {
-        newEvents.push(event);
-      }
-    })
+    newEvents.push(...events.filter(x => x.month == ''))
 
     return newEvents;
   }
