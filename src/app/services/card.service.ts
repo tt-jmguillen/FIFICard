@@ -129,7 +129,7 @@ export class CardService {
     return new Promise((resolve, rejects) => {
       this.db.collection('cards', ref => ref
         .where('active', "==", true)
-        .where('events', "array-contains", _event.trim())).get().subscribe(data => {
+        .where('events', "array-contains", _event)).get().subscribe(data => {
           if (!data.empty) {
             let cards: Card[] = [];
             data.forEach(doc => {
