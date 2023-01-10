@@ -123,3 +123,24 @@
   text-transform: uppercase;
   font-weight: bolder;
 }
+
+.featured {
+  color: #ce19b9;
+}
+
+.btnfeatured {
+  padding: 2%;
+  background-color: #ce19b9;
+  color: white;
+  display: block;
+  margin-bottom: 18px;
+  text-align: center;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+  cursor: pointer;
+  text-transform: uppercase;
+  opacity: .9;
+  height: 150px;
+  font-size: 32px;
+}

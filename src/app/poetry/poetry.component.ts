@@ -32,6 +32,23 @@ export class PoetryComponent implements OnInit {
   occasions: Event[] = [];
   specialty: Event[] = [];
   cards: Card[] = [];
+  featuredButton = '';
+  featuredEvents = [
+    'Christmas',
+    'New Year',
+    "Father’s Day",
+    'Graduation',
+    "Mother’s Day",
+    "Valentine's Day"
+  ];
+  featuredImages = [
+    'btn-featured-xmas.png',
+    'btn-featured-nyear.png',
+    'btn-featured-father.png',
+    'btn-featured-graduation.png',
+    'btn-featured-mother.png',
+    'btn-featured-valentines.png'
+  ];
 
   ngOnInit(): void {
     this.loadEvents();
@@ -82,6 +99,12 @@ export class PoetryComponent implements OnInit {
   loadEvents() {
     this.service.getEventCard().then(events => {
       this.featured = this.sort(events.filter(x => x.tag == 'Events'))[0];
+
+      let index = this.featuredEvents.findIndex(x => x == this.featured.name!);
+      if (index >= 0) {
+        this.featuredButton = '/assets/images/poetry/' + this.featuredImages[index];
+      }
+
       this.events = this.sort(events.filter(x => x.tag == 'Events').filter(x => x.name! != this.featured.name!));
       this.occasions = this.sort(events.filter(x => x.tag == 'Occasions'));
       this.specialty = this.sort(events.filter(x => x.tag == 'Specialty Card'));

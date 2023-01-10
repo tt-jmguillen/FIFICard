@@ -112,4 +112,5 @@ upload-keystore.jks
 !src/assets/lang/*.json
 !src/assets/images/loading.gif
 !src/assets/images/halloween/*
+!src/assets/images/poetry/*
 
