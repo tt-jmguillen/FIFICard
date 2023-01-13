@@ -288,7 +288,7 @@ export class CardService {
         .where('active', "==", true)
         .where('featured', "==", true)
         .where('signAndSend', "==", true)
-        .where('events', "array-contains", 'Christmas')
+        .where('events', "array-contains", "Valentine's Day")
       ).get().subscribe(data => {
         if (!data.empty) {
           let cards: Card[] = [];
