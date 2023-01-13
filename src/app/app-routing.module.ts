@@ -38,6 +38,8 @@ import { ChristmasComponent } from './christmas/christmas.component';
 import { ChristmasGreetingsComponent } from './christmas/christmas-greetings/christmas-greetings.component';
 import { NewyearComponent } from './newyear/newyear.component';
 import { NewyearGreetingsComponent } from './newyear/newyear-greetings/newyear-greetings.component';
+import { ValentinesComponent } from './valentines/valentines.component';
+import { ValentinesGreetingsComponent } from './valentines/valentines-greetings/valentines-greetings.component';
 
 const routes: Routes = [
   {
@@ -159,6 +161,12 @@ const routes: Routes = [
   },
   {
     path: 'newyear/greetings', component: NewyearGreetingsComponent
+  },
+  {
+    path: 'valentines', component: ValentinesComponent
+  },
+  {
+    path: 'valentines/greetings', component: ValentinesGreetingsComponent
   },
 ];
 

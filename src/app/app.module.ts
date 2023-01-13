@@ -113,6 +113,8 @@ import { SignAndSendEventsComponent } from './sign-and-send-events/sign-and-send
 import { PoetryComponent } from './poetry/poetry.component';
 import { NewyearComponent } from './newyear/newyear.component';
 import { NewyearGreetingsComponent } from './newyear/newyear-greetings/newyear-greetings.component';
+import { ValentinesComponent } from './valentines/valentines.component';
+import { ValentinesGreetingsComponent } from './valentines/valentines-greetings/valentines-greetings.component';
 
 
 @NgModule({
@@ -201,7 +203,9 @@ import { NewyearGreetingsComponent } from './newyear/newyear-greetings/newyear-g
     SignAndSendEventsComponent,
     PoetryComponent,
     NewyearComponent,
-    NewyearGreetingsComponent
+    NewyearGreetingsComponent,
+    ValentinesComponent,
+    ValentinesGreetingsComponent
   ],
   imports: [
     BrowserModule,

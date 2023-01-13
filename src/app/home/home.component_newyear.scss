@@ -45,7 +45,7 @@
     // color: #4b0082;
     text-transform: uppercase;
     font-weight: bolder;
-    background: #fb7f79;
+    background: #db8d46;
     color: white;
     padding: 20px;
     margin: 0;
@@ -72,6 +72,7 @@
     // background-image: url('../../assets/images/newyear/fireworks.gif');
     background-image: url('../../assets/images/hearts.gif');
     }
+
 .btn-hw
 {
     color: black;
@@ -92,7 +93,7 @@
 }
 .hw-con-cards
 {
-    background: #b40a1d;
+    background: #aa0d08;
 }
 .btn-more-cards
 {
@@ -111,11 +112,11 @@
 }
 .btn-more-cards.s-event
 {
-    background:#ed6370;
+    background:#d8964b;
 }
 .btn-more-cards.s-specialty
 {
-    background:#ed6370
+    background:#d8964b
 }
 .to-link
 {
@@ -138,11 +139,4 @@
 
 .right .carousel-item.active {
     animation-name: slideRightIn;
-}
-.val-bk
-{
-    background-image: url('../../assets/images/valentines/background-min.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 2%;
 }
