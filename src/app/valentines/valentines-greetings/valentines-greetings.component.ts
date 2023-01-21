@@ -11,5 +11,7 @@ export class ValentinesGreetingsComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  scroll(el: HTMLElement) {
+    el.scrollIntoView({behavior: 'smooth'});
+}
 }
