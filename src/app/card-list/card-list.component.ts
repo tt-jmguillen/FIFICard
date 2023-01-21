@@ -1,3 +1,4 @@
+import { PriceService } from './../services/price.service';
 import { SettingService } from './../services/setting.service';
 import { RecipientService } from './../services/recipient.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -32,6 +33,7 @@ export class CardListComponent implements OnInit {
 
   recipientService: RecipientService;
   settingService: SettingService;
+  priceService: PriceService;
 
   recipientConfig: Recipient[] = [];
 
@@ -60,10 +62,12 @@ export class CardListComponent implements OnInit {
 
   constructor(
     _recipientService: RecipientService,
-    _settingService: SettingService
+    _settingService: SettingService,
+    _priceService: PriceService
   ) {
     this.recipientService = _recipientService;
     this.settingService = _settingService;
+    this.priceService = _priceService;
   }
 
   ngOnInit(): void {
@@ -135,6 +139,20 @@ export class CardListComponent implements OnInit {
     this.loadBatch(1);
   }
 
+  getPrice(card: Card): number {
+    let type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED' = 'STANDARD'
+    if (card.types!.findIndex(x => x == 'STANDARD') >= 0) {
+      type = 'STANDARD';
+    }
+    else if (card.types!.findIndex(x => x == 'GLITTERED') >= 0) {
+      type = 'GLITTERED';
+    }
+    if (card.types!.findIndex(x => x == 'EMBOSSED') >= 0) {
+      type = 'EMBOSSED';
+    }
+    return this.priceService.getPrice(card, type)
+  }
+
   filterForRecipient(): Card[] {
     if (this.selectedRecipient != "All") {
       let cards: Card[] = []
@@ -155,17 +173,17 @@ export class CardListComponent implements OnInit {
     let filtered: Card[] = []
     data.forEach(card => {
       if (_budget == '0 - 99') {
-        if (Number(card.price!) <= 99) {
+        if (this.getPrice(card) <= 99) {
           filtered.push(card);
         }
       }
       else if (_budget == '100 - 199') {
-        if (100 <= (Number(card.price!)) && (Number(card.price!) <= 199)) {
+        if ((100 <= this.getPrice(card)) && (this.getPrice(card) <= 199)) {
           filtered.push(card);
         }
       }
       else if (_budget == '200 and Up') {
-        if (200 <= Number(card.price!)) {
+        if (200 <= this.getPrice(card)) {
           filtered.push(card);
         }
       }
@@ -206,10 +224,10 @@ export class CardListComponent implements OnInit {
       return data.sort((a, b) => 0 - (a.created! > b.created! ? -1 : 1));
     }
     else if (_sort == "Price from Low to High") {
-      return data.sort((a, b) => 0 - (a.price! > b.price! ? -1 : 1));
+      return data.sort((a, b) => 0 - (this.getPrice(a) > this.getPrice(b) ? -1 : 1));
     }
     else if (_sort == "Price from High to Low") {
-      return data.sort((a, b) => 0 - (a.price! > b.price! ? 1 : -1));
+      return data.sort((a, b) => 0 - (this.getPrice(a) > this.getPrice(b) ? 1 : -1));
     }
     else if (_sort == "Highest Ratings") {
       return data.sort((a, b) => 0 - (this.averageRatings(a.ratings) > this.averageRatings(b.ratings) ? 1 : -1));

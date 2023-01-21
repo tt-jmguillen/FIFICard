@@ -1,3 +1,4 @@
+import { PriceService } from './../../services/price.service';
 
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { configFromSession } from '@ionic/core';
@@ -30,15 +31,18 @@ export class HomeFeaturedComponent implements OnInit {
   @Input() ids: string[] = [];
 
   service: CardService;
+  priceService: PriceService;
   cards: Card[] = [];
   batches: Batch[] = [];
   isMobile: boolean;
 
   constructor(
     private _service: CardService,
+    private _priceService: PriceService,
     private config: NgbCarouselConfig
   ) {
     this.service = _service;
+    this.priceService = _priceService;
     config.interval = 5000;
     config.wrap = true;
     config.pauseOnHover = false;
@@ -152,6 +156,20 @@ export class HomeFeaturedComponent implements OnInit {
       })
       this.batches.push(batch);
     }
+  }
+
+  getPrice(card: Card): number {
+    let type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED' = 'STANDARD'
+    if (card.types!.findIndex(x => x == 'STANDARD') >= 0) {
+      type = 'STANDARD';
+    }
+    else if (card.types!.findIndex(x => x == 'GLITTERED') >= 0) {
+      type = 'GLITTERED';
+    }
+    if (card.types!.findIndex(x => x == 'EMBOSSED') >= 0) {
+      type = 'EMBOSSED';
+    }
+    return this.priceService.getPrice(card, type)
   }
 
 }

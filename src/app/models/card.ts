@@ -6,6 +6,8 @@ export class Card {
   public description?: string;
   public details?: string;
   public price?: number;
+  public sgprice?: number;
+  public usprice?: number;
   public event?: string;
   public events?: string[];
   public types?: string[];

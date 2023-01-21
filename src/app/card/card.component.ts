@@ -1,3 +1,4 @@
+import { PriceService } from './../services/price.service';
 import { environment } from './../../environments/environment';
 import { Card } from './../models/card';
 import { Component, Input, OnInit } from '@angular/core';
@@ -14,13 +15,16 @@ export class CardComponent implements OnInit {
   }
 
   service: CardService;
+  priceService: PriceService;
   card?: Card;
   imageURL: string = '';
 
   constructor(
-    private _service: CardService
+    private _service: CardService,
+    private _priceService: PriceService
   ) {
     this.service = _service
+    this.priceService = _priceService;
   }
 
   ngOnInit(): void { }
@@ -67,6 +71,20 @@ export class CardComponent implements OnInit {
     link = '/cards/events/' + this.card!.name!.split(' ')[0];
 
     return link;
+  }
+
+  getPrice(): number {
+    let type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED' = 'STANDARD'
+    if (this.card!.types!.findIndex(x => x == 'STANDARD') >= 0) {
+      type = 'STANDARD';
+    }
+    else if (this.card!.types!.findIndex(x => x == 'GLITTERED') >= 0) {
+      type = 'GLITTERED';
+    }
+    if (this.card!.types!.findIndex(x => x == 'EMBOSSED') >= 0) {
+      type = 'EMBOSSED';
+    }
+    return this.priceService.getPrice(this.card!, type)
   }
 
 }

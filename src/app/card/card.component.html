@@ -6,7 +6,7 @@
     <p routerLink="{{'/card/' + card!.id}}" class="title cursor mb-2">{{card!.name}}</p>
     <div class="row">
       <div class="col-5 my-auto">
-        <div class="price">₱ {{card!.price | number:'1.2-2'}}</div>
+        <div class="price">{{priceService.getSign()}} {{getPrice() | number:'1.2-2'}}</div>
       </div>
       <div class="col-7 text-end">
         <img src="../assets/images/badge-sticker-free.png" class="sticker ms-2 cursor" *ngIf="card!.type == 'sticker' && card!.price == 18" [routerLink]="getStickerLink()" />

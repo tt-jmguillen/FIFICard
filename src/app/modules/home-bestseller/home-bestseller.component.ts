@@ -1,3 +1,4 @@
+import { PriceService } from './../../services/price.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { TransitionCheckState } from '@angular/material/checkbox';
 import { Card } from 'src/app/models/card';
@@ -14,12 +15,17 @@ export class HomeBestsellerComponent implements OnInit {
   @Input() ids: string[] = [];
 
   service: CardService;
+  priceService: PriceService;
   bestsellerCards: Card[] = [];
   randomBestsellerCards: Card[] = [];
   temp: any;
 
-  constructor(private _service: CardService) {
+  constructor(
+    private _service: CardService,
+    private _priceService: PriceService,
+  ) {
     this.service = _service;
+    this.priceService = _priceService;
   }
 
   ngOnInit(): void {
@@ -75,4 +81,17 @@ export class HomeBestsellerComponent implements OnInit {
     });
   }
 
+  getPrice(card: Card): number {
+    let type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED' = 'STANDARD'
+    if (card.types!.findIndex(x => x == 'STANDARD') >= 0) {
+      type = 'STANDARD';
+    }
+    else if (card.types!.findIndex(x => x == 'GLITTERED') >= 0) {
+      type = 'GLITTERED';
+    }
+    if (card.types!.findIndex(x => x == 'EMBOSSED') >= 0) {
+      type = 'EMBOSSED';
+    }
+    return this.priceService.getPrice(card, type)
+  }
 }

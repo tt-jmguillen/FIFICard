@@ -60,7 +60,7 @@
                                             <p>Card Recipient: <span *ngFor="let recipient of card!.recipients" class="custom-pill mb-1">{{recipient}}</span></p>
                                             <app-bundle [view]="true" [card]="card"></app-bundle>
                                             <img src="assets/images/sign-send-logo.png" style=" height: 40px;" *ngIf="card?.signAndSend">
-                                            <h3 class="section-title" *ngIf="card">Price: ₱{{card!.price | number:'1.2-2'}} </h3>
+                                            <h3 class="section-title" *ngIf="card">Price: {{priceService.getSign()}} {{getPrice() | number:'1.2-2'}} </h3>
                                             <a class="order " mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)" style="display:block">{{'card.buynow'|translate}}</a>
 
                                         </div>

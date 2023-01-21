@@ -1,3 +1,4 @@
+import { PriceService } from './../services/price.service';
 import { EmailService } from './../services/email.service';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
@@ -22,6 +23,7 @@ export class DetailComponent implements OnInit {
   service: CardService;
   translationService: TranslationService;
   filter: FilterService;
+  priceService: PriceService;
   event: string | undefined;
   elementEvent: string;
 
@@ -37,12 +39,14 @@ export class DetailComponent implements OnInit {
     private titleService: Title,
     private router: Router,
     private _translationService: TranslationService,
-    private _filter: FilterService
+    private _filter: FilterService,
+    private _priceService: PriceService
   ) {
     this.activateRoute = _activateRoute;
     this.service = _service;
     this.translationService = _translationService;
     this.filter = _filter;
+    this.priceService = _priceService;
   }
 
   ngOnInit(): void {
@@ -140,5 +144,19 @@ export class DetailComponent implements OnInit {
     link = '/cards/events/' + this.card!.name!.split(' ')[0];
 
     return link;
+  }
+
+  getPrice(): number {
+    let type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED' = 'STANDARD'
+    if (this.card!.types!.findIndex(x => x == 'STANDARD') >= 0) {
+      type = 'STANDARD';
+    }
+    else if (this.card!.types!.findIndex(x => x == 'GLITTERED') >= 0) {
+      type = 'GLITTERED';
+    }
+    if (this.card!.types!.findIndex(x => x == 'EMBOSSED') >= 0) {
+      type = 'EMBOSSED';
+    }
+    return this.priceService.getPrice(this.card!, type)
   }
 }

@@ -31,6 +31,8 @@ export class MenuComponent implements OnInit {
   redirectEvent: string;
   isMothersDay: boolean;
 
+  location: string = 'ph';
+
   constructor(
     private _service: EventService,
     private _activateRoute: ActivatedRoute,
@@ -41,6 +43,16 @@ export class MenuComponent implements OnInit {
   ) {
     this.service = _service;
     this.userService = _userService;
+
+    if (window.location.hostname.toLowerCase() == 'us.fibeigreetings.com') {
+      this.location = 'us'
+    }
+    else if (window.location.hostname.toLowerCase() == 'sg.fibeigreetings.com') {
+      this.location = 'sg'
+    }
+    else {
+      this.location = 'ph'
+    }
   }
 
   ngOnInit(): void {

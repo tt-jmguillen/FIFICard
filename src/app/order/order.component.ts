@@ -1,3 +1,4 @@
+import { PriceService } from './../services/price.service';
 import { SettingService } from './../services/setting.service';
 import { ShippingService } from './../services/shipping.service';
 import { EventService } from './../services/event.service';
@@ -53,6 +54,7 @@ export class OrderComponent implements OnInit {
   eventService: EventService;
   shippingService: ShippingService;
   settingService: SettingService;
+  priceService: PriceService;
   modalService: NgbModal;
   router: Router;
 
@@ -116,6 +118,7 @@ export class OrderComponent implements OnInit {
     _settingService: SettingService,
     _modalService: NgbModal,
     _filter: FilterService,
+    _priceService: PriceService,
     _router: Router,
 
     private _emailService: EmailService,
@@ -133,6 +136,7 @@ export class OrderComponent implements OnInit {
     this.translationService = _translationService;
     this.settingService = _settingService;
     this.modalService = _modalService;
+    this.priceService = _priceService;
     this.filter = _filter;
     this.router = _router;
     this.emailService = _emailService;
@@ -179,7 +183,7 @@ export class OrderComponent implements OnInit {
   loadCard() {
     this.cardService.getCard(this.id!).subscribe(data => {
       this.card = data;
-      this.cardPrice = this.card!.price!;
+      this.cardPrice = this.getPrice();
       this.titleService.setTitle(this.card!.name!);
 
       this.loadImage(this.card.id!);
@@ -550,7 +554,17 @@ export class OrderComponent implements OnInit {
 
   upgrade(value: [string, number]) {
     this.changeTo = value[0];
-    this.cardPrice = this.card!.price! + value[1];
+    let type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED' = 'STANDARD';
+    if (this.changeTo == 'STANDARD') {
+      type = 'STANDARD';
+    }
+    else if (this.changeTo == 'GLITTERED') {
+      type = 'GLITTERED';
+    }
+    if (this.changeTo == 'EMBOSSED') {
+      type = 'EMBOSSED';
+    }
+    this.cardPrice = this.priceService.getPrice(this.card!, type)
   }
 
   bundle(bundle: Bundle) {
@@ -558,5 +572,19 @@ export class OrderComponent implements OnInit {
     this.isBundle = bundle.count > 1;
     this.count = bundle.count;
     this.cardPrice = bundle.price;
+  }
+
+  getPrice(): number {
+    let type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED' = 'STANDARD'
+    if (this.card!.types!.findIndex(x => x == 'STANDARD') >= 0) {
+      type = 'STANDARD';
+    }
+    else if (this.card!.types!.findIndex(x => x == 'GLITTERED') >= 0) {
+      type = 'GLITTERED';
+    }
+    if (this.card!.types!.findIndex(x => x == 'EMBOSSED') >= 0) {
+      type = 'EMBOSSED';
+    }
+    return this.priceService.getPrice(this.card!, type)
   }
 }
