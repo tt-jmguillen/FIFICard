@@ -37,7 +37,7 @@ export class OrderComponent implements OnInit {
   id?: string;
   form: UntypedFormGroup;
   formBuilder: UntypedFormBuilder;
-  card: Card = new Card();
+  card: Card;
   submitted: boolean;
   province: string;
   shippingfee: number = 0;
@@ -571,7 +571,7 @@ export class OrderComponent implements OnInit {
     this.changeTo = this.defaultType;
     this.isBundle = bundle.count > 1;
     this.count = bundle.count;
-    this.cardPrice = bundle.price;
+    this.cardPrice = this.priceService.getBundlePrice(this.card.messagetype, bundle);
   }
 
   getPrice(): number {

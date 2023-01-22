@@ -15,7 +15,7 @@ export class ProfilePaymentThumbComponent implements OnInit {
 
   constructor(
     _paymentService: PaymentService
-  ) { 
+  ) {
     this.paymentService = _paymentService;
   }
 
@@ -23,10 +23,10 @@ export class ProfilePaymentThumbComponent implements OnInit {
     this.getPayment(this.id);
   }
 
-  getPayment(id: string){
+  getPayment(id: string) {
     this.paymentService.getPayment(id).then(payment => {
       this.payment = payment;
-      console.log(this.payment.orders)
+      //console.log(this.payment.orders)
     })
   }
 

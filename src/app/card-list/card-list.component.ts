@@ -71,7 +71,6 @@ export class CardListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.mode);
     this.getTypes();
     this.loadRecipients();
   }

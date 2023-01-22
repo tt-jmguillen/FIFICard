@@ -26,7 +26,7 @@ export class SignAndSendEventsComponent implements OnInit {
 
   loadevents() {
     this.service.getEventSignAndSend().then(events => {
-      console.log(events);
+      //console.log(events);
       this.events = this.sort(events.filter(x => x.tag == 'Events'));
       this.occassions = this.sort(events.filter(x => x.tag == 'Occasions'));
     });

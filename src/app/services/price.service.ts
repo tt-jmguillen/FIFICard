@@ -1,3 +1,4 @@
+import { Bundle } from './../models/bundle';
 import { Card } from 'src/app/models/card';
 import { Injectable } from '@angular/core';
 
@@ -6,7 +7,7 @@ import { Injectable } from '@angular/core';
 })
 export class PriceService {
 
-  location: string = 'ph';
+  location: 'ph' | 'sg' | 'us' = 'ph';
 
   constructor() {
     if (window.location.hostname.toLowerCase() == 'us.fibeigreetings.com') {
@@ -35,6 +36,13 @@ export class PriceService {
     { type: 'photo', price: 150, sgprice: 9.75, usprice: 11 }
   ]
 
+  bundles = [
+    { messagetype: 'regular', count: 6, price: 550, sgprice: 35.5, usprice: 40 },
+    { messagetype: 'regular', count: 12, price: 950, sgprice: 65, usprice: 80 },
+    { messagetype: 'poetry', count: 6, price: 700, sgprice: 40, usprice: 50 },
+    { messagetype: 'poetry', count: 12, price: 1200, sgprice: 85, usprice: 100 }
+  ]
+
   private getDefault(type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED', messagetype: 'regular' | 'poetry', location: 'ph' | 'sg' | 'us'): number {
     let value: number = 0;
     let defaults = this.defaults.filter(x => x.messagetype == messagetype && x.type == type);
@@ -52,7 +60,7 @@ export class PriceService {
     return value;
   }
 
-  getSignAndSend(type: 'message' | 'type', location: 'ph' | 'sg' | 'us') {
+  private getSignAndSend(type: 'message' | 'type', location: 'ph' | 'sg' | 'us') {
     let value: number = 0;
     let signandsend = this.signandsends.filter(x => x.type == type);
     if (signandsend.length > 0) {
@@ -80,26 +88,65 @@ export class PriceService {
     return value;
   }
 
+  getLocation(): 'ph' | 'sg' | 'us' {
+    return this.location;
+  }
+
   public getPrice(card: Card, type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED'): number {
     let value: number = 0;
 
     if (this.location == 'sg') {
       if (card.signAndSend!)
-        value = card.sgprice != undefined ? card.sgprice! : this.getSignAndSend('message', 'sg');
+        value = card.sgprice != undefined ? card.sgprice! : this.getSignAndSend('message', this.location);
       else
-        value = card.sgprice != undefined ? card.sgprice! : this.getDefault(type, card.messagetype, 'sg');
+        value = card.sgprice != undefined ? card.sgprice! : this.getDefault(type, card.messagetype, this.location);
     }
     else if (this.location == 'us') {
       if (card.signAndSend!)
-        value = card.usprice != undefined ? card.usprice! : this.getSignAndSend('message', 'us');
+        value = card.usprice != undefined ? card.usprice! : this.getSignAndSend('message', this.location);
       else
-        value = card.usprice != undefined ? card.usprice! : this.getDefault(type, card.messagetype, 'us');
+        value = card.usprice != undefined ? card.usprice! : this.getDefault(type, card.messagetype, this.location);
     }
-    else {
+    else if (this.location == 'ph') {
       if (card.signAndSend!)
-        value = card.price != undefined ? card.price! : this.getSignAndSend('message', 'ph');
+        value = card.price != undefined ? card.price! : this.getSignAndSend('message', this.location);
       else
-        value = card.price != undefined ? card.price! : this.getDefault(type, card.messagetype, 'ph');
+        value = card.price != undefined ? card.price! : this.getDefault(type, card.messagetype, this.location);
+    }
+
+    return value;
+  }
+
+  private getBundle(messagetype: 'regular' | 'poetry', count: number, location: 'ph' | 'sg' | 'us'): number {
+    let value: number = 0;
+
+    let bundles = this.bundles.filter(x => x.messagetype == messagetype && x.count == count);
+    if (bundles.length > 0) {
+      if (location == 'sg') {
+        value = bundles[0].sgprice;
+      }
+      else if (location == 'us') {
+        value = bundles[0].usprice;
+      }
+      else {
+        value = bundles[0].price;
+      }
+    }
+
+    return value;
+  }
+
+  public getBundlePrice(messagetype: 'regular' | 'poetry', bundle: Bundle): number {
+    let value: number = 0;
+
+    if (this.location == 'sg') {
+      value = bundle.sgprice != undefined ? bundle.sgprice : this.getBundle(messagetype, bundle.count, this.location);
+    }
+    else if (this.location == 'us') {
+      value = bundle.usprice != undefined ? bundle.usprice : this.getBundle(messagetype, bundle.count, this.location);
+    }
+    else if (this.location == 'ph') {
+      value = bundle.price != undefined ? bundle.price : this.getBundle(messagetype, bundle.count, this.location);
     }
 
     return value;

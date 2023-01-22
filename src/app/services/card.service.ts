@@ -537,4 +537,53 @@ export class CardService {
         });
     });
   }
+
+  getGiftsByRecipient(_recipient: string): Promise<Card[]> {
+    return new Promise((resolve, rejects) => {
+      this.db.collection('cards', ref => ref
+        .where('active', "==", true)
+        .where('type', "==", 'gift')
+        .where('recipients', "array-contains", _recipient)
+      ).get().subscribe(data => {
+        if (!data.empty) {
+          let cards: Card[] = [];
+          data.forEach(doc => {
+            let card: Card = doc.data() as Card;
+            card.id = doc.id;
+            cards.push(card);
+
+          });
+          cards = cards.sort(() => Math.random() - 0.5)
+          resolve(cards);
+        }
+        else {
+          rejects("No cards found.");
+        }
+      });
+    });
+  }
+
+  getGiftsLimited(limit: number): Promise<Card[]> {
+    return new Promise((resolve, rejects) => {
+      this.db.collection('cards', ref => ref
+        .where('active', "==", true)
+        .where('type', "==", 'gift')
+        .limit(limit)
+      ).get().subscribe(data => {
+        if (!data.empty) {
+          let cards: Card[] = [];
+          data.forEach(doc => {
+            let card: Card = doc.data() as Card;
+            card.id = doc.id;
+            cards.push(card);
+          });
+          cards = cards.sort(() => Math.random() - 0.5)
+          resolve(cards);
+        }
+        else {
+          rejects("No cards found.");
+        }
+      });
+    });
+  }
 }

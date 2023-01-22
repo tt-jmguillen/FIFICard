@@ -32,7 +32,7 @@
                         <app-bundle [card]="card" (bundle)="bundle($event)"></app-bundle>
                     </div>
                     <div class=" col-6 mb-2">
-                        <h3 class="section-title" *ngIf="card"><b>₱{{cardPrice| number:'1.2-2'}}</b></h3>
+                        <h3 class="section-title" *ngIf="card"><b>{{priceService.getSign()}} {{cardPrice| number:'1.2-2'}}</b></h3>
                     </div>
                     <div class="col-6 mb-2 d-flex align-items-center justify-content-end">
                         <button class="btn btn-light text-primary" (click)="loadUserProfile()" [disabled]="isUserProfileLoaded" *ngIf="isWithUserProfile">Use Default Profile Information</button>
@@ -191,8 +191,8 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-12">
-                    <app-add-more *ngIf="card" [id]="card!.id" [recipients]="card!.recipients" [limit]=4 (selectedChange)="addMoreChange($event)"></app-add-more>
+                <div class="col-12" *ngIf="priceService.getLocation() == 'ph'">
+                    <app-add-more *ngIf="card" [card]="card" [limit]=4 (selectedChange)="addMoreChange($event)"></app-add-more>
                 </div>
             </div>
 

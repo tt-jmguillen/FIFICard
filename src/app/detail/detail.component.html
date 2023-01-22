@@ -53,7 +53,7 @@
                                     <p>Description: "{{card!.description}}"</p>
                                     <!--<p>Card Event: {{card!.event}}</p>-->
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-7">
 
                                             <p>Card Event: <span *ngFor="let event of card!.events" class="custom-pill mb-1">{{event}}</span></p>
                                             <!-- <p class="text-muted">Card Recipient: <span class="pill">{{card!.recipient}}</span></p> -->
@@ -64,7 +64,7 @@
                                             <a class="order " mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)" style="display:block">{{'card.buynow'|translate}}</a>
 
                                         </div>
-                                        <div class="col-md-6" style="text-align:right">
+                                        <div class="col-md-5" style="text-align:right">
 
                                             <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping" *ngIf="card">
                                             <br />
