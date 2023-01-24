@@ -166,7 +166,7 @@
                         </div>
                         <div class="col-12 mb-2" *ngIf="location != 'ph'">
                             <label class="form-label">* Complete Address</label>
-                            <input type="text" class="form-control" formControlName="address2" placeholder="Complete Address" [ngClass]="{ 'is-invalid': submitted && controls()['address'].errors}">
+                            <input type="text" class="form-control" formControlName="address" placeholder="Complete Address" [ngClass]="{ 'is-invalid': submitted && controls()['address'].errors}">
                             <div *ngIf="submitted && controls()['address'].errors" class="invalid-feedback">
                                 <div *ngIf="controls()['address'].errors!['required']">{{'order.addressrequired'|translate}}</div>
                                 <div *ngIf="controls()['address'].errors!['maxlength']">Address must not exceed 250 characters</div>
@@ -229,7 +229,7 @@
                                 <label>{{'order.shippingfee'|translate}}</label>
                             </div>
                             <div class="col-2 allign-right">
-                                <label>{{item.card.price! * item.count!| number:'1.2-2'}}</label><br />
+                                <label>{{priceService.getSign()}} {{item.card.price! * item.count!| number:'1.2-2'}}</label><br />
                                 <label>{{item.shipping_fee! > 0?(item.shipping_fee| number:'1.2-2'):'Free'}}</label>
                             </div>
                         </div>
@@ -238,7 +238,7 @@
                     <div class="row">
                         <div class="col-6"><strong>{{'order.total'|translate}}:</strong></div>
                         <div class="col-6">
-                            <div class="col-12 allign-right"><strong>₱ {{total | number:'1.2-2'}}</strong></div>
+                            <div class="col-12 allign-right"><strong>{{priceService.getSign()}} {{total | number:'1.2-2'}}</strong></div>
                         </div>
                     </div>
                 </div>

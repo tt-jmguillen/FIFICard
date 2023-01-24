@@ -1,3 +1,4 @@
+import { PriceService } from './../services/price.service';
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../services/event.service';
 import { Event } from '../models/event';
@@ -9,11 +10,14 @@ import { Event } from '../models/event';
 })
 export class EventsComponent implements OnInit {
   service: EventService;
+  priceService: PriceService;
 
   constructor(
-    _service: EventService
+    _service: EventService,
+    _priceService: PriceService
   ) {
     this.service = _service;
+    this.priceService = _priceService;
   }
 
   occassions: Event[] = [];

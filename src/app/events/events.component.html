@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <img src="/assets/images/banner/events-banner.png">
-                    <br/><br/>
+                    <br /><br />
                 </div>
 
             </div>
@@ -21,7 +21,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <br /><br />
-                    <img src="/assets/images/fathers/fs-event.png" routerLink="/events" class="img-fluid cursor" style="margin-top:-50px;width:100%">
+                    <img src="/assets/images/fathers/fs-event.png" routerLink="/events" class="img-fluid cursor" style="margin-top:-50px;width:100%" *ngIf="this.priceService.getLocation() == 'ph'">
+                    <img src="/assets/images/fathers/fs-event-v2.png" routerLink="/events" class="img-fluid cursor" style="margin-top:-50px;width:100%" *ngIf="this.priceService.getLocation() != 'ph'">
                 </div>
             </div>
         </div>

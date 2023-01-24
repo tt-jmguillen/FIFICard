@@ -15,7 +15,7 @@
                 <div class="row total">
                     <div class="col-md-1"></div>
                     <div class="col-12 col-md-9 allign-right">{{'cart.total'|translate}}:</div>
-                    <div class="col-12 col-md-2 allign-right">₱ <strong class="total">{{total | number:'1.2-2'}}</strong></div>
+                    <div class="col-12 col-md-2 allign-right">{{priceService.getSign()}} <strong class="total">{{total | number:'1.2-2'}}</strong></div>
                 </div>
                 <div class="row total">
                     <div class="col-md-10"></div>

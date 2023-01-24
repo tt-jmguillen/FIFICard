@@ -1,3 +1,4 @@
+import { PriceService } from './../../services/price.service';
 import { FilterService } from 'src/app/services/filter.service';
 import { environment } from 'src/environments/environment';
 import { Component, OnInit } from '@angular/core';
@@ -23,10 +24,15 @@ export class HeaderComponent implements OnInit {
   languages: Language[] = [];
   lang: string
 
+  priceService: PriceService
+
   constructor(
     private translate: TranslateService,
-    private filter: FilterService
-  ) { }
+    private filter: FilterService,
+    private _priceService: PriceService
+  ) {
+    this.priceService = _priceService;
+  }
 
   ngOnInit(): void {
     this.languages.push(new Language('English', 'en'));

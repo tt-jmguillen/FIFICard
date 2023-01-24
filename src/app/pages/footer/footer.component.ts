@@ -1,3 +1,4 @@
+import { PriceService } from './../../services/price.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  priceService: PriceService
+
+  constructor(
+    _priceService: PriceService
+  ) {
+    this.priceService = _priceService
+  }
 
   ngOnInit(): void {
   }

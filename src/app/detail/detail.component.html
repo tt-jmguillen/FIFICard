@@ -66,10 +66,11 @@
                                         </div>
                                         <div class="col-md-5" style="text-align:right">
 
-                                            <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping" *ngIf="card">
+                                            <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping" *ngIf="priceService.getLocation() == 'ph'">
+                                            <img src="/assets/images/icon_free_shipping-v2.png" class="img-fluid icon-free-shipping" *ngIf="priceService.getLocation() != 'ph'">
                                             <br />
                                             <div>
-                                                <span><b>Standard delivery:</b> get by 2-3 days</span>
+                                                <span><b>Standard delivery:</b> {{priceService.getLocation() == 'ph'?'get by 2-3 days':'get by 5-7 days'}}</span>
                                             </div>
                                             <br />
                                             <a href="/page/TermsAndCondition" target="_blank" title="Terms And Condition" class="t-links">{{'card.seeterms'|translate}}</a><br />

@@ -57,7 +57,7 @@
         <h5>{{'footer.paymentmethod'|translate}}</h5>
         <img src="/assets/images/payment_gcash.png" class="img-fluid" style="max-height:30px;">
         <br /><br />
-        <img src="/assets/images/payment_PayPal.png" class="img-fluid" style="max-height:30px;">
+        <img src="/assets/images/payment_PayPal.png" class="img-fluid" style="max-height:30px;" *ngIf="priceService.getLocation() != 'ph'">
         <br />
         <p style="display: inline-block;
           padding: 5px 10px;

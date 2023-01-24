@@ -255,6 +255,19 @@ export class CartsComponent implements OnInit {
     });
   }
 
+  getCurrency(): string {
+    const location = this.priceService.getLocation();
+    if (location == 'us') {
+      return 'USD'
+    }
+    else if (location == 'sg') {
+      return 'SGD'
+    }
+    else {
+      return environment.paypalCurrency
+    }
+  }
+
   setPayPal() {
     this.payPalConfig = undefined;
 
@@ -273,7 +286,7 @@ export class CartsComponent implements OnInit {
             quantity: item.qty.toString(),
             category: 'DIGITAL_GOODS',
             unit_amount: {
-              currency_code: environment.paypalCurrency,
+              currency_code: this.getCurrency(),
               value: (item.price + item.shipping).toString()
             }
           }
@@ -282,14 +295,14 @@ export class CartsComponent implements OnInit {
       });
 
       this.payPalConfig = {
-        currency: environment.paypalCurrency,
+        currency: this.getCurrency(),
         clientId: environment.paypalClientId,
         createOrderOnClient: (data) => <ICreateOrderRequest>{
           intent: 'CAPTURE',
           purchase_units: [
             {
               amount: {
-                currency_code: environment.paypalCurrency,
+                currency_code: this.getCurrency(),
                 value: this.total.toFixed(2),
                 breakdown: {
                   item_total: {
