@@ -19,8 +19,7 @@ class Batch {
   styleUrls: ['./add-more.component.scss']
 })
 export class AddMoreComponent implements OnInit {
-  @Input() id?: string;
-  @Input() recipients?: string[];
+  @Input() card: Card;
   @Input() limit: number;
   @Output() selectedChange: EventEmitter<AddMore[]> = new EventEmitter<AddMore[]>();
 
@@ -50,48 +49,48 @@ export class AddMoreComponent implements OnInit {
     config.showNavigationArrows = true;
   }
 
+  recipients: string[] = [];
+
   ngOnInit(): void {
     this.isMobile = window.innerWidth <= 500;
-    this.getGiftEvents();
+    this.loadCards();
   }
 
-  getGiftEvents() {
-    this.eventService.getEventGift().then(events => {
-      events.forEach(event => {
-        this.getCardsByEvent(event.name!);
-      });
-    });
+  loadCards() {
+    this.recipients = this.card.recipients!;
+    if (this.recipients.length > 0)
+      this.getGifts(0);
   }
 
-  getCardsByEvent(event: string) {
-    this.service.getCardsByEvent(event).then(cards => {
-      this.filterRecipient(cards);
-    })
-  }
-
-  filterRecipient(_cards: Card[]) {
-    _cards.forEach(card => {
-      if (card.id != this.id!) {
-        let isAdded: boolean = false;
-
-        card.recipient!.split(",").forEach(recipient => {
-          if (recipient.toLowerCase() == "all") {
-            isAdded = true;
-          }
-          else {
-            if (this.recipients!.indexOf(recipient) >= 0) {
-              isAdded = true;
+  getGifts(ix: number) {
+    if (ix < this.recipients.length) {
+      if (this.recipients[ix].toLowerCase() != 'all') {
+        this.service.getGiftsByRecipient(this.recipients[ix]).then(cards => {
+          cards.forEach(card => {
+            if (this.cards.findIndex(x => x.card.id! == card.id!) < 0) {
+              this.cards.push(new AddMore(card));
             }
-          }
-        })
-
-        if (isAdded) {
-          this.cards.push(new AddMore(card));
-        }
+          });
+          this.getGifts(ix + 1);
+        });
       }
-    });
-    this.cards = this.cards.sort(() => Math.random() - Math.random()).slice(0, 30);
-    this.loadBatch();
+      else {
+        this.getAllGifts();
+      }
+    }
+    else {
+      this.loadBatch();
+    }
+  }
+
+  getAllGifts() {
+    this.cards = [];
+    this.service.getGiftsLimited(30).then(cards => {
+      cards.forEach(card => {
+        this.cards.push(new AddMore(card));
+      });
+      this.loadBatch();
+    })
   }
 
   loadBatch() {

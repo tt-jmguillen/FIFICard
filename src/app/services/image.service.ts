@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
+import { getDownloadURL, list, ref, Storage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class ImageService {
 
   constructor(
     private _storage: Storage
-  ) { 
+  ) {
     this.storage = _storage
   }
 
