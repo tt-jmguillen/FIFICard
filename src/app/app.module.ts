@@ -115,6 +115,7 @@ import { NewyearComponent } from './newyear/newyear.component';
 import { NewyearGreetingsComponent } from './newyear/newyear-greetings/newyear-greetings.component';
 import { ValentinesComponent } from './valentines/valentines.component';
 import { ValentinesGreetingsComponent } from './valentines/valentines-greetings/valentines-greetings.component';
+import { PostcardsComponent } from './postcards/postcards.component';
 
 
 @NgModule({
@@ -205,7 +206,8 @@ import { ValentinesGreetingsComponent } from './valentines/valentines-greetings/
     NewyearComponent,
     NewyearGreetingsComponent,
     ValentinesComponent,
-    ValentinesGreetingsComponent
+    ValentinesGreetingsComponent,
+    PostcardsComponent
   ],
   imports: [
     BrowserModule,

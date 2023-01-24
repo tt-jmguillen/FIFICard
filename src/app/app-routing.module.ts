@@ -1,3 +1,4 @@
+import { PostcardsComponent } from './postcards/postcards.component';
 import { PoetryComponent } from './poetry/poetry.component';
 import { SignAndSendEventsComponent } from './sign-and-send-events/sign-and-send-events.component';
 import { HalloweenGreetingsComponent } from './halloween/halloween-greetings/halloween-greetings.component';
@@ -167,6 +168,9 @@ const routes: Routes = [
   },
   {
     path: 'valentines/greetings', component: ValentinesGreetingsComponent
+  },
+  {
+    path: 'postcards', component: PostcardsComponent
   },
 ];
 
