@@ -9,16 +9,9 @@
                 </div>
             </div>
             <div *ngIf="carts.length > 0">
-                <app-cart-thumb 
-                    *ngFor="let item of collection" 
-                    [id]="item.id" 
-                    [selected]="item.included" 
-                    (updateOrder)="updateOrder($event)" 
-                    (updateCard)="updateCard($event)"
-                    (changeInclude)="changeInclude($event)"
-                    (deleteItem)="delete($event)">
+                <app-cart-thumb *ngFor="let item of collection" [id]="item.id" [selected]="item.included" (updateOrder)="updateOrder($event)" (updateCard)="updateCard($event)" (changeInclude)="changeInclude($event)" (deleteItem)="delete($event)">
                 </app-cart-thumb>
-                
+
                 <div class="row total">
                     <div class="col-md-1"></div>
                     <div class="col-12 col-md-9 allign-right">{{'cart.total'|translate}}:</div>
@@ -27,8 +20,7 @@
                 <div class="row total">
                     <div class="col-md-10"></div>
                     <div class="col-md-2 col-12 allign-right">
-                        <button class="btn btn-primary full-size" [disabled]="total == 0"
-                            (click)="payNow(gcash_payment)">{{'cart.payviagcash'|translate}}</button>
+                        <button class="btn btn-primary full-size" [disabled]="total == 0" (click)="payNow(gcash_payment)">{{'cart.payviagcash'|translate}}</button>
                     </div>
                 </div>
                 <div class="row total">
@@ -43,8 +35,7 @@
         <ng-template #gcash_payment let-modal>
             <div class="modal-header">
                 <h4 class="modal-title" id="modal-basic-title">{{'cart.scanandpay'|translate}}</h4>
-                <button type="button" class="btn-close" aria-label="Close"
-                    (click)="modal.dismiss('Cross click')"></button>
+                <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
             </div>
             <div class="modal-body">
                 <div class="mb-3">
@@ -55,8 +46,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 mb-2">
-                            <label class="form-label">{{'cart.totalamount'|translate}}: ₱ <strong>{{total |
-                                    number:'1.2-2'}}</strong></label>
+                            <label class="form-label">{{'cart.totalamount'|translate}}: {{priceService.getSign()}} <strong>{{total | number:'1.2-2'}}</strong></label>
                         </div>
                     </div>
                     <div class="row">
@@ -68,8 +58,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 mb-2">
-                            <button class="btn btn-primary full-size" [disabled]="gcashUploadedFile == ''"
-                                (click)="saveTransaction('GCash')">{{'button.submit'|translate}}</button>
+                            <button class="btn btn-primary full-size" [disabled]="gcashUploadedFile == ''" (click)="saveTransaction('GCash')">{{'button.submit'|translate}}</button>
                         </div>
                     </div>
                 </div>

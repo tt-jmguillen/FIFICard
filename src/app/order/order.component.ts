@@ -103,6 +103,8 @@ export class OrderComponent implements OnInit {
   isUserProfileLoaded: boolean = false;
   isWithUserProfile: boolean = false;
 
+  location: 'ph' | 'sg' | 'us' = 'ph';
+
   constructor(
     _titleService: Title,
     _formBuilder: UntypedFormBuilder,
@@ -147,6 +149,8 @@ export class OrderComponent implements OnInit {
     this.getAllEvents();
     this.getAllFees();
 
+    this.location = this.priceService.getLocation();
+
     this.form = this.formBuilder.group({
       sender_name: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
       sender_phone: ['', Validators.compose([Validators.required, Validators.maxLength(20)])],
@@ -154,16 +158,29 @@ export class OrderComponent implements OnInit {
       receiver_name: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
       receiver_phone: ['', Validators.compose([Validators.required, Validators.maxLength(20)])],
       receiver_email: ['', Validators.compose([Validators.required, Validators.email])],
-      address1: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
-      address2: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
-      province: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
-      city: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
-      country: ['Philippines', Validators.compose([Validators.required, Validators.maxLength(50)])],
-      postcode: ['', Validators.compose([Validators.required, Validators.maxLength(20)])],
+      address: [''],
+      address1: [''],
+      address2: [''],
+      province: [''],
+      city: [''],
+      country: ['Philippines'],
+      postcode: [''],
       anonymously: [false],
       sendto: ['Recipient', Validators.compose([Validators.required, Validators.maxLength(20)])],
       message: [''],
     }, {});
+
+    if (this.location == 'ph') {
+      this.form.controls['address1'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
+      this.form.controls['address2'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
+      this.form.controls['province'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
+      this.form.controls['province'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
+      this.form.controls['country'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
+      this.form.controls['postcode'].setValidators(Validators.compose([Validators.required, Validators.maxLength(20)]));
+    }
+    else {
+      this.form.controls['address'].setValidators(Validators.compose([Validators.required, Validators.maxLength(250)]));
+    }
 
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.uid = userDetails?.uid;
@@ -287,9 +304,12 @@ export class OrderComponent implements OnInit {
     order.user_id = this.uid;
     order.card_id = this.card.id;
     order.card_price = this.cardPrice;
+    order.location = this.location;
     order.count = this.count;
     order.withSignAndSend = this.isWithSignAndSend;
-    order.address = this.generateFullAddress(order);
+    if (this.location == 'ph') {
+      order.address = this.generateFullAddress(order);
+    }
     order.shipping_fee = this.shippingfee;
     order.type = this.changeTo;
     order.bundle = this.isBundle;

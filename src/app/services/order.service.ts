@@ -28,6 +28,7 @@ export class OrderService {
         user_id: order.user_id,
         card_id: order.card_id,
         card_price: order.card_price,
+        location: order.location,
         sender_name: order.sender_name,
         sender_phone: order.sender_phone,
         sender_email: order.sender_email,

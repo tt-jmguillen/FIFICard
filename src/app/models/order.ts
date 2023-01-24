@@ -7,6 +7,7 @@ export class Order {
     public card_id?: string;
     public card_price?: number;
     public shipping_fee?: number;
+    public location: 'ph' | 'sg' | 'us';
     public sender_name?: string;
     public sender_phone?: string;
     public sender_email?: string;

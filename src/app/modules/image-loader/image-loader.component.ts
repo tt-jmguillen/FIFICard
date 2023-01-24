@@ -55,8 +55,6 @@ export class ImageLoaderComponent implements OnInit {
       else
         imagefull = this.image;
 
-
-
       this.service.getImageURL(imagefull).then(url => {
         this.url = url;
       }).catch(err => {

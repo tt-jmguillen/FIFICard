@@ -106,7 +106,7 @@
                             <span class="text-muted">{{'order.deliveryaddress'|translate}}</span>
                             <span class="instruction" *ngIf="instruction">{{'order.insertdeliveryaddress'|translate}}</span>
                         </div>
-                        <div class="col-12 mb-2">
+                        <div class="col-12 mb-2" *ngIf="location == 'ph'">
                             <label class="form-label">* {{'order.address1'|translate}}</label>
                             <input type="text" class="form-control" formControlName="address1" placeholder="{{'order.address'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['address1'].errors}">
                             <div *ngIf="submitted && controls()['address1'].errors" class="invalid-feedback">
@@ -114,7 +114,7 @@
                                 <div *ngIf="controls()['address1'].errors!['maxlength']">{{'order.addresscharlimit'|translate}}</div>
                             </div>
                         </div>
-                        <div class="col-12 mb-2">
+                        <div class="col-12 mb-2" *ngIf="location == 'ph'">
                             <label class="form-label">* {{'order.address2'|translate}}</label>
                             <input type="text" class="form-control" formControlName="address2" placeholder="{{'order.address'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['address2'].errors}">
                             <div *ngIf="submitted && controls()['address2'].errors" class="invalid-feedback">
@@ -122,7 +122,7 @@
                                 <div *ngIf="controls()['address2'].errors!['maxlength']">{{'order.addresscharlimit'|translate}}</div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="location == 'ph'">
                             <div class="col-6 mb-2">
                                 <label class="form-label">* {{'order.province'|translate}}</label>
                                 <input type="text" class="form-control" formControlName="province" placeholder="{{'order.province'|translate}}" list="provinceIds" [ngClass]="{ 'is-invalid': submitted && controls()['province'].errors}" (change)="proviceChange($event)">
@@ -146,7 +146,7 @@
                                 </datalist>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="location == 'ph'">
                             <div class="col-6 mb-2">
                                 <label class="form-label">* {{'order.country'|translate}}</label>
                                 <input type="text" class="form-control" formControlName="country" placeholder="{{'order.country'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['country'].errors}">
@@ -162,6 +162,14 @@
                                     <div *ngIf="controls()['postcode'].errors!['required']">{{'order.postcoderequired'|translate}}</div>
                                     <div *ngIf="controls()['postcode'].errors!['maxlength']">{{'order.postcodelimit'|translate}}</div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2" *ngIf="location != 'ph'">
+                            <label class="form-label">* Complete Address</label>
+                            <input type="text" class="form-control" formControlName="address2" placeholder="Complete Address" [ngClass]="{ 'is-invalid': submitted && controls()['address'].errors}">
+                            <div *ngIf="submitted && controls()['address'].errors" class="invalid-feedback">
+                                <div *ngIf="controls()['address'].errors!['required']">{{'order.addressrequired'|translate}}</div>
+                                <div *ngIf="controls()['address'].errors!['maxlength']">Address must not exceed 250 characters</div>
                             </div>
                         </div>
                         <div class="col-12 mb-2 mt-2 pl-3 form-check">

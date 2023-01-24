@@ -1,3 +1,4 @@
+import { PriceService } from './../services/price.service';
 import { ItemImage } from './../modules/imagegrid/imagegrid.component';
 import { OrderService } from './../services/order.service';
 import { PaymentService } from './../services/payment.service';
@@ -61,6 +62,7 @@ export class CartsComponent implements OnInit {
   orderService: OrderService;
   cardService: CardService;
   paymentService: PaymentService;
+  priceService: PriceService;
   modalService: NgbModal;
 
   constructor(
@@ -68,12 +70,14 @@ export class CartsComponent implements OnInit {
     _orderService: OrderService,
     _cardService: CardService,
     _paymentService: PaymentService,
+    _priceService: PriceService,
     _modalService: NgbModal
   ) {
     this.userService = _userService;
     this.orderService = _orderService;
     this.cardService = _cardService;
     this.paymentService = _paymentService;
+    this.priceService = _priceService;
     this.modalService = _modalService;
   }
 

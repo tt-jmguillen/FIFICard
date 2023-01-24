@@ -80,4 +80,25 @@ export class CartThumbComponent implements OnInit {
   delete() {
     this.deleteItem.emit(this.id);
   }
+
+  getSign(): string {
+    if (this.order.location == 'us') {
+      return '$';
+    }
+    else if (this.order.location == 'sg') {
+      return 'S$';
+    }
+    else {
+      return '₱';
+    }
+  }
+
+  getShippingFee(): string {
+    if (this.order.shipping_fee! > 0) {
+      return this.getSign() + ' ' + this.order.shipping_fee!.toFixed(2)
+    }
+    else {
+      return 'Free'
+    }
+  }
 }

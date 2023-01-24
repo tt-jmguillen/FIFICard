@@ -34,13 +34,13 @@
         </span>
     </div>
     <div class="col-md-2 col-6 valign-center allign-right">
-        <span *ngIf="!order.bundle"><strong>{{order.card_price| number:'1.2-2'}} x {{order.count}}</strong></span><br />
-        <span *ngIf="order.bundle"><strong>{{order.count}} for {{order.card_price| number:'1.2-2'}}</strong></span><br />
+        <span *ngIf="!order.bundle"><strong>{{getSign()}} {{order.card_price| number:'1.2-2'}} x {{order.count}}</strong></span><br />
+        <span *ngIf="order.bundle"><strong>{{order.count}} for {{getSign()}} {{order.card_price| number:'1.2-2'}}</strong></span><br />
         <span>{{'cart.shippingfee'|translate}}</span>
     </div>
     <div class="col-md-1 col-6 allign-right pr-0 valign-center">
-        <span *ngIf="!order.bundle"><strong>{{(order.card_price! * order.count!)| number:'1.2-2'}}</strong></span><br />
-        <span *ngIf="order.bundle"><strong>{{(order.card_price!)| number:'1.2-2'}}</strong></span><br />
-        <span><strong>{{order.shipping_fee!>0?(order.shipping_fee| number:'1.2-2'):'Free'}}</strong></span>
+        <span *ngIf="!order.bundle"><strong>{{getSign()}} {{(order.card_price! * order.count!)| number:'1.2-2'}}</strong></span><br />
+        <span *ngIf="order.bundle"><strong>{{getSign()}} {{(order.card_price!)| number:'1.2-2'}}</strong></span><br />
+        <span><strong>{{getShippingFee()}}</strong></span>
     </div>
 </div>
