@@ -5,6 +5,9 @@
         <div class="col-lg-2 col-4 my-logo">
           <!-- <a   href="/">FibeiGreetings</a> -->
           <img src="{{logo}}" class="img-fluid" style=" cursor:pointer" routerLink="/">
+          <div class="my-loc" *ngIf="priceService.getLocation() == 'ph'">Philippines</div>
+          <div class="my-loc" *ngIf="priceService.getLocation() == 'us'">USA</div>
+          <div class="my-loc" *ngIf="priceService.getLocation() == 'sg'">Singapore</div>
         </div>
         <div class="col-lg-9 col-8 my-search">
           <app-search></app-search>
