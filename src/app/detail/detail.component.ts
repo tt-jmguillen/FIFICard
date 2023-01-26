@@ -159,4 +159,12 @@ export class DetailComponent implements OnInit {
     }
     return this.priceService.getPrice(this.card!, type)
   }
+
+  getEventTitle(card: Card): string {
+    let value: string = 'Event';
+    if (card.type == 'postcard') {
+      value = 'Category'
+    }
+    return value;
+  }
 }

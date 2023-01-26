@@ -1,0 +1,13 @@
+.notavailable {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.availabe {
+    opacity: 0.7;
+    cursor: default;
+}
+
+.availabe:hover {
+    opacity: 1;
+}

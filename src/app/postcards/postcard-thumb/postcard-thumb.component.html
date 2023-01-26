@@ -1,0 +1,2 @@
+<img [src]="img" class="available" *ngIf="(img != '') && (enable)" [routerLink]="geturl()">
+<img [src]="img" class="notavailable" *ngIf="img != '' && (!enable)">

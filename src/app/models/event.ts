@@ -6,6 +6,7 @@ export class Event {
     public isCreations?: boolean;
     public isSignAndSend?: boolean;
     public isSticker?: boolean;
+    public isPostcard?: boolean;
     public image?: string;
     public url?: string;
     public tag: string;

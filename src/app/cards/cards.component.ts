@@ -123,7 +123,12 @@ export class CardsComponent implements OnInit {
               else
                 this.type = ''
             }
-            if (!events[0].isGift && !events[0].isSticker && !events[0].isCreations) {
+
+            if (events[0].isPostcard) {
+              this.type = 'Postcards';
+            }
+
+            if (!events[0].isGift && !events[0].isGift && !events[0].isSticker && !events[0].isCreations && !events[0].isPostcard) {
               this.type = 'Cards'
             }
           }

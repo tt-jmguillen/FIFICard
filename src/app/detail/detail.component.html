@@ -55,9 +55,9 @@
                                     <div class="row">
                                         <div class="col-md-7">
 
-                                            <p>Card Event: <span *ngFor="let event of card!.events" class="custom-pill mb-1">{{event}}</span></p>
+                                            <p>{{getEventTitle(card!)}}: <span *ngFor="let event of card!.events" class="custom-pill mb-1">{{event}}</span></p>
                                             <!-- <p class="text-muted">Card Recipient: <span class="pill">{{card!.recipient}}</span></p> -->
-                                            <p>Card Recipient: <span *ngFor="let recipient of card!.recipients" class="custom-pill mb-1">{{recipient}}</span></p>
+                                            <p>Recipient: <span *ngFor="let recipient of card!.recipients" class="custom-pill mb-1">{{recipient}}</span></p>
                                             <app-bundle [view]="true" [card]="card"></app-bundle>
                                             <img src="assets/images/sign-send-logo.png" style=" height: 40px;" *ngIf="card?.signAndSend">
                                             <h3 class="section-title" *ngIf="card">Price: {{priceService.getSign()}} {{getPrice() | number:'1.2-2'}} </h3>
