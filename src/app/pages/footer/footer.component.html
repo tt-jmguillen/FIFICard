@@ -55,11 +55,11 @@
         <div class="px-2"><a [routerLink]="['/page/PrivacyPolicy']">{{'footer.privacypolicy' | translate}}</a></div>
         <br />
         <h5>{{'footer.paymentmethod'|translate}}</h5>
-        <img src="/assets/images/payment_gcash.png" class="img-fluid" style="max-height:30px;" *ngIf="priceService.getLocation() == 'ph'">
+        <img src="/assets/images/payment_gcash.png" class="img-fluid" style="max-height:30px;margin-bottom: 10px;" *ngIf="priceService.getLocation() == 'ph'">
         <br *ngIf="priceService.getLocation() == 'ph'"/>
-        <img src="/assets/images/payment_amex.png" class="img-fluid" style="max-height:40px;" *ngIf="priceService.getLocation() != 'ph'">
-        <br *ngIf="priceService.getLocation() != 'ph'"/>
-        <img src="/assets/images/payment_PayPal.png" class="img-fluid" style="max-height:30px;" *ngIf="priceService.getLocation() != 'ph'">
+        <img src="/assets/images/payment_amex.png" class="img-fluid" style="max-height:40px;margin-bottom:10px;">
+        <br />
+        <img src="/assets/images/payment_PayPal.png" class="img-fluid" style="max-height:30px;margin-bottom:10px;">
         <br />
         <p style="display: inline-block;
           padding: 5px 10px;
