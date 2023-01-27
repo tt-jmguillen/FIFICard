@@ -34,33 +34,54 @@ export class BundleComponent implements OnInit {
   singleprice: number = 0;
   selected: string = '';
   messagetype: 'regular' | 'poetry' = 'regular';
+  type: 'card' | 'gift' | 'sticker' | 'postcard';
 
   ngOnInit(): void {
-    console.log(this.view)
   }
 
   loadBundle(_card: Card) {
+    this.type = _card.type;
+
     this.sevice.getBundles(_card.id!).then(bundles => {
       this.bundles = bundles;
 
-      let bundle: Bundle = new Bundle();
-      bundle.id = 'single';
-      bundle.count = 1;
-      bundle.price = this.getPrice(_card);
-      this.bundles.unshift(bundle);
+      if (_card.type != 'postcard') {
+        let bundle: Bundle = new Bundle();
+        bundle.id = 'single';
+        bundle.count = 1;
+        bundle.price = this.getPrice(_card);
+        this.bundles.unshift(bundle);
+        this.selected = bundle.id;
+      }
+      else {
+        this.selected = this.bundles[0].id;
+        this.bundle.emit(this.bundles[0]);
+      }
 
-      this.selected = bundle.id;
     });
+  }
+
+  getTypeLabel(): string {
+    let typelabel = 'Greeting Card'
+    if (this.type == 'postcard') {
+      typelabel = 'Postcard'
+    }
+    return typelabel;
   }
 
   getlabel(bundle: Bundle): string {
     let label: string = '';
+    let typelabel = 'Greeting Card'
+    if (this.type == 'postcard') {
+      typelabel = 'Postcard'
+    }
+
 
     if (bundle.count > 1) {
-      label = 'Bundle of ' + bundle.count + 'pcs of Greeting Cards – ' + this.priceService.getSign() + ' ' + this.priceService.getBundlePrice(this.messagetype, bundle).toFixed(2);
+      label = 'Bundle of ' + bundle.count + 'pcs of ' + typelabel + 's – ' + this.priceService.getSign() + ' ' + this.priceService.getBundlePrice(this.messagetype, bundle).toFixed(2);
     }
     else
-      label = 'Single Greeting Card – ' + this.priceService.getSign() + ' ' + bundle.price.toFixed(2);
+      label = 'Single ' + typelabel + ' – ' + this.priceService.getSign() + ' ' + bundle.price.toFixed(2);
 
     return label
   }

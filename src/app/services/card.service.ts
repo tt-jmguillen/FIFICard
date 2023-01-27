@@ -146,7 +146,7 @@ export class CardService {
     });
   }
 
-  getCardsByType(_type: 'card' | 'gift' | 'sticker'): Promise<Card[]> {
+  getCardsByType(_type: 'card' | 'gift' | 'sticker' | 'postcard'): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
       this.db.collection('cards', ref => ref
         .where('active', "==", true)

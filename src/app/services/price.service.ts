@@ -43,6 +43,13 @@ export class PriceService {
     { messagetype: 'poetry', count: 12, price: 1200, sgprice: 85, usprice: 100 }
   ]
 
+  bundlespostcard = [
+    { count: 100, price: 1500, sgprice: 48, usprice: 40 },
+    { count: 250, price: 3000, sgprice: 102, usprice: 85 },
+    { count: 500, price: 6000, sgprice: 192, usprice: 160 },
+    { count: 12000, price: 6000, sgprice: 370, usprice: 310 }
+  ]
+
   private getDefault(type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED', messagetype: 'regular' | 'poetry', location: 'ph' | 'sg' | 'us'): number {
     let value: number = 0;
     let defaults = this.defaults.filter(x => x.messagetype == messagetype && x.type == type);
@@ -136,6 +143,25 @@ export class PriceService {
     return value;
   }
 
+  private getBundlePostcard(count: number, location: 'ph' | 'sg' | 'us'): number {
+    let value: number = 0;
+
+    let bundles = this.bundlespostcard.filter(x => x.count == count);
+    if (bundles.length > 0) {
+      if (location == 'sg') {
+        value = bundles[0].sgprice;
+      }
+      else if (location == 'us') {
+        value = bundles[0].usprice;
+      }
+      else {
+        value = bundles[0].price;
+      }
+    }
+
+    return value;
+  }
+
   public getBundlePrice(messagetype: 'regular' | 'poetry', bundle: Bundle): number {
     let value: number = 0;
 
@@ -147,6 +173,22 @@ export class PriceService {
     }
     else if (this.location == 'ph') {
       value = bundle.price != undefined ? bundle.price : this.getBundle(messagetype, bundle.count, this.location);
+    }
+
+    return value;
+  }
+
+  public getPostcardBundlePrice(bundle: Bundle): number {
+    let value: number = 0;
+
+    if (this.location == 'sg') {
+      value = bundle.sgprice != undefined ? bundle.sgprice : this.getBundlePostcard(bundle.count, this.location);
+    }
+    else if (this.location == 'us') {
+      value = bundle.usprice != undefined ? bundle.usprice : this.getBundlePostcard(bundle.count, this.location);
+    }
+    else if (this.location == 'ph') {
+      value = bundle.price != undefined ? bundle.price : this.getBundlePostcard(bundle.count, this.location);
     }
 
     return value;

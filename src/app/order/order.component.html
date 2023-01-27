@@ -1,7 +1,7 @@
 <ion-content>
     <section class="section-name padding-y-sm">
-        <div class="container animate main">
-            <div class="row align-top" *ngIf="card">
+        <div class="container animate main" *ngIf="card">
+            <div class="row align-top">
                 <div class="col-12">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
@@ -166,7 +166,7 @@
                         </div>
                         <div class="col-12 mb-2" *ngIf="location != 'ph'">
                             <label class="form-label">* Complete Address</label>
-                            <input type="text" class="form-control" formControlName="address" placeholder="Complete Address" [ngClass]="{ 'is-invalid': submitted && controls()['address'].errors}">
+                            <textarea class="form-control" placeholder="Complete Address" rows="5" formControlName="address" [ngClass]="{ 'is-invalid': submitted && controls()['address'].errors}"></textarea>
                             <div *ngIf="submitted && controls()['address'].errors" class="invalid-feedback">
                                 <div *ngIf="controls()['address'].errors!['required']">{{'order.addressrequired'|translate}}</div>
                                 <div *ngIf="controls()['address'].errors!['maxlength']">Address must not exceed 250 characters</div>

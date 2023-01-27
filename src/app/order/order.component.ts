@@ -588,6 +588,7 @@ export class OrderComponent implements OnInit {
   }
 
   bundle(bundle: Bundle) {
+    console.log(bundle);
     this.changeTo = this.defaultType;
     this.isBundle = bundle.count > 1;
     this.count = bundle.count;

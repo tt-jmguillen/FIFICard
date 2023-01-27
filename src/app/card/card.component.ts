@@ -1,3 +1,4 @@
+import { Bundle } from './../models/bundle';
 import { PriceService } from './../services/price.service';
 import { environment } from './../../environments/environment';
 import { Card } from './../models/card';
@@ -17,6 +18,7 @@ export class CardComponent implements OnInit {
   service: CardService;
   priceService: PriceService;
   card?: Card;
+  bundles: Bundle[] = [];
   imageURL: string = '';
 
   constructor(
@@ -33,6 +35,9 @@ export class CardComponent implements OnInit {
     this.service.getCard(_id).subscribe(val => {
       this.card = val;
       this.loadImage(_id);
+      if (val.type == 'postcard') {
+        this.getBundles(val.id!);
+      }
     });
   }
 
@@ -85,6 +90,12 @@ export class CardComponent implements OnInit {
       type = 'EMBOSSED';
     }
     return this.priceService.getPrice(this.card!, type)
+  }
+
+  getBundles(id: string) {
+    this.service.getBundles(id).then(bundles => {
+      this.bundles = bundles;
+    });
   }
 
 }

@@ -29,7 +29,7 @@ export class CardListComponent implements OnInit {
   @Input() priority: string;
   @Input() recipient: string;
   @Input() footer: boolean = true;
-  @Input() mode: 'card' | 'gift' | 'sticker' = 'card';
+  @Input() mode: 'card' | 'gift' | 'sticker' | 'postcard' = 'card';
 
   recipientService: RecipientService;
   settingService: SettingService;
