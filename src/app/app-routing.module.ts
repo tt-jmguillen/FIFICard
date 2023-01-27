@@ -172,6 +172,9 @@ const routes: Routes = [
   {
     path: 'postcards', component: PostcardsComponent
   },
+  {
+    path: 'e-cards', component: ECardsPageComponent
+  },
 ];
 
 @NgModule({

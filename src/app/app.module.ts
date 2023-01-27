@@ -118,7 +118,6 @@ import { ValentinesGreetingsComponent } from './valentines/valentines-greetings/
 import { PostcardsComponent } from './postcards/postcards.component';
 import { PostcardThumbComponent } from './postcards/postcard-thumb/postcard-thumb.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
