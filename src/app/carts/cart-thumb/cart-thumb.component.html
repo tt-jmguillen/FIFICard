@@ -1,4 +1,4 @@
-<div class="row border">
+<div class="row border" *ngIf="order">
     <div class="col-md-1 col-2 allign-center valign-center">
         <input type="checkbox" [checked]="selected" (change)="updateInclude()">
     </div>

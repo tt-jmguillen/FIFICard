@@ -1,7 +1,7 @@
 import { CardService } from 'src/app/services/card.service';
 import { OrderService } from './../../services/order.service';
 import { Order } from 'src/app/models/order';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, AfterViewInit } from '@angular/core';
 import { Card } from 'src/app/models/card';
 import { environment } from 'src/environments/environment';
 
@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './cart-thumb.component.html',
   styleUrls: ['./cart-thumb.component.scss']
 })
-export class CartThumbComponent implements OnInit {
+export class CartThumbComponent implements OnInit, AfterViewInit {
   @Input() id: string;
   @Input() selected: boolean;
   @Output() updateOrder: EventEmitter<Order> = new EventEmitter<Order>();
@@ -34,6 +34,9 @@ export class CartThumbComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
     this.getOrder();
   }
 
