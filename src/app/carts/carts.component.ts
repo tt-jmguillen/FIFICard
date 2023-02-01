@@ -36,6 +36,22 @@ class Collection {
     this.parent = '';
     this.bundle = false;
   }
+
+  loadOrder(value: Order) {
+    this.receivername = value.receiver_name!;
+    this.parent = value.parentOrder!;
+    this.price = value.card_price!;
+    this.qty = value.count!;
+    this.bundle = value.bundle!;
+    if (value.shipping_fee! > 0) {
+      this.shipping = Number(value.shipping_fee);
+    }
+  }
+
+  loadCard(value: Card) {
+    this.cardid = value.id!;
+    this.cardname = value.name!;
+  }
 }
 
 @Component({
@@ -44,7 +60,7 @@ class Collection {
   styleUrls: ['./carts.component.scss']
 })
 
-export class CartsComponent implements OnInit, AfterViewInit {
+export class CartsComponent implements OnInit {
   uid: string;
 
   collection: Collection[] = []
@@ -82,10 +98,6 @@ export class CartsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-
-  }
-
-  ngAfterViewInit(): void {
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.uid = userDetails?.uid;
     this.paymentService.getInitial().then(status => this.initalStatus = status);
@@ -97,7 +109,34 @@ export class CartsComponent implements OnInit, AfterViewInit {
     this.collection = [];
     this.userService.getUser(this.uid).then(user => {
       this.carts = user.carts;
-      user.carts.forEach(id => this.collection.push(new Collection(id)));
+      //user.carts.forEach(id => this.collection.push(new Collection(id)));
+      if (this.carts.length > 0)
+        this.load(0);
+    })
+  }
+
+  load(index: number) {
+    if (index < this.carts.length) {
+      this.getOrder(index, this.carts[index]);
+    }
+    else {
+      this.computeTotal()
+    }
+  }
+
+  getOrder(index: number, id: string) {
+    this.orderService.getOrder(id).then(order => {
+      this.getCard(index, id, order);
+    })
+  }
+
+  getCard(index: number, id: string, order: Order) {
+    this.cardService.getACard(order.card_id!).then(card => {
+      let col = new Collection(id);
+      col.loadOrder(order);
+      col.loadCard(card);
+      this.collection.push(col);
+      this.load(index + 1);
     })
   }
 
