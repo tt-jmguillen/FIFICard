@@ -44,7 +44,7 @@ class Collection {
   styleUrls: ['./carts.component.scss']
 })
 
-export class CartsComponent implements OnInit {
+export class CartsComponent implements OnInit, AfterViewInit {
   uid: string;
 
   collection: Collection[] = []
@@ -82,6 +82,10 @@ export class CartsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+  }
+
+  ngAfterViewInit(): void {
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.uid = userDetails?.uid;
     this.paymentService.getInitial().then(status => this.initalStatus = status);
