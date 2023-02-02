@@ -18,25 +18,53 @@
                     <app-event-list [events]="occassions"></app-event-list>
                 </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-12">
                     <br /><br />
                     <img src="/assets/images/fathers/fs-event.png" routerLink="/events" class="img-fluid cursor" style="margin-top:-50px;width:100%" *ngIf="this.priceService.getLocation() == 'ph'">
                     <img src="/assets/images/fathers/fs-event-v2.png" routerLink="/events" class="img-fluid cursor" style="margin-top:-50px;width:100%" *ngIf="this.priceService.getLocation() != 'ph'">
                 </div>
+            </div> -->
+            
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <img src="assets/images/banner/select/title.png">
+                </div>
+                <div class="col-md-3">
+                    <a [routerLink]="['/poetry']"><img src="assets/images/banner/select/p-1.png"></a>
+                </div>
+                <div class="col-md-3">
+                    <a [routerLink]="['/e-cards']"><img src="assets/images/banner/select/p-2.png"></a>
+                </div>
+                <div class="col-md-3">
+                    <a [routerLink]="['/postcards']"><img src="assets/images/banner/select/p-3.png"></a>
+                </div>
+                <div class="col-md-3">
+                    <br/><br/>
+                    <img src="assets/images/banner/select/p-4.png">
+                </div>
             </div>
-        </div>
-    </section>
-    <br><br>
-    <section class="section-name padding-y-sm mother-background-footer">
-        <div class="container animate main">
             <div class="row">
                 <div class="col-md-12">
-                    <img src="/assets/images/layout2/_All Gifts Landing Pages_3.png" routerLink="/gifts" class="img-fluid cursor" style="margin-top:-50px;width:100%">
-                    <br><br>
+                    <br/> <br/>
+                   <a [routerLink]="['/gifts']"> <img src="assets/images/banner/shop-gifts.png"></a>
+                   <br/> <br/>
+                   <img src="assets/images/banner/fs-free.png">
                 </div>
             </div>
         </div>
     </section>
+    <!-- <br><br>
+    <section class="section-name padding-y-sm mother-background-footer">
+        <div class="container animate main">
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="/assets/images/layout2/_All Gifts Landing Pages_3.png" routerLink="/gifts"
+                        class="img-fluid cursor" style="margin-top:-50px;width:100%">
+                    <br><br>
+                </div>
+            </div>
+        </div>
+    </section> -->
     <app-footer></app-footer>
 </ion-content>
