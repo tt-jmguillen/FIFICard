@@ -43,7 +43,7 @@ export class CardService {
             cards.push(card);
 
           });
-          cards = cards.sort(() => Math.random() - 0.5).slice(0, 8);
+          cards = cards.sort(() => Math.random() - 0.5).slice(0, 4);
           resolve(cards);
         }
         else {
