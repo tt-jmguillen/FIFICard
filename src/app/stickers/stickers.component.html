@@ -3,60 +3,91 @@
         <div class="container animate main">
             <div class="row text-center">
                 <div class="col-md-12">
-                    <img src="/assets/images/sticker/banner-sticker.png" class="img-fluid">
-                    <br />
-
+                    <img src="/assets/images/sticker/banner.png" class="img-fluid">
+                    <br /> <br />
+                    <a class="btn-featured" (click)="clickEvent('Valentines')"><img
+                            src="/assets/images/sticker/sticker-val.jpg"></a>
+                    <br /> <br />
+                    <img src="/assets/images/poetry/other.jpg">
                 </div>
             </div>
-            <div class="panel" style="background: white;padding: 5%;">
-                <div class="row">
-                    <div class="col-md-3">
-                        <a class="btn-featured" (click)="clickEvent('Christmas')"><img src="/assets/images/sticker/btn-featured.png"></a>
-                    </div>
-                    <div class="col-md-9 my-auto">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <a class="btn-category" [ngClass]="eventName == 'All'?'active':''" (click)="clickEvent('All')">
-                                    All
-                                </a>
-                            </div>
-                            <div class="col-md-4" *ngFor="let event of events">
-                                <a class="btn-category" [ngClass]="eventName == event.name!?'active':''" (click)="clickEvent(event.name!)">
-                                    {{event.name}}
-                                </a>
-                            </div>
+        </div>
+        <div class="panel" style="background: white;">
+            <div class="row">
+                <!--<div class="col-md-3">
+                         <a class="btn-featured" (click)="clickEvent('Christmas')"><img src="/assets/images/sticker/btn-featured.png"></a> 
+                    </div>-->
+                <div class="col-md-12 my-auto">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a class="btn-category" [ngClass]="eventName == 'All'?'active':''"
+                                (click)="clickEvent('All')">
+                                All
+                            </a>
+                        </div>
+                        <div class="col-md-4" *ngFor="let event of events">
+                            <a class="btn-category" [ngClass]="eventName == event.name!?'active':''"
+                                (click)="clickEvent(event.name!)">
+                                {{event.name}}
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row text-center">
-                <div class="col-md-12">
-                    <img src="/assets/images/sticker/sticker-subbanner.png" class="img-fluid">
-                    <br />
-                    <br />
-                </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-12">
+                <img src="/assets/images/sticker/sub-sticker.jpg" class="img-fluid">
+                <br />
+                <br />
             </div>
-            <div class="row text-center mt-4 mb-4" *ngIf="caption">
-                <div class="col-md-12">
-                    <header class="section-heading">
-                        <h3 class="section-title">{{caption}}</h3>
-                    </header>
-                </div>
+        </div>
+        <div class="row text-center mt-4 mb-4" *ngIf="caption">
+            <div class="col-md-12">
+                <header class="section-heading">
+                    <h3 class="section-title">{{caption}}</h3>
+                </header>
             </div>
-            <div class="row text-center mt-4 mb-4" *ngIf="loading">
-                <div class="col-md-12">
-                    <mat-progress-bar mode="indeterminate" value=100></mat-progress-bar>
-                </div>
+        </div>
+        <div class="row text-center mt-4 mb-4" *ngIf="loading">
+            <div class="col-md-12">
+                <mat-progress-bar mode="indeterminate" value=100></mat-progress-bar>
             </div>
-            <app-card-list *ngIf="filtered.length > 0" [cards]="cards" mode="sticker"></app-card-list>
-            <div class="row mt-4 text-center">
+        </div>
+        <app-card-list *ngIf="filtered.length > 0" [cards]="cards" mode="sticker"></app-card-list>
+        <!-- <div class="row mt-4 text-center">
                 <div class="col-md-12">
                     <img src="/assets/images/fathers/fs-sticker.png">
                 </div>
+            </div> -->
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <img src="assets/images/banner/select/title.png">
+            </div>
+            <div class="col-md-3">
+                <a [routerLink]="['/poetry']"><img src="assets/images/banner/select/p-1.png"></a>
+            </div>
+            <div class="col-md-3">
+                <a [routerLink]="['/e-cards']"><img src="assets/images/banner/select/p-2.png"></a>
+            </div>
+            <div class="col-md-3">
+                <a [routerLink]="['/postcards']"><img src="assets/images/banner/select/p-3.png"></a>
+            </div>
+            <div class="col-md-3">
+                <br /><br />
+                <img src="assets/images/banner/select/p-4.png">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <br /> <br />
+                <a [routerLink]="['/gifts']"> <img src="assets/images/banner/shop-gifts.png"></a>
+                <br /> <br />
+                <img src="assets/images/banner/fs-free.png">
             </div>
         </div>
     </section>
-    <section style="background: #eff399;padding-top: 2%; padding-bottom: 2%;">
+    <!-- <section style="background: #eff399;padding-top: 2%; padding-bottom: 2%;">
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-6">
@@ -71,6 +102,6 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <app-footer></app-footer>
 </ion-content>
