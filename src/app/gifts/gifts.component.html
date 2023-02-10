@@ -4,21 +4,25 @@
         <div class="container animate main">
             <div class="row">
                 <div class="col-md-12 mb-3">
-                    <img src="/assets/images/banner/gift-banner.png" class="img-fluid">
+                    <img src="/assets/images/gift/banner.png" class="img-fluid">
                 </div>
                 <div class="col-md-12 mb-3">
-                    <img src="/assets/images/banner/gift-sub-banner.png" class="img-fluid" [routerLink]="['/cards/events/Gifts for Christmas']">
+                    <img src="/assets/images/gift/gift-val.jpg" class="img-fluid"
+                        [routerLink]="['/cards/events/Gifts for Valentines day']">
                 </div>
             </div>
             <div class="row header pb-2 mb-4">
                 <div class="col-md-4">
-                    <h2 [class]="mode =='Category'?'text-center my-header active':'text-center my-header'" (click)="modeChange('Category')">{{'gifts.categorytext'|translate}}</h2>
+                    <h2 [class]="mode =='Category'?'text-center my-header active':'text-center my-header'"
+                        (click)="modeChange('Category')">{{'gifts.categorytext'|translate}}</h2>
                 </div>
                 <div class="col-md-4">
-                    <h2 [class]="mode =='Recipient'?'text-center my-header active':'text-center my-header'" (click)="modeChange('Recipient')">{{'gifts.recipienttext'|translate}}</h2>
+                    <h2 [class]="mode =='Recipient'?'text-center my-header active':'text-center my-header'"
+                        (click)="modeChange('Recipient')">{{'gifts.recipienttext'|translate}}</h2>
                 </div>
                 <div class="col-md-4">
-                    <h2 [class]="mode =='Event'?'text-center my-header active':'text-center my-header'" (click)="modeChange('Event')">{{'gifts.eventtext'|translate}}</h2>
+                    <h2 [class]="mode =='Event'?'text-center my-header active':'text-center my-header'"
+                        (click)="modeChange('Event')">{{'gifts.eventtext'|translate}}</h2>
                 </div>
             </div>
             <app-gift-events *ngIf="mode=='Category'" [events]="categories">
@@ -27,9 +31,36 @@
             </app-gift-events>
             <app-gift-events *ngIf="mode=='Event'" [events]="events">
             </app-gift-events>
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <img src="assets/images/banner/select/title.png">
+                </div>
+                <div class="col-md-3">
+                    <a [routerLink]="['/poetry']"><img src="assets/images/banner/select/p-1.png"></a>
+                </div>
+                <div class="col-md-3">
+                    <a [routerLink]="['/e-cards']"><img src="assets/images/banner/select/p-2.png"></a>
+                </div>
+                <div class="col-md-3">
+                    <a [routerLink]="['/postcards']"><img src="assets/images/banner/select/p-3.png"></a>
+                </div>
+                <div class="col-md-3">
+                    <br /><br />
+                    <img src="assets/images/banner/select/p-4.png">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <br /> <br />
+                    <a [routerLink]="['/gifts']"> <img src="assets/images/banner/shop-gifts.png"></a>
+                    <br /> <br />
+                    <img src="assets/images/banner/fs-free.png">
+                </div>
+            </div>
         </div>
+
     </section>
-    <br><br>
+    <!-- <br><br>
     <section class="section-name padding-y-sm mother-background-footer">
         <div class="container animate main">
             <div class="row">
@@ -39,6 +70,6 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <app-footer></app-footer>
 </ion-content>

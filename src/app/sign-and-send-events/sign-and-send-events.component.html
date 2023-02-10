@@ -2,7 +2,8 @@
     <section class="section-name padding-y-sm bk-hw">
         <div class="container animate main">
             <div class="col-md-12 mb-4">
-                <img src="../../assets/images/banner/s-and-s-banner.png" class="img-fluid pointer" style="border-radius:6px; width:100% !important">
+                <!-- <img src="../../assets/images/banner/s-and-s-banner.png" class="img-fluid pointer" style="border-radius:6px; width:100% !important"> -->
+                <img src="../../assets/images/signandsend/v4/banner.png" class="img-fluid pointer" style="border-radius:6px; width:100% !important">
             </div>
             <div class="panel-xmas">
                 <div class="row">
@@ -21,6 +22,38 @@
                         <h2 class="text-center cus-text-title mt-1 mb-3">Occasions</h2>
                         <app-event-list type="signandsend" [showalways]="false" [events]="occassions"></app-event-list>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-4 mt-4">
+                    
+                    <img src="../../assets/images/signandsend/v4/know-more.jpg" class="img-fluid pointer" [routerLink]="['/signandsendpage']">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <img src="assets/images/banner/select/title.png">
+                </div>
+                <div class="col-md-3">
+                    <a [routerLink]="['/poetry']"><img src="assets/images/banner/select/p-1.png"></a>
+                </div>
+                <div class="col-md-3">
+                    <a [routerLink]="['/e-cards']"><img src="assets/images/banner/select/p-2.png"></a>
+                </div>
+                <div class="col-md-3">
+                    <a [routerLink]="['/postcards']"><img src="assets/images/banner/select/p-3.png"></a>
+                </div>
+                <div class="col-md-3">
+                    <br /><br />
+                    <img src="assets/images/banner/select/p-4.png">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <br /> <br />
+                    <a [routerLink]="['/gifts']"> <img src="assets/images/banner/shop-gifts.png"></a>
+                    <br /> <br />
+                    <img src="assets/images/banner/fs-free.png">
                 </div>
             </div>
         </div>

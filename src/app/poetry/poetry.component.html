@@ -8,18 +8,25 @@
                 </div>
             </div>
             <div class="row bg-white py-4">
-                <div class="col-12 mt-2 mb-4">
+                <!-- <div class="col-12 mt-2 mb-4">
                     <h1 class="text-center cus-text-title m-0">Poetry Cards Category</h1>
                 </div>
                 <div class="col-3 ps-4 ms-4">
                     <h1 class="cus-text-title m-0" style="text-transform: none">Events</h1>
-                </div>
+                </div> -->
                 <div class="col-12 my-2"></div>
-                <div class="col-md-3 px-4">
+                <div class="col-12 ">
+                    <a class="btn-featured" (click)="clickEvent(featured)" *ngIf="featured">
+                        <img src="/assets/images/poetry/featured-category.jpg" class="img-fluid">
+                    </a>
+                    <img src="/assets/images/poetry/other.jpg" class="img-fluid">
+                </div>
+
+                <!-- <div class="col-md-3 px-4">
                     <div class="row">
                         <div class="col-12">
                             <a class="btn-featured" (click)="clickEvent(featured)" *ngIf="featuredButton != ''"><img [src]="featuredButton"></a>
-                        </div>
+                        </div> 
                         <div class="col-12 ms-4 mb-2" *ngIf="featuredButton == ''">
                             <p class="fs-2 featured text-success">FEATURED!</p>
                         </div>
@@ -29,8 +36,8 @@
                             </button>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-9 pe-4 my-auto">
+                </div> pe-4-->
+                <div class="col-md-12  my-auto">
                     <div class="row">
                         <div class="col-md-3" *ngFor="let event of events">
                             <a class="btn-category py-2" (click)="clickEvent(event)">
@@ -79,6 +86,32 @@
             </div>
             <div class="row bg-white px-4" id="data-top">
                 <app-card-list *ngIf="cards.length > 0" [cards]="cards" mode="card"></app-card-list>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <img src="assets/images/banner/select/title.png">
+                </div>
+                <div class="col-md-3">
+                    <a [routerLink]="['/poetry']"><img src="assets/images/banner/select/p-1.png"></a>
+                </div>
+                <div class="col-md-3">
+                    <a [routerLink]="['/e-cards']"><img src="assets/images/banner/select/p-2.png"></a>
+                </div>
+                <div class="col-md-3">
+                    <a [routerLink]="['/postcards']"><img src="assets/images/banner/select/p-3.png"></a>
+                </div>
+                <div class="col-md-3">
+                    <br /><br />
+                    <img src="assets/images/banner/select/p-4.png">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <br /> <br />
+                    <a [routerLink]="['/gifts']"> <img src="assets/images/banner/shop-gifts.png"></a>
+                    <br /> <br />
+                    <img src="assets/images/banner/fs-free.png">
+                </div>
             </div>
         </div>
     </section>
