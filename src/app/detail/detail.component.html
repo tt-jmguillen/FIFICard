@@ -61,8 +61,13 @@
                                             <app-bundle [view]="true" [card]="card"></app-bundle>
                                             <img src="assets/images/sign-send-logo.png" style=" height: 40px;" *ngIf="card?.signAndSend">
                                             <h3 class="section-title" *ngIf="card.type != 'postcard'">Price: {{priceService.getSign()}} {{getPrice() | number:'1.2-2'}} </h3>
-                                            <a class="order " mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)" style="display:block">{{'card.buynow'|translate}}</a>
-
+                                            <a class="order " mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)" [disabled]="!orderEnable" style="display:block">{{'card.buynow'|translate}}</a>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" [checked]="orderEnable" id="agreement" (change)="setEnable($event)">
+                                                <label class="form-check-label" for="agreement">
+                                                    Accept Terms & Condition Check Box
+                                                </label>
+                                            </div>
                                         </div>
                                         <div class="col-md-5" style="text-align:right">
 

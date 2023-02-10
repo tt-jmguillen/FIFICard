@@ -31,6 +31,8 @@ export class DetailComponent implements OnInit {
   language: string = 'en';
   descriptionTranslation: Translation;
 
+  orderEnable: boolean = false;
+
   constructor(
     private _activateRoute: ActivatedRoute,
     private appComponent: AppComponent,
@@ -166,5 +168,9 @@ export class DetailComponent implements OnInit {
       value = 'Category'
     }
     return value;
+  }
+
+  setEnable(event: any){
+    this.orderEnable = event.target.checked;
   }
 }
