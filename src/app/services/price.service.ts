@@ -19,6 +19,7 @@ export class PriceService {
     else {
       this.location = 'ph'
     }
+    this.location = 'us'
   }
 
   defaults = [
@@ -102,23 +103,27 @@ export class PriceService {
   public getPrice(card: Card, type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED'): number {
     let value: number = 0;
 
+    card.price = card.price ? card.price : 0;
+    card.usprice = card.usprice ? card.usprice : 0;
+    card.sgprice = card.sgprice ? card.sgprice : 0;
+
     if (this.location == 'sg') {
       if (card.signAndSend!)
-        value = card.sgprice != undefined ? card.sgprice! : this.getSignAndSend('message', this.location);
+        value = card.sgprice != 0 ? card.sgprice! : this.getSignAndSend('message', this.location);
       else
-        value = card.sgprice != undefined ? card.sgprice! : this.getDefault(type, card.messagetype, this.location);
+        value = card.sgprice != 0 ? card.sgprice! : this.getDefault(type, card.messagetype, this.location);
     }
     else if (this.location == 'us') {
       if (card.signAndSend!)
-        value = card.usprice != undefined ? card.usprice! : this.getSignAndSend('message', this.location);
+        value = card.usprice != 0 ? card.usprice! : this.getSignAndSend('message', this.location);
       else
-        value = card.usprice != undefined ? card.usprice! : this.getDefault(type, card.messagetype, this.location);
+        value = card.usprice != 0 ? card.usprice! : this.getDefault(type, card.messagetype, this.location);
     }
     else if (this.location == 'ph') {
       if (card.signAndSend!)
-        value = card.price != undefined ? card.price! : this.getSignAndSend('message', this.location);
+        value = card.price != 0 ? card.price! : this.getSignAndSend('message', this.location);
       else
-        value = card.price != undefined ? card.price! : this.getDefault(type, card.messagetype, this.location);
+        value = card.price != 0 ? card.price! : this.getDefault(type, card.messagetype, this.location);
     }
 
     return value;
@@ -165,14 +170,18 @@ export class PriceService {
   public getBundlePrice(messagetype: 'regular' | 'poetry', bundle: Bundle): number {
     let value: number = 0;
 
+    bundle.price = bundle.price ? bundle.price : 0;
+    bundle.usprice = bundle.usprice ? bundle.usprice : 0;
+    bundle.sgprice = bundle.sgprice ? bundle.sgprice : 0;
+
     if (this.location == 'sg') {
-      value = bundle.sgprice != undefined ? bundle.sgprice : this.getBundle(messagetype, bundle.count, this.location);
+      value = bundle.sgprice != 0 ? bundle.sgprice : this.getBundle(messagetype, bundle.count, this.location);
     }
     else if (this.location == 'us') {
-      value = bundle.usprice != undefined ? bundle.usprice : this.getBundle(messagetype, bundle.count, this.location);
+      value = bundle.usprice != 0 ? bundle.usprice : this.getBundle(messagetype, bundle.count, this.location);
     }
     else if (this.location == 'ph') {
-      value = bundle.price != undefined ? bundle.price : this.getBundle(messagetype, bundle.count, this.location);
+      value = bundle.price != 0 ? bundle.price : this.getBundle(messagetype, bundle.count, this.location);
     }
 
     return value;
@@ -181,14 +190,19 @@ export class PriceService {
   public getPostcardBundlePrice(bundle: Bundle): number {
     let value: number = 0;
 
+    bundle.price = bundle.price ? bundle.price : 0;
+    bundle.usprice = bundle.usprice ? bundle.usprice : 0;
+    bundle.sgprice = bundle.sgprice ? bundle.sgprice : 0;
+
+
     if (this.location == 'sg') {
-      value = bundle.sgprice != undefined ? bundle.sgprice : this.getBundlePostcard(bundle.count, this.location);
+      value = bundle.sgprice != 0 ? bundle.sgprice : this.getBundlePostcard(bundle.count, this.location);
     }
     else if (this.location == 'us') {
-      value = bundle.usprice != undefined ? bundle.usprice : this.getBundlePostcard(bundle.count, this.location);
+      value = bundle.usprice != 0 ? bundle.usprice : this.getBundlePostcard(bundle.count, this.location);
     }
     else if (this.location == 'ph') {
-      value = bundle.price != undefined ? bundle.price : this.getBundlePostcard(bundle.count, this.location);
+      value = bundle.price != 0 ? bundle.price : this.getBundlePostcard(bundle.count, this.location);
     }
 
     return value;
