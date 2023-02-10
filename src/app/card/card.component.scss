@@ -69,3 +69,16 @@ img {
   height: 60px;
   aspect-ratio: 1.4/1;
 }
+
+.giftimage{
+  width: 100%;
+  aspect-ratio: 1/1.2;
+  object-fit: cover;
+}
+
+.title{
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

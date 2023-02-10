@@ -1,6 +1,6 @@
 <div class="card position-relative" *ngIf="card">
   <a [routerLink]="['/card/' + card!.id]" class="img-wrap" title="{{card!.name}}">
-    <img src="{{this.imageURL!}}">
+    <img src="{{this.imageURL!}}" [ngClass]="card.type=='gift'?'giftimage':''">
   </a>
   <figcaption class="info-wrap">
     <p routerLink="{{'/card/' + card!.id}}" class="title cursor mb-2">{{card!.name}}</p>
