@@ -1,3 +1,5 @@
+import { SampleThumbComponent } from './sample/sample-thumb/sample-thumb.component';
+import { SampleComponent } from './sample/sample.component';
 import { SignAndSendComponent } from './order/sign-and-send/sign-and-send.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -117,6 +119,7 @@ import { ValentinesComponent } from './valentines/valentines.component';
 import { ValentinesGreetingsComponent } from './valentines/valentines-greetings/valentines-greetings.component';
 import { PostcardsComponent } from './postcards/postcards.component';
 import { PostcardThumbComponent } from './postcards/postcard-thumb/postcard-thumb.component';
+import { SamplePlayerComponent } from './sample/sample-player/sample-player.component';
 
 @NgModule({
   declarations: [
@@ -208,7 +211,10 @@ import { PostcardThumbComponent } from './postcards/postcard-thumb/postcard-thum
     ValentinesComponent,
     ValentinesGreetingsComponent,
     PostcardsComponent,
-    PostcardThumbComponent
+    PostcardThumbComponent,
+    SampleComponent,
+    SampleThumbComponent,
+    SamplePlayerComponent
   ],
   imports: [
     BrowserModule,

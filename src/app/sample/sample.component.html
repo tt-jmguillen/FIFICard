@@ -1,0 +1,12 @@
+<ion-content>
+    <section class="section-name padding-y-sm bk-hw">
+        <div class="container for-links-hover">
+            <div class="row">
+                <div class="col-3 mb-3" *ngFor="let item of videos">
+                    <app-sample-thumb [file]="item"></app-sample-thumb>
+                </div>
+            </div>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

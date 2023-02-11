@@ -412,7 +412,7 @@ export class OrderComponent implements OnInit {
   }
 
   computeTotal() {
-    this.total = Number(this.card.price!) + Number(this.shippingfee);
+    this.total = Number(this.cardPrice) + Number(this.shippingfee);
     this.totalCount = Number(this.count);
 
     this.addMore.forEach(item => {

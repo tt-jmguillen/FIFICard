@@ -1,0 +1,14 @@
+<ion-content>
+    <section class="section-name padding-y-sm bk-hw">
+        <div class="container for-links-hover">
+            <div class="row">
+                <div class="col-12">
+                    <video class="w-100" [controls]="controls" preload="auto" #video>
+                        <source src="{{url}}" type='video/mp4' *ngIf="url != ''">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

@@ -1,3 +1,5 @@
+import { SamplePlayerComponent } from './sample/sample-player/sample-player.component';
+import { SampleComponent } from './sample/sample.component';
 import { PostcardsComponent } from './postcards/postcards.component';
 import { PoetryComponent } from './poetry/poetry.component';
 import { SignAndSendEventsComponent } from './sign-and-send-events/sign-and-send-events.component';
@@ -9,7 +11,6 @@ import { SignAndSendCardsComponent } from './sign-and-send-cards/sign-and-send-c
 import { CartsComponent } from './carts/carts.component';
 import { SignAndSendComponent } from './order/sign-and-send/sign-and-send.component';
 import { FathersDayComponent } from './fathers-day/fathers-day.component';
-import { MessageComponent } from './message/message.component';
 import { MotherGiftsComponent } from './mothers-day/mother-gifts/mother-gifts.component';
 import { MotherCardsComponent } from './mothers-day/mother-cards/mother-cards.component';
 import { MothersDayComponent } from './mothers-day/mothers-day.component';
@@ -24,7 +25,7 @@ import { OrderComponent } from './order/order.component';
 import { DetailComponent } from './detail/detail.component';
 import { CardsComponent } from './cards/cards.component';
 import { NgModule } from '@angular/core';
-import { Router, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { TabsComponent } from './pages/tabs/tabs.component';
 import { ProfileComponent } from './settings/profile/profile.component';
@@ -174,6 +175,12 @@ const routes: Routes = [
   },
   {
     path: 'e-cards', component: ECardsPageComponent
+  },
+  {
+    path: 'samples', component: SampleComponent
+  },
+  {
+    path: 'player/:id', component: SamplePlayerComponent
   },
 ];
 

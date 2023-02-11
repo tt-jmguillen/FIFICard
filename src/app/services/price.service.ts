@@ -19,7 +19,6 @@ export class PriceService {
     else {
       this.location = 'ph'
     }
-    this.location = 'us'
   }
 
   defaults = [
