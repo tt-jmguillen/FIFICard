@@ -17,7 +17,7 @@
                     <div class="col-12 col-md-9 allign-right">{{'cart.total'|translate}}:</div>
                     <div class="col-12 col-md-2 allign-right">{{priceService.getSign()}} <strong class="total">{{total | number:'1.2-2'}}</strong></div>
                 </div>
-                <div class="row total">
+                <div class="row total" *ngIf="priceService.location == 'ph'">
                     <div class="col-md-10"></div>
                     <div class="col-md-2 col-12 allign-right">
                         <button class="btn btn-primary full-size" [disabled]="total == 0" (click)="payNow(gcash_payment)">{{'cart.payviagcash'|translate}}</button>
@@ -66,4 +66,4 @@
         </ng-template>
     </section>
     <app-footer></app-footer>
-</ion-content>
+</ion-content> 
