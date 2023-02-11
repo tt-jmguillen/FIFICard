@@ -417,6 +417,7 @@ export class OrderComponent implements OnInit {
 
     this.addMore.forEach(item => {
       if (item.count > 0) {
+        this.priceService.getPrice
         this.total = this.total + (Number(item.card.price!) * Number(item.count!)) + Number(item.shipping_fee! | 0);
         this.totalCount = this.totalCount + Number(item.count!);
       }
@@ -429,81 +430,86 @@ export class OrderComponent implements OnInit {
 
   getFeeAmount(province: string, cardEvents: string[]): Promise<number> {
     return new Promise((resolve, rejects) => {
-      if (province && (cardEvents.length > 0)) {
-        let isCard: boolean = false;
-        let isGift: boolean = false;
-        let isCreation: boolean = false;
-        let isSticker: boolean = false;
+      if (this.priceService.location == 'ph') {
+        if (province && (cardEvents.length > 0)) {
+          let isCard: boolean = false;
+          let isGift: boolean = false;
+          let isCreation: boolean = false;
+          let isSticker: boolean = false;
 
-        cardEvents.forEach(cardEvent => {
-          let i = this.allEvents.findIndex(x => x.name == cardEvent);
-          if (i >= 0) {
-            if (this.allEvents[i].isGift)
-              isGift = true;
-            else if (this.allEvents[i].isCreations)
-              isCreation = true;
-            else if (this.allEvents[i].isSticker)
-              isSticker = true;
-            else
-              isCard = true;
-          }
-        })
-
-        let group: string = '';
-        let config = this.addressConfig.find(x => x.name == province);
-        if (config != undefined)
-          group = config.group;
-
-        if (group != '') {
-          let y = this.allFees.forEach(fee => {
-            if (isCard && (fee.name == 'Card')) {
-              if (group == 'Metro Manila')
-                resolve(Number(fee.metromanila));
-              if (group == 'Luzon')
-                resolve(Number(fee.luzon));
-              if (group == 'Visayas')
-                resolve(Number(fee.visayas));
-              if (group == 'Mindanao')
-                resolve(Number(fee.mindanao));
-            }
-            if (isGift && (fee.name == 'Gift')) {
-              if (group == 'Metro Manila')
-                resolve(Number(fee.metromanila));
-              if (group == 'Luzon')
-                resolve(Number(fee.luzon));
-              if (group == 'Visayas')
-                resolve(Number(fee.visayas));
-              if (group == 'Mindanao')
-                resolve(Number(fee.mindanao));
-            }
-            if (isCreation && (fee.name == 'Creation')) {
-              if (group == 'Metro Manila')
-                resolve(Number(fee.metromanila));
-              if (group == 'Luzon')
-                resolve(Number(fee.luzon));
-              if (group == 'Visayas')
-                resolve(Number(fee.visayas));
-              if (group == 'Mindanao')
-                resolve(Number(fee.mindanao));
-            }
-            if (isSticker && (fee.name == 'Sticker')) {
-              if (group == 'Metro Manila')
-                resolve(Number(fee.metromanila));
-              if (group == 'Luzon')
-                resolve(Number(fee.luzon));
-              if (group == 'Visayas')
-                resolve(Number(fee.visayas));
-              if (group == 'Mindanao')
-                resolve(Number(fee.mindanao));
+          cardEvents.forEach(cardEvent => {
+            let i = this.allEvents.findIndex(x => x.name == cardEvent);
+            if (i >= 0) {
+              if (this.allEvents[i].isGift)
+                isGift = true;
+              else if (this.allEvents[i].isCreations)
+                isCreation = true;
+              else if (this.allEvents[i].isSticker)
+                isSticker = true;
+              else
+                isCard = true;
             }
           })
+
+          let group: string = '';
+          let config = this.addressConfig.find(x => x.name == province);
+          if (config != undefined)
+            group = config.group;
+
+          if (group != '') {
+            let y = this.allFees.forEach(fee => {
+              if (isCard && (fee.name == 'Card')) {
+                if (group == 'Metro Manila')
+                  resolve(Number(fee.metromanila));
+                if (group == 'Luzon')
+                  resolve(Number(fee.luzon));
+                if (group == 'Visayas')
+                  resolve(Number(fee.visayas));
+                if (group == 'Mindanao')
+                  resolve(Number(fee.mindanao));
+              }
+              if (isGift && (fee.name == 'Gift')) {
+                if (group == 'Metro Manila')
+                  resolve(Number(fee.metromanila));
+                if (group == 'Luzon')
+                  resolve(Number(fee.luzon));
+                if (group == 'Visayas')
+                  resolve(Number(fee.visayas));
+                if (group == 'Mindanao')
+                  resolve(Number(fee.mindanao));
+              }
+              if (isCreation && (fee.name == 'Creation')) {
+                if (group == 'Metro Manila')
+                  resolve(Number(fee.metromanila));
+                if (group == 'Luzon')
+                  resolve(Number(fee.luzon));
+                if (group == 'Visayas')
+                  resolve(Number(fee.visayas));
+                if (group == 'Mindanao')
+                  resolve(Number(fee.mindanao));
+              }
+              if (isSticker && (fee.name == 'Sticker')) {
+                if (group == 'Metro Manila')
+                  resolve(Number(fee.metromanila));
+                if (group == 'Luzon')
+                  resolve(Number(fee.luzon));
+                if (group == 'Visayas')
+                  resolve(Number(fee.visayas));
+                if (group == 'Mindanao')
+                  resolve(Number(fee.mindanao));
+              }
+            })
+          }
+          else {
+            resolve(0);
+          }
         }
         else {
-          resolve(0);
+          rejects("Not enough parameter");
         }
       }
-      else {
-        rejects("Not enough parameter");
+      else{
+        resolve(0);
       }
     });
   }
@@ -588,7 +594,6 @@ export class OrderComponent implements OnInit {
   }
 
   bundle(bundle: Bundle) {
-    console.log(bundle);
     this.changeTo = this.defaultType;
     this.isBundle = bundle.count > 1;
     this.count = bundle.count;

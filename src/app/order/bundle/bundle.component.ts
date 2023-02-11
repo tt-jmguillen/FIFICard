@@ -43,21 +43,22 @@ export class BundleComponent implements OnInit {
     this.type = _card.type;
 
     this.sevice.getBundles(_card.id!).then(bundles => {
-      this.bundles = bundles;
-
-      if (_card.type != 'postcard') {
-        let bundle: Bundle = new Bundle();
-        bundle.id = 'single';
-        bundle.count = 1;
-        bundle.price = this.getPrice(_card);
-        this.bundles.unshift(bundle);
-        this.selected = bundle.id;
+      if(bundles.length > 0){
+        this.bundles = bundles;
+  
+        if (_card.type != 'postcard') {
+          let bundle: Bundle = new Bundle();
+          bundle.id = 'single';
+          bundle.count = 1;
+          bundle.price = this.getPrice(_card);
+          this.bundles.unshift(bundle);
+          this.selected = bundle.id;
+        }
+        else {
+          this.selected = this.bundles[0].id;
+          this.bundle.emit(this.bundles[0]);
+        }
       }
-      else {
-        this.selected = this.bundles[0].id;
-        this.bundle.emit(this.bundles[0]);
-      }
-
     });
   }
 
