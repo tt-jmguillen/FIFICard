@@ -532,7 +532,7 @@ export class CardService {
             resolve(bundles);
           }
           else {
-            rejects("No bundles found.");
+            resolve([]);
           }
         });
     });
