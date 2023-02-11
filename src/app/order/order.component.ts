@@ -242,7 +242,7 @@ export class OrderComponent implements OnInit {
     if (this.user.contact) {
       this.form.controls['sender_phone'].patchValue(this.user.contact);
     }
-    if (this.user.address) {
+    if ((this.priceService.location == 'ph') && this.user.address) {
       this.addressService.getAddress(this.user.address).then(address => {
         this.form.controls['address1'].patchValue(address.address);
         this.form.controls['address2'].patchValue(address.address2);
