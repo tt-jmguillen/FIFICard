@@ -33,44 +33,34 @@
                                         <h2 class="section-title" style="color:indigo;font-weight:bolder">{{card!.name}} </h2>
                                     </div>
                                     <div class="col-md-4 text-end my-auto">
-                                        <!--<img src="../assets/images/badge-bestseller.png" class="bestseller ms-2" *ngIf="card!.bestseller" />-->
                                         <img src="../assets/images/badge-sticker-free-2.png" class="sticker ms-2 cursor" *ngIf="card!.type == 'sticker' && card!.price == 18" [routerLink]="getStickerLink()" />
-
                                         <img src="../assets/images/badge-featured.png" class="featured ms-2" *ngIf="card!.featured" />
                                         <img src="../assets/images/badge-poetry.png" class="poerty ms-2" *ngIf="card.messagetype=='poetry'" />
-                                        <!--<span *ngIf="card.featured" class="tag tag-featured"><i class="fa fa-gem"></i> Featured</span>
-                                        <span *ngIf="card.bestseller" class="tag tag-bestseller"> <i class="fa fa-thumbs-up"></i> Best Seller</span>-->
                                     </div>
                                 </div>
-                                <!-- <img src="/assets/images/cardtype/t-{{type}}.png" *ngFor="let type of card!.types" style="height: 40px;margin-right:10px;" title="card type {{type}}"> -->
                                 <section>
                                     <div class="row">
                                         <div class="col-12">
                                             <p>Available in: <span *ngFor="let type of card!.types" class="custom-pill mb-1">{{type}}</span></p>
                                         </div>
                                     </div>
-
                                     <p>Description: "{{card!.description}}"</p>
-                                    <!--<p>Card Event: {{card!.event}}</p>-->
                                     <div class="row">
                                         <div class="col-md-7">
-
                                             <p>{{getEventTitle(card!)}}: <span *ngFor="let event of card!.events" class="custom-pill mb-1">{{event}}</span></p>
-                                            <!-- <p class="text-muted">Card Recipient: <span class="pill">{{card!.recipient}}</span></p> -->
                                             <p>Recipient: <span *ngFor="let recipient of card!.recipients" class="custom-pill mb-1">{{recipient}}</span></p>
                                             <app-bundle [view]="true" [card]="card"></app-bundle>
                                             <img src="assets/images/sign-send-logo.png" style=" height: 40px;" *ngIf="card?.signAndSend">
                                             <h3 class="section-title" *ngIf="card.type != 'postcard'">Price: {{priceService.getSign()}} {{getPrice() | number:'1.2-2'}} </h3>
-                                            <a class="order " mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)" [disabled]="!orderEnable" style="display:block">{{'card.buynow'|translate}}</a>
+                                            <a [ngClass]="orderEnable?'order':'order disable'" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)" [disabled]="!orderEnable" style="display:block" disabled>{{'card.buynow'|translate}}</a>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" [checked]="orderEnable" id="agreement" (change)="setEnable($event)">
                                                 <label class="form-check-label" for="agreement">
-                                                    Accept Terms & Condition Check Box
+                                                    Accept Terms & Condition
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="col-md-5" style="text-align:right">
-
                                             <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping" *ngIf="priceService.getLocation() == 'ph'">
                                             <img src="/assets/images/icon_free_shipping-v2.png" class="img-fluid icon-free-shipping" *ngIf="priceService.getLocation() != 'ph'">
                                             <br />
@@ -86,7 +76,6 @@
                                 </section>
                                 <section>
                                     <h5 style="font-weight: 600;" *ngIf="card">{{'card.details'|translate}}:</h5>
-
                                     <div style="white-space:pre-wrap">{{card!.details}}</div>
                                     <br />
                                     <img src="/assets/images/logo_fibeigreetings.png" routerLink="/" class="img-fluid cursor" style="max-height:100px;" *ngIf="card">

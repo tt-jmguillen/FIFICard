@@ -62,6 +62,8 @@ export class DetailComponent implements OnInit {
       this.id = params['id'];
       this.loadCard();
     });
+
+    console.log(this.orderEnable);
   }
 
   loadCard() {
@@ -78,12 +80,15 @@ export class DetailComponent implements OnInit {
   }
 
   checkIfLoggedIn(id: any): void {
-    let userDetails: string = localStorage.getItem('user')!;
-    if (userDetails == null || userDetails.length < 0) {
-      this.appComponent.openLoginDialog(id);
-    }
-    else {
-      this.router.navigate(['/order', id]);
+    console.log(this.orderEnable)
+    if (this.orderEnable){
+      let userDetails: string = localStorage.getItem('user')!;
+      if (userDetails == null || userDetails.length < 0) {
+        this.appComponent.openLoginDialog(id);
+      }
+      else {
+        this.router.navigate(['/order', id]);
+      }
     }
   }
 

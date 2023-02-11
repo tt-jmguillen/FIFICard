@@ -12,11 +12,10 @@ section {
     padding-right: 30px;
     margin-bottom: 10px;
 
-}
-
-.order:hover {
-    background-color: #6610f2;
-    font-weight: 500px;
+    &:not(.disable):hover {
+        background-color: #6610f2;
+        font-weight: 500px;
+    }
 }
 
 .icon-free-shipping {
