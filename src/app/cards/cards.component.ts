@@ -2,7 +2,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { FilterService } from './../services/filter.service';
 import { Card } from './../models/card';
 import { CardService } from './../services/card.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { throws } from 'assert';
 import { Recipient } from '../models/recipient';
@@ -28,6 +28,7 @@ export class EventSetting {
   styleUrls: ['./cards.component.scss']
 })
 export class CardsComponent implements OnInit {
+  id?: string;
   event?: string;
   search?: string;
   recipient?: string;
@@ -41,6 +42,7 @@ export class CardsComponent implements OnInit {
   serviceRecipient: RecipientService;
   activateRoute: ActivatedRoute;
   titleService: Title;
+  def: ChangeDetectorRef;
 
   cards: Card[] = [];
   loading: boolean = true;
@@ -57,7 +59,8 @@ export class CardsComponent implements OnInit {
     private _filterService: FilterService,
     private _serviceRecipient: RecipientService,
     private _activateRoute: ActivatedRoute,
-    private _titleService: Title
+    private _titleService: Title,
+    private _def: ChangeDetectorRef
   ) {
     this.service = _service;
     this.eventService = _eventService;
@@ -66,6 +69,7 @@ export class CardsComponent implements OnInit {
     this.serviceRecipient = _serviceRecipient;
     this.activateRoute = _activateRoute;
     this.titleService = _titleService;
+    this.def = _def;
   }
 
   ngOnInit(): void {
@@ -101,54 +105,67 @@ export class CardsComponent implements OnInit {
     this.eventSettings.push(new EventSetting('Funny', 'T8N5NmIKxrZUpQFszUBV', '/card/e7X2DddeJ0fuTLQ9P7jr?fbclid=IwAR2ujAuxiM3BVHZEPkDYYVxpseRO586BGMXm5ClLTPgdKMUatkLMIz3cR9Y'));
 
     this.activateRoute.params.subscribe(params => {
+
+      this.id = params['id'];
       this.event = params['event'];
       this.search = params['search'];
       this.recipient = params['recipient'];
 
-      if (this.event) {
-        this.titleService.setTitle(this.event);
-        this.caption = this.event;
-
-        this.eventService.getByName(this.event!).then(events => {
-          if (events.length > 0) {
-            if (events[0].banner != undefined) {
-              this.imageService.getImageURL(events[0].banner).then(img => {
-                this.banner = img;
-              });
-            }
-
-            if (events[0].isGift) {
-              if (!events[0].name!.includes('Gifts'))
-                this.type = 'Gifts'
-              else
-                this.type = ''
-            }
-
-            if (events[0].isPostcard) {
-              this.type = 'Postcards';
-            }
-
-            if (!events[0].isGift && !events[0].isGift && !events[0].isSticker && !events[0].isCreations && !events[0].isPostcard) {
-              this.type = 'Cards'
-            }
-          }
-        });
-      }
-
-      if ((this.event) && (this.event! != 'All')) {
-        let index = this.eventSettings.findIndex(x => this.replaceAll(x.event) == this.replaceAll(this.event!));
-        if (index >= 0) {
-          this.eventSetting = this.eventSettings[index];
-        }
-        this.getCardsForEvent(this.event!);
-      }
-      else if ((this.search) && (this.search != '')) {
-        this.titleService.setTitle('Fibei Greetings');
-        this.getSearchCard(this.search);
+      if (this.id) {
+        this.eventService.getById(this.id).then(event => {
+          this.event = event.name!;
+          this.titleService.setTitle(this.event);
+          this.caption = this.event;
+          this.def.detectChanges();
+          this.getCards('ecard', this.event!);
+        })
       }
       else {
-        this.titleService.setTitle('Fibei Greetings');
-        this.getAllCards();
+        if (this.event) {
+          this.titleService.setTitle(this.event);
+          this.caption = this.event;
+
+          this.eventService.getByName(this.event!).then(events => {
+            if (events.length > 0) {
+              if (events[0].banner != undefined) {
+                this.imageService.getImageURL(events[0].banner).then(img => {
+                  this.banner = img;
+                });
+              }
+
+              if (events[0].isGift) {
+                if (!events[0].name!.includes('Gifts'))
+                  this.type = 'Gifts'
+                else
+                  this.type = ''
+              }
+
+              if (events[0].isPostcard) {
+                this.type = 'Postcards';
+              }
+
+              if (!events[0].isGift && !events[0].isGift && !events[0].isSticker && !events[0].isCreations && !events[0].isPostcard) {
+                this.type = 'Cards'
+              }
+            }
+          });
+        }
+
+        if ((this.event) && (this.event! != 'All')) {
+          let index = this.eventSettings.findIndex(x => this.replaceAll(x.event) == this.replaceAll(this.event!));
+          if (index >= 0) {
+            this.eventSetting = this.eventSettings[index];
+          }
+          this.getCardsForEvent(this.event!);
+        }
+        else if ((this.search) && (this.search != '')) {
+          this.titleService.setTitle('Fibei Greetings');
+          this.getSearchCard(this.search);
+        }
+        else {
+          this.titleService.setTitle('Fibei Greetings');
+          this.getAllCards();
+        }
       }
     });
   }
@@ -163,6 +180,16 @@ export class CardsComponent implements OnInit {
   getAllCards() {
     this.loading = true;
     this.service.getCards().then(data => {
+      this.loading = false;
+      this.cards = data;
+    }).catch(err => {
+      this.loading = false;
+    });
+  }
+
+  getCards(type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard', event: string){
+    this.loading = true;
+    this.service.getCardsByTypeAndEvent(type, event).then(data => {
       this.loading = false;
       this.cards = data;
     }).catch(err => {

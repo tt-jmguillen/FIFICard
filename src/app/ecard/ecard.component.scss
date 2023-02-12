@@ -1,0 +1,36 @@
+.info-wrap {
+    padding: 16px 14px !Important;
+}
+
+.card .img-wrap {
+    background-color: #fbf4ff;
+    // height: 200px;
+}
+
+.card card-product-grid:hover {
+    border: 1px solid darkviolet
+}
+
+.title {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+img {
+    max-width: 1005;
+}
+
+.bestseller {
+    left: -15px;
+    top: -15px;
+}
+
+.bestseller img {
+    height: 90px;
+}
+
+.featured {
+    width: 80px;
+}

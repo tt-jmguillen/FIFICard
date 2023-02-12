@@ -1,0 +1,2 @@
+<img [src]="url" class="available" *ngIf="(url != '') && (enable)" [routerLink]="['/e-cards/events/' + event.id]">
+<img [src]="url" class="notavailable" *ngIf="(url != '') && (!enable)">   

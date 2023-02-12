@@ -1,0 +1,24 @@
+<div class="card position-relative">
+    <a [routerLink]="['/card/' + card.id]" class="img-wrap" title="{{card.name}}">
+        <img src="{{image}}" *ngIf="image != ''">
+    </a>
+    <figcaption class="info-wrap">
+        <p routerLink="{{'/card/' + card!.id}}" class="title cursor mb-2">{{card.name}}</p>
+        <div class="row">
+            <div class="col-7 my-auto">
+                <div class="price">{{priceService.getSign()}} {{priceService.getECardPrice(card)| number:'1.2-2'}}</div>
+            </div>
+            <div class="col-5 text-end">
+                <img src="../assets/images/badge-featured.png" class="featured ms-2" *ngIf="card.featured" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <app-rating-decimal cardId="{{card.id}}"></app-rating-decimal>
+            </div>
+        </div>
+    </figcaption>
+    <span class="position-absolute bestseller" *ngIf="card.bestseller">
+        <img src="../assets/images/badge-bestseller.png" />
+    </span>
+</div>

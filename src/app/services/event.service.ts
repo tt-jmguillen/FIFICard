@@ -105,6 +105,14 @@ export class EventService {
     })
   }
 
+  getEventECard(): Promise<Event[]> {
+    return new Promise((resolve, rejects) => {
+      this.getEvents().then(events => {
+        resolve(events.filter(x => x.active! == true).filter(x => x.isECard! == true));
+      })
+    })
+  }
+
   getByTag(tag: string): Promise<Event[]> {
     return new Promise((resolve, rejects) => {
       let data = collection(this.store, 'events');

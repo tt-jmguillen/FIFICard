@@ -7,42 +7,9 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3 mb-4">
-                    <a href="#"> <img src="/assets/images/ecards/1-min.png" alt=""></a>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <a href="#"> <img src="/assets/images/ecards/2-min.png" alt=""></a>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <a href="#"> <img src="/assets/images/ecards/3-min.png" alt=""></a>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <a href="#"> <img src="/assets/images/ecards/4-min.png" alt=""></a>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <a href="#"> <img src="/assets/images/ecards/5-min.png" alt=""></a>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <a href="#"> <img src="/assets/images/ecards/6-min.png" alt=""></a>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <a href="#"> <img src="/assets/images/ecards/7-min.png" alt=""></a>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <a href="#"> <img src="/assets/images/ecards/8-min.png" alt=""></a>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <a href="#"> <img src="/assets/images/ecards/9-min.png" alt=""></a>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <a href="#"> <img src="/assets/images/ecards/10-min.png" alt=""></a>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <a href="#"> <img src="/assets/images/ecards/11-min.png" alt=""></a>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <a href="#"> <img src="/assets/images/ecards/12-min.png" alt=""></a>
-                </div>
+                <div class="col-md-3 mb-4" *ngFor="let event of events">
+                    <app-ecard-event [event]="event"></app-ecard-event>
+                </div>  
             </div>
             <div class="row">
                 <div class="col-md-12 mb-4">
@@ -68,11 +35,10 @@
                     <img src="assets/images/ecards/implored.jpg">
                     <br /> <br />
                     <a [routerLink]="['/gifts']"> <img src="assets/images/banner/shop-gifts.png"></a>
-                   
+
                 </div>
             </div>
         </div>
     </section>
     <app-footer></app-footer>
 </ion-content>
-

@@ -120,6 +120,8 @@ import { ValentinesGreetingsComponent } from './valentines/valentines-greetings/
 import { PostcardsComponent } from './postcards/postcards.component';
 import { PostcardThumbComponent } from './postcards/postcard-thumb/postcard-thumb.component';
 import { SamplePlayerComponent } from './sample/sample-player/sample-player.component';
+import { ECardEventComponent } from './e-cards-page/ecard-event/ecard-event.component';
+import { ECardComponent } from './ecard/ecard.component';
 
 @NgModule({
   declarations: [
@@ -214,7 +216,9 @@ import { SamplePlayerComponent } from './sample/sample-player/sample-player.comp
     PostcardThumbComponent,
     SampleComponent,
     SampleThumbComponent,
-    SamplePlayerComponent
+    SamplePlayerComponent,
+    ECardEventComponent,
+    ECardComponent
   ],
   imports: [
     BrowserModule,

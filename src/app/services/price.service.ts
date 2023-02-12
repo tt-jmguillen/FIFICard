@@ -206,4 +206,16 @@ export class PriceService {
 
     return value;
   }
+
+  public getECardPrice(card: Card): number{
+    if (this.location == 'sg') {
+      return card.sgprice!;
+    }
+    else if (this.location == 'us') {
+      return card.usprice!;
+    }
+    else{
+      return card.price!;
+    }
+  }
 }

@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { Card } from '../models/card';
 import { Rating } from '../models/rating';
 import { Bundle } from '../models/bundle';
+import { ECardImage } from '../models/ecard-image';
 
 @Injectable({
   providedIn: 'root'
@@ -146,7 +147,29 @@ export class CardService {
     });
   }
 
-  getCardsByType(_type: 'card' | 'gift' | 'sticker' | 'postcard'): Promise<Card[]> {
+  getCardsByTypeAndEvent(_type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard',_event: string): Promise<Card[]> {
+    return new Promise((resolve) => {
+      this.db.collection('cards', ref => ref
+        .where('type', "==", _type)
+        .where('active', "==", true)
+        .where('events', "array-contains", _event)).get().subscribe(data => {
+          if (!data.empty) {
+            let cards: Card[] = [];
+            data.forEach(doc => {
+              let card: Card = doc.data() as Card;
+              card.id = doc.id;
+              cards.push(card);
+            });
+            resolve(cards);
+          }
+          else {
+            resolve([]);
+          }
+        });
+    });
+  }
+
+  getCardsByType(_type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard'): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
       this.db.collection('cards', ref => ref
         .where('active', "==", true)
@@ -451,6 +474,25 @@ export class CardService {
           }
           else {
             rejects("No card images found.");
+          }
+        });
+    });
+  }
+
+  getECardImages(id: string): Promise<ECardImage[]>{
+    return new Promise((resolve) => {
+      this.db.collection('cards').doc(id).collection('ecardimages').get().subscribe(data => {
+          if (!data.empty) {
+            let cardimages: ECardImage[] = [];
+            data.forEach(doc => {
+              let cardimage: ECardImage = doc.data() as ECardImage;
+              cardimage.id = doc.id;
+              cardimages.push(cardimage);
+            });
+            resolve(cardimages);
+          }
+          else {
+            resolve([]);
           }
         });
     });
