@@ -3,7 +3,7 @@ import { ECardImage } from './../models/ecard-image';
 import { CardService } from 'src/app/services/card.service';
 import { ImageService } from 'src/app/services/image.service';
 import { Card } from 'src/app/models/card';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-ecard',
@@ -16,15 +16,18 @@ export class ECardComponent implements OnInit {
   service: CardService;
   imageService: ImageService;
   priceService: PriceService;
+  def: ChangeDetectorRef;
 
   constructor(
     _imageService: ImageService,
     _service: CardService,
-    _priceService: PriceService
+    _priceService: PriceService,
+    _def: ChangeDetectorRef
   ) { 
     this.imageService = _imageService;
     this.service = _service;
     this.priceService = _priceService;
+    this.def = _def;
   }
 
   ECardPreviewImage: ECardImage;
@@ -39,6 +42,7 @@ export class ECardComponent implements OnInit {
       this.ECardPreviewImage = images.find(x => x.title == 'preview')!;
       this.imageService.getImageURL(this.ECardPreviewImage.url).then(image => {
         this.image = image;
+        this.def.detectChanges();
       })
     })
   }

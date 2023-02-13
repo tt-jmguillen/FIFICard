@@ -21,9 +21,9 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-sm-12 mb-4">
-                        <app-imagegrid id="{{id}}"></app-imagegrid>
-                        <app-rating id2="{{id}}" class="d-none d-sm-block d-md-block d-lg-block d-xl-block "></app-rating>
-                        <!--d-sm-none -->
+                        <app-imagegrid id="{{id}}" *ngIf="card.type != 'ecard'"></app-imagegrid>
+                        <app-ecard-image-grid id="{{id}}" *ngIf="card.type == 'ecard'"></app-ecard-image-grid>
+                        <app-rating id="{{id}}" class="d-none d-sm-block d-md-block d-lg-block d-xl-block "></app-rating>
                     </div>
                     <div class="col-lg-6 col-sm-12">
                         <div class="card">
@@ -39,7 +39,7 @@
                                     </div>
                                 </div>
                                 <section>
-                                    <div class="row">
+                                    <div class="row" *ngIf="card.type == 'card'">
                                         <div class="col-12">
                                             <p>Available in: <span *ngFor="let type of card!.types" class="custom-pill mb-1">{{type}}</span></p>
                                         </div>
@@ -49,7 +49,7 @@
                                         <div class="col-md-7">
                                             <p>{{getEventTitle(card!)}}: <span *ngFor="let event of card!.events" class="custom-pill mb-1">{{event}}</span></p>
                                             <p>Recipient: <span *ngFor="let recipient of card!.recipients" class="custom-pill mb-1">{{recipient}}</span></p>
-                                            <app-bundle [view]="true" [card]="card"></app-bundle>
+                                            <app-bundle [view]="true" [card]="card" *ngIf="card.type != 'ecard'"></app-bundle>
                                             <img src="assets/images/sign-send-logo.png" style=" height: 40px;" *ngIf="card?.signAndSend">
                                             <h3 class="section-title" *ngIf="card.type != 'postcard'">Price: {{priceService.getSign()}} {{getPrice() | number:'1.2-2'}} </h3>
                                             <a [ngClass]="orderEnable?'order':'order disable'" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)" [disabled]="!orderEnable" style="display:block" disabled>{{'card.buynow'|translate}}</a>
@@ -61,10 +61,10 @@
                                             </div>
                                         </div>
                                         <div class="col-md-5" style="text-align:right">
-                                            <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping" *ngIf="priceService.getLocation() == 'ph'">
-                                            <img src="/assets/images/icon_free_shipping-v2.png" class="img-fluid icon-free-shipping" *ngIf="priceService.getLocation() != 'ph'">
+                                            <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping" *ngIf="(card.type != 'ecard') && (priceService.getLocation() == 'ph')">
+                                            <img src="/assets/images/icon_free_shipping-v2.png" class="img-fluid icon-free-shipping" *ngIf="(card.type != 'ecard') && (priceService.getLocation() != 'ph')">
                                             <br />
-                                            <div>
+                                            <div *ngIf="card.type != 'ecard'">
                                                 <span><b>Standard Delivery:</b> {{priceService.getLocation() == 'ph'?'get by 2-3 days':'get by 5-7 days'}}</span>
                                             </div>
                                             <br />

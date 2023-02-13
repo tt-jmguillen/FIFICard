@@ -122,6 +122,7 @@ import { PostcardThumbComponent } from './postcards/postcard-thumb/postcard-thum
 import { SamplePlayerComponent } from './sample/sample-player/sample-player.component';
 import { ECardEventComponent } from './e-cards-page/ecard-event/ecard-event.component';
 import { ECardComponent } from './ecard/ecard.component';
+import { ECardImageGridComponent } from './modules/ecard-image-grid/ecard-image-grid.component';
 
 @NgModule({
   declarations: [
@@ -218,7 +219,8 @@ import { ECardComponent } from './ecard/ecard.component';
     SampleThumbComponent,
     SamplePlayerComponent,
     ECardEventComponent,
-    ECardComponent
+    ECardComponent,
+    ECardImageGridComponent
   ],
   imports: [
     BrowserModule,

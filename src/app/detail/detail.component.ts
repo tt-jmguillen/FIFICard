@@ -18,6 +18,7 @@ import { FilterService } from '../services/filter.service';
 })
 export class DetailComponent implements OnInit {
   id?: string;
+  
   card: Card;
   activateRoute: ActivatedRoute;
   service: CardService;
