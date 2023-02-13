@@ -25,7 +25,11 @@ export class Page {
   styleUrls: ['./card-list.component.scss']
 })
 export class CardListComponent implements OnInit {
-  @Input() cards: Card[];
+  @Input() set cards(_cards: Card[]){
+      this.allCards = _cards;
+      this.getTypes();
+      this.loadRecipients();
+  }
   @Input() priority: string;
   @Input() recipient: string;
   @Input() footer: boolean = true;
@@ -43,6 +47,7 @@ export class CardListComponent implements OnInit {
   message: '' | 'regular' | 'poetry' = '';
   select: '' | 'featured' | 'bestseller' = '';
 
+  allCards: Card[] = [];
   filterCards: Card[] = [];
   sortCards: Card[] = [];
   displayCards: Card[] = [];
@@ -71,8 +76,7 @@ export class CardListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getTypes();
-    this.loadRecipients();
+    
   }
 
   loadRecipients() {
@@ -89,8 +93,8 @@ export class CardListComponent implements OnInit {
   }
 
   loadCards() {
-    this.filterCards = this.cards;
-    this.loadRecipient(this.cards);
+    this.filterCards = this.allCards;
+    this.loadRecipient(this.allCards);
     this.selectedRecipient = this.recipient != undefined ? this.recipient : this.selectedRecipient;
     this.filterCards = this.filterForRecipient();
     this.applyDisplayFilterAndSort();
@@ -155,7 +159,7 @@ export class CardListComponent implements OnInit {
   filterForRecipient(): Card[] {
     if (this.selectedRecipient != "All") {
       let cards: Card[] = []
-      this.cards.forEach(card => {
+      this.allCards.forEach(card => {
         let recipients = card.recipients != undefined ? card.recipients : card.recipient!.split(',');
         if (recipients.findIndex(x => x.toLowerCase() == this.selectedRecipient.toLocaleLowerCase()) >= 0) {
           cards.push(card);
@@ -164,7 +168,7 @@ export class CardListComponent implements OnInit {
       return cards;
     }
     else {
-      return this.cards;
+      return this.allCards;
     }
   }
 
@@ -244,7 +248,7 @@ export class CardListComponent implements OnInit {
     this.recipients = [];
     let withOther: boolean = false;
 
-    this.cards.forEach(card => {
+    this.allCards.forEach(card => {
       card.recipients?.forEach(recipient => {
         if ((recipient.trim().toLocaleLowerCase() != 'all') && (recipient.trim().toLocaleLowerCase() != 'any') && (recipient != '')) {
           if (this.recipientConfig.findIndex(x => x.name.trim().toLowerCase() == recipient.trim().toLowerCase()) >= 0) {

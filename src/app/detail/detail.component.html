@@ -21,8 +21,8 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-sm-12 mb-4">
-                        <app-imagegrid id="{{id}}" *ngIf="card.type != 'ecard'"></app-imagegrid>
-                        <app-ecard-image-grid id="{{id}}" *ngIf="card.type == 'ecard'"></app-ecard-image-grid>
+                        <app-imagegrid id="{{id}}" *ngIf="card && card.type != 'ecard'"></app-imagegrid>
+                        <app-ecard-image-grid id="{{id}}" *ngIf="card && card!.type == 'ecard'"></app-ecard-image-grid>
                         <app-rating id="{{id}}" class="d-none d-sm-block d-md-block d-lg-block d-xl-block "></app-rating>
                     </div>
                     <div class="col-lg-6 col-sm-12">
@@ -33,9 +33,9 @@
                                         <h2 class="section-title" style="color:indigo;font-weight:bolder">{{card!.name}} </h2>
                                     </div>
                                     <div class="col-md-4 text-end my-auto">
-                                        <img src="../assets/images/badge-sticker-free-2.png" class="sticker ms-2 cursor" *ngIf="card!.type == 'sticker' && card!.price == 18" [routerLink]="getStickerLink()" />
-                                        <img src="../assets/images/badge-featured.png" class="featured ms-2" *ngIf="card!.featured" />
-                                        <img src="../assets/images/badge-poetry.png" class="poerty ms-2" *ngIf="card.messagetype=='poetry'" />
+                                        <img src="../assets/images/badge-sticker-free-2.png" class="sticker ms-2 cursor" *ngIf="card && card!.type == 'sticker' && card!.price == 18" [routerLink]="getStickerLink()" />
+                                        <img src="../assets/images/badge-featured.png" class="featured ms-2" *ngIf="card && card!.featured" />
+                                        <img src="../assets/images/badge-poetry.png" class="poerty ms-2" *ngIf="card && card.messagetype=='poetry'" />
                                     </div>
                                 </div>
                                 <section>

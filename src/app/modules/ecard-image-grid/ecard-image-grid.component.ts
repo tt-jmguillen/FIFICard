@@ -1,6 +1,8 @@
+import { LightboxComponent } from './../lightbox/lightbox.component';
+import { LightboxImage } from './../lightbox/lightbox-image';
 import { ImageService } from 'src/app/services/image.service';
 import { CardService } from 'src/app/services/card.service';
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { ECardImage } from 'src/app/models/ecard-image';
 
 @Component({
@@ -10,6 +12,7 @@ import { ECardImage } from 'src/app/models/ecard-image';
 })
 export class ECardImageGridComponent implements OnInit {
   @Input() id: string;
+  @ViewChild('lightbox') lightbox: LightboxComponent;
 
   def: ChangeDetectorRef;
   cardService: CardService;
@@ -26,6 +29,7 @@ export class ECardImageGridComponent implements OnInit {
   }
 
   image: ECardImage;
+  lightboxImages: LightboxImage[] = [];
   url: string = '';
 
   ngOnInit(): void {
@@ -40,9 +44,15 @@ export class ECardImageGridComponent implements OnInit {
         this.imageService.getImageURL(this.image.url).then(url => {
           this.url = url;
           this.def.detectChanges();
+          this.lightboxImages.push(new LightboxImage(1, url, 'Preview'));
+          console.log(this.lightboxImages)
         })
       }
     })
+  }
+
+  openItem() {
+    this.lightbox.open(0);
   }
 
 }

@@ -117,7 +117,21 @@ export class CardsComponent implements OnInit {
           this.titleService.setTitle(this.event);
           this.caption = this.event;
           this.def.detectChanges();
-          this.getCards('ecard', this.event!);
+          let type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' = 'card';
+          if(event.isECard && event.isECard == true){
+            type = 'ecard';
+          }
+          else if(event.isPostcard && event.isPostcard == true){
+            type = 'postcard';
+          }
+          else if(event.isSticker && event.isSticker == true){
+            type = 'sticker';
+          }
+          else if(event.isGift && event.isGift == true){
+            type = 'gift';
+          }
+
+          this.getCards(type, this.event!);
         })
       }
       else {

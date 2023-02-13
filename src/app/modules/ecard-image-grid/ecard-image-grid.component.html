@@ -1,1 +1,2 @@
-<app-imagegrid-view [img]="url"></app-imagegrid-view>
+<app-imagegrid-view [img]="url" (select)="openItem()"></app-imagegrid-view>
+<app-lightbox [images]="lightboxImages" #lightbox></app-lightbox>
