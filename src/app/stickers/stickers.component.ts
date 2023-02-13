@@ -1,5 +1,5 @@
 import { CardService } from './../services/card.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { EventService } from '../services/event.service';
 import { Event } from '../models/event';
 import { captureRejectionSymbol } from 'events';
@@ -13,13 +13,16 @@ import { Card } from '../models/card';
 export class StickersComponent implements OnInit {
   service: EventService;
   cardService: CardService;
+  def: ChangeDetectorRef;
 
   constructor(
     private _service: EventService,
-    private _cardService: CardService
+    private _cardService: CardService,
+    private _def: ChangeDetectorRef
   ) {
     this.service = _service;
     this.cardService = _cardService;
+    this.def = _def;
   }
 
   cards: Card[] = [];
@@ -44,6 +47,7 @@ export class StickersComponent implements OnInit {
     this.cardService.getCardsByType('sticker').then(cards => {
       this.cards = cards;
       this.filtered = this.cards;
+      this.def.detectChanges();
       this.loading = false;
 
       if (this.cards.length == 0) {
@@ -57,15 +61,18 @@ export class StickersComponent implements OnInit {
     this.filtered = [];
     if (eventName == 'All') {
       this.filtered = this.cards;
+      this.def.detectChanges();
     }
     else {
       this.cards.forEach(card => {
         if (card.events) {
           if (card.events.findIndex(x => x == eventName) >= 0) {
             this.filtered.push(card);
+            this.def.detectChanges();
           }
         }
       })
     }
+    console.log(this.filtered);
   }
 }
