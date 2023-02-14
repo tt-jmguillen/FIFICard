@@ -18,7 +18,7 @@ import { FilterService } from '../services/filter.service';
 })
 export class DetailComponent implements OnInit {
   id?: string;
-  
+
   card: Card;
   activateRoute: ActivatedRoute;
   service: CardService;
@@ -88,7 +88,10 @@ export class DetailComponent implements OnInit {
         this.appComponent.openLoginDialog(id);
       }
       else {
-        this.router.navigate(['/order', id]);
+        if (this.card.type != 'ecard')
+          this.router.navigate(['/order', id]);
+        else
+          this.router.navigate(['/ecardorder', id]);
       }
     }
   }
