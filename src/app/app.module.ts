@@ -124,6 +124,7 @@ import { ECardEventComponent } from './e-cards-page/ecard-event/ecard-event.comp
 import { ECardComponent } from './ecard/ecard.component';
 import { ECardImageGridComponent } from './modules/ecard-image-grid/ecard-image-grid.component';
 import { ECardOrderComponent } from './ecard-order/ecard-order.component';
+import { PlayComponent } from './play/play.component';
 
 @NgModule({
   declarations: [
@@ -222,7 +223,8 @@ import { ECardOrderComponent } from './ecard-order/ecard-order.component';
     ECardEventComponent,
     ECardComponent,
     ECardImageGridComponent,
-    ECardOrderComponent
+    ECardOrderComponent,
+    PlayComponent
   ],
   imports: [
     BrowserModule,

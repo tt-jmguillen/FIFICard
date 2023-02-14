@@ -1,3 +1,4 @@
+import { PlayComponent } from './play/play.component';
 import { ECardOrderComponent } from './ecard-order/ecard-order.component';
 import { SamplePlayerComponent } from './sample/sample-player/sample-player.component';
 import { SampleComponent } from './sample/sample.component';
@@ -188,6 +189,9 @@ const routes: Routes = [
   },
   {
     path: 'player/:id', component: SamplePlayerComponent
+  },
+  {
+    path: 'play/:id', component: PlayComponent
   },
 ];
 
