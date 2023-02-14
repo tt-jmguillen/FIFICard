@@ -14,6 +14,7 @@ import { ReviewComponent } from '../review/review.component';
 })
 export class RatingSummaryComponent implements OnInit {
   @Input() cardId?: string;
+
   ratings: Rating[] = [];
   norecords: boolean;
   service: CardService;
@@ -45,7 +46,6 @@ export class RatingSummaryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.userDetails = userDetails;
     //g("userDetails ->", userDetails);
@@ -93,9 +93,6 @@ export class RatingSummaryComponent implements OnInit {
   }
 
   calculateRate(rate: number): number {
-    // console.log("rate>>>>: " + String(rate));
-    // console.log("this.rateCount>>>>: " + String(this.rateCount));
-    // console.log("calculateRate: " + String((rate/this.rateCount)*100));
     return (rate / this.rateCount) * 100;
   }
 

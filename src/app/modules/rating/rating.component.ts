@@ -17,7 +17,9 @@ export class RatingComponent implements OnInit {
   recordCount: number = 0;
   limit: number = 3;
 
-  constructor(private _service: CardService) {
+  constructor(
+    private _service: CardService
+  ) {
     this.service = _service;
   }
 
