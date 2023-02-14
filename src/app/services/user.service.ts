@@ -136,6 +136,22 @@ export class UserService {
     });
   }
 
+  addItemOnECart(userId: string, orderId: string) {
+    this.getUser(userId).then(user => {
+      if (user.ecarts) {
+        user.ecarts.push(orderId);
+      }
+      else {
+        user.ecarts = [orderId];
+      }
+
+      const data = doc(this.store, 'users/' + userId);
+      updateDoc(data, {
+        'ecarts': user.ecarts
+      });
+    });
+  }
+
   removeItemOnCart(userId: string, orderId: string) {
     this.getUser(userId).then(user => {
       let index = user.carts.findIndex(x => x == orderId);
@@ -166,9 +182,25 @@ export class UserService {
           }
         });
 
+        let ecarts: string[] = [];
+        user.ecarts.forEach(id => {
+          let isFound = false;
+
+          orderIds.forEach(orderId => {
+            if (orderId == id) {
+              isFound = true;
+            }
+          })
+
+          if (!isFound) {
+            ecarts.push(id);
+          }
+        });
+
         const data = doc(this.store, 'users/' + userId);
         updateDoc(data, {
-          carts: carts
+          carts: carts,
+          ecarts: ecarts
         });
 
         resolve(carts);

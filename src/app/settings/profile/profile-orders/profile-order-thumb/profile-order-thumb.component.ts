@@ -1,3 +1,5 @@
+import { ImageService } from './../../../../services/image.service';
+import { OrderECard } from './../../../../models/order-ecard';
 import { CardService } from './../../../../services/card.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Card } from 'src/app/models/card';
@@ -13,18 +15,22 @@ export class ProfileOrderThumbComponent implements OnInit {
   @Input() id: string;
   orderService: OrderService;
   cardService: CardService;
+  imageService: ImageService;
 
   order: Order;
+  ecardOrder: OrderECard;
   card: Card;
-  image: string;
+  image: string = '';
   total: number;
 
   constructor(
     _orderService: OrderService,
-    _cardService: CardService
+    _cardService: CardService,
+    _imageService: ImageService
   ) {
     this.orderService = _orderService;
     this.cardService = _cardService;
+    this.imageService = _imageService;
   }
 
   ngOnInit(): void {
@@ -33,25 +39,44 @@ export class ProfileOrderThumbComponent implements OnInit {
 
   getOrder(id: string) {
     this.orderService.getOrder(id).then(order => {
-      this.order = order;
-      if (!order.bundle)
-        this.total = order.card_price! * this.order.count!;
-      else
-        this.total = order.card_price!;
-      this.getCard(this.order.card_id!);
+      if (order) {
+        this.order = order;
+        if (!this.order.bundle)
+          this.total = this.order.card_price! * this.order.count!;
+        else
+          this.total = this.order.card_price!;
+        this.getCard(this.order.card_id!);
+      }
+      else {
+        this.orderService.getECardOrder(id).then(order => {
+          this.ecardOrder = order;
+          this.total = this.ecardOrder.card_price! * 1;
+          this.getCard(this.ecardOrder.card_id!);
+        })
+      }
     })
   }
 
   getCard(id: string) {
     this.cardService.getACard(id).then(card => {
       this.card = card;
-      this.loadimage(this.card.id!);
+      if (card.type != 'ecard')
+        this.loadimage(this.card.id!);
+      else
+        this.loadecard(this.card.id!);
     });
   }
 
   loadimage(id: string) {
     this.cardService.getPrimaryImage(id).then(image => {
       this.getImage(image);
+    })
+  }
+
+  loadecard(id: string){
+    this.cardService.getECardImages(id).then(images => {
+      let preview = images.find(x => x.title == 'preview')!;
+      this.getImage(preview.url);
     })
   }
 

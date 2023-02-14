@@ -1,3 +1,4 @@
+import { ECardOrderComponent } from './ecard-order/ecard-order.component';
 import { SamplePlayerComponent } from './sample/sample-player/sample-player.component';
 import { SampleComponent } from './sample/sample.component';
 import { PostcardsComponent } from './postcards/postcards.component';
@@ -109,6 +110,9 @@ const routes: Routes = [
   },
   {
     path: 'order/:id', component: OrderComponent
+  },
+  {
+    path: 'ecardorder/:id', component: ECardOrderComponent
   },
   {
     path: 'signandsend/:id', component: SignAndSendComponent

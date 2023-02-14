@@ -1,8 +1,13 @@
-<app-profile-order-thumb *ngFor="let order of payment.orders" [id]="order"></app-profile-order-thumb>
-<div class="payment">
-    <div class="payment-details">
+<div *ngIf="payment">
+    <app-profile-order-thumb  *ngFor="let order of payment.orders" [id]="order"></app-profile-order-thumb>
+</div>
+<div class="row border-bottom py-2" *ngIf="payment">
+    <div class="col-1"></div>
+    <div class="col-10">
         <span>{{'profile.gateway'|translate}}: <strong>{{payment.gateway}}</strong></span><br/>
         <span>{{'profile.status'|translate}}: <strong>{{payment.status}}</strong></span>
     </div>
-    <span class="payment-value"><strong>{{payment.total | number:'1.2-2'}}</strong></span>
+    <div class="col-1 text-end my-auto">
+        <span class="payment-value"><strong>{{payment.total | number:'1.2-2'}}</strong></span>
+    </div>
 </div>

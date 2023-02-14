@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div *ngIf="carts.length > 0">
-                <app-cart-thumb *ngFor="let item of collection" [id]="item.id" [selected]="item.included" (changeInclude)="changeInclude($event)" (deleteItem)="delete($event)">
+                <app-cart-thumb *ngFor="let item of collection" [order]="item.order" [card]="item.card" [selected]="item.included" (changeInclude)="changeInclude($event)" (deleteItem)="delete($event)">
                 </app-cart-thumb>
 
                 <div class="row total">
@@ -17,15 +17,21 @@
                     <div class="col-12 col-md-9 allign-right">{{'cart.total'|translate}}:</div>
                     <div class="col-12 col-md-2 allign-right">{{priceService.getSign()}} <strong class="total">{{total | number:'1.2-2'}}</strong></div>
                 </div>
-                <div class="row total" *ngIf="priceService.location == 'ph'">
-                    <div class="col-md-10"></div>
-                    <div class="col-md-2 col-12 allign-right">
+                <div class="row total" *ngIf="isPayment == false">
+                    <div class="col-md-9"></div>
+                    <div class="col-md-3 col-12 allign-right">
+                        <button class="btn btn-primary full-size" [disabled]="total == 0" (click)="toPay()">To Pay</button>
+                    </div>
+                </div>
+                <div class="row total" *ngIf="priceService.location == 'ph' && isPayment == true">
+                    <div class="col-md-9"></div>
+                    <div class="col-md-3 col-12 allign-right">
                         <button class="btn btn-primary full-size" [disabled]="total == 0" (click)="payNow(gcash_payment)">{{'cart.payviagcash'|translate}}</button>
                     </div>
                 </div>
-                <div class="row total">
-                    <div class="col-md-10"></div>
-                    <div class="col-12 col-md-2 allign-right">
+                <div class="row total" *ngIf="isPayment == true">
+                    <div class="col-md-9"></div>
+                    <div class="col-12 col-md-3 allign-right">
                         <ngx-paypal [config]="payPalConfig"></ngx-paypal>
                     </div>
                 </div>

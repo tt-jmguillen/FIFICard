@@ -123,6 +123,7 @@ import { SamplePlayerComponent } from './sample/sample-player/sample-player.comp
 import { ECardEventComponent } from './e-cards-page/ecard-event/ecard-event.component';
 import { ECardComponent } from './ecard/ecard.component';
 import { ECardImageGridComponent } from './modules/ecard-image-grid/ecard-image-grid.component';
+import { ECardOrderComponent } from './ecard-order/ecard-order.component';
 
 @NgModule({
   declarations: [
@@ -220,7 +221,8 @@ import { ECardImageGridComponent } from './modules/ecard-image-grid/ecard-image-
     SamplePlayerComponent,
     ECardEventComponent,
     ECardComponent,
-    ECardImageGridComponent
+    ECardImageGridComponent,
+    ECardOrderComponent
   ],
   imports: [
     BrowserModule,

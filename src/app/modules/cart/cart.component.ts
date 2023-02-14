@@ -20,9 +20,14 @@ export class CartComponent implements OnInit {
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     if (userDetails){
       this.userService.subscribeUser(userDetails?.uid).subscribe(user => {
+        this.count = 0;
         if (user.carts){
-          this.count = user.carts.length;
+          this.count += user.carts.length;
         }
+        if (user.ecarts){
+          this.count += user.ecarts.length;
+        }
+        console.log(user);
       })
     }
   }

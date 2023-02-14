@@ -1,22 +1,28 @@
-<div class="item">
-    <div class="div-image">
-        <img src="{{image}}" />
+<div class="row border-bottom py-2">
+    <div class="col-1 my-auto">
+        <img src="{{image}}" *ngIf="image != ''" />
     </div>
-    <div class="div-detail">
-        <div class="detail">
-            <div class="detail-title">
-                <span><strong>{{card.name}}</strong></span><br />
-                <span *ngIf="order.receiver_name != undefined">{{'profile.receiver'|translate}}: <strong>{{order.receiver_name}}</strong><br /></span>
-                <span *ngIf="order.address != undefined">{{'profile.address'|translate}}: <strong>{{order.address}}</strong><br /></span>
-                <span>{{'profile.date'|translate}}: {{order.created!.toDate()!.toLocaleDateString()}}</span>
-            </div>
-            <span class="detail-order" *ngIf="!order.bundle">{{order.card_price | number:'1.2-2'}} x {{order.count}}</span>
-            <span class="detail-order" *ngIf="order.bundle">{{order.count}} for {{order.card_price | number:'1.2-2'}}</span>
-            <span class="detail-total"><strong>{{total | number:'1.2-2'}}</strong></span>
-        </div>
-        <div class="shipping">
-            <span class="shipping-title">{{'profile.shippingfee'|translate}}:</span>
-            <span class="shipping-value"><strong>{{order.shipping_fee==undefined?'Free':order.shipping_fee | number:'1.2-2'}}</strong></span>
-        </div>
+    <div class="col-8" *ngIf="order != undefined">
+        <span><strong>{{card.name}}</strong></span><br />
+        <span *ngIf="order!.receiver_name != undefined">{{'profile.receiver'|translate}}: <strong>{{order!.receiver_name}}</strong><br /></span>
+        <span *ngIf="order!.address != undefined">{{'profile.address'|translate}}: <strong>{{order!.address}}</strong><br /></span>
+        <span *ngIf="order!.created != undefined">{{'profile.date'|translate}}: {{order!.created.toDate()!.toLocaleDateString()}}</span>
+    </div>
+    <div class="col-8" *ngIf="ecardOrder != undefined">
+        <span><strong>{{card.name}}</strong></span><br />
+        <span *ngIf="ecardOrder!.receiver_name != undefined">{{'profile.receiver'|translate}}: <strong>{{ecardOrder!.receiver_name}}</strong><br /></span>
+        <span *ngIf="ecardOrder!.created != undefined">{{'profile.date'|translate}}: {{ecardOrder!.created.toDate()!.toLocaleDateString()}}</span>
+    </div>
+    <div class="col-2 text-end my-auto" *ngIf="order != undefined">
+        <span class="detail-order" *ngIf="!order!.bundle">{{order!.card_price | number:'1.2-2'}} x {{order!.count}}<br /></span>
+        <span class="detail-order" *ngIf="order!.bundle">{{order!.count}} for {{order!.card_price | number:'1.2-2'}}<br /></span>
+        <span class="shipping-title">{{'profile.shippingfee'|translate}}:</span>
+    </div>
+    <div class="col-2 text-end my-auto" *ngIf="ecardOrder != undefined">
+        <span class="detail-order">{{ecardOrder!.card_price | number:'1.2-2'}} x 1<br /></span>
+    </div>
+    <div class="col-1 text-end my-auto">
+        <span class="detail-total"><strong>{{total | number:'1.2-2'}}</strong><br /></span>
+        <span class="shipping-value" *ngIf="order != undefined"><strong>{{order!.shipping_fee==undefined?'Free':order!.shipping_fee | number:'1.2-2'}}</strong></span>
     </div>
 </div>

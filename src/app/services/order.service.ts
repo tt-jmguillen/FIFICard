@@ -1,10 +1,11 @@
 import { SignAndSendDetails } from './../models/sign-and-send-details';
 import { Injectable } from '@angular/core';
-import { collection, Firestore, doc, addDoc, docData, query, where, collectionData, updateDoc } from '@angular/fire/firestore';
+import { collection, Firestore, doc, addDoc, docData, query, where, collectionData, updateDoc, serverTimestamp } from '@angular/fire/firestore';
 import { ref, Storage, uploadBytes, UploadResult } from '@angular/fire/storage';
 import { Order } from '../models/order';
 import { Timestamp } from "@angular/fire/firestore";
 import { Observable } from 'rxjs';
+import { OrderECard } from '../models/order-ecard';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,30 @@ export class OrderService {
     });
   }
 
+  async createECardOrder(order: OrderECard): Promise<string>{
+    return new Promise((resolve, rejects) => {
+      const data = collection(this.store, 'ecard-orders');
+      addDoc(data, {
+        user_id: order.user_id,
+        card_id: order.card_id,
+        card_price: order.card_price,
+        location: order.location,
+        sender_name: order.sender_name,
+        sender_phone: order.sender_phone,
+        sender_email: order.sender_email,
+        receiver_name: order.receiver_name,
+        receiver_phone: order.receiver_phone,
+        receiver_email: order.receiver_email,
+        message: order.message,
+        created: serverTimestamp()
+      }).then(docRef => {
+        resolve(docRef.id);
+      }).catch(reason => {
+        rejects(reason);
+      })
+    });
+  }
+
   async createAddMore(order: Order): Promise<string> {
     return new Promise((resolve, rejects) => {
       const data = collection(this.store, 'orders')
@@ -80,10 +105,19 @@ export class OrderService {
     });
   }
 
-  getOrder(id: string): Promise<Order> {
+  async getOrder(id: string): Promise<Order> {
     return new Promise((resolve) => {
       const data = doc(this.store, 'orders/' + id);
       (docData(data, { idField: 'id' }) as Observable<Order>).subscribe(order => {
+        resolve(order);
+      });
+    });
+  }
+
+  async getECardOrder(id: string): Promise<OrderECard> {
+    return new Promise((resolve) => {
+      const data = doc(this.store, 'ecard-orders/' + id);
+      (docData(data, { idField: 'id' }) as Observable<OrderECard>).subscribe(order => {
         resolve(order);
       });
     });
@@ -109,6 +143,14 @@ export class OrderService {
         isPaid: true,
         paymentId: paymentId
       });
+    });
+  }
+
+  updatePaidECardOrder(id: string, paymentId: string) {
+    const data = doc(this.store, 'ecard-orders/' + id);
+    updateDoc(data, {
+      isPaid: true,
+      paymentId: paymentId
     });
   }
 

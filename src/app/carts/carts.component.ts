@@ -1,10 +1,9 @@
 import { PriceService } from './../services/price.service';
-import { ItemImage } from './../modules/imagegrid/imagegrid.component';
 import { OrderService } from './../services/order.service';
 import { PaymentService } from './../services/payment.service';
 import { CardService } from 'src/app/services/card.service';
 import { UserService } from 'src/app/services/user.service';
-import { AfterViewInit, Component, NgModuleFactory, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Card } from '../models/card';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Payment } from '../models/payment';
@@ -23,6 +22,9 @@ class Collection {
   public shipping: number;
   public parent: string;
   public bundle: boolean;
+  public type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard';
+  public order: Order;
+  public card: Card;
 
   constructor(_id: string) {
     this.id = _id;
@@ -31,7 +33,7 @@ class Collection {
     this.receivername = '';
     this.included = true;
     this.price = 0;
-    this.qty = 0;
+    this.qty = 1;
     this.shipping = 0;
     this.parent = '';
     this.bundle = false;
@@ -39,10 +41,10 @@ class Collection {
 
   loadOrder(value: Order) {
     this.receivername = value.receiver_name!;
-    this.parent = value.parentOrder!;
+    this.parent = value.parentOrder ? value.parentOrder! : '';
     this.price = value.card_price!;
-    this.qty = value.count!;
-    this.bundle = value.bundle!;
+    this.qty = value.count ? value.count! : 1;
+    this.bundle = value.bundle ? value.bundle! : false;
     if (value.shipping_fee! > 0) {
       this.shipping = Number(value.shipping_fee);
     }
@@ -51,6 +53,7 @@ class Collection {
   loadCard(value: Card) {
     this.cardid = value.id!;
     this.cardname = value.name!;
+    this.type = value.type!;
   }
 }
 
@@ -60,11 +63,12 @@ class Collection {
   styleUrls: ['./carts.component.scss']
 })
 
-export class CartsComponent implements OnInit {
+export class CartsComponent implements OnInit, AfterViewInit {
   uid: string;
 
   collection: Collection[] = []
   carts: string[] = [];
+  ecarts: string[] = [];
 
   total: number = 0;
   initalStatus: string;
@@ -80,6 +84,8 @@ export class CartsComponent implements OnInit {
   paymentService: PaymentService;
   priceService: PriceService;
   modalService: NgbModal;
+
+  isPayment: Boolean = false;
 
   constructor(
     _userService: UserService,
@@ -101,7 +107,9 @@ export class CartsComponent implements OnInit {
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.uid = userDetails?.uid;
     this.paymentService.getInitial().then(status => this.initalStatus = status);
+  }
 
+  ngAfterViewInit(): void {
     this.loadUserCard();
   }
 
@@ -109,34 +117,35 @@ export class CartsComponent implements OnInit {
     this.collection = [];
     this.userService.getUser(this.uid).then(user => {
       this.carts = user.carts;
-      //user.carts.forEach(id => this.collection.push(new Collection(id)));
-      if (this.carts.length > 0)
-        this.load(0);
-    })
-  }
+      this.ecarts = user.ecarts;
 
-  load(index: number) {
-    if (index < this.carts.length) {
-      this.getOrder(index, this.carts[index]);
-    }
-    else {
-      this.computeTotal()
-    }
-  }
+      if (this.carts.length > 0) {
+        this.carts.forEach(async cart => {
+          let order = await this.orderService.getOrder(cart);
+          let card = await this.cardService.getACard(order.card_id!);
+          let col = new Collection(order.id!);
+          col.loadOrder(order);
+          col.loadCard(card);
+          col.order = order;
+          col.card = card;
+          this.collection.push(col);
+          this.computeTotal();
+        });
+      }
 
-  getOrder(index: number, id: string) {
-    this.orderService.getOrder(id).then(order => {
-      this.getCard(index, id, order);
-    })
-  }
-
-  getCard(index: number, id: string, order: Order) {
-    this.cardService.getACard(order.card_id!).then(card => {
-      let col = new Collection(id);
-      col.loadOrder(order);
-      col.loadCard(card);
-      this.collection.push(col);
-      this.load(index + 1);
+      if (this.ecarts.length > 0) {
+        this.ecarts.forEach(async cart => {
+          let order = await this.orderService.getECardOrder(cart);
+          let card = await this.cardService.getACard(order.card_id!);
+          let col = new Collection(order.id!);
+          col.loadOrder(order);
+          col.loadCard(card);
+          col.order = order;
+          col.card = card;
+          this.collection.push(col);
+          this.computeTotal();
+        });
+      }
     })
   }
 
@@ -227,14 +236,19 @@ export class CartsComponent implements OnInit {
     this.collection.forEach(item => {
       if (item.included) {
         if (!item.bundle)
-          currentTotal = currentTotal + (Number(item.price) * Number(item.qty)) + item.shipping;
+          currentTotal = currentTotal + (Number(item.price) * Number(item.qty ? item.qty : 1)) + item.shipping;
         else
           currentTotal = currentTotal + Number(item.price) + item.shipping;
       }
     });
 
     this.total = currentTotal;
+    this.isPayment = false;
+  }
+
+  toPay(){
     this.setPayPal();
+    this.isPayment = true;
   }
 
   payNow(gcash_payment: any) {
@@ -276,25 +290,27 @@ export class CartsComponent implements OnInit {
       this.userService.addPayment(this.uid, paymentId);
 
       items.forEach(id => {
-        this.orderService.updatePaidOrder(id, paymentId);
+        let card = this.collection.find(x => x.card.id!)!;
+        if (card.type != 'ecard')
+          this.orderService.updatePaidOrder(id, paymentId);
+        else
+          this.orderService.updatePaidECardOrder(id, paymentId);
+
         this.userService.addOrder(this.uid, id);
-
-        let cardId = this.collection.find(x => x.id == id)!.cardid!
-        if (cardId != undefined)
-          this.cardService.updateCardOrder(cardId, id);
-
-        //this.userService.removeItemOnCart(this.uid, id);
+        this.cardService.updateCardOrder(card.id, id);
         let index: number = this.collection.findIndex(x => x.id == id);
         this.collection.splice(index, 1);
       });
 
       this.userService.removeItemsOnCart(this.uid, items).then(carts => {
-        this.setPayPal();
+        this.isPayment = false;
 
         if (gateway == "GCash") {
           this.gcashRef.close("Done");
         }
       })
+
+      this.computeTotal();
     });
   }
 
@@ -313,7 +329,6 @@ export class CartsComponent implements OnInit {
 
   setPayPal() {
     this.payPalConfig = undefined;
-
     if (this.total > 0) {
       let items: ITransactionItem[] = [];
 
