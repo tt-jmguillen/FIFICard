@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { Bundle } from './../models/bundle';
 import { Card } from 'src/app/models/card';
 import { Injectable } from '@angular/core';
@@ -10,10 +11,10 @@ export class PriceService {
   location: 'ph' | 'sg' | 'us' = 'ph';
 
   constructor() {
-    if (window.location.hostname.toLowerCase() == 'us.fibeigreetings.com') {
+    if (environment.us.findIndex(x => x == window.location.hostname.toLowerCase()) >= 0) {
       this.location = 'us'
     }
-    else if (window.location.hostname.toLowerCase() == 'sg.fibeigreetings.com') {
+    else if (environment.sg.findIndex(x => x == window.location.hostname.toLowerCase()) >= 0) {
       this.location = 'sg'
     }
     else {

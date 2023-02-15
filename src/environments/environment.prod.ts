@@ -35,5 +35,7 @@ export const environment = {
     'Sign & Send',
     'Stickers',
     'Other'
-  ]
+  ],
+  us:['us.fibeigreetings.com', 'fibeigreetings.us'],
+  sg:['sg.fibeigreetings.com', 'fibeigreetings.sg']
 };
