@@ -5,68 +5,32 @@
                 <div class="card-content" style="padding: 20px;">
                     <div class="row">
                         <div class="col-md-12">
-                            <h2>
-                                [E-Card Name][e-cardId]
-                            </h2>
-                        </div>
-                        <div class="col-md-9">
 
-                           
+
 
                             <video class="w-100" [controls]="controls" preload="auto" #video>
                                 <source src="{{url}}" type='video/mp4' *ngIf="url != ''">
                             </video>
                             <div class="col-md-12">
+                                <br />
+                                <div class="msg">
+                                    To: [Receiver],
+                                    <br /><br />
+                                    "Message"
+                                    <br /><br />
+                                    From: [Sender]
+                                </div>
+                                <br />
+                                powered by fibeigreetings!
+                                <br />
                                 <div class="note-expiry">
                                     Note: this video will expire in 1 month upon purchase [March 15 2023 |
-                                    12:00am]
+                                    12:00am][ExpiryDate]
                                 </div>
-                                <label class="form-label">Message</label>
-                                <textarea class="form-control"></textarea>
-                                <div class="text-right">
-                                    <br />
-                                    <button class=" btn btn-primary">Generate</button>
-                                </div>
-                              
+
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <form>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>Sender</h3>
-                                        <label class="form-label">*Sender Name</label>
-                                        <input type="text" class="form-control" placeholder="Sender Name">
-                                        <br />
-                                        <label class="form-label">*Sender Email Address</label>
-                                        <input type="text" class="form-control" placeholder="Sender Email Address">
-                                        <br />
-                                        <label class="form-label">*Sender Phone Number</label>
-                                        <input type="text" class="form-control" placeholder="Sender Phone Number">
-                                        <br />
-                                        <h3>Recipient</h3>
-                                        <label class="form-label">*Recipient Name</label>
-                                        <input type="text" class="form-control" placeholder="Recipient Name">
-                                        <br />
-                                        <label class="form-label">*Recipient Email Address</label>
-                                        <input type="text" class="form-control" placeholder="Recipient Email Address">
-                                        <br />
-                                        <label class="form-label">*Recipient Phone Number</label>
-                                        <input type="text" class="form-control" placeholder="Recipient Phone Number">
-                                        <br />
-                                        <div class="text-right">
-                                            <br />
-                                            <button class="btn btn-primary btn-lg btn-block">Submit / Proceed to payment</button>
-                                            <br />
-                                            <br />
-                                        </div>
-                                    </div>
-                                </div>
-    
-                            </form>
-                        </div>
-                        <br />
-                       
+
                     </div>
                 </div>
             </div>
