@@ -342,10 +342,12 @@ export class CardListComponent implements OnInit {
 
   clickNext() {
     this.loadBatch(this.index + 1);
+    document.getElementById("data-top")!.scrollIntoView();
   }
 
   clickPrev() {
     this.loadBatch(this.index - 1);
+    document.getElementById("data-top")!.scrollIntoView();
   }
 
   changeBudget(event: any) {

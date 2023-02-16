@@ -32,16 +32,16 @@ export class CardsComponent implements OnInit {
   event?: string;
   search?: string;
   recipient?: string;
-
+  
   caption: string = '';
   banner: string = '';
+  title: Title;
   service: CardService;
   eventService: EventService;
   imageService: ImageService;
   filterService: FilterService;
   serviceRecipient: RecipientService;
   activateRoute: ActivatedRoute;
-  titleService: Title;
   def: ChangeDetectorRef;
 
   cards: Card[] = [];
@@ -53,22 +53,22 @@ export class CardsComponent implements OnInit {
   type: string = '';
 
   constructor(
+    private _title: Title,
     private _service: CardService,
     private _eventService: EventService,
     private _imageService: ImageService,
     private _filterService: FilterService,
     private _serviceRecipient: RecipientService,
     private _activateRoute: ActivatedRoute,
-    private _titleService: Title,
     private _def: ChangeDetectorRef
   ) {
+    this.title = _title;
     this.service = _service;
     this.eventService = _eventService;
     this.imageService = _imageService;
     this.filterService = _filterService;
     this.serviceRecipient = _serviceRecipient;
     this.activateRoute = _activateRoute;
-    this.titleService = _titleService;
     this.def = _def;
   }
 
@@ -114,9 +114,16 @@ export class CardsComponent implements OnInit {
       if (this.id) {
         this.eventService.getById(this.id).then(event => {
           this.event = event.name!;
-          this.titleService.setTitle(this.event);
+          this.title.setTitle(this.event);
           this.caption = this.event;
           this.def.detectChanges();
+
+          if (event.banner != undefined) {
+            this.imageService.getImageURL(event.banner).then(img => {
+              this.banner = img;
+            });
+          }
+
           let type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' = 'card';
           if(event.isECard && event.isECard == true){
             type = 'ecard';
@@ -136,7 +143,7 @@ export class CardsComponent implements OnInit {
       }
       else {
         if (this.event) {
-          this.titleService.setTitle(this.event);
+          this.title.setTitle(this.event);
           this.caption = this.event;
 
           this.eventService.getByName(this.event!).then(events => {
@@ -173,11 +180,11 @@ export class CardsComponent implements OnInit {
           this.getCardsForEvent(this.event!);
         }
         else if ((this.search) && (this.search != '')) {
-          this.titleService.setTitle('Fibei Greetings');
+          this.title.setTitle('Fibei Greetings');
           this.getSearchCard(this.search);
         }
         else {
-          this.titleService.setTitle('Fibei Greetings');
+          this.title.setTitle('Fibei Greetings');
           this.getAllCards();
         }
       }

@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../services/event.service';
 import { Event } from '../models/event';
@@ -8,11 +9,14 @@ import { Event } from '../models/event';
   styleUrls: ['./gifts.component.scss']
 })
 export class GiftsComponent implements OnInit {
+  title: Title;
   service: EventService;
 
   constructor(
+    _title: Title,
     _service: EventService
   ) {
+    this.title = _title;
     this.service = _service;
   }
 
@@ -23,6 +27,7 @@ export class GiftsComponent implements OnInit {
   mode: 'Category' | 'Recipient' | 'Event' = 'Category';
 
   ngOnInit(): void {
+    this.title.setTitle("Gifts");
     this.loadCategory();
     this.loadRecipient();
     this.loadEvent();

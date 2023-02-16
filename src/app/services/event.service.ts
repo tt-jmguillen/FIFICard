@@ -50,7 +50,12 @@ export class EventService {
   getEventCard(): Promise<Event[]> {
     return new Promise((resolve, rejects) => {
       this.getEvents().then(events => {
-        resolve(events.filter(x => x.active! == true).filter(x => x.isGift! == false).filter(x => x.isSticker! == false).filter(x => x.isSignAndSend! == false).filter(x => (x.isPostcard! ? x.isPostcard : false) == false));
+        resolve(events.filter(x => x.active! == true)
+                      .filter(x => x.isGift! == false)
+                      .filter(x => x.isSticker! == false)
+                      .filter(x => x.isSignAndSend! == false)
+                      .filter(x => (x.isPostcard! ? x.isPostcard : false) == false)
+                      .filter(x => (x.isECard! ? x.isECard : false) == false));
       })
     })
   }

@@ -33,20 +33,20 @@ export class HomeComponent implements OnInit {
   ];
 
   router: Router;
-  titleService: Title;
+  title: Title;
 
   constructor(
     _router: Router,
-    _titleService: Title
+    _title: Title
   ) {
     this.router = _router;
-    this.titleService = _titleService;
+    this.title = _title;
   }
 
   ngOnInit(): void {
     //this.carousel.animation = true;
     //this.carousel.cycle();
-    this.titleService.setTitle('Fibei Greetings');
+    this.title.setTitle('Fibei Greetings');
 
     environment.redirect.forEach(element => {
       if (window.location.hostname.toLowerCase() == element.host.toLowerCase()) {

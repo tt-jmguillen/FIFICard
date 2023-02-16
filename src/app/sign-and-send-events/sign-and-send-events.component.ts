@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../services/event.service';
 import { Event } from '../models/event';
@@ -8,12 +9,14 @@ import { Event } from '../models/event';
   styleUrls: ['./sign-and-send-events.component.scss']
 })
 export class SignAndSendEventsComponent implements OnInit {
-
+  title: Title;
   service: EventService;
 
   constructor(
+    _title: Title,
     _service: EventService
   ) {
+    this.title = _title;
     this.service = _service;
   }
 
@@ -21,6 +24,7 @@ export class SignAndSendEventsComponent implements OnInit {
   events: Event[] = [];
 
   ngOnInit(): void {
+    this.title.setTitle("Sign and Send");
     this.loadevents();
   }
 

@@ -101,6 +101,12 @@ const routes: Routes = [
     path: 'cards/events/:event/:recipient', component: CardsComponent
   },
   {
+    path: 'cards/event/:id', component: CardsComponent
+  },
+  {
+    path: 'cards/event/:id/:recipient', component: CardsComponent
+  },
+  {
     path: 'search/:search', component: CardsComponent
   },
   {

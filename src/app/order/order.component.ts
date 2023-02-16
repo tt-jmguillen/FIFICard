@@ -44,7 +44,7 @@ export class OrderComponent implements OnInit {
   isWithSignAndSend: boolean = false;
   SignAndSend: SignAndSendDetails[] = [];
 
-  titleService: Title;
+  title: Title;
   appComponent: AppComponent
   activateRoute: ActivatedRoute;
   cardService: CardService;
@@ -106,7 +106,7 @@ export class OrderComponent implements OnInit {
   location: 'ph' | 'sg' | 'us' = 'ph';
 
   constructor(
-    _titleService: Title,
+    _title: Title,
     _formBuilder: UntypedFormBuilder,
     _appComponent: AppComponent,
     _activateRoute: ActivatedRoute,
@@ -125,7 +125,7 @@ export class OrderComponent implements OnInit {
 
     private _emailService: EmailService,
   ) {
-    this.titleService = _titleService;
+    this.title = _title;
     this.formBuilder = _formBuilder;
     this.appComponent = _appComponent;
     this.activateRoute = _activateRoute;
@@ -201,7 +201,7 @@ export class OrderComponent implements OnInit {
     this.cardService.getCard(this.id!).subscribe(data => {
       this.card = data;
       this.cardPrice = this.getPrice();
-      this.titleService.setTitle(this.card!.name!);
+      this.title.setTitle(this.card!.name!);
 
       this.loadImage(this.card.id!);
 

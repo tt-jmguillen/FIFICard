@@ -18,12 +18,11 @@ export class StatusComponent implements OnInit {
   activateRoute: ActivatedRoute;
   service: OrderService;
   cardService: CardService;
-
+  
   constructor(
     private _activateRoute: ActivatedRoute,
     private _service: OrderService,
     private _cardService: CardService,
-    private titleService: Title
   ) { 
     this.activateRoute = _activateRoute;
     this.service = _service;
@@ -40,7 +39,6 @@ export class StatusComponent implements OnInit {
   loadOrder(){
     this.service.subscribeOrder(this.id!).subscribe(data => {
       this.order! = data;
-      //this.titleService.setTitle(this.order!.card_name!);
       this.cardService.getCard(this.order!.card_id!).subscribe(val => {
         this.card! = val;
       })
