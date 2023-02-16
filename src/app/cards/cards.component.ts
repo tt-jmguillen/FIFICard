@@ -117,6 +117,13 @@ export class CardsComponent implements OnInit {
           this.titleService.setTitle(this.event);
           this.caption = this.event;
           this.def.detectChanges();
+
+          if (event.banner != undefined) {
+            this.imageService.getImageURL(event.banner).then(img => {
+              this.banner = img;
+            });
+          }
+
           let type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' = 'card';
           if(event.isECard && event.isECard == true){
             type = 'ecard';

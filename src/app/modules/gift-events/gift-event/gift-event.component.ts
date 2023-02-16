@@ -50,16 +50,7 @@ export class GiftEventComponent implements OnInit {
   }
 
   loadURL() {
-    let name = this.event!.name!;
-    if (name.includes('Easter')) {
-      this.url = `/cards/events/Easter`;
-    }
-    else if (name.toUpperCase() == 'CREATIONS') {
-      this.url = "/creations"
-    }
-    else {
-      this.url = `/cards/events/${name}`;
-    }
+    this.url = `/cards/event/${this.event.id!}`;
   }
 
 }

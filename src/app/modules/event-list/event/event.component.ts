@@ -65,16 +65,7 @@ export class EventComponent implements OnInit {
 
   loadURL() {
     if (this.type == 'card') {
-      let name = this.event!.name!;
-      if (name.includes('Easter')) {
-        this.url = `/cards/events/Easter`;
-      }
-      else if (name.toUpperCase() == 'CREATIONS') {
-        this.url = "/creations"
-      }
-      else {
-        this.url = `/cards/events/${name}`;
-      }
+      this.url = `/cards/event/${this.event.id!}`
     }
     else {
       this.url = '/signandsendcards/' + this.event.id!
