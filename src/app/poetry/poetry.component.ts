@@ -1,7 +1,7 @@
 import { CardsComponent } from './../cards/cards.component';
 import { CardService } from 'src/app/services/card.service';
 import { EventService } from 'src/app/services/event.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Event } from '../models/event';
 import { Card } from '../models/card';
 import { ViewportScroller } from '@angular/common';
@@ -14,15 +14,18 @@ import { ViewportScroller } from '@angular/common';
 export class PoetryComponent implements OnInit {
 
   scroller: ViewportScroller
+  def: ChangeDetectorRef;
   service: EventService;
   cardService: CardService;
 
   constructor(
     _scroller: ViewportScroller,
+    _def: ChangeDetectorRef,
     _service: EventService,
     _cardService: CardService
   ) {
     this.scroller = _scroller;
+    this.def = _def;
     this.service = _service;
     this.cardService = _cardService;
   }
@@ -32,6 +35,7 @@ export class PoetryComponent implements OnInit {
   occasions: Event[] = [];
   specialty: Event[] = [];
   cards: Card[] = [];
+  activeid: string = '';
   featuredButton = '';
   featuredEvents = [
     'Christmas',
@@ -98,28 +102,34 @@ export class PoetryComponent implements OnInit {
 
   loadEvents() {
     this.service.getEventCard().then(events => {
-      this.featured = this.sort(events.filter(x => x.tag == 'Events'))[0];
+      //this.featured = this.sort(events.filter(x => x.tag == 'Events'))[0];
+      this.featured = events.find(x => x.name! == "Valentine's Day")!;
 
       let index = this.featuredEvents.findIndex(x => x == this.featured.name!);
       if (index >= 0) {
         this.featuredButton = '/assets/images/poetry/' + this.featuredImages[index];
       }
 
-      this.events = this.sort(events.filter(x => x.tag == 'Events').filter(x => x.name! != this.featured.name!));
+      this.events = this.sort(events.filter(x => x.tag == 'Events'));//.filter(x => x.name! != this.featured.name!));
       this.occasions = this.sort(events.filter(x => x.tag == 'Occasions'));
       this.specialty = this.sort(events.filter(x => x.tag == 'Specialty Card'));
     })
   }
 
   clickEvent(event: Event) {
+    this.activeid = event.id!;
+    console.log(this.activeid);
+    this.def.detectChanges();
     this.loadCards(event);
   }
 
   loadCards(event: Event) {
     this.cards = [];
-    document.getElementById("data-top")!.scrollIntoView()
+    document.getElementById("data-top")!.scrollIntoView();
+    this.def.detectChanges();
     this.cardService.getPoetryCardsByEvent(event.name!).then(cards => {
       this.cards = cards;
-    })
+      this.def.detectChanges();
+    }).catch(err => console.log(err));
   }
 }
