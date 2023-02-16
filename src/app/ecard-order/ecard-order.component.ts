@@ -21,7 +21,7 @@ export class ECardOrderComponent implements OnInit {
   @ViewChild('modal') modal: TemplateRef<ECardOrderComponent>;
 
   activateRoute: ActivatedRoute;
-  titleService: Title;
+  title: Title;
   def: ChangeDetectorRef;
   modalService: NgbModal;
   router: Router;
@@ -33,7 +33,7 @@ export class ECardOrderComponent implements OnInit {
   
   constructor(
     _activateRoute: ActivatedRoute,
-    _titleService: Title,
+    _title: Title,
     _def: ChangeDetectorRef,
     _modalService: NgbModal,
     _router: Router,
@@ -44,7 +44,7 @@ export class ECardOrderComponent implements OnInit {
     _userService: UserService
   ) { 
     this.activateRoute = _activateRoute;
-    this.titleService = _titleService;
+    this.title = _title;
     this.def = _def;
     this.modalService = _modalService;
     this.router = _router;
@@ -86,7 +86,7 @@ export class ECardOrderComponent implements OnInit {
   loadCard(){
     this.cardService.getACard(this.id).then(card => {
       this.card = card;
-      this.titleService.setTitle(card.name!);
+      this.title.setTitle(card.name!);
       this.def.detectChanges();
       this.loadPreview();
     })

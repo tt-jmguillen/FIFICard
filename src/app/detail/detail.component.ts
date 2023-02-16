@@ -25,6 +25,8 @@ export class DetailComponent implements OnInit {
   translationService: TranslationService;
   filter: FilterService;
   priceService: PriceService;
+  router: Router;
+  title: Title;
   event: string | undefined;
   elementEvent: string;
 
@@ -39,17 +41,19 @@ export class DetailComponent implements OnInit {
     private appComponent: AppComponent,
     private _service: CardService,
     private _emailService: EmailService,
-    private titleService: Title,
-    private router: Router,
+    private _title: Title,
+    private _router: Router,
     private _translationService: TranslationService,
     private _filter: FilterService,
     private _priceService: PriceService
   ) {
     this.activateRoute = _activateRoute;
     this.service = _service;
+    this.router = _router;
     this.translationService = _translationService;
     this.filter = _filter;
     this.priceService = _priceService;
+    this.title = _title;
   }
 
   ngOnInit(): void {
@@ -71,7 +75,7 @@ export class DetailComponent implements OnInit {
     this.service.getCard(this.id!).subscribe(data => {
       this.card! = data;
       this.event = this.card!.event;
-      this.titleService.setTitle(this.card?.name!);
+      this.title.setTitle(this.card?.name!);
       this.description = this.card.description!;
 
       this.getTranslation(this.card.id!);

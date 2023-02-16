@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { EventService } from 'src/app/services/event.service';
 import { Component, OnInit } from '@angular/core';
 import { Event } from '../models/event';
@@ -8,12 +9,14 @@ import { Event } from '../models/event';
   styleUrls: ['./e-cards-page.component.scss']
 })
 export class ECardsPageComponent implements OnInit {
-
+  title: Title;
   eventService: EventService;
 
   constructor(
-    _eventService: EventService
+    _title: Title,
+    _eventService: EventService,
   ) { 
+    this.title = _title;
     this.eventService = _eventService
   }
 
@@ -35,6 +38,7 @@ export class ECardsPageComponent implements OnInit {
   events: Event[] = [];
 
   ngOnInit(): void {
+    this.title.setTitle('E-Cards');
     this.loadEvents();
   }
 

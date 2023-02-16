@@ -1,4 +1,4 @@
-import { CardsComponent } from './../cards/cards.component';
+import { Title } from '@angular/platform-browser';
 import { CardService } from 'src/app/services/card.service';
 import { EventService } from 'src/app/services/event.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
@@ -13,18 +13,18 @@ import { ViewportScroller } from '@angular/common';
 })
 export class PoetryComponent implements OnInit {
 
-  scroller: ViewportScroller
+  title: Title;
   def: ChangeDetectorRef;
   service: EventService;
   cardService: CardService;
 
   constructor(
-    _scroller: ViewportScroller,
+    _title: Title,
     _def: ChangeDetectorRef,
     _service: EventService,
     _cardService: CardService
   ) {
-    this.scroller = _scroller;
+    this.title = _title;
     this.def = _def;
     this.service = _service;
     this.cardService = _cardService;
@@ -55,6 +55,7 @@ export class PoetryComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+    this.title.setTitle("Poetry");
     this.loadEvents();
   }
 
@@ -118,9 +119,9 @@ export class PoetryComponent implements OnInit {
 
   clickEvent(event: Event) {
     this.activeid = event.id!;
-    console.log(this.activeid);
     this.def.detectChanges();
     this.loadCards(event);
+    
   }
 
   loadCards(event: Event) {

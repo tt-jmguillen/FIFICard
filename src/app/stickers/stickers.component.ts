@@ -1,3 +1,5 @@
+import { Title } from '@angular/platform-browser';
+import { title } from 'process';
 import { CardService } from './../services/card.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { EventService } from '../services/event.service';
@@ -11,15 +13,18 @@ import { Card } from '../models/card';
   styleUrls: ['./stickers.component.scss']
 })
 export class StickersComponent implements OnInit {
+  title: Title;
   service: EventService;
   cardService: CardService;
   def: ChangeDetectorRef;
 
   constructor(
+    private _title: Title,
     private _service: EventService,
     private _cardService: CardService,
     private _def: ChangeDetectorRef
   ) {
+    this.title = _title;
     this.service = _service;
     this.cardService = _cardService;
     this.def = _def;
@@ -33,6 +38,7 @@ export class StickersComponent implements OnInit {
   eventName: string = 'All';
 
   ngOnInit(): void {
+    this.title.setTitle("Stickers");
     this.loadStickers();
   }
 
