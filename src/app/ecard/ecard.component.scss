@@ -38,3 +38,21 @@ img {
 .featured {
     width: 80px;
 }
+.ecard-design
+{
+    padding: 20px;
+    background: #ba8fcc;
+    border: 4px solid #ba8fcc;
+    border-radius: 0 40px 0 40px;
+    box-shadow: 6px 6px 6px #80808029;
+}
+.ecard-design:hover
+{
+    border: 4px solid #dc17be;
+}
+
+.ecard-design > a,
+.ecard-img
+{
+    border-radius: 0 40px 0 40px;  
+}

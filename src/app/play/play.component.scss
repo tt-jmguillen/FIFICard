@@ -2,18 +2,31 @@
 {
 text-align: right;
 }
+.text-center
+{
+text-align: center;
+}
 .note-expiry
 {
     padding: 10px;
     color: white;
     background: #6b2d98;
-    margin: 10px 0;
-    font-weight: bolder;
+    font-size: 12px;
 }
 .msg
 {
     padding: 20px;
-    background: #ffffd6;
+    background: #ba8fcc;
     font-size: 20px;
-    border: 2px dashed #6b2d98;
+    color:white;
+}
+.header
+{
+    color: white;
+    background: #6b2d98;
+    display: block;
+    padding: 20px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bolder;
 }

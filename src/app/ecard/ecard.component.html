@@ -1,8 +1,10 @@
-<div class="card position-relative">
+<div class="card position-relative ecard-design">
     <a [routerLink]="['/card/' + card.id]" class="img-wrap" title="{{card.name}}">
-        <img src="{{image}}" *ngIf="image != ''">
+        <img src="{{image}}" *ngIf="image != ''" class="ecard-img">
     </a>
-    <figcaption class="info-wrap">
+    <figcaption> 
+        <!-- class="info-wrap" -->
+        <br/>
         <p routerLink="{{'/card/' + card!.id}}" class="title cursor mb-2">{{card.name}}</p>
         <div class="row">
             <div class="col-7 my-auto">

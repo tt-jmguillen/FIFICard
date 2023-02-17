@@ -7,3 +7,19 @@ section {
     flex-direction: row;
     justify-content: center;
 }
+
+.e-card-info {
+    padding: 20px;
+    background: #ba8fcc;
+    border-radius: 8px;
+}
+
+.text-white {
+    color: white;
+    font-weight: bold;
+}
+
+.divider {
+    border-top: 1px solid white;
+    margin: 20px 0;
+}
