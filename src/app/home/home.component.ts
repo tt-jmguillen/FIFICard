@@ -1,3 +1,4 @@
+import { PriceService } from './../services/price.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -34,13 +35,16 @@ export class HomeComponent implements OnInit {
 
   router: Router;
   title: Title;
+  priceService: PriceService;
 
   constructor(
     _router: Router,
-    _title: Title
+    _title: Title,
+    _priceService: PriceService
   ) {
     this.router = _router;
     this.title = _title;
+    this.priceService = _priceService
   }
 
   ngOnInit(): void {

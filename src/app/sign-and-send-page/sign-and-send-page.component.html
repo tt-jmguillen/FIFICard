@@ -86,7 +86,8 @@
             <div routerLink="/signandsend" class="to-link"><img src="/assets/images/signandsend/page/SandS-banner2.png"
                     class="img-fluid"></div>
             <br />
-            <img src="/assets/images/signandsend/page/free-shipping.png" class="img-fluid">
+            <img src="/assets/images/signandsend/page/free-shipping.png" *ngIf="priceService.getLocation() == 'ph'" class="img-fluid">
+            <img src="/assets/images/signandsend/page/free-shipping-us.png" *ngIf="priceService.getLocation() != 'ph'" class="img-fluid">
             <!-- <br />
             <div class="row">
                 <div class="col-md-12">
@@ -120,7 +121,8 @@
                     <br /> <br />
                     <a [routerLink]="['/gifts']"> <img src="assets/images/banner/shop-gifts.png"></a>
                     <br /> <br />
-                    <img src="assets/images/banner/fs-free.png">
+                    <img src="assets/images/banner/fs-free.png" *ngIf="priceService.getLocation() == 'ph'">
+                    <img src="assets/images/banner/fs-free-us.png" *ngIf="priceService.getLocation() == 'ph'">
                 </div>
             </div>
         </div>

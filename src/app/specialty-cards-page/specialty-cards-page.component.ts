@@ -1,3 +1,4 @@
+import { PriceService } from './../services/price.service';
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { Event } from '../models/event';
@@ -11,13 +12,16 @@ import { EventService } from '../services/event.service';
 export class SpecialtyCardsPageComponent implements OnInit {
   title: Title;
   service: EventService;
+  priceService: PriceService;
 
   constructor(
     _title: Title,
-    _service: EventService
+    _service: EventService,
+    _priceService: PriceService
   ) {
     this.title = _title;
     this.service = _service;
+    this.priceService = _priceService;
   }
 
   events: Event[] = [];

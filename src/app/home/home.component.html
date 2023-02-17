@@ -203,9 +203,10 @@
             <div>
                 <div class="row">
                     <div class="col-md-12">
-                        <img src="/assets/images/valentines/v2/bottom-banner-min.png" class="img-fluid " style="width:100%">
+                        <img src="/assets/images/valentines/v2/bottom-banner-min.png" *ngIf="priceService.getLocation() == 'ph'"  class="img-fluid " style="width:100%">
+                        <img src="/assets/images/valentines/v2/bottom-banner-min-us.png" *ngIf="priceService.getLocation() != 'ph'"  class="img-fluid " style="width:100%">
                         <br /> <br />
-                        <img src="/assets/images/valentines/v2/2-min.png" class="img-fluid " style="width:100%">
+                        <img src="/assets/images/valentines/v2/2-min.png" class="img-fluid" style="width:100%">
                         <br /> <br />
                     </div>
                 </div>
@@ -215,4 +216,4 @@
         </div>
     </section>
     <app-footer></app-footer>
-</ion-content>
+</ion-content> 
