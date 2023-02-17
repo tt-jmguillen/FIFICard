@@ -79,6 +79,6 @@ export class StickersComponent implements OnInit {
         }
       })
     }
-    console.log(this.filtered);
+    document.getElementById("data-top")!.scrollIntoView();
   }
 }
