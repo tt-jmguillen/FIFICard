@@ -49,7 +49,8 @@ export const environment = {
     'Other'
   ],
   us:['us.fibeigreetings.com', 'fibeigreetings.us'],
-  sg:['sg.fibeigreetings.com', 'fibeigreetings.sg']
+  sg:['sg.fibeigreetings.com', 'fibeigreetings.sg'],
+  ecardexpiry: 30
 };
 
 /*

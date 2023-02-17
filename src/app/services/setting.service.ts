@@ -1,3 +1,4 @@
+import { doc, Firestore, docData } from '@angular/fire/firestore';
 import { Cardtype, TypeUpgrade } from './../models/cardtype';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -6,11 +7,14 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   providedIn: 'root'
 })
 export class SettingService {
+  store: Firestore;
   db: AngularFirestore;
 
   constructor(
+    private _store: Firestore,
     private _db: AngularFirestore
   ) {
+    this.store = _store;
     this.db = _db;
   }
 
@@ -50,6 +54,15 @@ export class SettingService {
             rejects("No upgrade found.");
           }
         });
+    });
+  }
+
+  getMailSupport(): Promise<string>{
+    return new Promise((resolve) => {
+      const docs = doc(this.store, 'settings/mail');
+      docData(docs).subscribe(value => {
+        resolve( value['html']);
+      });
     });
   }
 }

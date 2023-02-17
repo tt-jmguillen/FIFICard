@@ -180,5 +180,17 @@ export class OrderService {
     });
   }
 
+  updateECardSent(id: string, sentid: string) {
+    const data = doc(this.store, 'ecard-orders/' + id);
+    updateDoc(data, {
+      sentid: sentid
+    });
+  }
 
+  updateECardConfirm(id: string, confirmid: string) {
+    const data = doc(this.store, 'ecard-orders/' + id);
+    updateDoc(data, {
+      confirmid: confirmid
+    });
+  }
 }

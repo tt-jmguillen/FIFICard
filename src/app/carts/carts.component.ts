@@ -1,3 +1,5 @@
+import { OrderECard } from './../models/order-ecard';
+import { EmailService } from './../services/email.service';
 import { PriceService } from './../services/price.service';
 import { OrderService } from './../services/order.service';
 import { PaymentService } from './../services/payment.service';
@@ -83,6 +85,7 @@ export class CartsComponent implements OnInit, AfterViewInit {
   cardService: CardService;
   paymentService: PaymentService;
   priceService: PriceService;
+  emailService: EmailService;
   modalService: NgbModal;
 
   isPayment: Boolean = false;
@@ -93,6 +96,7 @@ export class CartsComponent implements OnInit, AfterViewInit {
     _cardService: CardService,
     _paymentService: PaymentService,
     _priceService: PriceService,
+    _emailService: EmailService,
     _modalService: NgbModal
   ) {
     this.userService = _userService;
@@ -100,6 +104,7 @@ export class CartsComponent implements OnInit, AfterViewInit {
     this.cardService = _cardService;
     this.paymentService = _paymentService;
     this.priceService = _priceService;
+    this.emailService = _emailService;
     this.modalService = _modalService;
   }
 
@@ -299,7 +304,15 @@ export class CartsComponent implements OnInit, AfterViewInit {
         }
 
         this.userService.addOrder(this.uid, id);
+
         this.cardService.updateCardOrder(card.id, id);
+
+        if (card.type == 'ecard'){
+          this.orderService.getECardOrder(id).then(order => {
+            this.sendECardEmail(order);
+          });
+        }
+        
         let index: number = this.collection.findIndex(x => x.id == id);
         this.collection.splice(index, 1);
       });
@@ -390,5 +403,14 @@ export class CartsComponent implements OnInit, AfterViewInit {
         },
       }
     }
+  }
+
+  sendECardEmail(order: OrderECard){
+    this.emailService.sendECardEmail(order).then(id => {
+      this.orderService.updateECardSent(order.id, id);
+    })
+    this.emailService.SendECardConfirmEmail(order).then(id => {
+      this.orderService.updateECardConfirm(order.id, id);
+    })
   }
 }

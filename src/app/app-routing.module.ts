@@ -210,6 +210,9 @@ const routes: Routes = [
   {
     path: 'play/:id', component: PlayComponent
   },
+  {
+    path: 'playtrack/:id', component: PlayComponent
+  },
 ];
 
 @NgModule({

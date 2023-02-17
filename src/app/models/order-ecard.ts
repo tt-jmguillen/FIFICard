@@ -13,6 +13,10 @@ export class OrderECard {
     public receiver_phone: string;
     public receiver_email: string;
     public message: string;
-    public started: Timestamp;
+    public isPaid: Boolean;
+    public paymentId: string;
+    public sentid: string;
+    public confirmid: string;
+    public openedid: string;
     public created: Timestamp;
 }
