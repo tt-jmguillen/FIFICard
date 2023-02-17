@@ -291,10 +291,12 @@ export class CartsComponent implements OnInit, AfterViewInit {
 
       items.forEach(id => {
         let card = this.collection.find(x => x.card.id!)!;
-        if (card.type != 'ecard')
+        if (card.type != 'ecard'){
           this.orderService.updatePaidOrder(id, paymentId);
-        else
+        }
+        else{
           this.orderService.updatePaidECardOrder(id, paymentId);
+        }
 
         this.userService.addOrder(this.uid, id);
         this.cardService.updateCardOrder(card.id, id);

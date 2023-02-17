@@ -1,3 +1,4 @@
+import { PriceService } from './../services/price.service';
 import { Title } from '@angular/platform-browser';
 import { CardService } from 'src/app/services/card.service';
 import { EventService } from 'src/app/services/event.service';
@@ -12,30 +13,31 @@ import { ViewportScroller } from '@angular/common';
   styleUrls: ['./poetry.component.scss']
 })
 export class PoetryComponent implements OnInit {
-
   title: Title;
   def: ChangeDetectorRef;
   service: EventService;
   cardService: CardService;
+  priceService: PriceService;
 
   constructor(
     _title: Title,
     _def: ChangeDetectorRef,
     _service: EventService,
-    _cardService: CardService
+    _cardService: CardService,
+    _priceService: PriceService
   ) {
     this.title = _title;
     this.def = _def;
     this.service = _service;
     this.cardService = _cardService;
+    this.priceService = _priceService;
   }
 
   featured: Event;
   events: Event[] = [];
   occasions: Event[] = [];
   specialty: Event[] = [];
-  cards: Card[] = [];
-  activeid: string = '';
+  
   featuredButton = '';
   featuredEvents = [
     'Christmas',
@@ -115,22 +117,5 @@ export class PoetryComponent implements OnInit {
       this.occasions = this.sort(events.filter(x => x.tag == 'Occasions'));
       this.specialty = this.sort(events.filter(x => x.tag == 'Specialty Card'));
     })
-  }
-
-  clickEvent(event: Event) {
-    this.activeid = event.id!;
-    this.def.detectChanges();
-    this.loadCards(event);
-    
-  }
-
-  loadCards(event: Event) {
-    this.cards = [];
-    document.getElementById("data-top")!.scrollIntoView();
-    this.def.detectChanges();
-    this.cardService.getPoetryCardsByEvent(event.name!).then(cards => {
-      this.cards = cards;
-      this.def.detectChanges();
-    }).catch(err => console.log(err));
   }
 }

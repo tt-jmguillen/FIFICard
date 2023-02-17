@@ -1,0 +1,57 @@
+<ion-content>
+    <section class="section-name padding-y-sm bk-hw">
+        <div class="container animate main">
+            <div class="row text-center" id="top">
+                <div class="col-md-12">
+                    <img src="/assets/images/poetry/Banner.png" class="img-fluid">
+                    <br />
+                </div>
+            </div>
+
+            <div class="row text-center mt-4 mb-4" *ngIf="loading">
+                <div class="col-md-12">
+                    <mat-progress-bar mode="indeterminate" value=100></mat-progress-bar>
+                </div>
+            </div>
+
+            <div class="row text-center" id="data-top">
+                <div class="col-md-12">
+                    <header class="section-heading">
+                        <h3 class="section-title">{{caption}}</h3>
+                    </header>
+                </div>
+            </div>
+            
+            <app-card-list *ngIf="cards.length > 0" [cards]="cards" mode="card" [nomessagetype]="true"></app-card-list>
+
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <img src="assets/images/banner/select/title.png">
+                </div>
+                <div class="col-md-3">
+                    <a [routerLink]="['/poetry']"><img src="assets/images/banner/select/p-1.png"></a>
+                </div>
+                <div class="col-md-3">
+                    <a [routerLink]="['/e-cards']"><img src="assets/images/banner/select/p-2.png"></a>
+                </div>
+                <div class="col-md-3">
+                    <a [routerLink]="['/postcards']"><img src="assets/images/banner/select/p-3.png"></a>
+                </div>
+                <div class="col-md-3">
+                    <br /><br />
+                    <img src="assets/images/banner/select/p-4.png">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <br /> <br />
+                    <a [routerLink]="['/gifts']"> <img src="assets/images/banner/shop-gifts.png"></a>
+                    <br /> <br />
+                    <img src="assets/images/banner/fs-free.png" *ngIf="priceService.getLocation() == 'ph'">
+                    <img src="assets/images/banner/fs-free-us.png" *ngIf="priceService.getLocation() != 'ph'">
+                </div>
+            </div>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

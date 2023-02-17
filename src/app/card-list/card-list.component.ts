@@ -34,6 +34,7 @@ export class CardListComponent implements OnInit {
   @Input() recipient: string;
   @Input() footer: boolean = true;
   @Input() mode: 'card' | 'gift' | 'sticker' | 'postcard' = 'card';
+  @Input() nomessagetype: boolean = false;
 
   recipientService: RecipientService;
   settingService: SettingService;

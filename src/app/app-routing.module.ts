@@ -1,3 +1,4 @@
+import { PoetryCardsComponent } from './poetry-cards/poetry-cards.component';
 import { StickersCardsComponent } from './stickers-cards/stickers-cards.component';
 import { PlayComponent } from './play/play.component';
 import { ECardOrderComponent } from './ecard-order/ecard-order.component';
@@ -178,6 +179,9 @@ const routes: Routes = [
   },
   {
     path: 'poetry', component: PoetryComponent
+  },
+  {
+    path: 'poetrycards/:id', component: PoetryCardsComponent
   },
   {
     path: 'newyear', component: NewyearComponent

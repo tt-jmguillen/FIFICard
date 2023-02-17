@@ -8,39 +8,17 @@
                 </div>
             </div>
             <div class="row bg-white py-4">
-                <!-- <div class="col-12 mt-2 mb-4">
-                    <h1 class="text-center cus-text-title m-0">Poetry Cards Category</h1>
-                </div>
-                <div class="col-3 ps-4 ms-4">
-                    <h1 class="cus-text-title m-0" style="text-transform: none">Events</h1>
-                </div> -->
                 <div class="col-12 my-2"></div>
                 <div class="col-12 ">
-                    <a class="btn-featured" (click)="clickEvent(featured)" *ngIf="featured">
+                    <a class="btn-featured" *ngIf="featured" [routerLink]="['/poetrycards/' + featured.id]">
                         <img src="/assets/images/poetry/featured-category.jpg" class="img-fluid">
                     </a>
                     <img src="/assets/images/poetry/other.jpg" class="img-fluid">
                 </div>
-
-                <!-- <div class="col-md-3 px-4">
-                    <div class="row">
-                        <div class="col-12">
-                            <a class="btn-featured" (click)="clickEvent(featured)" *ngIf="featuredButton != ''"><img [src]="featuredButton"></a>
-                        </div> 
-                        <div class="col-12 ms-4 mb-2" *ngIf="featuredButton == ''">
-                            <p class="fs-2 featured text-success">FEATURED!</p>
-                        </div>
-                        <div class="col-12 mx-4" *ngIf="featuredButton == ''">
-                            <button type="button" class="btn btnfeatured w-100" (click)="clickEvent(featured)" *ngIf="featured">
-                                {{featured.name}}
-                            </button>
-                        </div>
-                    </div>
-                </div> pe-4-->
                 <div class="col-md-12  my-auto">
                     <div class="row">
                         <div class="col-md-3" *ngFor="let event of events">
-                            <a (click)="clickEvent(event)" [ngClass]="activeid == event.id!?'btn-category py-2 active':'btn-category py-2'">
+                            <a class="btn-category py-2" [routerLink]="['/poetrycards/' + event.id]">
                                 {{event.name}}
                             </a>
                         </div>
@@ -61,7 +39,7 @@
                 <div class="col-10">
                     <div class="row text-center">
                         <div class="col-md-6 px-4" *ngFor="let event of occasions">
-                            <a (click)="clickEvent(event)" [ngClass]="activeid == event.id!?'btn-category active':'btn-category'">
+                            <a class="btn-category" [routerLink]="['/poetrycards/' + event.id]">
                                 {{event.name}}
                             </a>
                         </div>
@@ -77,15 +55,12 @@
                 <div class="col-10">
                     <div class="row text-center">
                         <div class="col-md-4 ps-4 pe-4" *ngFor="let event of specialty">
-                            <a (click)="clickEvent(event)" [ngClass]="activeid == event.id?'btn-category active':'btn-category'">
+                            <a class="btn-category" [routerLink]="['/poetrycards/' + event.id]">
                                 {{event.name}}
                             </a>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row bg-white px-4" id="data-top">
-                <app-card-list *ngIf="cards.length > 0" [cards]="cards" mode="card"></app-card-list>
             </div>
             <div class="row">
                 <div class="col-md-12 mb-4">
@@ -110,7 +85,8 @@
                     <br /> <br />
                     <a [routerLink]="['/gifts']"> <img src="assets/images/banner/shop-gifts.png"></a>
                     <br /> <br />
-                    <img src="assets/images/banner/fs-free.png">
+                    <img src="assets/images/banner/fs-free.png" *ngIf="priceService.getLocation() == 'ph'">
+                    <img src="assets/images/banner/fs-free-us.png" *ngIf="priceService.getLocation() != 'ph'">
                 </div>
             </div>
         </div>

@@ -9,7 +9,7 @@
             <option value="bestseller" [selected]="select == 'bestseller'">Best Seller</option>
         </select>
     </div>
-    <div class="col-2" *ngIf="mode == 'card'">
+    <div class="col-2" *ngIf="mode == 'card' && !nomessagetype">
         <select class="form-select" aria-label="Message" (change)="changeMessage($event)">
             <option value="" [selected]="message == ''">Message Type</option>
             <option value="regular" [selected]="message == 'regular'">Regular Message</option>

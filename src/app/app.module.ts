@@ -126,6 +126,7 @@ import { ECardImageGridComponent } from './modules/ecard-image-grid/ecard-image-
 import { ECardOrderComponent } from './ecard-order/ecard-order.component';
 import { PlayComponent } from './play/play.component';
 import { StickersCardsComponent } from './stickers-cards/stickers-cards.component';
+import { PoetryCardsComponent } from './poetry-cards/poetry-cards.component';
 
 @NgModule({
   declarations: [
@@ -226,7 +227,8 @@ import { StickersCardsComponent } from './stickers-cards/stickers-cards.componen
     ECardImageGridComponent,
     ECardOrderComponent,
     PlayComponent,
-    StickersCardsComponent
+    StickersCardsComponent,
+    PoetryCardsComponent
   ],
   imports: [
     BrowserModule,
