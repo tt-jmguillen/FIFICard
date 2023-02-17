@@ -1,41 +1,29 @@
 <ion-content>
     <section class="section-name padding-y-sm bk-hw">
         <div class="container animate main">
-            <div class="row text-center">
+            <div class="row text-center" id="top">
                 <div class="col-md-12">
                     <img src="/assets/images/sticker/banner.png" class="img-fluid">
                     <br /> <br />
-                    <a class="btn-featured" *ngIf="featured" [routerLink]="['/stickercards/' + featured.id]"><img src="/assets/images/sticker/sticker-val.jpg"></a>
-                    <br /> <br />
-                    <img src="/assets/images/poetry/other.jpg">
+                </div>
+            </div>
+            
+            <div class="row text-center mt-4 mb-4" *ngIf="loading">
+                <div class="col-md-12">
+                    <mat-progress-bar mode="indeterminate" value=100></mat-progress-bar>
                 </div>
             </div>
 
-            <div class="panel" style="background: white;">
-                <div class="row">
-                    <div class="col-md-12 my-auto">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <a class="btn-category" [routerLink]="['/stickercards/']">
-                                    All
-                                </a>
-                            </div>
-                            <div class="col-md-4" *ngFor="let event of events">
-                                <a class="btn-category" [routerLink]="['/stickercards/' + event.id]">
-                                    {{event.name}}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row text-center">
+            <div class="row text-center" id="data-top">
                 <div class="col-md-12">
-                    <img src="/assets/images/sticker/sub-sticker.jpg" class="img-fluid">
-                    <br />
-                    <br />
+                    <header class="section-heading">
+                        <h3 class="section-title">{{caption}}</h3>
+                    </header>
                 </div>
             </div>
+            
+            <app-card-list *ngIf="cards.length > 0" [cards]="cards" mode="sticker"></app-card-list>
+
             <div class="row">
                 <div class="col-md-12 mb-4">
                     <img src="assets/images/banner/select/title.png">
@@ -54,6 +42,7 @@
                     <img src="assets/images/banner/select/p-4.png">
                 </div>
             </div>
+            
             <div class="row">
                 <div class="col-md-12">
                     <br /> <br />

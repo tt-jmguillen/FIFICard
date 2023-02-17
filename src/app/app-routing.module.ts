@@ -1,3 +1,4 @@
+import { StickersCardsComponent } from './stickers-cards/stickers-cards.component';
 import { PlayComponent } from './play/play.component';
 import { ECardOrderComponent } from './ecard-order/ecard-order.component';
 import { SamplePlayerComponent } from './sample/sample-player/sample-player.component';
@@ -87,6 +88,12 @@ const routes: Routes = [
   },
   {
     path: 'stickers', component: StickersComponent
+  },
+  {
+    path: 'stickercards', component: StickersCardsComponent
+  },
+  {
+    path: 'stickercards/:id', component: StickersCardsComponent
   },
   {
     path: 'signandsend', component: SignAndSendEventsComponent
