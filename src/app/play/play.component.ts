@@ -1,8 +1,12 @@
+import { EmailService } from './../services/email.service';
+import { OrderECard } from './../models/order-ecard';
+import { Card } from './../models/card';
 import { CardService } from './../services/card.service';
 import { OrderService } from 'src/app/services/order.service';
 import { ImageService } from './../services/image.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Timestamp } from "@angular/fire/firestore";
 
 @Component({
   selector: 'app-play',
@@ -13,23 +17,33 @@ export class PlayComponent implements OnInit, AfterViewInit {
   @ViewChild('video') video: ElementRef;
 
   activateRoute: ActivatedRoute;
+  def: ChangeDetectorRef;
   orderService: OrderService;
   cardService: CardService;
-  imageService: ImageService;  
+  imageService: ImageService;
+  emailService: EmailService;
 
   constructor(
     _activateRoute: ActivatedRoute,
+    _def: ChangeDetectorRef,
     _orderService: OrderService,
     _cardService: CardService,
-    _imageService: ImageService
+    _imageService: ImageService,
+    _emailService: EmailService
   ) {
     this.activateRoute = _activateRoute;
+    this.def = _def;
     this.orderService = _orderService;
     this.cardService = _cardService;
     this.imageService = _imageService;
+    this.emailService = _emailService;
   }
 
   orderid: string = '';
+  tracked: boolean = false;
+  isExpired: boolean = false;
+  order: OrderECard = new OrderECard();
+  card: Card = new Card();
   url: string = '';
   controls: string[] = [
     'nodownload',
@@ -38,8 +52,9 @@ export class PlayComponent implements OnInit, AfterViewInit {
   ];
 
   ngOnInit(): void {
-    this.activateRoute.params.subscribe(params => {
-      this.orderid = params['id'];
+    this.activateRoute.url.subscribe(urls => {
+      this.tracked = urls[0].path == 'playtrack';
+      this.orderid = urls[1].path;
     });
   }
 
@@ -47,17 +62,53 @@ export class PlayComponent implements OnInit, AfterViewInit {
     this.loadImage();
   }
 
-  loadImage(){
+  isOrderExpired(order: OrderECard): boolean{
+    if (order.expire != undefined){
+      if (order.expire.toDate() < (new Date())){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  loadImage() {
     this.orderService.getECardOrder(this.orderid).then(order => {
+      this.order = order;
+
+      if (this.isOrderExpired(order)){
+        this.isExpired = true;
+        this.def.detectChanges();
+        return;
+      }
+      
       this.cardService.getACard(order.card_id!).then(card => {
+        this.card = card;
+        this.def.detectChanges();
         this.cardService.getECardImages(card.id!).then(images => {
-          console.log(images);
           let image = images.find(x => x.title == 'video')!;
           this.imageService.getImageURL(image.url).then(url => {
             this.url = url;
+            this.def.detectChanges();
           })
         })
-      })
+      });
+
+      if (order.expire == undefined){
+        if (this.tracked){
+          this.setExpiryDate();
+        }
+      }
+    });
+  }
+
+  setExpiryDate() {
+    this.orderService.updateExpiry(this.orderid).then(() => {
+      this.orderService.getECardOrder(this.orderid).then(order => {
+        this.order = order;
+        this.emailService.SendECardOpenedEmail(order).then(id => {
+          this.orderService.updateECardOpened(this.orderid, id);
+        })
+      });
     })
   }
 

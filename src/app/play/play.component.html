@@ -1,38 +1,38 @@
 <ion-content>
     <section class="section-name padding-y-sm bk-hw">
         <div class="container for-links-hover">
-            <div class="card">
+            <div class="card" *ngIf="isExpired">
+                <div class="card-content text-center">
+                    <div class="header">This is an expired link</div>
+                </div>
+            </div>
+            <div class="card" *ngIf="!isExpired">
                 <div class="card-content" style="padding: 20px;">
                     <div class="row">
                         <div class="col-md-8">
-
-
-
                             <video class="w-100" [controls]="controls" preload="auto" #video>
                                 <source src="{{url}}" type='video/mp4' *ngIf="url != ''">
                             </video>
-
                         </div>
                         <div class="col-md-4">
-                            <div class="header">Header</div>
+                            <div class="header">{{card.name!}}</div>
                             <div class="msg">
-                                [Receiver],
+                                {{order.receiver_name}},
                                 <br /><br />
                                 <div class="text-center">
-                                    "Message"
+                                    "{{order.message}}"
                                 </div>
                                 <br /><br />
                                 <div class="text-right">
-                                    From: [Sender]
+                                    From: {{order.sender_name}}
                                 </div>
                             </div>
                             <br />
                             <div class="note-expiry">
-                                Powered by fibeigreetings!<br/>
-                                Note: this video will expire in 1 month upon purchase 
+                                Powered by fibeigreetings!<br />
+                                Note: this video will expire in 1 month upon opened by the recipient
                                 <br>
-                                <b style="color:yellow">[March 15 2023 |
-                                12:00am][ExpiryDate]</b>
+                                <span *ngIf="order.expire">Expired @ </span><b style="color:yellow" *ngIf="order.expire">{{order.expire.toDate() | date: 'MMM dd, yyyy h:mm:ss a' }}</b>
                             </div>
 
                         </div>

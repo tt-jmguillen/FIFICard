@@ -148,4 +148,21 @@ export class EmailService {
       });
     })
   }
+
+  async SendECardOpenedEmail(order: OrderECard): Promise<string> {
+    return new Promise(resolve => {
+      fetch('/assets/static/ecardopened.html').then(res => res.text()).then(data => {
+        this.settingService.getMailSupport().then(mailsupport => {
+          let html: string = data;
+          html = html.replaceAll('[ROOT]', this.getRootURL());
+          html = html.replaceAll('[LINK]', this.ecardLink(order.id));
+          html = html.replaceAll('[SENDERNAME]', order.sender_name);
+          html = html.replaceAll('[MESSAGE]', order.message);
+          html = html.replaceAll('[EXPIRED]', order.expire.toDate().toDateString());
+          html = html.replaceAll('[EMAILSUPPORT]', mailsupport);
+          return this.sendEmail(order.sender_email, "Your E-Card from Fibeigreetings.com has been opened", html);
+        });
+      });
+    })
+  }
 }

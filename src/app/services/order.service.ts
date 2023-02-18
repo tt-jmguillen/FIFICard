@@ -1,7 +1,8 @@
+import { environment } from './../../environments/environment.prod';
 import { SignAndSendDetails } from './../models/sign-and-send-details';
 import { Injectable } from '@angular/core';
-import { collection, Firestore, doc, addDoc, docData, query, where, collectionData, updateDoc, serverTimestamp } from '@angular/fire/firestore';
-import { ref, Storage, uploadBytes, UploadResult } from '@angular/fire/storage';
+import { collection, Firestore, doc, addDoc, docData, updateDoc, serverTimestamp } from '@angular/fire/firestore';
+import { Storage } from '@angular/fire/storage';
 import { Order } from '../models/order';
 import { Timestamp } from "@angular/fire/firestore";
 import { Observable } from 'rxjs';
@@ -61,7 +62,7 @@ export class OrderService {
     });
   }
 
-  async createECardOrder(order: OrderECard): Promise<string>{
+  async createECardOrder(order: OrderECard): Promise<string> {
     return new Promise((resolve, rejects) => {
       const data = collection(this.store, 'ecard-orders');
       addDoc(data, {
@@ -191,6 +192,23 @@ export class OrderService {
     const data = doc(this.store, 'ecard-orders/' + id);
     updateDoc(data, {
       confirmid: confirmid
+    });
+  }
+
+  updateExpiry(id: string): Promise<void> {
+    const data = doc(this.store, 'ecard-orders/' + id);
+    const started = Timestamp.now().toDate();
+    started.setDate(started.getDate() + environment.ecardexpiry)
+    return updateDoc(data, {
+      start: serverTimestamp(),
+      expire: Timestamp.fromDate(started)
+    });
+  }
+
+  updateECardOpened(id: string, openedid: string) {
+    const data = doc(this.store, 'ecard-orders/' + id);
+    updateDoc(data, {
+      openedid: openedid
     });
   }
 }

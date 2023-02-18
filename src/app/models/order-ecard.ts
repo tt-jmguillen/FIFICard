@@ -17,6 +17,8 @@ export class OrderECard {
     public paymentId: string;
     public sentid: string;
     public confirmid: string;
+    public start: Timestamp;
+    public expire: Timestamp;
     public openedid: string;
     public created: Timestamp;
 }
