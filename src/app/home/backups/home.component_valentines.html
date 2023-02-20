@@ -3,40 +3,55 @@
         <div class="container animate main">
             <div class="row">
                 <div class="col-md-2">
-                    <a [routerLink]="['/cards/event/4HScpPk6fdQp4nFWVEmZ']" class="to-link">
-                        <img src="/assets/images/bday/gifts-bday.png">
+                    <a class="to-link">
+                        <img src="/assets/images/valentines/v2/p-left.png">
                     </a>
                 </div>
-                <div class="col-md-10">
-                    <a [routerLink]="['/cards/event/dGiyJX4go7yPhCJNJN4P']" class="to-link">
-                        <img src="/assets/images/bday/banner-bday.png" style="width:100%">
+                <div class="col-md-8">
+                    <img src="/assets/images/valentines/v2/banner-1.png" style="width:100%">
+                    <div class="col-md-12" style="background:#fa6373;padding: 18px; padding-bottom: 0;">
+                        <div class="row">
+                            <div class="col-md-6 text-center">
+                                <a [routerLink]="['/poetry']" class="link-to-val">SHOP POETRY
+                                    CARDS</a>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <a [routerLink]="['/cards/events/Valentine\'s Day']" class="link-to-val">SHOP MESSAGE
+                                    CARDS</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <a [routerLink]="['/cards/events/Valentine\'s Day']" class="to-link">
+                        <img src="/assets/images/valentines/v2/p-right.png">
                     </a>
                 </div>
 
             </div>
             <div class="row">
                 <div class="row show-grid">
-                    <div class="col text-center">
+                    <div class="col-sm-6 col-md-1-5 col-lg-1-5">
                         <a [routerLink]="['/e-cards']" class="to-link">
                             <img src="/assets/images/valentines/v2/m-2-ecard-min.png" alt="e-cards">
                         </a>
                     </div>
-                    <div class="col text-center">
+                    <div class="col-sm-6 col-md-1-5 col-lg-1-5">
                         <a [routerLink]="['/poetry']" class="to-link">
                             <img src="/assets/images/valentines/v2/m-2-poetry-min.png" alt="poetry">
                         </a>
                     </div>
-                    <div class="col text-center">
+                    <div class="col-sm-6 col-md-1-5 col-lg-1-5">
                         <a [routerLink]="['/postcards']" class="to-link">
                             <img src="/assets/images/valentines/v2/m-2-postcard-min.png" alt="postcards">
                         </a>
                     </div>
-                    <div class="col text-center">
+                    <div class="col-sm-6 col-md-1-5 col-lg-1-5">
                         <a [routerLink]="['/signandsend']" class="to-link">
                             <img src="/assets/images/valentines/v2/m-2-sns-min.png" alt="signandsend">
                         </a>
                     </div>
-                    <div class="col text-center">
+                    <div class="col-sm-6 col-md-1-5 col-lg-1-5">
                         <a [routerLink]="['/stickers']" class="to-link">
                             <img src="/assets/images/valentines/v2/m-2-sticker-min.png" alt="stickers">
                         </a>
@@ -46,12 +61,6 @@
             <div class="row">
                 <div class="col-md-12">
                     <img src="/assets/images/valentines/v2/header-2-min.png">
-                    <a [routerLink]="['#']" class="to-link">
-                        <img src="/assets/images/bday/3.png">
-                    </a>
-                    <a [routerLink]="['/cards/event/SvyQh2evMD1uynJuTTmy']" class="to-link">
-                        <img src="/assets/images/bday/4.png">
-                    </a>
                 </div>
             </div>
 
@@ -86,27 +95,24 @@
             </div> -->
             <div>
                 <div class="row">
-                    <!-- <div class="col-md-12">
+                    <div class="col-md-12">
                         <br />
                         <h2 class="text-center cus-text-title">{{'home.featuredtitle'|translate}}</h2>
                     </div>
 
                     <div class="col-md-12">
-                        <app-home-featured caption="Valentine's Day" homeCardEvent="Valentine's Day"
-                            [limit]="100"></app-home-featured>
+                        <app-home-featured caption="Valentine's Day" homeCardEvent="Valentine's Day" [limit]="100"></app-home-featured>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div [routerLink]="['/signandsendpage']" class="to-link"> <img
-                                    src="/assets/images/valentines/v2/p-sns-1-min.png" style="width:100%"></div>
+                            <div [routerLink]="['/signandsendpage']" class="to-link"> <img src="/assets/images/valentines/v2/p-sns-1-min.png" style="width:100%"></div>
                             <br /> <br />
                         </div>
                         <div class="col-md-6">
-                            <div [routerLink]="['/signandsendpage']" class="to-link"> <img
-                                    src="/assets/images/valentines/v2/p-pc-2-min.png" style="width:100%"></div>
+                            <div [routerLink]="['/signandsendpage']" class="to-link"> <img src="/assets/images/valentines/v2/p-pc-2-min.png" style="width:100%"></div>
                             <br /> <br />
                         </div>
-                    </div> -->
+                    </div>
                     <!-- <div class="col-md-12">
                         <div><img src="/assets/images/newyear/4.png"></div>
                         <br /> <br />
@@ -124,16 +130,13 @@
                         <h2 class="text-center cus-text-title">{{'home.featuredcategories'|translate}}</h2>
                     </div>
                     <div class="col-md-12">
-                        <app-home-featured caption="Mother's Day" homeCardEvent="Mother's Day"
-                            [limit]="100"></app-home-featured>
+                        <app-home-featured caption="Birthday" homeCardEvent="Birthday" [limit]="100"></app-home-featured>
                     </div>
                     <div class="col-md-12">
-                        <app-home-featured caption="Anniversary" homeCardEvent="Anniversary"
-                            [limit]="100"></app-home-featured>
+                        <app-home-featured caption="Anniversary" homeCardEvent="Anniversary" [limit]="100"></app-home-featured>
                     </div>
                     <div class="col-md-12">
-                        <app-home-featured caption="Sympathy" homeCardEvent="Sympathy"
-                            [limit]="100"></app-home-featured>
+                        <app-home-featured caption="Sympathy" homeCardEvent="Sympathy" [limit]="100"></app-home-featured>
                     </div>
                     <div class="col-md-12">
                         <app-home-featured caption="Pet Cards" homeCardEvent="Pet" [limit]="100"></app-home-featured>
@@ -142,17 +145,15 @@
             </div>
             <br /> <br />
             <div class="row">
-                <div class="col-md-12">
-                    <img src="/assets/images/bday/sns.png">
+                <div class="col-md-6 pe-0">
+                    <div [routerLink]="['/events']" class="to-link"> <img src="/assets/images/valentines/v2/s-1-min.png" style="width:100%"></div>
+                    <br /> <br />
                 </div>
-                <div class="col-md-6">
-                    <img src="/assets/images/bday/pink.png">
-                </div>
-                <div class="col-md-6">
-                    <img src="/assets/images/bday/blue.png">
+                <div class="col-md-6 ps-0">
+                    <div [routerLink]="['/gifts']" class="to-link"> <img src="/assets/images/valentines/v2/s-2-min.png" style="width:100%"></div>
+                    <br /> <br />
                 </div>
             </div>
-
             <div>
                 <img src="/assets/images/valentines/v2/t-1-min.png" class="img-fluid cursor w100">
                 <br /><br />
@@ -180,8 +181,7 @@
                 <!-- caption="BEST SELLER GIFTS" -->
                 <!-- <app-home-bestseller
                     [ids]="['TWHYSqWcfejKR4ISqgkJ','RKAwStKSVltG6PgSrhKr','65R0tzljmfUbHTJ2oLDI','Ca4O3n9XhgEycwsQSeCQ','U7dYbkrpzv1kRopldrTG','WyloWUTIwkIUkoKhAMQA','pOxaKCkomN6vvqXsWq32','Bt8IoYIQLVjsm5qf0yes']"></app-home-bestseller> -->
-                <app-home-bestseller
-                    [ids]="['2X3ni7P5BqGPU1UbBpwq','Euxi0KuwUQuzBvN29vEo','q7d8sezaICMch9CxdDKm','JKoqEQ373txpRG6e9u4r']"></app-home-bestseller>
+                <app-home-bestseller [ids]="['2X3ni7P5BqGPU1UbBpwq','Euxi0KuwUQuzBvN29vEo','q7d8sezaICMch9CxdDKm','JKoqEQ373txpRG6e9u4r']"></app-home-bestseller>
 
             </div>
             <!-- <div>
@@ -203,10 +203,8 @@
             <div>
                 <div class="row">
                     <div class="col-md-12">
-                        <img src="/assets/images/valentines/v2/bottom-banner-min.png"
-                            *ngIf="priceService.getLocation() == 'ph'" class="img-fluid " style="width:100%">
-                        <img src="/assets/images/valentines/v2/bottom-banner-min-us.png"
-                            *ngIf="priceService.getLocation() != 'ph'" class="img-fluid " style="width:100%">
+                        <img src="/assets/images/valentines/v2/bottom-banner-min.png" *ngIf="priceService.getLocation() == 'ph'"  class="img-fluid " style="width:100%">
+                        <img src="/assets/images/valentines/v2/bottom-banner-min-us.png" *ngIf="priceService.getLocation() != 'ph'"  class="img-fluid " style="width:100%">
                         <br /> <br />
                         <img src="/assets/images/valentines/v2/2-min.png" class="img-fluid" style="width:100%">
                         <br /> <br />
@@ -218,4 +216,4 @@
         </div>
     </section>
     <app-footer></app-footer>
-</ion-content>
+</ion-content> 
