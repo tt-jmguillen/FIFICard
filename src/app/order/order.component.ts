@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { PriceService } from './../services/price.service';
 import { SettingService } from './../services/setting.service';
 import { ShippingService } from './../services/shipping.service';
@@ -122,7 +123,7 @@ export class OrderComponent implements OnInit {
     _filter: FilterService,
     _priceService: PriceService,
     _router: Router,
-
+    private loc: Location,
     private _emailService: EmailService,
   ) {
     this.title = _title;
@@ -612,5 +613,9 @@ export class OrderComponent implements OnInit {
       type = 'EMBOSSED';
     }
     return this.priceService.getPrice(this.card!, type)
+  }
+
+  onBack() {
+    this.loc.back();
   }
 }

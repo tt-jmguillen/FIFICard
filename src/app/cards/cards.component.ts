@@ -4,11 +4,10 @@ import { Card } from './../models/card';
 import { CardService } from './../services/card.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { throws } from 'assert';
-import { Recipient } from '../models/recipient';
 import { RecipientService } from '../services/recipient.service';
 import { EventService } from '../services/event.service';
 import { Title } from '@angular/platform-browser';
+import { Location } from '@angular/common';
 
 export class EventSetting {
   public event: string;
@@ -60,7 +59,8 @@ export class CardsComponent implements OnInit {
     private _filterService: FilterService,
     private _serviceRecipient: RecipientService,
     private _activateRoute: ActivatedRoute,
-    private _def: ChangeDetectorRef
+    private _def: ChangeDetectorRef,
+    private location: Location
   ) {
     this.title = _title;
     this.service = _service;
@@ -265,5 +265,9 @@ export class CardsComponent implements OnInit {
         });
       });
     })
+  }
+
+  onBack() {
+    this.location.back();
   }
 }

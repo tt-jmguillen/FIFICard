@@ -206,7 +206,7 @@ export class CardService {
             resolve(cards);
           }
           else {
-            rejects("No cards found.");
+            resolve([]);
           }
         });
     });

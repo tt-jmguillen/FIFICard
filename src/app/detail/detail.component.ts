@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { PriceService } from './../services/price.service';
 import { EmailService } from './../services/email.service';
 import { Component, OnInit } from '@angular/core';
@@ -45,7 +46,8 @@ export class DetailComponent implements OnInit {
     private _router: Router,
     private _translationService: TranslationService,
     private _filter: FilterService,
-    private _priceService: PriceService
+    private _priceService: PriceService,
+    private location: Location
   ) {
     this.activateRoute = _activateRoute;
     this.service = _service;
@@ -185,5 +187,9 @@ export class DetailComponent implements OnInit {
 
   setEnable(event: any){
     this.orderEnable = event.target.checked;
+  }
+
+  onBack() {
+    this.location.back();
   }
 }

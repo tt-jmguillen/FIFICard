@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { UserService } from 'src/app/services/user.service';
 import { OrderECard } from './../models/order-ecard';
 import { OrderService } from 'src/app/services/order.service';
@@ -41,7 +42,8 @@ export class ECardOrderComponent implements OnInit {
     _priceService: PriceService,
     _imageService: ImageService,
     _orderService: OrderService,
-    _userService: UserService
+    _userService: UserService,
+    private loc: Location
   ) { 
     this.activateRoute = _activateRoute;
     this.title = _title;
@@ -141,5 +143,9 @@ export class ECardOrderComponent implements OnInit {
   cart(){
     this.modalRef.close('');
     this.router.navigate(['/cart']);
+  }
+
+  onBack() {
+    this.loc.back();
   }
 }

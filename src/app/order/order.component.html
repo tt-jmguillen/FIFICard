@@ -2,14 +2,17 @@
     <section class="section-name padding-y-sm">
         <div class="container animate main" *ngIf="card">
             <div class="row align-top">
-                <div class="col-12">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a [routerLink]="['/']">{{'order.home'|translate}}</a></li>
-                            <li class="breadcrumb-item"><a [routerLink]="['/card', id]">{{card!.name}}</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{'order.order'|translate}}</li>
-                        </ol>
-                    </nav>
+                <div class="col-12 mb-2">
+                    <button class="btn rounded-0" style="background-color: #8a2be2; color: #ffffff;" (click)="onBack()">Back</button>
+                    <!--
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a [routerLink]="['/']">{{'order.home'|translate}}</a></li>
+                                <li class="breadcrumb-item"><a [routerLink]="['/card', id]">{{card!.name}}</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{'order.order'|translate}}</li>
+                            </ol>
+                        </nav>
+                    -->
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <app-imagegrid id="{{id}}"></app-imagegrid>

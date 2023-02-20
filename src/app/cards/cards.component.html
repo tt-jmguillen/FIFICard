@@ -6,14 +6,19 @@
                     <img src="{{banner}}" class="img-fluid pointer" style="border-radius:6px; width:100% !important" routerLink="{{eventSetting!=undefined?eventSetting.bannerLink:'#'}}">
                     <br /> <br />
                 </div>
-                <div class="col-md-9" id="data-top">
+            </div>
+            <div class="row" id="data-top">
+                <div class="col-md-2 my-auto text-start">
+                    <button class="btn rounded-0" style="background-color: #8a2be2; color: #ffffff;" (click)="onBack()">Back to All Categories</button>
+                </div>
+                <div class="col-md-8 text-center">
                     <header class="section-heading">
                         <h3 class="section-title" *ngIf="caption">{{caption}} {{type}}</h3>
                     </header>
                 </div>
             </div>
             <div class="row" *ngIf="loading">
-                <div class="col-md-12">
+                <div class="col-md-12 my-2">
                     <mat-progress-bar mode="indeterminate" value=100></mat-progress-bar>
                 </div>
             </div>
