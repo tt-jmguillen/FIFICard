@@ -7,14 +7,30 @@
                     <br />
                 </div>
             </div>
+            <br/><br/>
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <br/>
+                    <img src="/assets/images/featured/poetry/title.png">
+                </div>
+                <div class="col-md-3 col-6">
+                    <a [routerLink]="['/poetrycards/dGiyJX4go7yPhCJNJN4P']" class="to-link"> <img src="/assets/images/featured/poetry/birthday.png" alt="birthday" title="birthday"></a>
+                </div>
+                <div class="col-md-3 col-6">
+                    <a [routerLink]="['/poetrycards/SvyQh2evMD1uynJuTTmy']" class="to-link"> <img src="/assets/images/featured/poetry/easter.png" alt="easter" title="easter"></a>
+                </div>
+                <div class="col-md-3 col-6">
+                    <a [routerLink]="['/poetrycards/7TrEt1o2415ST4CU7sy7']" class="to-link">  <img src="/assets/images/featured/poetry/graduation.png" alt="graduation" title="graduation"></a>
+                </div>
+            </div>
             <div class="row bg-white py-4">
                 <div class="col-12 my-2"></div>
-                <div class="col-12 ">
-                    <a class="btn-featured" *ngIf="featured" [routerLink]="['/poetrycards/' + featured.id]">
+                 <div class="col-12 ">
+                    <!--<a class="btn-featured" *ngIf="featured" [routerLink]="['/poetrycards/' + featured.id]">
                         <img src="/assets/images/poetry/featured-category.jpg" class="img-fluid">
-                    </a>
+                    </a>-->
                     <img src="/assets/images/poetry/other.jpg" class="img-fluid">
-                </div>
+                </div> 
                 <div class="col-md-12  my-auto">
                     <div class="row">
                         <div class="col-md-3" *ngFor="let event of events">
