@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-md-8 text-center">
                     <header class="section-heading">
-                        <h3 class="section-title" *ngIf="caption">{{caption}} {{type}}</h3>
+                        <h3 class="section-title" *ngIf="caption">{{caption}}</h3>
                     </header>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                     <mat-progress-bar mode="indeterminate" value=100></mat-progress-bar>
                 </div>
             </div>
-            <app-card-list *ngIf="cards.length > 0" [cards]="cards" [priority]="eventSetting?eventSetting.mainCard:''" [recipient]="recipient!" [mode]="type == 'Cards'?'card':'gift'"></app-card-list>
+            <app-card-list *ngIf="cards.length > 0" [cards]="cards" [priority]="eventSetting?eventSetting.mainCard:''" [recipient]="recipient!" [mode]="type"></app-card-list>
         </div>
     </section>
     <br><br>

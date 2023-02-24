@@ -31,7 +31,7 @@ export class CardsComponent implements OnInit {
   event?: string;
   search?: string;
   recipient?: string;
-  
+
   caption: string = '';
   banner: string = '';
   title: Title;
@@ -49,7 +49,7 @@ export class CardsComponent implements OnInit {
   eventSettings: EventSetting[] = [];
   eventSetting: EventSetting;
 
-  type: string = '';
+  type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' = 'card';
 
   constructor(
     private _title: Title,
@@ -124,21 +124,20 @@ export class CardsComponent implements OnInit {
             });
           }
 
-          let type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' = 'card';
-          if(event.isECard && event.isECard == true){
-            type = 'ecard';
+          if (event.isECard && event.isECard == true) {
+            this.type = 'ecard';
           }
-          else if(event.isPostcard && event.isPostcard == true){
-            type = 'postcard';
+          else if (event.isPostcard && event.isPostcard == true) {
+            this.type = 'postcard';
           }
-          else if(event.isSticker && event.isSticker == true){
-            type = 'sticker';
+          else if (event.isSticker && event.isSticker == true) {
+            this.type = 'sticker';
           }
-          else if(event.isGift && event.isGift == true){
-            type = 'gift';
+          else if (event.isGift && event.isGift == true) {
+            this.type = 'gift';
           }
 
-          this.getCards(type, this.event!);
+          this.getCards(this.type, this.event!);
         })
       }
       else {
@@ -154,19 +153,17 @@ export class CardsComponent implements OnInit {
                 });
               }
 
-              if (events[0].isGift) {
-                if (!events[0].name!.includes('Gifts'))
-                  this.type = 'Gifts'
-                else
-                  this.type = ''
+              if (events[0].isECard && events[0].isECard == true) {
+                this.type = 'ecard';
               }
-
-              if (events[0].isPostcard) {
-                this.type = 'Postcards';
+              else if (events[0].isPostcard && events[0].isPostcard == true) {
+                this.type = 'postcard';
               }
-
-              if (!events[0].isGift && !events[0].isGift && !events[0].isSticker && !events[0].isCreations && !events[0].isPostcard) {
-                this.type = 'Cards'
+              else if (events[0].isSticker && events[0].isSticker == true) {
+                this.type = 'sticker';
+              }
+              else if (events[0].isGift && events[0].isGift == true) {
+                this.type = 'gift';
               }
             }
           });
@@ -208,7 +205,7 @@ export class CardsComponent implements OnInit {
     });
   }
 
-  getCards(type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard', event: string){
+  getCards(type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard', event: string) {
     this.loading = true;
     this.service.getCardsByTypeAndEvent(type, event).then(data => {
       this.loading = false;
