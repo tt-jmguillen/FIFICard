@@ -1,3 +1,4 @@
+import { PriceService } from './../../services/price.service';
 import { UserService } from './../../services/user.service';
 import { EventService } from './../../services/event.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
@@ -21,6 +22,7 @@ import { environment } from 'src/environments/environment';
 export class MenuComponent implements OnInit {
   service: EventService;
   userService: UserService;
+  priceService: PriceService;
   events: Event[] = [];
   ak: Event;
   user: any;
@@ -31,28 +33,18 @@ export class MenuComponent implements OnInit {
   redirectEvent: string;
   isMothersDay: boolean;
 
-  location: string = 'ph';
-
   constructor(
     private _service: EventService,
     private _activateRoute: ActivatedRoute,
     private _userService: UserService,
+    private _priceService: PriceService,
     public dialog: MatDialog,
     public auth: AngularFireAuth,
     public authProcess: AuthProcessService
   ) {
     this.service = _service;
     this.userService = _userService;
-
-    if (window.location.hostname.toLowerCase() == 'us.fibeigreetings.com') {
-      this.location = 'us'
-    }
-    else if (window.location.hostname.toLowerCase() == 'sg.fibeigreetings.com') {
-      this.location = 'sg'
-    }
-    else {
-      this.location = 'ph'
-    }
+    this.priceService = _priceService;
   }
 
   ngOnInit(): void {
