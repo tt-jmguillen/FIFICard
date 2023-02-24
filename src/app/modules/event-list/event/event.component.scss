@@ -7,8 +7,12 @@
     opacity: 1
 }
 
-.my-event img {
-    aspect-ratio: 1 / 1;
+.div-img{
+    aspect-ratio: 1 / 0.8;
+}
+
+.div-img img{
+    object-fit: cover;
 }
 
 .title {

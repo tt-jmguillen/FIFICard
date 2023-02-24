@@ -1,4 +1,6 @@
 <div [ngClass]="enable?'cursor myevent':'none myevent'" routerLink="{{url}}">
-    <img src="{{image}}" class="img-fluid">
+    <div class="div-img">
+        <img src="{{image}}" class="w-100 h-100">
+    </div>
     <div class="title">{{event.name}}</div>
 </div>

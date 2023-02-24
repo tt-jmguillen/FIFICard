@@ -1,7 +1,11 @@
-.my-event img {
+.div-img {
+    aspect-ratio: 1 / 1;
+}
+
+.div-img img {
     border-radius: 50%;
     margin-bottom: 10px;
-    aspect-ratio: 1 / 1;
+    object-fit: cover;
 }
 
 .cursor:hover,
