@@ -59,6 +59,21 @@
                     <img src="/assets/images/postcard/in-2-min.png" style="width:100%">
                 </div>
             </div>
+            <div class="col-md-12">
+                <br /> <br />
+                <a [routerLink]="['/events']" > <img src="assets/images/banner/shop-cards.png"></a>
+                <br /> <br />
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-12">
+                    <br /> <br />
+                    <a [routerLink]="['/gifts']" *ngIf="priceService.getLocation() == 'ph'"> <img src="assets/images/banner/shop-gifts.png"></a>
+                    <a [routerLink]="['/events']" *ngIf="priceService.getLocation() != 'ph'"> <img src="assets/images/banner/shop-cards.png"></a>
+                    <br /> <br />
+                    <img src="assets/images/banner/fs-free.png" *ngIf="priceService.getLocation() == 'ph'">
+                    <img src="assets/images/banner/fs-free-us.png" *ngIf="priceService.getLocation() == 'ph'">
+                </div>
+            </div> -->
         </div>
     </section>
     <app-footer></app-footer>

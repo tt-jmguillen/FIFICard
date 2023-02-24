@@ -31,25 +31,16 @@
                     <div class="col-lg-6 col-sm-12">
                         <div class="card">
                             <div class="card-body" *ngIf="card">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h2 class="section-title" style="color:indigo;font-weight:bolder">{{card!.name}} </h2>
-                                    </div>
-                                    <div class="col-md-4 text-end my-auto">
-                                        <img src="../assets/images/badge-sticker-free-2.png" class="sticker ms-2 cursor" *ngIf="card && card!.type == 'sticker' && card!.price == 18" [routerLink]="getStickerLink()" />
-                                        <img src="../assets/images/badge-featured.png" class="featured ms-2" *ngIf="card && card!.featured" />
-                                        <img src="../assets/images/badge-poetry.png" class="poerty ms-2" *ngIf="card && card.messagetype=='poetry'" />
-                                    </div>
-                                </div>
                                 <section>
-                                    <div class="row" *ngIf="card.type == 'card'">
-                                        <div class="col-12">
-                                            <p>Available in: <span *ngFor="let type of card!.types" class="custom-pill mb-1">{{type}}</span></p>
-                                        </div>
-                                    </div>
-                                    <p>Description: "{{card!.description}}"</p>
                                     <div class="row">
                                         <div class="col-md-7">
+                                            <h2 class="section-title" style="color:indigo;font-weight:bolder">{{card!.name}} </h2>
+                                            <div class="row" *ngIf="card.type == 'card'">
+                                                <div class="col-12">
+                                                    <p>Available in: <span *ngFor="let type of card!.types" class="custom-pill mb-1">{{type}}</span></p>
+                                                </div>
+                                            </div>
+                                            <p>Description: "{{card!.description}}"</p>
                                             <p>{{getEventTitle(card!)}}: <span *ngFor="let event of card!.events" class="custom-pill mb-1">{{event}}</span></p>
                                             <p>Recipient: <span *ngFor="let recipient of card!.recipients" class="custom-pill mb-1">{{recipient}}</span></p>
                                             <app-bundle [view]="true" [card]="card" *ngIf="card.type != 'ecard'"></app-bundle>
@@ -64,6 +55,10 @@
                                             </div>
                                         </div>
                                         <div class="col-md-5" style="text-align:right">
+
+                                            <img src="../assets/images/badge-sticker-free-2.png" class="sticker ms-2 cursor" *ngIf="card && card!.type == 'sticker' && card!.price == 18" [routerLink]="getStickerLink()" />
+                                            <img src="../assets/images/badge-featured.png" class="featured ms-2" *ngIf="card && card!.featured" />
+                                            <img src="../assets/images/badge-poetry.png" class="poerty ms-2" *ngIf="card && card.messagetype=='poetry'" />
                                             <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping" *ngIf="(card.type != 'ecard') && (priceService.getLocation() == 'ph')">
                                             <img src="/assets/images/icon_free_shipping-v2.png" class="img-fluid icon-free-shipping" *ngIf="(card.type != 'ecard') && (priceService.getLocation() != 'ph')">
                                             <br />
