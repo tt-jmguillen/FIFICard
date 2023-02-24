@@ -3,8 +3,11 @@
         <div class="container animate main">
             <div class="row">
                 <div class="col-md-2">
-                    <a [routerLink]="['/cards/event/4HScpPk6fdQp4nFWVEmZ']" class="to-link">
+                    <a [routerLink]="['/cards/event/4HScpPk6fdQp4nFWVEmZ']" class="to-link"  *ngIf="priceService.getLocation() == 'ph'">
                         <img src="/assets/images/bday/gifts-bday.png">
+                    </a>
+                    <a [routerLink]="['/poetrycards/dGiyJX4go7yPhCJNJN4P']" class="to-link"  *ngIf="priceService.getLocation() != 'ph'">
+                        <img src="/assets/images/bday/poetry-bday.png">
                     </a>
                 </div>
                 <div class="col-md-10">
