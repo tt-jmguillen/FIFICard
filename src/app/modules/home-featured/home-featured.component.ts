@@ -26,7 +26,7 @@ export class HomeFeaturedComponent implements OnInit {
   @Input() caption: string = '';
   @Input() homeCardEvent?: string;
   @Input() limit: Number;
-  @Input() isSignAndSend: boolean;
+  @Input() isSignAndSend: boolean = false;
   @Input() withPrice: boolean = false;
   @Input() ids: string[] = [];
 
