@@ -29,11 +29,11 @@ export class AddressService {
         'firstname': address.firstname,
         'lastname': address.lastname,
         'address': address.address,
-        'address2': address.address2,
-        'province': address.province,
-        'city': address.city,
-        'country': address.country,
-        'postcode': address.postcode
+        'address2': address.address2?address.address2:'',
+        'province': address.province?address.province:'',
+        'city': address.city?address.city:'',
+        'country': address.country?address.country:'',
+        'postcode': address.postcode?address.postcode:''
       }).then(address => {
         resolve(address.id);
       })
@@ -58,11 +58,11 @@ export class AddressService {
       'firstname': address.firstname,
       'lastname': address.lastname,
       'address': address.address,
-      'address2': address.address2,
-      'city': address.city,
-      'province': address.province,
-      'country': address.country,
-      'postcode': address.postcode
+      'address2': address.address2?address.address2:'',
+      'province': address.province?address.province:'',
+      'city': address.city?address.city:'',
+      'country': address.country?address.country:'',
+      'postcode': address.postcode?address.postcode:''
     });
   }
 
