@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { doc, docData, Firestore } from '@angular/fire/firestore';
+import { resolveSoa } from 'dns';
 import { updateDoc } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
@@ -152,14 +153,35 @@ export class UserService {
     });
   }
 
-  removeItemOnCart(userId: string, orderId: string) {
-    this.getUser(userId).then(user => {
-      let index = user.carts.findIndex(x => x == orderId);
-      user.carts.splice(index, 1);
-      const data = doc(this.store, 'users/' + userId);
-      updateDoc(data, {
-        carts: user.carts
-      });
+  removeItemOnCart(userId: string, orderId: string): Promise<void> {
+    return new Promise((resolve) => {
+      this.getUser(userId).then(user => {
+        let index = user.carts.findIndex(x => x == orderId);
+        user.carts.splice(index, 1);
+        const data = doc(this.store, 'users/' + userId);
+        updateDoc(data, {
+          carts: user.carts
+        });
+        resolve()
+      }).catch(err => {
+        resolve()
+      })
+    });
+  }
+
+  removeItemOnECart(userId: string, orderId: string): Promise<void> {
+    return new Promise((resolve) => {
+      this.getUser(userId).then(user => {
+        let index = user.ecarts.findIndex(x => x == orderId);
+        user.ecarts.splice(index, 1);
+        const data = doc(this.store, 'users/' + userId);
+        updateDoc(data, {
+          carts: user.ecarts
+        });
+        resolve()
+      }).catch(err => {
+        resolve()
+      })
     });
   }
 
