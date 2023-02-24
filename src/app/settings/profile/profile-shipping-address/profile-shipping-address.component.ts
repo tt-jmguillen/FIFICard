@@ -1,3 +1,4 @@
+import { PriceService } from './../../../services/price.service';
 import { AddressConfig } from './../../../models/address-config';
 import { AddressService } from './../../../services/address.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,6 +18,7 @@ export class ProfileShippingAddressComponent implements OnInit {
   address: Address = new Address();
   userService: UserService;
   addressService: AddressService;
+  priceService: PriceService;
   isSaving: boolean = false;
 
   addressConfig: AddressConfig[] = [];
@@ -27,10 +29,12 @@ export class ProfileShippingAddressComponent implements OnInit {
   constructor(
     private _userService: UserService,
     private _adddressService: AddressService,
-    private _fb: UntypedFormBuilder
+    private _fb: UntypedFormBuilder,
+    private _priceService: PriceService
   ) {
     this.userService = _userService;
     this.addressService = _adddressService;
+    this.priceService = _priceService;
   }
 
   ngOnInit(): void {
@@ -53,15 +57,17 @@ export class ProfileShippingAddressComponent implements OnInit {
     if (type == 'firstname') this.address.firstname = event.target.value;
     if (type == 'lastname') this.address.lastname = event.target.value;
     if (type == 'address') this.address.address = event.target.value;
-    if (type == 'address2') this.address.address2 = event.target.value;
-    if (type == 'province') {
-      this.address.province = event.target.value;
-      this.updateCities(this.address.province);
-      this.address.city = '';
+    if (this.priceService.getLocation() == 'ph'){
+      if (type == 'address2') this.address.address2 = event.target.value;
+      if (type == 'province') {
+        this.address.province = event.target.value;
+        this.updateCities(this.address.province);
+        this.address.city = '';
+      }
+      if (type == 'city') this.address.city = event.target.value;
+      if (type == 'postcode') this.address.postcode = event.target.value;
+      if (type == 'country') this.address.country = event.target.value;
     }
-    if (type == 'city') this.address.city = event.target.value;
-    if (type == 'postcode') this.address.postcode = event.target.value;
-    if (type == 'country') this.address.country = event.target.value;
     this.validate();
   }
 
@@ -74,6 +80,7 @@ export class ProfileShippingAddressComponent implements OnInit {
   loadUser() {
     this.userService.getUser(this.uid).then(user => {
       this.user = user;
+      console.log(user);
       if (this.user.address) {
         this.loadAddress(this.user.address);
       }
@@ -97,14 +104,21 @@ export class ProfileShippingAddressComponent implements OnInit {
   }
 
   validate() {
-    this.isValid = (this.address.firstname != undefined) && (this.address.firstname != '') &&
-      (this.address.lastname != undefined) && (this.address.lastname != '') &&
-      (this.address.address != undefined) && (this.address.address != '') &&
-      (this.address.address2 != undefined) && (this.address.address2 != '') &&
-      (this.address.province != undefined) && (this.address.province != '') &&
-      (this.address.city != undefined) && (this.address.city != '') &&
-      (this.address.country != undefined) && (this.address.country != '') &&
-      (this.address.postcode != undefined) && (this.address.postcode != '');
+    if (this.priceService.getLocation() == 'ph'){
+      this.isValid = (this.address.firstname != undefined) && (this.address.firstname != '') &&
+        (this.address.lastname != undefined) && (this.address.lastname != '') &&
+        (this.address.address != undefined) && (this.address.address != '') &&
+        (this.address.address2 != undefined) && (this.address.address2 != '') &&
+        (this.address.province != undefined) && (this.address.province != '') &&
+        (this.address.city != undefined) && (this.address.city != '') &&
+        (this.address.country != undefined) && (this.address.country != '') &&
+        (this.address.postcode != undefined) && (this.address.postcode != '');
+    }
+    else{
+      this.isValid = (this.address.firstname != undefined) && (this.address.firstname != '') &&
+        (this.address.lastname != undefined) && (this.address.lastname != '') &&
+        (this.address.address != undefined) && (this.address.address != '');
+    }
   }
 
   saveAddress() {

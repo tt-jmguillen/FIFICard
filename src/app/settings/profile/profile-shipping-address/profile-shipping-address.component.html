@@ -21,31 +21,33 @@
                 <label>* {{'profile.addrline1'|translate}}</label>
                 <input type="text" class="form-control" placeholder="{{'profile.addrline1'|translate}}" (change)="changeData('address', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.address}}">
             </div>
-            <div class="mb-3 col-12">
-                <label>* {{'profile.addrline2'|translate}}</label>
-                <input type="text" class="form-control" placeholder="{{'profile.addrline2'|translate}}" (change)="changeData('address2', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.address2}}">
-            </div>
-            <div class="mb-3 col-6">
-                <label>* {{'profile.province'|translate}}</label>
-                <input type="text" class="form-control" placeholder="{{'profile.province'|translate}}" (change)="changeData('province', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.province}}" list="provinceIds">
-                <datalist id="provinceIds">
-                    <option *ngFor="let item of addressConfig" value="{{item.name}}">{{item.name}}</option>
-                </datalist>
-            </div>
-            <div class="mb-3 col-6">
-                <label>* {{'profile.city'|translate}}</label>
-                <input type="text" class="form-control" placeholder="{{'profile.city'|translate}}" (change)="changeData('city', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.city}}" list="cityIds">
-                <datalist id="cityIds">
-                    <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
-                </datalist>
-            </div>
-            <div class="mb-3 col-6">
-                <label>* {{'profile.country'|translate}}</label>
-                <input type="text" class="form-control" placeholder="Country" (change)="changeData('country', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.country}}">
-            </div>
-            <div class="mb-3 col-6">
-                <label>* {{'profile.postcode'|translate}}</label>
-                <input type="text" class="form-control" placeholder="{{'profile.postcode'|translate}}" (change)="changeData('postcode', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.postcode}}">
+            <div *ngIf="priceService.getLocation() == 'ph'">
+                <div class="mb-3 col-12">
+                    <label>* {{'profile.addrline2'|translate}}</label>
+                    <input type="text" class="form-control" placeholder="{{'profile.addrline2'|translate}}" (change)="changeData('address2', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.address2}}">
+                </div>
+                <div class="mb-3 col-6">
+                    <label>* {{'profile.province'|translate}}</label>
+                    <input type="text" class="form-control" placeholder="{{'profile.province'|translate}}" (change)="changeData('province', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.province}}" list="provinceIds">
+                    <datalist id="provinceIds">
+                        <option *ngFor="let item of addressConfig" value="{{item.name}}">{{item.name}}</option>
+                    </datalist>
+                </div>
+                <div class="mb-3 col-6">
+                    <label>* {{'profile.city'|translate}}</label>
+                    <input type="text" class="form-control" placeholder="{{'profile.city'|translate}}" (change)="changeData('city', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.city}}" list="cityIds">
+                    <datalist id="cityIds">
+                        <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
+                    </datalist>
+                </div>
+                <div class="mb-3 col-6">
+                    <label>* {{'profile.country'|translate}}</label>
+                    <input type="text" class="form-control" placeholder="Country" (change)="changeData('country', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.country}}">
+                </div>
+                <div class="mb-3 col-6">
+                    <label>* {{'profile.postcode'|translate}}</label>
+                    <input type="text" class="form-control" placeholder="{{'profile.postcode'|translate}}" (change)="changeData('postcode', $event)" readonly="{{isSaving? 'readonly': ''}}" value="{{address.postcode}}">
+                </div>
             </div>
             <div class=" col-12">
                 <button type="button" class="btn btn-primary" (click)="saveAddress()" [disabled]="!isValid">{{'profile.saveaddr'|translate}}</button>

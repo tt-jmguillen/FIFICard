@@ -7,7 +7,7 @@
         </p>
         <br />
         <div class="custom-control custom-checkbox">
-            <input *ngIf="user" type="checkbox" class="custom-control-input" id="customCheck1" [checked]="user.notification" (change)="notificationChange(user.notification)">
+            <input *ngIf="user" type="checkbox" class="custom-control-input me-2" id="customCheck1" [checked]="user.notification" (change)="notificationChange(user.notification)">
             <label class="custom-control-label" for="customCheck1"> {{'profile.clicknotif'|translate}}</label>
         </div>
         <br />
