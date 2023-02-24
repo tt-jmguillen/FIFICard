@@ -42,7 +42,7 @@
 </div>
 <div class="row">
     <div class="col-md-12 my-recipient pb-2">
-        <span class="imagediv hover-target" *ngFor="let recipient of recipients" (click)="onRecipientClick(recipient)" [ngStyle]="{'background-color': selectedRecipient==recipient ? 'blueviolet' : '', 'color': selectedRecipient==recipient ? 'white' : ''}">
+        <span *ngFor="let recipient of recipients" (click)="onRecipientClick(recipient)" [ngClass]="selectedRecipient==recipient?'recipient-selected':'recipient'">
             {{recipient}}
         </span>
     </div>

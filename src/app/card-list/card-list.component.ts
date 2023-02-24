@@ -33,7 +33,7 @@ export class CardListComponent implements OnInit {
   @Input() priority: string;
   @Input() recipient: string;
   @Input() footer: boolean = true;
-  @Input() mode: 'card' | 'gift' | 'sticker' | 'postcard' = 'card';
+  @Input() mode: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' = 'card';
   @Input() nomessagetype: boolean = false;
 
   recipientService: RecipientService;

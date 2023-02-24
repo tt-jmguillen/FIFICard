@@ -73,13 +73,25 @@
   }
   
   .hover-target:hover {
-    background-color: blueviolet;
-    /* whatever styles you want to apply */
+    border-color: blueviolet;
   }
   
   .mother-background-footer {
     background-image: url('../../assets/images/layout2/Creations_2.png');
     background-size: contain;
+  }
+
+  .recipient{
+    background-color: white !important;
+  }
+
+  .recipient:hover {
+    border-color: blueviolet !important;
+  }
+
+  .recipient-selected{
+    background-color: blueviolet !important;
+    color: white;
   }
   
   .cursor {
