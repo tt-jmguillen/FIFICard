@@ -24,7 +24,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-sm-12 mb-4">
-                        <app-imagegrid id="{{id}}" *ngIf="card && card.type != 'ecard'"></app-imagegrid>
+                        <app-imagegrid id="{{id}}" *ngIf="card && card.type != 'ecard'" [glittered]="isGlittered()"></app-imagegrid>
                         <app-ecard-image-grid id="{{id}}" *ngIf="card && card!.type == 'ecard'"></app-ecard-image-grid>
                         <app-rating id2="{{id}}" class="d-sm-none d-md-block"></app-rating>
                     </div>

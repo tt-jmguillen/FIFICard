@@ -2,7 +2,6 @@
     <div class="card-body text-center main-img align-middle">
         <img class="main" [src]="url" *ngIf="url!=''" (click)="click()">
         <img [src]="defaulurl" *ngIf="url==''">
-        <!-- <div style="width:100%;height:100%;position:absolute;background:url('https://img1.picmix.com/output/stamp/normal/9/6/4/6/1606469_f1f53.gif')"> 
-        </div> -->
+        <div *ngIf="isGlittered" style="width:100%;height:100%;position:absolute;background:url('https://img1.picmix.com/output/stamp/normal/9/6/4/6/1606469_f1f53.gif')"></div>
     </div>
 </div>

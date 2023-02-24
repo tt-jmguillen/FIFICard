@@ -69,8 +69,6 @@ export class DetailComponent implements OnInit {
       this.id = params['id'];
       this.loadCard();
     });
-
-    console.log(this.orderEnable);
   }
 
   loadCard() {
@@ -191,5 +189,9 @@ export class DetailComponent implements OnInit {
 
   onBack() {
     this.location.back();
+  }
+
+  isGlittered(){
+    return (this.card!.types!.findIndex(x => x == 'GLITTERED') >= 0);
   }
 }

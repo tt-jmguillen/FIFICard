@@ -11,6 +11,9 @@ export class ImagegridViewComponent implements OnInit {
     this.url = '';
     this.loadImage(_img);
   }
+  @Input() set glittered(_glittered: boolean){
+    this.isGlittered = _glittered;
+  }
   @Output() select: EventEmitter<string> = new EventEmitter<string>();
 
   service: ImageService;
@@ -23,6 +26,7 @@ export class ImagegridViewComponent implements OnInit {
 
   defaulurl: string = '/assets/images/loading.gif';
   url: string = '';
+  isGlittered: Boolean = false;
 
   ngOnInit(): void {
   }
