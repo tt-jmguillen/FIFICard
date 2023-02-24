@@ -25,6 +25,9 @@ export class ImagegridComponent implements OnInit {
   @Input() set id(_id: string) {
     this.loadImage(_id);
   }
+  @Input() set glittered(_glittered: boolean){
+    this.isGlittered = _glittered;
+  }
   @ViewChild('lightbox') lightbox: LightboxComponent;
 
   service: CardService;
@@ -45,6 +48,7 @@ export class ImagegridComponent implements OnInit {
   isGalleryAvailable: boolean = false;
   lightboxImages: LightboxImage[] = [];
   title: string = '';
+  isGlittered: boolean = false;
 
   ngOnInit(): void { }
 
