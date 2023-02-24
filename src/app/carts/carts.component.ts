@@ -120,36 +120,40 @@ export class CartsComponent implements OnInit, AfterViewInit {
 
   loadUserCard() {
     this.collection = [];
-    this.userService.getUser(this.uid).then(user => {
+    this.userService.subscribeUser(this.uid).subscribe(user => {
       this.carts = user.carts;
       this.ecarts = user.ecarts;
 
-      if (this.carts.length > 0) {
-        this.carts.forEach(async cart => {
-          let order = await this.orderService.getOrder(cart);
-          let card = await this.cardService.getACard(order.card_id!);
-          let col = new Collection(order.id!);
-          col.loadOrder(order);
-          col.loadCard(card);
-          col.order = order;
-          col.card = card;
-          this.collection.push(col);
-          this.computeTotal();
-        });
+      if (this.carts){
+        if (this.carts.length > 0) {
+          this.carts.forEach(async cart => {
+            let order = await this.orderService.getOrder(cart);
+            let card = await this.cardService.getACard(order.card_id!);
+            let col = new Collection(order.id!);
+            col.loadOrder(order);
+            col.loadCard(card);
+            col.order = order;
+            col.card = card;
+            this.collection.push(col);
+            this.computeTotal();
+          });
+        }
       }
 
-      if (this.ecarts.length > 0) {
-        this.ecarts.forEach(async cart => {
-          let order = await this.orderService.getECardOrder(cart);
-          let card = await this.cardService.getACard(order.card_id!);
-          let col = new Collection(order.id!);
-          col.loadOrder(order);
-          col.loadCard(card);
-          col.order = order;
-          col.card = card;
-          this.collection.push(col);
-          this.computeTotal();
-        });
+      if (this.ecarts){
+        if (this.ecarts.length > 0) {
+          this.ecarts.forEach(async cart => {
+            let order = await this.orderService.getECardOrder(cart);
+            let card = await this.cardService.getACard(order.card_id!);
+            let col = new Collection(order.id!);
+            col.loadOrder(order);
+            col.loadCard(card);
+            col.order = order;
+            col.card = card;
+            this.collection.push(col);
+            this.computeTotal();
+          });
+        }
       }
     })
   }
@@ -223,16 +227,19 @@ export class CartsComponent implements OnInit, AfterViewInit {
   }
 
   delete(value: string) {
-    let ids: string[] = [];
-    this.collection.reverse().forEach((item, index) => {
-      if ((item.id == value) || (item.parent == value)) {
-        ids.push(item.id);
+    if (this.carts){
+      let index = this.carts.findIndex(x => x == value);
+      if (index >= 0){
+        this.carts.splice(index, 1);
+        this.userService.removeItemOnCart(this.uid, value);
       }
-    })
-    if (ids.length > 0) {
-      this.userService.removeItemsOnCart(this.uid, ids).then(carts => {
-        this.loadUserCard();
-      })
+    }
+    if (this.ecarts){
+      let index = this.ecarts.findIndex(x => x == value);
+      if (index >= 0){
+        this.ecarts.splice(index, 1);
+        this.userService.removeItemOnECart(this.uid, value);
+      }
     }
   }
 
