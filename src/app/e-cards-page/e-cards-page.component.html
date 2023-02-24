@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-6 mb-4" *ngFor="let event of events">
                     <app-ecard-event [event]="event"></app-ecard-event>
-                </div>  
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12 mb-4">
@@ -34,7 +34,26 @@
                     <br /> <br />
                     <img src="assets/images/ecards/implored.jpg">
                     <br /> <br />
-                    <a [routerLink]="['/gifts']"> <img src="assets/images/banner/shop-gifts.png"></a>
+                    <!-- <a [routerLink]="['/gifts']" > <img src="assets/images/banner/shop-gifts.png"></a> -->
+                    <div class="purple-box">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img src="assets/images/banner/option/banner.png">
+                            </div>
+                            <div class="col-md-4">
+                                <a [routerLink]="['/events']" class="to-link"><img
+                                        src="assets/images/banner/option/event.png"></a>
+                            </div>
+                            <div class="col-md-4">
+                                <a [routerLink]="['/postcards']" class="to-link"><img
+                                        src="assets/images/banner/option/postcard.png"></a>
+                            </div>
+                            <div class="col-md-4">
+                                <a [routerLink]="['/specialtycardpage']" class="to-link"><img
+                                        src="assets/images/banner/option/specialty.png"></a>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
