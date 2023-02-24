@@ -50,7 +50,39 @@ export const environment = {
   ],
   us:['us.fibeigreetings.com', 'fibeigreetings.us'],
   sg:['sg.fibeigreetings.com', 'fibeigreetings.sg'],
-  ecardexpiry: 30
+  ecardexpiry: 30,
+  accounts:{
+    facebook:{
+      ph: "https://www.facebook.com/fibeigreetings",
+      sg: "https://www.facebook.com/fibeigreetings",
+      us: "https://www.facebook.com/fibeigreetings"
+    },
+    instagram:{
+      ph: "https://www.instagram.com/fibeigreetings_",
+      sg: "https://www.instagram.com/fibeigreetings_",
+      us: "https://www.instagram.com/fibeigreetings_usa"
+    },
+    twitter:{
+      ph: "https://twitter.com/fibeigreetings",
+      sg: "https://twitter.com/fibeigreetings",
+      us: "https://twitter.com/FiBeiUsaG"
+    },
+    tiktok:{
+      ph: "https://www.tiktok.com/@fibeigreetings",
+      sg: "https://www.tiktok.com/@fibeigreetings",
+      us: "https://www.tiktok.com/@fibei.greetings.usa"
+    },
+    youtube:{
+      ph: "https://www.youtube.com/channel/UCaxLPWhwZxDCxRX3ztHvPBQ",
+      sg: "https://www.youtube.com/channel/UCaxLPWhwZxDCxRX3ztHvPBQ",
+      us: "https://www.youtube.com/channel/UCauzeUZQ8Ikrlyy18uU9DHQ"
+    },
+    pinterest:{
+      ph: "https://www.pinterest.ph/FibeiGreetings/_saved",
+      sg: "https://www.pinterest.ph/FibeiGreetings/_saved",
+      us: "https://www.pinterest.ph/FiBeiGreetingsUSA/"
+    }
+  }
 };
 
 /*
