@@ -40,9 +40,7 @@ export class StickersCardsComponent implements OnInit {
   cards: Card[] = [];
 
   ngOnInit(): void {
-    document.getElementById("top")!.scrollIntoView();
     this.activateRoute.params.subscribe(params => {
-      console.log(params['id'])
       if (params['id']) {
         this.eventService.getById(params['id']).then(event => {
           this.caption = event.name!;

@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { PriceService } from './../services/price.service';
 import { SettingService } from './../services/setting.service';
 import { RecipientService } from './../services/recipient.service';
@@ -25,10 +26,10 @@ export class Page {
   styleUrls: ['./card-list.component.scss']
 })
 export class CardListComponent implements OnInit {
-  @Input() set cards(_cards: Card[]){
-      this.allCards = _cards;
-      this.getTypes();
-      this.loadRecipients();
+  @Input() set cards(_cards: Card[]) {
+    this.allCards = _cards;
+    this.getTypes();
+    this.loadRecipients();
   }
   @Input() priority: string;
   @Input() recipient: string;
@@ -39,6 +40,7 @@ export class CardListComponent implements OnInit {
   recipientService: RecipientService;
   settingService: SettingService;
   priceService: PriceService;
+  scroller: ViewportScroller
 
   recipientConfig: Recipient[] = [];
 
@@ -69,15 +71,17 @@ export class CardListComponent implements OnInit {
   constructor(
     _recipientService: RecipientService,
     _settingService: SettingService,
-    _priceService: PriceService
+    _priceService: PriceService,
+    _scroller: ViewportScroller
   ) {
     this.recipientService = _recipientService;
     this.settingService = _settingService;
     this.priceService = _priceService;
+    this.scroller = _scroller;
   }
 
   ngOnInit(): void {
-    
+
   }
 
   loadRecipients() {
@@ -139,8 +143,8 @@ export class CardListComponent implements OnInit {
       }
     }
 
-    this.initializeBatch();
-    this.loadBatch(1);
+    this.displayCards = [];
+    this.loadItems();
   }
 
   getPrice(card: Card): number {
@@ -242,6 +246,7 @@ export class CardListComponent implements OnInit {
   onRecipientClick(recipient: string) {
     this.selectedRecipient = recipient;
     this.filterCards = this.filterForRecipient();
+    this.displayCards = [];
     this.applyDisplayFilterAndSort();
   }
 
@@ -291,18 +296,14 @@ export class CardListComponent implements OnInit {
       this.batchCount = 1;
     }
 
+    let cnt: number = 1;
     for (let i = 1; i <= this.batchCount; i++) {
       let page: Page = new Page(i);
+      page.start = cnt;
       page.end = i * this.batchLimit;
       if (page.end > this.sortCards.length)
-        page.end = this.sortCards.length;
-      if (this.sortCards.length > this.batchLimit)
-        page.start = page.end - (this.batchLimit - 1);
-      else
-        page.start = 1;
-
-      //page.display = `${this.page} ${i} ${this.of} ${this.batchCount}`;
-      //page.showing = `${this.showing} ${page.start} - ${page.end} ${this.to} ${this.sortCards.length} ${this.items}`;
+        page.end = this.sortCards.length
+      cnt = page.end + 1;
       this.pages.push(page);
     }
   }
@@ -343,12 +344,10 @@ export class CardListComponent implements OnInit {
 
   clickNext() {
     this.loadBatch(this.index + 1);
-    document.getElementById("data-top")!.scrollIntoView();
   }
 
   clickPrev() {
     this.loadBatch(this.index - 1);
-    document.getElementById("data-top")!.scrollIntoView();
   }
 
   changeBudget(event: any) {
@@ -384,5 +383,15 @@ export class CardListComponent implements OnInit {
     if (this.filterCards.length > 0) {
       this.applyDisplayFilterAndSort();
     }
+  }
+
+  loadItems(){
+    let start = this.displayCards.length + 1;
+    let end = this.displayCards.length + this.batchLimit + 1;
+    this.displayCards = [...this.displayCards, ...this.sortCards.slice(start-1, end-1)];
+  }
+
+  onLoadMoreClick(){
+    this.loadItems();
   }
 }

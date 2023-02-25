@@ -36,7 +36,6 @@ export class PoetryCardsComponent implements OnInit {
   cards: Card[] = [];
 
   ngOnInit(): void {
-    document.getElementById("top")!.scrollIntoView();
     this.activateRoute.params.subscribe(params => {
       if (params['id']) {
         this.service.getById(params['id']).then(event => {
