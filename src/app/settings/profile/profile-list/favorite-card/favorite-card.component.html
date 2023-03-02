@@ -7,6 +7,6 @@
         <span>{{'profile.description'|translate}}: </span><span class="bold">{{card.description}}</span><br />
         <span>{{'profile.event'|translate}}: </span><span class="bold">{{card.event}}</span><br />
         <span>{{'profile.recipient'|translate}}: </span><span class="bold">{{card.recipient}}</span><br />
-        <span>{{'profile.price'|translate}}: </span><span class="bold">{{card.price}}</span>
+        <span>{{'profile.price'|translate}}: </span><span class="bold">{{priceService.getSign()}} {{getPrice().toFixed(2)}}</span>
     </div>
 </div>

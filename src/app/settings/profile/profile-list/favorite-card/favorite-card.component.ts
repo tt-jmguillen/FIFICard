@@ -1,3 +1,4 @@
+import { PriceService } from './../../../../services/price.service';
 import { ImageService } from 'src/app/services/image.service';
 import { CardService } from 'src/app/services/card.service';
 import { Card } from 'src/app/models/card';
@@ -13,13 +14,16 @@ export class FavoriteCardComponent implements OnInit {
 
   cardService: CardService;
   imageService: ImageService;
+  priceService: PriceService;
 
   constructor(
     _cardService: CardService,
-    _imageService: ImageService
+    _imageService: ImageService,
+    _priceService: PriceService
   ) { 
     this.cardService = _cardService;
-    this.imageService = _imageService
+    this.imageService = _imageService;
+    this.priceService = _priceService;
   }
 
   url: string;
@@ -40,6 +44,20 @@ export class FavoriteCardComponent implements OnInit {
       let ecardimage = ecardimages.find(x => x.title == 'preview');
       this.url = await this.imageService.getImageURL(ecardimage!.url);
     }
+  }
+
+  getPrice(): number {
+    let type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED' = 'STANDARD'
+    if (this.card!.types!.findIndex(x => x == 'STANDARD') >= 0) {
+      type = 'STANDARD';
+    }
+    else if (this.card!.types!.findIndex(x => x == 'GLITTERED') >= 0) {
+      type = 'GLITTERED';
+    }
+    if (this.card!.types!.findIndex(x => x == 'EMBOSSED') >= 0) {
+      type = 'EMBOSSED';
+    }
+    return this.priceService.getPrice(this.card!, type)
   }
 
 }
