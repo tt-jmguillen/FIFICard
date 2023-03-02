@@ -136,13 +136,13 @@ export class ECardOrderComponent implements OnInit {
   }
 
   keepShopping(){
-    this.modalRef.close();
-    this.router.navigate(['/e-cards']);
+    this.modalRef.close('');
+    window.location.href = "/e-cards";
   }
 
   cart(){
     this.modalRef.close('');
-    this.router.navigate(['/cart']);
+    window.location.href = "/cart";
   }
 
   onBack() {
