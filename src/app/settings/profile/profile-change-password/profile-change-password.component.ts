@@ -10,13 +10,11 @@ import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } fro
   styleUrls: ['./profile-change-password.component.scss']
 })
 export class ProfileChangePasswordComponent implements OnInit {
-  modalService: NgbModal;
   uid: string;
+
+  modalService: NgbModal;
   userService: UserService;
   user: User;
-  fb: UntypedFormBuilder;
-  form: UntypedFormGroup;
-  modal: NgbModalRef;
 
   constructor(
     private _modalService: NgbModal,
@@ -27,6 +25,11 @@ export class ProfileChangePasswordComponent implements OnInit {
     this.userService = _userService;
     this.fb = _fb;
   }
+
+  fb: UntypedFormBuilder;
+  form: UntypedFormGroup;
+  modal: NgbModalRef;
+  submitted: boolean = false;
 
   open(content: any) {
     this.modal = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
@@ -55,7 +58,7 @@ export class ProfileChangePasswordComponent implements OnInit {
   }
 
   save(){
-    //g(this.form.value);
+    this.submitted = true;
     if (this.form.valid)
     {
       if (this.form.value.newpassword == this.form.value.confirm)
@@ -63,7 +66,16 @@ export class ProfileChangePasswordComponent implements OnInit {
         this._userService.changePassword(this.user.email, this.form.value.password, this.form.value.confirm);
         this.modal.close("Done");
       }
+      else{
+        this.form.controls['newpassword'].setErrors({ 'mismatch': true })
+        this.form.controls['confirm'].setErrors({ 'mismatch': true })
+        return;
+      }
     }
+  }
+
+  controls() {
+    return this.form.controls;
   }
 
 }
