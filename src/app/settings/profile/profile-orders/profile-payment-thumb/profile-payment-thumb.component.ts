@@ -26,7 +26,6 @@ export class ProfilePaymentThumbComponent implements OnInit {
   getPayment(id: string) {
     this.paymentService.getPayment(id).then(payment => {
       this.payment = payment;
-      //console.log(this.payment.orders)
     })
   }
 

@@ -59,7 +59,6 @@ export class MessageComponent implements OnInit {
   }
 
   textareaKeyup(event: any){
-    //console.log(event.target.value);
     this.items.forEach(item => {
       if (item.id == this.selected.id){
         item.text = event.target.value;

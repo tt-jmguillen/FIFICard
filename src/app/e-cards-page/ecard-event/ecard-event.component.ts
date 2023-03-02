@@ -35,7 +35,6 @@ export class ECardEventComponent implements OnInit {
 
   loadImage(){
     this.imageService.getImageURL(this.event.thumbnail).then(url => {
-      console.log(url);
       this.url = url;
       this.def.detectChanges();
     })

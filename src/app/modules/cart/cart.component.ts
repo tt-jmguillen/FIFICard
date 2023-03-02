@@ -27,7 +27,6 @@ export class CartComponent implements OnInit {
         if (user.ecarts){
           this.count += user.ecarts.length;
         }
-        console.log(user);
       })
     }
   }

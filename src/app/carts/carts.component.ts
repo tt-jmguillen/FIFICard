@@ -16,7 +16,7 @@ import { ICreateOrderRequest, IPayPalConfig, ITransactionItem } from 'ngx-paypal
   styleUrls: ['./carts.component.scss']
 })
 
-export class CartsComponent implements OnInit, AfterViewInit {  
+export class CartsComponent implements OnInit, AfterViewInit {
   userService: UserService;
   orderService: OrderService;
 
@@ -54,31 +54,33 @@ export class CartsComponent implements OnInit, AfterViewInit {
       if (user.carts) {
         user.carts.forEach(async cart => {
           let order = await this.orderService.getOrder(cart);
-          if (order.location == 'us') {
-            this.usOrder.push(order);
+          if (order) {
+            if (order.location == 'us') {
+              this.usOrder.push(order);
+            }
+            else if (order.location == 'sg') {
+              this.sgOrder.push(order);
+            }
+            else {
+              this.phOrder.push(order);
+            }
           }
-          else if (order.location == 'sg') {
-            this.sgOrder.push(order);
-          }
-          else {
-            this.phOrder.push(order);
-          }
-
-
         });
       }
 
       if (user.ecarts) {
         user.ecarts.forEach(async cart => {
           let order = await this.orderService.getECardOrder(cart);
-          if (order.location == 'us') {
-            this.usOrder.push(order);
-          }
-          else if (order.location == 'sg') {
-            this.sgOrder.push(order);
-          }
-          else {
-            this.phOrder.push(order);
+          if (order) {
+            if (order.location == 'us') {
+              this.usOrder.push(order);
+            }
+            else if (order.location == 'sg') {
+              this.sgOrder.push(order);
+            }
+            else {
+              this.phOrder.push(order);
+            }
           }
         });
       }

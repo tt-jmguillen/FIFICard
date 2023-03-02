@@ -85,7 +85,6 @@ export class DetailComponent implements OnInit {
   }
 
   checkIfLoggedIn(id: any): void {
-    console.log(this.orderEnable)
     if (this.orderEnable){
       let userDetails: string = localStorage.getItem('user')!;
       if (userDetails == null || userDetails.length < 0) {

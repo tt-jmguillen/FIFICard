@@ -44,7 +44,6 @@ export class PageComponent implements OnInit {
 
           this.htmlString = html;
         }).catch(reason => {
-          //console.log(reason);
         })
       });
     });

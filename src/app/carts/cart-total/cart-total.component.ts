@@ -23,7 +23,7 @@ export class CartTotalComponent implements OnInit {
 
   @Input() set orders(_orders: any[]) {
     this.allOrders = _orders;
-    this.selected = this.allOrders;
+    this.selected = JSON.parse(JSON.stringify(_orders));
     this.calculateTotal();
   }
 
@@ -93,9 +93,6 @@ export class CartTotalComponent implements OnInit {
   }
 
   async delete(id: string) {
-    let index = this.selected.findIndex(x => x.id! == id);
-    this.selected.splice(index, 1);
-
     let order = this.allOrders.find(x => x.id! == id);
     let card: Card = await this.cardService.getACard(order.card_id);
 
@@ -105,6 +102,9 @@ export class CartTotalComponent implements OnInit {
     else {
       this.userService.removeItemOnECart(this.uid, order.id!);
     }
+
+    let index = this.selected.findIndex(x => x.id! == id);
+    this.selected.splice(index, 1);
 
     index = this.allOrders.findIndex(x => x.id! == id);
     this.allOrders.splice(index, 1);

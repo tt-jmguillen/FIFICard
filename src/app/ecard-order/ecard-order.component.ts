@@ -123,7 +123,6 @@ export class ECardOrderComponent implements OnInit {
     order.location = this.priceService.location;
     
     this.orderService.createECardOrder(order).then(id => {
-      console.log(id);
       this.userService.addItemOnECart(this.uid, id);
       this.saving = false;
       this.def.detectChanges();  
@@ -131,7 +130,6 @@ export class ECardOrderComponent implements OnInit {
     }).catch(err => {
       this.saving = false;
       this.def.detectChanges(); 
-      console.log(err);
     })
   }
 

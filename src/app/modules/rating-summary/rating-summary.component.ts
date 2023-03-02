@@ -48,13 +48,10 @@ export class RatingSummaryComponent implements OnInit {
   ngOnInit(): void {
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.userDetails = userDetails;
-    //g("userDetails ->", userDetails);
     this.isLogIn = userDetails == null || userDetails.length < 0 ? true : false;
-    //console.log("isLogIn ->", String(this.isLogIn));
 
     this.norecords = true;
     this.service.getRatings(this.cardId!).then(data => {
-      //console.log(">>>>: " + JSON.stringify(data));
       if (data.length > 0) {
         data.forEach(rating => {
           if (rating.approve) {
@@ -86,7 +83,6 @@ export class RatingSummaryComponent implements OnInit {
         this.currentRateStr = Number.isNaN(this.currentRate) ? '0' : this.currentRate.toFixed(1);
       }
     }).catch(reason => {
-      //g(reason);
       this.norecords = true;
     });
 
@@ -101,7 +97,6 @@ export class RatingSummaryComponent implements OnInit {
     this.dialogRef = this.dialog.open(ReviewComponent, dialogConfig);
 
     this.dialogRef.afterClosed().subscribe(data => {
-      //console.log("rating2: " + JSON.stringify(data));
       this.rating = data as Rating;
       if (this.rating.title != undefined) {
         this._service.addRating(this.cardId!, this.rating);

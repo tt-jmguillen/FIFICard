@@ -62,7 +62,6 @@ export class CardService {
         .where('events', "array-contains", _event.trim())
         .limit(limit)
       ).get().subscribe(data => {
-        console.log(_event, data)
         if (!data.empty) {
           let cards: Card[] = [];
           data.forEach(doc => {
@@ -401,8 +400,6 @@ export class CardService {
   }
 
   async addRating(id: string, rating: Rating): Promise<string> {
-    //console.log("AddRating id: " + id);
-    //console.log("AddRating rating: " + JSON.stringify(rating));
     return new Promise(resolve => {
       this.db.collection('cards').doc(id).collection('ratings').add({
         date: Timestamp.now(),

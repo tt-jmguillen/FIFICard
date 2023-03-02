@@ -90,8 +90,4 @@ export class SamplePlayerComponent implements OnInit {
       })
     });
   }
-
-  test(event: any){
-    console.log(event);
-  }
 }

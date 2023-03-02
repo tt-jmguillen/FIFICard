@@ -45,7 +45,6 @@ export class ECardImageGridComponent implements OnInit {
           this.url = url;
           this.def.detectChanges();
           this.lightboxImages.push(new LightboxImage(1, url, 'Preview'));
-          console.log(this.lightboxImages)
         })
       }
     })

@@ -3,19 +3,11 @@
     <ng-container ngbNavItem>
         <a ngbNavLink>{{'profile.favorites'|translate}}</a>
         <ng-template ngbNavContent>
-            <div class="fav-card" *ngFor="let userFavorite of userFavorites">
-                <div class="row" *ngIf="userFavorite.card">
-                    <div class="col-md-9 col-sm-12">
-                        <a [routerLink]="['/card/{{userFavorite.card!.id}}']"
-                            class="bold">{{userFavorite.card!.name}}</a><br />
-                        <span>{{'profile.description'|translate}}: </span><span
-                            class="bold">{{userFavorite.card!.description}}</span><br />
-                        <span>{{'profile.event'|translate}}: </span><span class="bold">{{userFavorite.card!.event}}</span><br />
-                        <span>{{'profile.recipient'|translate}}: </span><span class="bold">{{userFavorite.card!.recipient}}</span><br />
-                        <span>{{'profile.price'|translate}}: </span><span class="bold">{{userFavorite.card!.price}}</span>
-                    </div>
-                    <div class="col-md-3 col-sm-12 img-div">
-                        <img src="{{userFavorite.image}}" class="thumbnail">
+            <div class="w-100 border-top px-3">
+                <app-favorite-card *ngFor="let card of cards" [card]="card"></app-favorite-card>
+                <div class="row" *ngIf="start < favorites.length">
+                    <div class="col-12 mt-2 d-grid">
+                        <button type="button" class="btn btn-info btn-sm rounded-0" (click)="onLoadMore()">Load More</button>
                     </div>
                 </div>
             </div>

@@ -80,7 +80,6 @@ export class ProfileShippingAddressComponent implements OnInit {
   loadUser() {
     this.userService.getUser(this.uid).then(user => {
       this.user = user;
-      console.log(user);
       if (this.user.address) {
         this.loadAddress(this.user.address);
       }

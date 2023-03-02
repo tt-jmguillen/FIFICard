@@ -128,6 +128,7 @@ import { PlayComponent } from './play/play.component';
 import { StickersCardsComponent } from './stickers-cards/stickers-cards.component';
 import { PoetryCardsComponent } from './poetry-cards/poetry-cards.component';
 import { CartTotalComponent } from './carts/cart-total/cart-total.component';
+import { FavoriteCardComponent } from './settings/profile/profile-list/favorite-card/favorite-card.component';
 
 @NgModule({
   declarations: [
@@ -230,7 +231,8 @@ import { CartTotalComponent } from './carts/cart-total/cart-total.component';
     PlayComponent,
     StickersCardsComponent,
     PoetryCardsComponent,
-    CartTotalComponent
+    CartTotalComponent,
+    FavoriteCardComponent
   ],
   imports: [
     BrowserModule,

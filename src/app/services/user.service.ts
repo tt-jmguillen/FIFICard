@@ -176,7 +176,7 @@ export class UserService {
         user.ecarts.splice(index, 1);
         const data = doc(this.store, 'users/' + userId);
         updateDoc(data, {
-          carts: user.ecarts
+          ecarts: user.ecarts
         });
         resolve()
       }).catch(err => {

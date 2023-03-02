@@ -38,7 +38,6 @@ export class SuggestionListComponent implements OnInit {
 
   ngOnInit() {
     this.isMobile = window.innerWidth <= 500;
-    //console.log(this.isMobile);
     this.getEventCard(this.card.events![0]);
   }
 
@@ -81,7 +80,6 @@ export class SuggestionListComponent implements OnInit {
         this.service.getImageURL(image).then(url => {
           resolve(url);
         }).catch(err => {
-          console.log(err);
         })
       });
     });

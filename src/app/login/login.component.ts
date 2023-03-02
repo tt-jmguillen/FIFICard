@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
         //isAuthenticated: this.isAuthenticated
       });
     }catch(ex){
-      console.log('Method not implemented.' + ex);
 
       const _users = this.authProcess.user$.pipe(
         take(1),
@@ -53,21 +52,18 @@ export class LoginComponent implements OnInit {
   }
 
   printUser(event: any) {
-    //console.log("onSuccess event ->", event);
     this.error = false;
     this.index = 2;
     //this.isAuthenticated = true;
   }
 
   printError(event: any) {
-    //console.error("onError event --> ", event);
     this.error = true;
     //this.isAuthenticated = false;
     // this.snackbar.open(event.message, 'OK', {duration: 5000});
   }
   
   onTabChange(event: MatTabChangeEvent) {
-    //console.log("on tab change: ", event);
   }
 
 

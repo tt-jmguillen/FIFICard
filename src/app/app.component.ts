@@ -38,9 +38,7 @@ export class AppComponent {
 
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.userDetails = userDetails;
-    //console.log("userDetails ->",  userDetails);
     this.isLogIn = userDetails == null || userDetails.length < 0 ? true : false;
-    //console.log("isLogIn ->",   String(this.isLogIn));
   }
 
   openLoginDialog(id: any): void {
@@ -51,7 +49,6 @@ export class AppComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      //console.log('The dialog was closed', result);
 
       const _users = this.authProcess.user$.pipe(
         take(1),
@@ -62,12 +59,8 @@ export class AppComponent {
 
       _users.subscribe(userDetails => {
         this.userDetails = userDetails;
-        //console.log("displayName ->",  userDetails?.displayName);
-        //console.log("emailVerified ->",  userDetails?.emailVerified);
-        //console.log("IdToken ->",  userDetails?.getIdToken());
 
         this.isLogIn = userDetails == null ? true : false;
-        //console.log("isLogIn ->",  String(this.isLogIn));
 
         if (!this.isLogIn) {
           localStorage.setItem("user", JSON.stringify(userDetails));
@@ -80,7 +73,6 @@ export class AppComponent {
   }
 
   signOut(): void {
-    //console.log("Sign Out");
     this.isLogIn = true;
     localStorage.removeItem("user");
     this.auth

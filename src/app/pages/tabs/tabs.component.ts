@@ -11,7 +11,6 @@ export class TabsComponent implements OnInit {
 
   ngOnInit(): void {
     let userDetails: string = localStorage.getItem('user')!;
-    //console.log(userDetails);
     this.loggedInUser = userDetails == null || userDetails.length < 0 ? false : true;
 
   }

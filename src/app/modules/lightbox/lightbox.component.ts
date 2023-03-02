@@ -9,7 +9,6 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 })
 export class LightboxComponent implements OnInit {
   @Input() set images(_images: LightboxImage[]) {
-    console.log(_images)
     this.loadImages(_images);
   }
   @Input() set title(_title: string) {
@@ -55,7 +54,6 @@ export class LightboxComponent implements OnInit {
   }
 
   change(_id: number) {
-    console.log(this.items);
     if (_id == 0) {
       if (this.current.id == 0) {
         this.current = this.items[this.items.findIndex(x => x.id == 1)];

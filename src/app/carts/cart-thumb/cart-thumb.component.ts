@@ -61,7 +61,6 @@ export class CartThumbComponent implements OnInit {
     this.cardService.getPrimaryImage(id).then(img => {
       this.url = img;
     }).catch(err => {
-      console.log(err);
     })
   }
 
