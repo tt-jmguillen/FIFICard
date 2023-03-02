@@ -100,6 +100,17 @@ export class PriceService {
     return this.location;
   }
 
+  public locationSign(location: 'ph' | 'sg' | 'us'){
+    let value: string = '₱';
+    if (location == 'sg') {
+      value = 'S$'
+    }
+    else if (location == 'us') {
+      value = '$'
+    }
+    return value;
+  }
+
   public getPrice(card: Card, type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED'): number {
     let value: number = 0;
 

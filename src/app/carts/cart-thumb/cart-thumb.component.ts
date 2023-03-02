@@ -12,9 +12,10 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./cart-thumb.component.scss']
 })
 export class CartThumbComponent implements OnInit {
-  @Input() order: Order;
-  @Input() card: Card;
-  @Input() selected: boolean;
+  @Input() order: any;
+  @Input() set selected(_selected: boolean){
+    this.mark = _selected
+  }
   @Output() updateOrder: EventEmitter<Order> = new EventEmitter<Order>();
   @Output() updateCard: EventEmitter<[string, Card]> = new EventEmitter<[string, Card]>();
   @Output() changeInclude: EventEmitter<[string, boolean]> = new EventEmitter<[string, boolean]>();
@@ -24,8 +25,6 @@ export class CartThumbComponent implements OnInit {
   cardService: CardService;
   imageService: ImageService;
   def: ChangeDetectorRef;
-
-  url: string;
 
   constructor(
     _orderService: OrderService,
@@ -39,11 +38,23 @@ export class CartThumbComponent implements OnInit {
     this.def = _def;
   }
 
+  card: Card;
+  url: string;
+  mark: boolean;
+
   ngOnInit(): void {
-    if (this.card.type != 'ecard')
-      this.loadImage(this.card.id!);
-    else
-      this.loadECardImage(this.card.id!);
+    this.loadCard();
+  }
+
+  loadCard() {
+    this.cardService.getACard(this.order.card_id!).then(card => {
+      this.card = card;
+
+      if (card.type != 'ecard')
+        this.loadImage(card.id!);
+      else
+        this.loadECardImage(card.id!);
+    })
   }
 
   loadImage(id: string) {
@@ -74,8 +85,8 @@ export class CartThumbComponent implements OnInit {
   }
 
   updateInclude() {
-    this.selected = !this.selected;
-    this.changeInclude.emit([this.order.id!, this.selected]);
+    this.selected = !this.mark;
+    this.changeInclude.emit([this.order.id!, this.mark]);
   }
 
   delete() {

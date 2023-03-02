@@ -62,6 +62,7 @@ export class CardService {
         .where('events', "array-contains", _event.trim())
         .limit(limit)
       ).get().subscribe(data => {
+        console.log(_event, data)
         if (!data.empty) {
           let cards: Card[] = [];
           data.forEach(doc => {

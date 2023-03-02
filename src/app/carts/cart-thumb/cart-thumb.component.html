@@ -1,6 +1,6 @@
-<div class="row border d-flex justify-content-center" *ngIf="order">
+<div class="row border-start border-end border-bottom py-2 d-flex justify-content-center" *ngIf="order && card">
     <div class="col-md-1 col-2 allign-center valign-center">
-        <input type="checkbox" [checked]="selected" (change)="updateInclude()">
+        <input type="checkbox" [checked]="mark" (change)="updateInclude()">
     </div>
     <div class="col-md-1 col-10 valign-center text-center">
         <app-image-loader [img]="url"></app-image-loader>

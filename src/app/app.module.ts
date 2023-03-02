@@ -127,6 +127,7 @@ import { ECardOrderComponent } from './ecard-order/ecard-order.component';
 import { PlayComponent } from './play/play.component';
 import { StickersCardsComponent } from './stickers-cards/stickers-cards.component';
 import { PoetryCardsComponent } from './poetry-cards/poetry-cards.component';
+import { CartTotalComponent } from './carts/cart-total/cart-total.component';
 
 @NgModule({
   declarations: [
@@ -228,7 +229,8 @@ import { PoetryCardsComponent } from './poetry-cards/poetry-cards.component';
     ECardOrderComponent,
     PlayComponent,
     StickersCardsComponent,
-    PoetryCardsComponent
+    PoetryCardsComponent,
+    CartTotalComponent
   ],
   imports: [
     BrowserModule,

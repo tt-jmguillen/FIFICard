@@ -1,75 +1,23 @@
 <ion-content>
     <section class="section-name padding-y-sm">
         <div class="container animate main">
-            <div *ngIf="collection.length == 0">
+            <div *ngIf="(phOrder.length == 0) && (usOrder.length == 0) && (sgOrder.length == 0)">
                 <div class="row border">
                     <div class="col-12 allign-center">
                         <label>{{'cart.noitems'|translate}}</label>
                     </div>
                 </div>
             </div>
-            <div *ngIf="carts.length > 0">
-                <app-cart-thumb *ngFor="let item of collection" [order]="item.order" [card]="item.card" [selected]="item.included" (changeInclude)="changeInclude($event)" (deleteItem)="delete($event)">
-                </app-cart-thumb>
-
-                <div class="row total">
-                    <div class="col-md-1"></div>
-                    <div class="col-12 col-md-9 allign-right">{{'cart.total'|translate}}:</div>
-                    <div class="col-12 col-md-2 allign-right">{{priceService.getSign()}} <strong class="total">{{total | number:'1.2-2'}}</strong></div>
-                </div>
-                <div class="row total" *ngIf="isPayment == false">
-                    <div class="col-md-9"></div>
-                    <div class="col-md-3 col-12 allign-right">
-                        <button class="btn btn-primary full-size" [disabled]="total == 0" (click)="toPay()">To Pay</button>
-                    </div>
-                </div>
-                <div class="row total" *ngIf="priceService.location == 'ph' && isPayment == true">
-                    <div class="col-md-9"></div>
-                    <div class="col-md-3 col-12 allign-right">
-                        <button class="btn btn-primary full-size" [disabled]="total == 0" (click)="payNow(gcash_payment)">{{'cart.payviagcash'|translate}}</button>
-                    </div>
-                </div>
-                <div class="row total" *ngIf="isPayment == true">
-                    <div class="col-md-9"></div>
-                    <div class="col-12 col-md-3 allign-right">
-                        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
-                    </div>
-                </div>
+            <div *ngIf="phOrder.length > 0">
+                <app-cart-total [uid]="uid" [orders]="phOrder" location="ph"></app-cart-total>
+            </div>
+            <div *ngIf="usOrder.length > 0">
+                <app-cart-total [uid]="uid" [orders]="usOrder" location="us"></app-cart-total>
+            </div>
+            <div *ngIf="sgOrder.length > 0">
+                <app-cart-total [uid]="uid" [orders]="sgOrder" location="sg"></app-cart-total>
             </div>
         </div>
-
-        <ng-template #gcash_payment let-modal>
-            <div class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title">{{'cart.scanandpay'|translate}}</h4>
-                <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-12 mb-2 text-center">
-                            <img src="/assets/images/gcash.png" class="mainitem">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 mb-2">
-                            <label class="form-label">{{'cart.totalamount'|translate}}: {{priceService.getSign()}} <strong>{{total | number:'1.2-2'}}</strong></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 mb-2">
-                            <input type="hidden" value="">
-                            <label for="formFile" class="form-label">{{'cart.proofofpayment'|translate}}</label>
-                            <input type="file" id="formFile" class="upload" (change)="uploadFile($event)">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 mb-2">
-                            <button class="btn btn-primary full-size" [disabled]="gcashUploadedFile == ''" (click)="saveTransaction('GCash')">{{'button.submit'|translate}}</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
     </section>
     <app-footer></app-footer>
-</ion-content> 
+</ion-content>
