@@ -20,7 +20,7 @@ class Item {
   public size: number = 20;
   public alignment: string = "left";
 
-  public intialize (_image: string, _code: number, _top: number, _left: number, _width: number, _height: number, _limit: number, _style: string){
+  public intialize(_image: string, _code: number, _top: number, _left: number, _width: number, _height: number, _limit: number, _style: string) {
     this.image = _image;
     this.code = _code;
     this.top = _top;
@@ -31,21 +31,21 @@ class Item {
     this.style = _style;
   }
 
-  public updateText (_text: string, _size: number, _style: string, _alignment: string){
+  public updateText(_text: string, _size: number, _style: string, _alignment: string) {
     this.text = _text;
     this.size = _size;
     this.style = _style;
     this.alignment = _alignment;
   }
 
-  public clear(){
+  public clear() {
     this.text = '';
     this.size = 20;
-    this.alignment = 'left'; 
+    this.alignment = 'left';
   }
 }
 
-class URL{
+class URL {
   public image: string;
   public url: string;
 }
@@ -57,7 +57,7 @@ class URL{
 })
 export class SignAndSendComponent implements OnInit {
   @Output() signAndSendEvent = new EventEmitter<SignAndSendDetails[]>();
-  
+
   id?: string;
   activateRoute: ActivatedRoute;
   service: CardService;
@@ -79,7 +79,7 @@ export class SignAndSendComponent implements OnInit {
     'Lobster',
     'Playball',
     'Courgette',
-    'Smooch', 
+    'Smooch',
     'Zen Loop'
   ];
   items: Item[] = [];
@@ -94,11 +94,11 @@ export class SignAndSendComponent implements OnInit {
   position: number = -1;
 
   ngbModalOptions: NgbModalOptions = {
-    backdrop : 'static',
-    keyboard : false,
+    backdrop: 'static',
+    keyboard: false,
     fullscreen: true
   };
-  
+
   constructor(
     private _activateRoute: ActivatedRoute,
     private _service: CardService,
@@ -106,7 +106,7 @@ export class SignAndSendComponent implements OnInit {
     private _router: Router,
     private _filerService: FilterService,
     private _modalService: NgbModal
-  ) { 
+  ) {
     this.activateRoute = _activateRoute;
     this.service = _service;
     this.orderService = _orderService;
@@ -116,7 +116,7 @@ export class SignAndSendComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const userDetails = JSON.parse(localStorage.getItem('user')!); 
+    const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.uid = userDetails?.uid;
 
     this.activateRoute.params.subscribe(params => {
@@ -129,21 +129,28 @@ export class SignAndSendComponent implements OnInit {
     this.modalRef = this.modalService.open(signandsend, this.ngbModalOptions);
   }
 
-  getImageList(){
-    this.service.getACard(this.id!).then(card => {
-      card.images;
-      this.loadSignAndSend(card.images!);
+  getImageList() {
+    this.service.getImages(this.id!).then(images => {
+      let imgs: string[] = [];
+      images.map(x => x.url).forEach(image => {
+        if (imgs.findIndex(x => x == image) < 0) {
+          imgs.push(image);
+        }
+        this.loadSignAndSend(imgs);
+      })
+
+
     })
   }
 
-  loadSignAndSend(imageList: string[]){
+  loadSignAndSend(imageList: string[]) {
     this.service.getSignAndSend(this.id!).then(data => {
       this.items = [];
       this.images = [];
       this.urls = [];
 
       data.forEach(sign => {
-        if (imageList.indexOf(sign.image) > 0){
+        if (imageList.indexOf(sign.image) >= 0) {
           let item = new Item();
           item.intialize(sign.image, sign.code, sign.top, sign.left, sign.width, sign.height, sign.limit, this.fonts[0]);
           this.items.push(item);
@@ -151,41 +158,36 @@ export class SignAndSendComponent implements OnInit {
       });
 
       this.items.forEach(item => {
-        if (this.images.indexOf(item.image) < 0){
+        if (this.images.indexOf(item.image) <= 0) {
           this.images.push(item.image);
         }
       });
 
-      this.images.forEach(image => {
-        this.service.getImageURL(image).then(imageURL => {
-          let url : URL = new URL();
-          url.image = image;
-          url.url = imageURL;
-          this.urls.push(url);
-
-          if (!this.focusURL){
-            this.updateFocusImage(url);
-          }
-        })
+      imageList.forEach(async image => {
+        let url: URL = new URL();
+        url.image = image;
+        url.url = await this.service.getImageURL(image);;
+        this.urls.push(url);
+        if (!this.focusURL) {
+          this.updateFocusImage(url);
+        }
       });
-
-      
     });
   }
 
-  imageClick(url: URL){
-    if (url.image != this.focusURL.image){
+  imageClick(url: URL) {
+    if (url.image != this.focusURL.image) {
       this.updateDetail(this.focusURL.image);
       this.updateFocusImage(url);
     }
   }
 
-  updateFocusImage(url: URL){
+  updateFocusImage(url: URL) {
     this.focusURL = url;
     this.focusItems = [];
     this.selected = new Item();
     this.items.forEach(sign => {
-      if (sign.image == this.focusURL.image){
+      if (sign.image == this.focusURL.image) {
         let item = new Item();
         item.intialize(sign.image, sign.code, sign.top, sign.left, sign.width, sign.height, sign.limit, this.fonts[0]);
         item.updateText(sign.text, sign.size, sign.style, sign.alignment);
@@ -194,63 +196,63 @@ export class SignAndSendComponent implements OnInit {
     })
   }
 
-  textareaClick(code: number){
+  textareaClick(code: number) {
     this.focusItems.forEach(item => {
-      if (item.code == code){
+      if (item.code == code) {
         this.selected = item;
       }
-    }); 
+    });
     this.message = '';
     this.position = 0;
   }
 
-  textareaKeyup(event: any){
+  textareaKeyup(event: any) {
     this.position = event.target.selectionEnd;
     this.focusItems.forEach(item => {
-      if (item.code == this.selected.code){
+      if (item.code == this.selected.code) {
         item.text = event.target.value;
       }
     });
   }
 
-  areaClick(event: any){
+  areaClick(event: any) {
     if (this.selected)
       this.position = event.target.selectionEnd;
   }
 
-  textareaFocus(event: any){
+  textareaFocus(event: any) {
     this.position = event.target.selectionEnd;
   }
 
-  fontChange(event: any){
+  fontChange(event: any) {
     this.focusItems.forEach(item => {
-      if (item.code == this.selected.code){
+      if (item.code == this.selected.code) {
         item.style = event.target.value;
       }
     });
   }
 
-  sizeChange(event: any){
+  sizeChange(event: any) {
     this.focusItems.forEach(item => {
-      if (item.code == this.selected.code){
+      if (item.code == this.selected.code) {
         item.size = Number(event.target.value);
       }
     });
   }
 
-  alignmentClick(alignment: string){
+  alignmentClick(alignment: string) {
     this.focusItems.forEach(item => {
-      if (item.code == this.selected.code){
+      if (item.code == this.selected.code) {
         item.alignment = alignment;
       }
     });
   }
 
-  updateDetail(image: string){
+  updateDetail(image: string) {
     this.focusItems.forEach(focus => {
       this.items.forEach(item => {
-        if ((item.image == image) && (focus.image == image)){
-          if (item.code == focus.code){
+        if ((item.image == image) && (focus.image == image)) {
+          if (item.code == focus.code) {
             item.updateText(focus.text, focus.size, focus.style, focus.alignment);
           }
         }
@@ -258,18 +260,18 @@ export class SignAndSendComponent implements OnInit {
     });
   }
 
-  clickCancel(){
+  clickCancel() {
     this.modalRef.close('Cancel');
   }
 
-  clickClear(){
+  clickClear() {
     this.message = '';
     this.position = -1;
     this.items.forEach(item => { item.clear(); });
     this.focusItems.forEach(item => { item.clear(); })
   }
 
-  clickDone(){
+  clickDone() {
     this.images.forEach(image => {
       this.updateDetail(image);
     })
@@ -285,8 +287,8 @@ export class SignAndSendComponent implements OnInit {
       detail.height = item.height;
       detail.limit = item.limit;
       detail.style = item.style;
-      detail.text =  item.text;
-      detail.size =  item.size;
+      detail.text = item.text;
+      detail.size = item.size;
       detail.alignment = item.alignment;
       signDetails.push(detail);
     });
@@ -295,20 +297,20 @@ export class SignAndSendComponent implements OnInit {
     this.modalRef.close('Done');
   }
 
-  emoticon(emoji: string){
-    if(this.position == -1){
+  emoticon(emoji: string) {
+    if (this.position == -1) {
       exit;
     }
 
-    if (this.position == this.message.length){
+    if (this.position == this.message.length) {
       this.message += emoji;
     }
-    else{
+    else {
       this.message = this.message.substring(0, this.position) + emoji + this.message.substring(this.position);
     }
 
     this.focusItems.forEach(item => {
-      if (item.code == this.selected.code){
+      if (item.code == this.selected.code) {
         item.text = this.message;
       }
     });

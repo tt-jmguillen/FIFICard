@@ -158,3 +158,26 @@
 .fb_dialog_content > iframe {
     bottom: 70px !important;
 }
+
+.foot{
+    width: 100%;
+    padding-bottom: 0px !important;
+}
+
+.div-images{
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.div-img{
+    height: 100%;
+    border: 1px solid lightgray;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+}
+
+.div-img img{
+    object-fit: contain;
+}

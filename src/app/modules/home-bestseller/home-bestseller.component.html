@@ -4,10 +4,12 @@
     </div>
     <div class="col-md-12 my-panel mb-4">
         <div class="row">
-            <div class="col-md-3 col-6 mt-4 mb-4" *ngFor="let card of randomBestsellerCards; index as i">
+            <div class="col-md-3 col-6 mt-4 mb-4 my-auto" *ngFor="let card of randomBestsellerCards; index as i">
                 <div routerLink="{{'/card/' + card!.id}}" class=" selection text-center">
-                    <img src="{{card?.imageUrl}}" alt="{{card?.event}}" title="{{card?.event}}" style="margin:auto !important; width: 180px;">
-                    <h5 class="text-center">{{card?.event}}</h5>
+                    <div class="img-div">
+                        <img src="{{card?.imageUrl}}" alt="{{card?.event}}" title="{{card?.event}}">
+                    </div>
+                    <h5 class="text-center">{{card?.event?.replaceAll(",",", ")?.replaceAll('Gifts for ','')}}</h5>
                 </div>
             </div>
         </div>

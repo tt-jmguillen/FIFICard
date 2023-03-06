@@ -43,7 +43,7 @@ export class HomeFeaturedComponent implements OnInit {
   ) {
     this.service = _service;
     this.priceService = _priceService;
-    config.interval = 5000;
+    config.interval = 8000;
     config.wrap = true;
     config.pauseOnHover = false;
     config.showNavigationArrows = true;
