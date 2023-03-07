@@ -89,6 +89,7 @@ import { CardListComponent } from './card-list/card-list.component';
 import { JustBecauseComponent } from './just-because/just-because.component';
 import { JustBecauseGreetingsComponent } from './just-because/just-because-greetings/just-because-greetings.component';
 import { EmojiComponent } from './modules/emoji/emoji.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 // import ngx-translate and the http loader
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -260,6 +261,7 @@ import { FavoriteCardComponent } from './settings/profile/profile-list/favorite-
     NgxImageZoomModule,
     AppRoutingModule,
     HttpClientModule,
+    PickerModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

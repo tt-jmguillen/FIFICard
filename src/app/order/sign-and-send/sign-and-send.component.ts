@@ -93,6 +93,8 @@ export class SignAndSendComponent implements OnInit {
   message: string = ''
   position: number = -1;
 
+  editorvisible: boolean = false;
+
   ngbModalOptions: NgbModalOptions = {
     backdrop: 'static',
     keyboard: false,
@@ -204,6 +206,7 @@ export class SignAndSendComponent implements OnInit {
     });
     this.message = '';
     this.position = 0;
+    this.editorvisible = true;
   }
 
   textareaKeyup(event: any) {
@@ -316,5 +319,14 @@ export class SignAndSendComponent implements OnInit {
     });
 
     this.position = this.position + 2;
+  }
+
+  closeEditor(){
+    this.editorvisible = false;
+  }
+  
+  addEmoji(event: any){
+    console.log(event);
+    this.emoticon(event.emoji.native);
   }
 }
