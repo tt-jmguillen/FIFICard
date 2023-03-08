@@ -130,6 +130,7 @@ import { StickersCardsComponent } from './stickers-cards/stickers-cards.componen
 import { PoetryCardsComponent } from './poetry-cards/poetry-cards.component';
 import { CartTotalComponent } from './carts/cart-total/cart-total.component';
 import { FavoriteCardComponent } from './settings/profile/profile-list/favorite-card/favorite-card.component';
+import { PhotoUploadComponent } from './order/photo-upload/photo-upload.component';
 
 @NgModule({
   declarations: [
@@ -233,7 +234,8 @@ import { FavoriteCardComponent } from './settings/profile/profile-list/favorite-
     StickersCardsComponent,
     PoetryCardsComponent,
     CartTotalComponent,
-    FavoriteCardComponent
+    FavoriteCardComponent,
+    PhotoUploadComponent
   ],
   imports: [
     BrowserModule,

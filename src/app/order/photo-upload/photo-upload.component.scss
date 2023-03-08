@@ -1,0 +1,18 @@
+.photo-area button {
+    visibility: hidden;
+    position: absolute;
+}
+
+.photo-area:hover button {
+    visibility: visible;
+}
+
+.progress{
+    width: 90%;
+}
+
+.img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

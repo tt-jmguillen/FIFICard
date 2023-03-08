@@ -115,6 +115,21 @@
     visibility: visible;
 }
 
+.photo-area{
+    position: absolute;
+    border: 1px dashed blue;
+}
+
+.photo-area button {
+    visibility: hidden;
+    position: absolute;
+}
+
+.photo-area:hover button {
+    visibility: visible;
+}
+
+
 .tool {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -179,7 +194,12 @@
 }
 
 .div-img img {
-    object-fit: contain;
+    height: 100%;
+    object-fit: cover;
+}
+
+.active{
+    border: 1px solid #d419bb
 }
 
 .editor {

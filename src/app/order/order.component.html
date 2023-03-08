@@ -190,7 +190,7 @@
                         </div>
                         <div class="col-12 mb-2" *ngIf="card?.signAndSend">
                             <span class="instruction" *ngIf="instruction">{{'order.insertsignandsend'|translate}}</span>
-                            <app-sign-and-send (signAndSendEvent)="receiveSignAndSend($event)"></app-sign-and-send>
+                            <app-sign-and-send (signAndSendEvent)="receiveSignAndSend($event)" (signAndSendPhotoEvent)="receiveSignAndSendPhoto($event)"></app-sign-and-send>
                         </div>
                         <div class="col-12 mb-2" *ngIf="!card?.signAndSend">
                             <label class="form-label">{{'order.personal'|translate}}</label>

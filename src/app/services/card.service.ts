@@ -1,6 +1,6 @@
 import { environment } from 'src/environments/environment';
 import { CardImage } from './../models/card-image';
-import { SignAndSend } from './../models/sign-and-send';
+import { SignAndSend, SignAndSendPhoto } from './../models/sign-and-send';
 import { Injectable, Query } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { collection, collectionData, doc, docData, Firestore, orderBy, QueryConstraint, Timestamp, updateDoc, where } from '@angular/fire/firestore';
@@ -423,7 +423,7 @@ export class CardService {
   }
 
   async getSignAndSend(id: string): Promise<SignAndSend[]> {
-    return new Promise((resolve, rejects) => {
+    return new Promise((resolve) => {
       this.db.collection('cards').doc(id).collection('signandsend').get().subscribe(data => {
         if (!data.empty) {
           let signAndSends: SignAndSend[] = [];
@@ -435,7 +435,26 @@ export class CardService {
           resolve(signAndSends);
         }
         else {
-          rejects("No sign and send found.");
+          resolve([])
+        }
+      });
+    });
+  }
+
+  async getSignAndSendPhoto(id: string): Promise<SignAndSendPhoto[]> {
+    return new Promise((resolve) => {
+      this.db.collection('cards').doc(id).collection('signandsendphoto').get().subscribe(data => {
+        if (!data.empty) {
+          let signAndSendPhotos: SignAndSendPhoto[] = [];
+          data.forEach(doc => {
+            let sign: SignAndSendPhoto = doc.data() as SignAndSendPhoto;
+            sign.id = doc.id;
+            signAndSendPhotos.push(sign);
+          });
+          resolve(signAndSendPhotos);
+        }
+        else {
+          resolve([]);
         }
       });
     });

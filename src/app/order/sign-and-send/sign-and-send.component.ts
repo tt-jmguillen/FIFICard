@@ -1,5 +1,6 @@
+import { environment } from 'src/environments/environment';
 import { OrderService } from './../../services/order.service';
-import { SignAndSendDetails } from './../../models/sign-and-send-details';
+import { SignAndSendDetails, SignAndSendPhotoDetails } from './../../models/sign-and-send-details';
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardService } from 'src/app/services/card.service';
@@ -19,6 +20,7 @@ class Item {
   public text: string = '';
   public size: number = 20;
   public alignment: string = "left";
+  public color: string = environment.fontcolors[0].hex;
 
   public intialize(_image: string, _code: number, _top: number, _left: number, _width: number, _height: number, _limit: number, _style: string) {
     this.image = _image;
@@ -31,17 +33,46 @@ class Item {
     this.style = _style;
   }
 
-  public updateText(_text: string, _size: number, _style: string, _alignment: string) {
+  public updateText(_text: string, _size: number, _style: string, _alignment: string, _color: string) {
     this.text = _text;
     this.size = _size;
     this.style = _style;
     this.alignment = _alignment;
+    this.color = _color;
   }
 
   public clear() {
     this.text = '';
     this.size = 20;
     this.alignment = 'left';
+    this.color = environment.fontcolors[0].hex;
+  }
+}
+
+class Photo {
+  public image: string;
+  public code: number;
+  public top: number;
+  public left: number;
+  public width: number;
+  public height: number;
+  public url: string = ''
+
+  public intialize(_image: string, _code: number, _top: number, _left: number, _width: number, _height: number) {
+    this.image = _image;
+    this.code = _code;
+    this.top = _top;
+    this.left = _left;
+    this.width = _width;
+    this.height = _height;
+  }
+
+  public updateImage(_url: string) {
+    this.url = _url;
+  }
+
+  public clear() {
+    this.url = '';
   }
 }
 
@@ -57,6 +88,7 @@ class URL {
 })
 export class SignAndSendComponent implements OnInit {
   @Output() signAndSendEvent = new EventEmitter<SignAndSendDetails[]>();
+  @Output() signAndSendPhotoEvent = new EventEmitter<SignAndSendPhotoDetails[]>();
 
   id?: string;
   activateRoute: ActivatedRoute;
@@ -83,17 +115,20 @@ export class SignAndSendComponent implements OnInit {
     'Zen Loop'
   ];
   items: Item[] = [];
+  photos: Photo[] = [];
   images: string[] = [];
   urls: URL[] = [];
 
   focusURL: URL;
   focusItems: Item[] = [];
+  focusPhotos: Photo[] = [];
   selected: Item = new Item();
 
   message: string = ''
   position: number = -1;
 
   editorvisible: boolean = false;
+  fontcolors = environment.fontcolors;
 
   ngbModalOptions: NgbModalOptions = {
     backdrop: 'static',
@@ -140,41 +175,69 @@ export class SignAndSendComponent implements OnInit {
         }
         this.loadSignAndSend(imgs);
       })
-
-
     })
   }
 
   loadSignAndSend(imageList: string[]) {
-    this.service.getSignAndSend(this.id!).then(data => {
-      this.items = [];
-      this.images = [];
-      this.urls = [];
+    this.items = [];
+    this.images = [];
+    this.photos = [];
+    this.urls = [];
 
+    this.service.getSignAndSend(this.id!).then(data => {
       data.forEach(sign => {
         if (imageList.indexOf(sign.image) >= 0) {
           let item = new Item();
           item.intialize(sign.image, sign.code, sign.top, sign.left, sign.width, sign.height, sign.limit, this.fonts[0]);
           this.items.push(item);
+
+          if (this.images.findIndex(x => x == item.image) < 0) {
+            this.images.push(item.image);
+          }
+
+          if (this.urls.findIndex(x => x.image == item.image) < 0){
+            let url: URL = new URL();
+            url.image = item.image;
+            this.urls.push(url);      
+          }
         }
       });
 
-      this.items.forEach(item => {
-        if (this.images.indexOf(item.image) <= 0) {
-          this.images.push(item.image);
-        }
-      });
-
-      imageList.forEach(async image => {
-        let url: URL = new URL();
-        url.image = image;
-        url.url = await this.service.getImageURL(image);;
-        this.urls.push(url);
+      this.urls.forEach(async url => {
+        url.url = await this.service.getImageURL(url.image);
         if (!this.focusURL) {
           this.updateFocusImage(url);
         }
-      });
+      })
     });
+    
+    this.service.getSignAndSendPhoto(this.id!).then(data => {
+      data.forEach(sign => {
+        if (imageList.indexOf(sign.image) >= 0) {
+          let photo = new Photo();
+          photo.intialize(sign.image, sign.code, sign.top, sign.left, sign.width, sign.height);
+          this.photos.push(photo);
+
+          if (this.images.findIndex(x => x == photo.image) < 0) {
+            this.images.push(photo.image);
+          }
+
+          if (this.urls.findIndex(x => x.image == photo.image) < 0){
+            let url: URL = new URL();
+            url.image = photo.image;
+            this.urls.push(url);      
+          }
+        }
+
+        this.urls.forEach(async url => {
+          url.url = await this.service.getImageURL(url.image);
+          if (!this.focusURL) {
+            this.updateFocusImage(url);
+          }
+        })
+      });
+    })
+    
   }
 
   imageClick(url: URL) {
@@ -188,12 +251,21 @@ export class SignAndSendComponent implements OnInit {
     this.focusURL = url;
     this.focusItems = [];
     this.selected = new Item();
+
     this.items.forEach(sign => {
       if (sign.image == this.focusURL.image) {
         let item = new Item();
         item.intialize(sign.image, sign.code, sign.top, sign.left, sign.width, sign.height, sign.limit, this.fonts[0]);
-        item.updateText(sign.text, sign.size, sign.style, sign.alignment);
+        item.updateText(sign.text, sign.size, sign.style, sign.alignment, sign.color);
         this.focusItems.push(item);
+      }
+    })
+
+    this.photos.forEach(sign => {
+      if (sign.image == this.focusURL.image) {
+        let photo = new Photo();
+        photo.intialize(sign.image, sign.code, sign.top, sign.left, sign.width, sign.height);
+        this.focusPhotos.push(photo);
       }
     })
   }
@@ -235,6 +307,14 @@ export class SignAndSendComponent implements OnInit {
     });
   }
 
+  fontColorChange(event: any){
+    this.focusItems.forEach(item => {
+      if (item.code == this.selected.code) {
+        item.color = event.target.value;
+      }
+    });
+  }
+
   sizeChange(event: any) {
     this.focusItems.forEach(item => {
       if (item.code == this.selected.code) {
@@ -256,11 +336,20 @@ export class SignAndSendComponent implements OnInit {
       this.items.forEach(item => {
         if ((item.image == image) && (focus.image == image)) {
           if (item.code == focus.code) {
-            item.updateText(focus.text, focus.size, focus.style, focus.alignment);
+            item.updateText(focus.text, focus.size, focus.style, focus.alignment, focus.color);
           }
         }
       });
     });
+  }
+
+  onChangeImage(code: number, image: string){
+    let signAndSendPhoto = this.focusPhotos.find(x => x.code == code)!;
+    signAndSendPhoto.updateImage(image);
+    
+    this.focusPhotos.forEach(focus => {
+      this.photos.find(x => x.image == focus.image && x.code == code)?.updateImage(image);
+    })
   }
 
   clickCancel() {
@@ -272,6 +361,8 @@ export class SignAndSendComponent implements OnInit {
     this.position = -1;
     this.items.forEach(item => { item.clear(); });
     this.focusItems.forEach(item => { item.clear(); })
+    this.photos.forEach(photo => { photo.clear(); });
+    this.focusPhotos.forEach(photo => { photo.clear(); })
   }
 
   clickDone() {
@@ -279,24 +370,44 @@ export class SignAndSendComponent implements OnInit {
       this.updateDetail(image);
     })
 
-    let signDetails: SignAndSendDetails[] = [];
-    this.items.forEach(item => {
-      let detail: SignAndSendDetails = new SignAndSendDetails();
-      detail.image = item.image;
-      detail.code = item.code;
-      detail.top = item.top;
-      detail.left = item.left;
-      detail.width = item.width;
-      detail.height = item.height;
-      detail.limit = item.limit;
-      detail.style = item.style;
-      detail.text = item.text;
-      detail.size = item.size;
-      detail.alignment = item.alignment;
-      signDetails.push(detail);
-    });
+    if (this.items.length > 0){
+      let signDetails: SignAndSendDetails[] = [];
+      this.items.forEach(item => {
+        let detail: SignAndSendDetails = new SignAndSendDetails();
+        detail.image = item.image;
+        detail.code = item.code;
+        detail.top = item.top;
+        detail.left = item.left;
+        detail.width = item.width;
+        detail.height = item.height;
+        detail.limit = item.limit;
+        detail.style = item.style;
+        detail.text = item.text;
+        detail.size = item.size;
+        detail.alignment = item.alignment;
+        detail.color = item.color;
+        signDetails.push(detail);
+      });
 
-    this.signAndSendEvent.emit(signDetails);
+      this.signAndSendEvent.emit(signDetails);
+    }
+
+    if (this.photos.length > 0){
+      let photoDetails: SignAndSendPhotoDetails[] = [];
+      this.photos.forEach(photo => {
+        let photoDetail: SignAndSendPhotoDetails = new SignAndSendPhotoDetails();
+        photoDetail.image = photo.image;
+        photoDetail.code = photo.code;
+        photoDetail.top = photo.top;
+        photoDetail.left = photo.left;
+        photoDetail.width = photo.width;
+        photoDetail.height = photo.height;
+        photoDetail.url = photo.url;
+        photoDetails.push(photoDetail);
+      });
+      this.signAndSendPhotoEvent.emit(photoDetails)
+    }
+
     this.modalRef.close('Done');
   }
 
@@ -321,11 +432,11 @@ export class SignAndSendComponent implements OnInit {
     this.position = this.position + 2;
   }
 
-  closeEditor(){
+  closeEditor() {
     this.editorvisible = false;
   }
-  
-  addEmoji(event: any){
+
+  addEmoji(event: any) {
     console.log(event);
     this.emoticon(event.emoji.native);
   }

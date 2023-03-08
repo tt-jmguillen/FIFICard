@@ -11,4 +11,16 @@ export class SignAndSendDetails {
     public text: string;
     public size: number;
     public alignment: string;
+    public color: string;
+}
+
+export class SignAndSendPhotoDetails {
+    public id: string;
+    public image: string;
+    public code: number;
+    public top: number;
+    public left: number;
+    public width: number;
+    public height: number;
+    public url: string;
 }

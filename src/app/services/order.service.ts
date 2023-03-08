@@ -1,5 +1,5 @@
 import { environment } from './../../environments/environment.prod';
-import { SignAndSendDetails } from './../models/sign-and-send-details';
+import { SignAndSendDetails, SignAndSendPhotoDetails } from './../models/sign-and-send-details';
 import { Injectable } from '@angular/core';
 import { collection, Firestore, doc, addDoc, docData, updateDoc, serverTimestamp } from '@angular/fire/firestore';
 import { Storage } from '@angular/fire/storage';
@@ -169,9 +169,32 @@ export class OrderService {
         style: sign.style,
         text: sign.text,
         size: sign.size,
-        alignment: sign.alignment
+        alignment: sign.alignment,
+        color: sign.color
       }).then(docRef => {
         const data = docData(docRef, { idField: 'id' }) as Observable<SignAndSendDetails>;
+        data.subscribe(doc => {
+          resolve(doc);
+        });
+      }).catch(reason => {
+        rejects(reason);
+      })
+    });
+  }
+
+  addSignAndSendPhoto(orderId: string, photo: SignAndSendPhotoDetails) {
+    return new Promise((resolve, rejects) => {
+      const data = collection(this.store, 'orders/' + orderId + '/signandsendphoto')
+      addDoc(data, {
+        image: photo.image,
+        code: photo.code,
+        top: photo.top,
+        left: photo.left,
+        width: photo.width,
+        height: photo.height,
+        url: photo.url,
+      }).then(docRef => {
+        const data = docData(docRef, { idField: 'id' }) as Observable<SignAndSendPhotoDetails>;
         data.subscribe(doc => {
           resolve(doc);
         });

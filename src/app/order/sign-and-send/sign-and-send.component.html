@@ -8,20 +8,19 @@
     </div>
     <div class="modal-body p-1">
         <div class="main-div">
-            <!--
-            <div class="div-image-list">
-                <img *ngFor="let url of urls" src="{{url.url}}" (click)="imageClick(url)">
-            </div>
-            -->
             <div class="div-image">
                 <div class="editing">
                     <div class="main" *ngIf="focusURL">
                         <img class="sign-send-img" src="{{focusURL.url}}">
                         <div class="text-area d-flex align-items-center justify-content-center" *ngFor="let item of focusItems" [style.top.px]="item.top" [style.left.px]="item.left" [style.width.px]="item.width" [style.height.px]="item.height">
-                            <div [style.font-family]="item.style" [style.font-size.px]="item.size" [style.text-align]="item.alignment">
+                            <div [style.font-family]="item.style" [style.font-size.px]="item.size" [style.text-align]="item.alignment" [style.color]="item.color">
                                 <p [innerText]="item.text"></p>
                             </div>
                             <button class="icon icon-sm rounded-circle border" (click)="textareaClick(item.code)"><i class="fa fa-edit"></i></button>
+                        </div>
+
+                        <div class="photo-area" *ngFor="let item of focusPhotos" [style.top.px]="item.top" [style.left.px]="item.left" [style.width.px]="item.width" [style.height.px]="item.height">
+                            <app-photo-upload [image]="item.url" (onChange)="onChangeImage(item.code, $event)"></app-photo-upload>
                         </div>
                     </div>
                 </div>
@@ -46,6 +45,14 @@
                     <div class="col-12">
                         <select class="form-control" [value]="selected.style" (change)="fontChange($event)" [(ngModel)]="selected.style">
                             <option *ngFor="let font of fonts" value="{{font}}">{{font}}</option>
+                        </select>
+                    </div>
+                    <div class="col-12 mt-4">
+                        <label class="form-label">Font Color</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control" [value]="selected.color" (change)="fontColorChange($event)" [(ngModel)]="selected.color">
+                            <option *ngFor="let fontcolor of fontcolors" value="{{fontcolor.hex}}">{{fontcolor.name}}</option>
                         </select>
                     </div>
                     <div class="col-12 mt-4">
@@ -82,61 +89,13 @@
                     </div>
                 </div>
             </div>
-            <!--
-            <div class="div-textarea">
-                <div class="row">
-                    <div class="col-12" *ngIf="!selected.image">
-                        <label class="alert">{{'sign.insertatext'|translate}}</label>
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">{{'sign.yourmessage'|translate}}</label>
-                        <br />
-                        <textarea class="form-control" rows="5" (keyup)="textareaKeyup($event)" (focus)="textareaFocus($event)" (click)="areaClick($event)" [value]="selected.text" [maxLength]="selected.limit" [(ngModel)]="message"></textarea>
-                    </div>
-                    <div class="col-12">
-                        <br />
-                        <label class="form-label">{{'sign.font'|translate}}</label>
-                        <br />
-                        <select class="form-control" [value]="selected.style" (change)="fontChange($event)" [(ngModel)]="selected.style">
-                            <option *ngFor="let font of fonts" value="{{font}}">{{font}}</option>
-                        </select>
-                    </div>
-                    <div class="col-12">
-                        <br />
-                        <label class="form-label">{{'sign.fontsize'|translate}}</label>
-                        <br />
-                        <input type="range" class="form-range" min="20" max="50" step="1" [value]="selected?selected.size:0" (change)="sizeChange($event)">
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">{{'sign.alignment'|translate}}</label>
-                        <br />
-                        <div class="btn-group" role="group" ngbRadioGroup name="radioBasic" [(ngModel)]="selected.alignment">
-                            <button [ngClass]="selected.alignment == 'left' ? 'btn btn-primary btn-lg' : 'btn btn-light btn-lg'" (click)="alignmentClick('left')">
-                                <i class="fa fa-align-left"></i>
-                            </button>
-                            <button [ngClass]="selected.alignment == 'center' ? 'btn btn-primary btn-lg' : 'btn btn-light btn-lg'" (click)="alignmentClick('center')">
-                                <i class="fa fa-align-center"></i>
-                            </button>
-                            <button [ngClass]="selected.alignment == 'right' ? 'btn btn-primary btn-lg' : 'btn btn-light btn-lg'" (click)="alignmentClick('right')">
-                                <i class="fa fa-align-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-12 pt-2">
-                        <div class="div text-center">
-                            <app-emoji (SelectEvent)="emoticon($event)"></app-emoji>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            -->
         </div>
     </div>
     <div class="modal-footer">
         <div class="row foot">
             <div class="col-8 div-images">
                 <div class="div-img" *ngFor="let url of urls">
-                    <img src="{{url.url}}" (click)="imageClick(url)">
+                    <img src="{{url.url}}" (click)="imageClick(url)" [ngClass]="focusURL == url?'active':''">
                 </div>
             </div>
             <div class="col-4 text-end h-100 my-auto">
