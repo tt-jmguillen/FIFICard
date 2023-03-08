@@ -40,7 +40,7 @@
                         <emoji-mart title="Pick your emoji…" emoji="point_up" [perLine]="8" (emojiClick)="addEmoji($event)"></emoji-mart>
                     </div>
                     <div class="col-12 mt-4">
-                        <label class="form-label">{{'sign.font'|translate}}</label>
+                        <label class="form-label">Font Style</label>
                     </div>
                     <div class="col-12">
                         <select class="form-control" [value]="selected.style" (change)="fontChange($event)" [(ngModel)]="selected.style">

@@ -4,7 +4,7 @@
             <input class="form-check-input" type="radio" name="exampleRadios" id="{{bundle.id}}" [value]="bundle" [checked]="selected == bundle.id" (change)="change($event)">
             <label class="form-check-label" for="{{bundle.id}}">
                 <span *ngIf="bundle.count > 1">
-                    Bundle of <b>{{bundle.count}}pcs</b> of {{getTypeLabel()}}s - <b>{{this.priceService.getSign()}} {{this.priceService.getBundlePrice(this.messagetype, bundle)| number:'1.2-2'}}</b>
+                    Bundle of <b>{{bundle.count}} pcs</b> of {{getTypeLabel()}}s - <b>{{this.priceService.getSign()}} {{this.priceService.getBundlePrice(this.messagetype, bundle)| number:'1.2-2'}}</b>
                 </span>
                 <span *ngIf="bundle.count == 1">
                     Single {{getTypeLabel()}} – <b>{{this.priceService.getSign()}} {{this.priceService.getBundlePrice(this.messagetype, bundle)| number:'1.2-2'}}</b>
