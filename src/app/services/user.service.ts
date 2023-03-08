@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { doc, docData, Firestore } from '@angular/fire/firestore';
-import { resolveSoa } from 'dns';
 import { updateDoc } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
@@ -71,6 +70,17 @@ export class UserService {
   changeEmail(currentEmail: string, password: string, newEmail: string) {
     this.auth.signInWithEmailAndPassword(currentEmail, password).then(userCredential => {
       userCredential.user?.updateEmail(newEmail);
+    })
+  }
+
+  userAuth(email: string, password: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.auth.signInWithEmailAndPassword(email, password).then(user => {
+        console.log(user)
+        resolve(user ? true : false);
+      }).catch(err => {
+        resolve(false);
+      })
     })
   }
 
