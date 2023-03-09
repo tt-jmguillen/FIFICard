@@ -37,7 +37,7 @@
                         <textarea class="form-control" rows="5" (keyup)="textareaKeyup($event)" (focus)="textareaFocus($event)" (click)="areaClick($event)" [value]="selected.text" [maxLength]="selected.limit" [(ngModel)]="message"></textarea>
                     </div>
                     <div class="col-12 mt-2">
-                        <emoji-mart title="Pick your emoji…" emoji="point_up" [perLine]="8" (emojiClick)="addEmoji($event)"></emoji-mart>
+                        <emoji-mart title="Pick your emoji…" emoji="point_up" [perLine]="8" set="facebook" (emojiClick)="addEmoji($event)"></emoji-mart>
                     </div>
                     <div class="col-12 mt-4">
                         <label class="form-label">Font Style</label>

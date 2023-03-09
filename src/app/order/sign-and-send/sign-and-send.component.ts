@@ -7,6 +7,7 @@ import { CardService } from 'src/app/services/card.service';
 import { FilterService } from 'src/app/services/filter.service';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { exit } from 'process';
+import { Emoji } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 class Item {
   public image: string;
@@ -418,8 +419,10 @@ export class SignAndSendComponent implements OnInit {
       exit;
     }
 
+    console.log(this.position, this.message.length)
+
     if (this.position == this.message.length) {
-      this.message += emoji;
+      this.message += emoji 
     }
     else {
       this.message = this.message.substring(0, this.position) + emoji + this.message.substring(this.position);
@@ -431,7 +434,7 @@ export class SignAndSendComponent implements OnInit {
       }
     });
 
-    this.position = this.position + 2;
+    this.position = this.position + emoji.length;
   }
 
   closeEditor() {
