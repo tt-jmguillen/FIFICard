@@ -7,7 +7,6 @@ import { CardService } from 'src/app/services/card.service';
 import { FilterService } from 'src/app/services/filter.service';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { exit } from 'process';
-import { Emoji } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 class Item {
   public image: string;
@@ -364,6 +363,8 @@ export class SignAndSendComponent implements OnInit {
     this.focusItems.forEach(item => { item.clear(); })
     this.photos.forEach(photo => { photo.clear(); });
     this.focusPhotos.forEach(photo => { photo.clear(); })
+    this.editorvisible = false;
+    this.selected = new Item();
   }
 
   clickDone() {
@@ -409,6 +410,9 @@ export class SignAndSendComponent implements OnInit {
       this.signAndSendPhotoEvent.emit(photoDetails)
     }
 
+    this.editorvisible = false;
+    this.selected = new Item();
+
     this.modalRef.close('Done');
   }
 
@@ -439,6 +443,7 @@ export class SignAndSendComponent implements OnInit {
 
   closeEditor() {
     this.editorvisible = false;
+    this.selected = new Item();
   }
 
   addEmoji(event: any) {

@@ -13,7 +13,7 @@
                     <div class="main" *ngIf="focusURL">
                         <img class="sign-send-img" src="{{focusURL.url}}">
                         <div class="text-area d-flex align-items-center justify-content-center" *ngFor="let item of focusItems" [style.top.px]="item.top" [style.left.px]="item.left" [style.width.px]="item.width" [style.height.px]="item.height">
-                            <div [style.font-family]="item.style" [style.font-size.px]="item.size" [style.text-align]="item.alignment" [style.color]="item.color" style="height: 100%; width: 100%;">
+                            <div [ngClass]="item == selected?'text-area-div-active':'text-area-div'" [style.font-family]="item.style" [style.font-size.px]="item.size" [style.text-align]="item.alignment" [style.color]="item.color">
                                 <p [innerText]="item.text" class="text-p"></p>
                             </div>
                             <button class="icon icon-sm rounded-circle border" (click)="textareaClick(item.code)"><i class="fa fa-edit"></i></button>

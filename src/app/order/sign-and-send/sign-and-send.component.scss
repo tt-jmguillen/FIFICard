@@ -92,12 +92,19 @@
 
 .text-area {
     position: absolute;
-    border: 1px dashed red;
     font-family: 'Smooch';
 }
 
-.text-area div {
+.text-area-div {
     position: absolute;
+    border: 1px dashed red;
+    width: 100%;
+    height: 100%;
+}
+
+.text-area-div-active {
+    position: absolute;
+    border: 1px solid #d419bb;
     width: 100%;
     height: 100%;
 }
@@ -105,10 +112,6 @@
 .text-area button {
     visibility: hidden;
     position: absolute;
-}
-
-.text-area:hover {
-    border: 2px dashed red;
 }
 
 .text-area:hover button {
