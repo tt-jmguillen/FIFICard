@@ -60,6 +60,8 @@ export class ProfileChangePasswordComponent implements OnInit {
   async save() {
     this.submitted = true;
 
+    console.log(this.form)
+
     if (this.form.invalid) {
       return;
     }
@@ -69,12 +71,8 @@ export class ProfileChangePasswordComponent implements OnInit {
     if (this.form.value.newpassword == this.form.value.confirm) {
       this.form.controls['newpassword'].setErrors(null);
       this.form.controls['confirm'].setErrors(null);
-
-      console.log(this.user.email, this.form.value.password!)
-      let authenticate: boolean = await this.userService.userAuth(this.user.email, this.form.value.password!);
-      console.log(authenticate)
+      let authenticate: boolean = await this._userService.changePassword(this.user.email, this.form.value.password!, this.form.value.newpassword!);
       if (authenticate) {
-        await this._userService.changePassword(this.user.email, this.form.value.password!, this.form.value.newpassword!);
         this.loading = false;
         this.submitted = false;
         this.modal.close("Done");
@@ -86,7 +84,6 @@ export class ProfileChangePasswordComponent implements OnInit {
       }
     }
     else {
-      console.log('mismatch')
       this.form.controls['newpassword'].setErrors({ 'mismatch': true });
       this.form.controls['confirm'].setErrors({ 'mismatch': true });
       this.loading = false;

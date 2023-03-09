@@ -67,9 +67,18 @@ export class UserService {
     });
   }
 
-  changeEmail(currentEmail: string, password: string, newEmail: string) {
-    this.auth.signInWithEmailAndPassword(currentEmail, password).then(userCredential => {
-      userCredential.user?.updateEmail(newEmail);
+  changeEmail(currentEmail: string, password: string, newEmail: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.auth.signInWithEmailAndPassword(currentEmail, password).then(userCredential => {
+        if (userCredential) {
+          userCredential.user?.updateEmail(newEmail);
+        }
+        else {
+          resolve(false);
+        }
+      }).catch(err => {
+        resolve(false);
+      })
     })
   }
 
@@ -84,9 +93,20 @@ export class UserService {
     })
   }
 
-  changePassword(email: string, password: string, newPassword: string) {
-    this.auth.signInWithEmailAndPassword(email, password).then(userCredential => {
-      userCredential.user?.updatePassword(newPassword);
+  changePassword(email: string, password: string, newPassword: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.auth.signInWithEmailAndPassword(email, password).then(userCredential => {
+        if (userCredential) {
+          userCredential.user?.updatePassword(newPassword).then(() => {
+            resolve(true);
+          })
+        }
+        else {
+          resolve(false);
+        }
+      }).catch(err => {
+        resolve(false);
+      })
     })
   }
 
