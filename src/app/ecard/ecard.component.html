@@ -8,7 +8,8 @@
         <p routerLink="{{'/card/' + card!.id}}" class="title cursor mb-2">{{card.name}}</p>
         <div class="row">
             <div class="col-7 my-auto">
-                <div class="price">{{priceService.getSign()}} {{priceService.getECardPrice(card)| number:'1.2-2'}}</div>
+                <div class="price" *ngIf="priceService.getECardPrice(card) > 0">{{priceService.getSign()}} {{priceService.getECardPrice(card)| number:'1.2-2'}}</div>
+                <div class="price" *ngIf="priceService.getECardPrice(card) == 0">Free</div>
             </div>
             <div class="col-5 text-end">
                 <img src="../assets/images/badge-featured.png" class="featured ms-2" *ngIf="card.featured" />

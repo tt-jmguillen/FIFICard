@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environment';
 import { OrderService } from './../../services/order.service';
 import { SignAndSendDetails, SignAndSendPhotoDetails } from './../../models/sign-and-send-details';
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardService } from 'src/app/services/card.service';
 import { FilterService } from 'src/app/services/filter.service';
@@ -412,6 +412,8 @@ export class SignAndSendComponent implements OnInit {
   }
 
   emoticon(emoji: string) {
+    console.log(this.position);
+
     if (this.position == -1) {
       exit;
     }
@@ -437,7 +439,7 @@ export class SignAndSendComponent implements OnInit {
   }
 
   addEmoji(event: any) {
-    console.log(event);
+    console.log(event.emoji);
     this.emoticon(event.emoji.native);
   }
 }

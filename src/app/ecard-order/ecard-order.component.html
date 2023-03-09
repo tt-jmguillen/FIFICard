@@ -21,8 +21,8 @@
                         </div>
                     </header>
                     <p>{{card.description}}</p>
-                    <h4 class="section-title" *ngIf="card"><b>{{priceService.getSign()}} {{priceService.getECardPrice(card)| number:'1.2-2'}}</b></h4>
-
+                    <h4 class="section-title" *ngIf="card && (priceService.getECardPrice(card) > 0)"><b>{{priceService.getSign()}} {{priceService.getECardPrice(card)| number:'1.2-2'}}</b></h4>
+                    <h4 class="section-title" *ngIf="card && (priceService.getECardPrice(card) == 0)"><b>Free</b></h4>
                     <app-ecard-image-grid id="{{id}}"></app-ecard-image-grid>
                 </div>
                 <div class="col-lg-6 col-sm-12">
