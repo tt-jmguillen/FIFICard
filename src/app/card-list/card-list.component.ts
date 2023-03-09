@@ -251,8 +251,8 @@ export class CardListComponent implements OnInit {
   }
 
   loadRecipient(cards: Card[]) {
-    this.recipients = [];
     let withOther: boolean = false;
+    let forceAll: boolean = true;
 
     this.allCards.forEach(card => {
       card.recipients?.forEach(recipient => {
@@ -272,12 +272,17 @@ export class CardListComponent implements OnInit {
 
     this.recipients = this.recipients.sort();
 
-    if (this.recipients.length > 1) {
-      this.recipients.unshift("All");
-    }
+    if (!withOther) {
+      if (this.recipients.length > 1) {
+        this.recipients.unshift("All");
+      }
 
-    if (this.recipients.length == 0) {
-      this.recipients.push("All");
+      if (this.recipients.length == 0) {
+        this.recipients.push("All");
+      }
+    }
+    else {
+      this.recipients.unshift("All");
     }
 
     this.selectedRecipient = this.recipients[0];
@@ -385,13 +390,13 @@ export class CardListComponent implements OnInit {
     }
   }
 
-  loadItems(){
+  loadItems() {
     let start = this.displayCards.length + 1;
     let end = this.displayCards.length + this.batchLimit + 1;
-    this.displayCards = [...this.displayCards, ...this.sortCards.slice(start-1, end-1)];
+    this.displayCards = [...this.displayCards, ...this.sortCards.slice(start - 1, end - 1)];
   }
 
-  onLoadMoreClick(){
+  onLoadMoreClick() {
     this.loadItems();
   }
 }
