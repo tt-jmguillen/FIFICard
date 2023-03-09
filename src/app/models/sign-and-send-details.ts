@@ -23,4 +23,7 @@ export class SignAndSendPhotoDetails {
     public width: number;
     public height: number;
     public url: string;
+    public scale: number;
+    public imagetop: number;
+    public imageleft: number;
 }

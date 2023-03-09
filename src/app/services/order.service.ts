@@ -193,6 +193,9 @@ export class OrderService {
         width: photo.width,
         height: photo.height,
         url: photo.url,
+        scale: photo.scale,
+        imagetop: photo.imagetop,
+        imageleft: photo.imageleft
       }).then(docRef => {
         const data = docData(docRef, { idField: 'id' }) as Observable<SignAndSendPhotoDetails>;
         data.subscribe(doc => {

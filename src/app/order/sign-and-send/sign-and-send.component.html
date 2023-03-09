@@ -20,7 +20,7 @@
                         </div>
 
                         <div class="photo-area" *ngFor="let item of focusPhotos" [style.top.px]="item.top" [style.left.px]="item.left" [style.width.px]="item.width" [style.height.px]="item.height">
-                            <app-photo-upload [image]="item.url" (onChange)="onChangeImage(item.code, $event)"></app-photo-upload>
+                            <app-photo-upload [image]="item.url" [scale]="item.scale" [left]="item.imageleft" [top]="item.imagetop" (onChange)="onChangeImage(item.code, $event)" (onDetails)="onDetailsImage(item.code, $event)"></app-photo-upload>
                         </div>
                     </div>
                 </div>

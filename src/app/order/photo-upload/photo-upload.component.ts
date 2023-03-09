@@ -8,15 +8,29 @@ import { Component, OnInit, Input, ChangeDetectorRef, Output, EventEmitter } fro
   styleUrls: ['./photo-upload.component.scss']
 })
 export class PhotoUploadComponent implements OnInit {
-  @Input() set image(_image: string){
+  @Input() set image(_image: string) {
     if (_image != '')
       this.loadImage(_image);
-    else{
+    else {
       this.url = '';
       this.status = 'NOIMAGE';
     }
   }
+  @Input() set scale(_scale: number) {
+    this.imageScale = _scale;
+    this.ref.detectChanges();
+  }
+  @Input() set top(_top: number) {
+    this.imageTop = _top;
+    this.ref.detectChanges();
+  }
+  @Input() set left(_left: number) {
+    this.imageLeft = _left;
+    this.ref.detectChanges();
+  }
+
   @Output() onChange: EventEmitter<string> = new EventEmitter();
+  @Output() onDetails: EventEmitter<any> = new EventEmitter();
 
   imageService: ImageService;
   ref: ChangeDetectorRef;
@@ -32,6 +46,9 @@ export class PhotoUploadComponent implements OnInit {
   status: 'NOIMAGE' | 'UPLOADING' | 'WITHIMAGE' = 'NOIMAGE';
   percentage: number = 0;
   url: string = '';
+  imageScale: number = 1;
+  imageTop: number = 0;
+  imageLeft: number = 0;
 
   ngOnInit(): void {
   }
@@ -61,5 +78,54 @@ export class PhotoUploadComponent implements OnInit {
       this.url = url;
       this.ref.detectChanges();
     })
+  }
+
+  getScale(){
+    return 'scale(' + this.imageScale + ',' +  this.imageScale + ')';
+  }
+
+  changeSize(add:boolean){
+    if (add){
+      this.imageScale += 0.1;
+    }
+    else{
+      this.imageScale -= 0.1;
+    }
+    this.onDetails.emit({
+      scale: this.imageScale,
+      top: this.imageTop,
+      left: this.imageLeft
+    })
+    this.ref.detectChanges();
+  }
+
+  changeTop(add: boolean){
+    if (add){
+      this.imageTop += 1;
+    }
+    else{
+      this.imageTop -= 1;
+    }
+    this.onDetails.emit({
+      scale: this.imageScale,
+      top: this.imageTop,
+      left: this.imageLeft
+    })
+    this.ref.detectChanges();
+  }
+
+  changeLeft(add: boolean){
+    if (add){
+      this.imageLeft += 1;
+    }
+    else{
+      this.imageLeft -= 1;
+    }
+    this.onDetails.emit({
+      scale: this.imageScale,
+      top: this.imageTop,
+      left: this.imageLeft
+    })
+    this.ref.detectChanges();
   }
 }

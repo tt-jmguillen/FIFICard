@@ -57,6 +57,9 @@ class Photo {
   public width: number;
   public height: number;
   public url: string = ''
+  public scale: number = 1;
+  public imageleft: number = 0;
+  public imagetop: number = 0;
 
   public intialize(_image: string, _code: number, _top: number, _left: number, _width: number, _height: number) {
     this.image = _image;
@@ -71,8 +74,17 @@ class Photo {
     this.url = _url;
   }
 
+  public updateDetials(_scale: number, _left: number, _top: number){
+    this.scale = _scale;
+    this.imageleft = _left;
+    this.imagetop = _top;
+  }
+
   public clear() {
     this.url = '';
+    this.scale = 1;
+    this.imageleft = 0;
+    this.imagetop = 0;
   }
 }
 
@@ -352,6 +364,15 @@ export class SignAndSendComponent implements OnInit {
     })
   }
 
+  onDetailsImage(code: number, details: any){
+    let signAndSendPhoto = this.focusPhotos.find(x => x.code == code)!;
+    signAndSendPhoto.updateDetials(details['scale'], details['left'], details['top']);
+
+    this.focusPhotos.forEach(focus => {
+      this.photos.find(x => x.image == focus.image && x.code == code)?.updateDetials(details['scale'], details['left'], details['top']);
+    })
+  }
+
   clickCancel() {
     this.modalRef.close('Cancel');
   }
@@ -405,6 +426,9 @@ export class SignAndSendComponent implements OnInit {
         photoDetail.width = photo.width;
         photoDetail.height = photo.height;
         photoDetail.url = photo.url;
+        photoDetail.scale = photo.scale;
+        photoDetail.imagetop = photo.imagetop;
+        photoDetail.imageleft = photo.imageleft;
         photoDetails.push(photoDetail);
       });
       this.signAndSendPhotoEvent.emit(photoDetails)
