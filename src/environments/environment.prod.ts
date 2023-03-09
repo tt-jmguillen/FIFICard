@@ -79,6 +79,6 @@ export const environment = {
     { name: "Yellow", hex: '#FDD128' },
     { name: "Violet", hex: '#6B2D98' },
     { name: "Brown", hex: '#B87333' },
-    { name: "Greem", hex: '#228B22' }
+    { name: "Green", hex: '#228B22' }
   ]
 };
