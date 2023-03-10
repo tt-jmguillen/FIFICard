@@ -77,6 +77,10 @@ export class OrderService {
         receiver_phone: order.receiver_phone,
         receiver_email: order.receiver_email,
         message: order.message,
+        fontstyle: order.fontstyle,
+        fontcolor: order.fontcolor,
+        fontsize: order.fontsize,
+        alignment: order.alignment,
         created: serverTimestamp()
       }).then(docRef => {
         resolve(docRef.id);

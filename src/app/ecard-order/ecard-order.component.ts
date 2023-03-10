@@ -20,6 +20,7 @@ import { ECardImage } from '../models/ecard-image';
 })
 export class ECardOrderComponent implements OnInit {
   @ViewChild('modal') modal: TemplateRef<ECardOrderComponent>;
+  @ViewChild('preview') previewModal: TemplateRef<ECardOrderComponent>;
 
   activateRoute: ActivatedRoute;
   title: Title;
@@ -64,16 +65,24 @@ export class ECardOrderComponent implements OnInit {
   form = new FormGroup({
     sender_name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     sender_email: new FormControl('', [Validators.required, Validators.email]),
-    sender_phone: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+    sender_phone: new FormControl('', [Validators.maxLength(20)]),
     receiver_name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     receiver_email: new FormControl('', [Validators.required, Validators.email]),
-    receiver_phone: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+    receiver_phone: new FormControl('', [Validators.maxLength(20)]),
     message: new FormControl('', [Validators.required, Validators.maxLength(500)]),
   });
   submitted: boolean = false;
   saving: boolean = false;
   modalRef: NgbModalRef;
   uid: string;
+
+  message = {
+    text: "",
+    fontstyle: "", 
+    fontcolor: "", 
+    fontsize: 0,
+    alignment: ''
+  }
 
   ngOnInit(): void {
     this.activateRoute.params.subscribe(params => {
@@ -121,6 +130,11 @@ export class ECardOrderComponent implements OnInit {
     order.card_id = this.id;
     order.card_price = this.priceService.getECardPrice(this.card);
     order.location = this.priceService.location;
+
+    order.fontstyle = this.message.fontstyle;
+    order.fontcolor = this.message.fontcolor;
+    order.fontsize = this.message.fontsize;
+    order.alignment = this.message.alignment as ('left' | 'center' | 'right');
     
     this.orderService.createECardOrder(order).then(id => {
       this.userService.addItemOnECart(this.uid, id);
@@ -145,5 +159,14 @@ export class ECardOrderComponent implements OnInit {
 
   onBack() {
     this.loc.back();
+  }
+
+  onChangeMessage(message: any){
+    this.message = message;
+    this.form.controls.message.setValue(this.message.text);
+  }
+
+  previewMessage(){
+    this.modalService.open(this.previewModal, { animation: true, size: 'xl' });
   }
 }

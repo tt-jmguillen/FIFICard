@@ -1,0 +1,43 @@
+<div class="ctrls">
+    <div>
+        <select class="form-select form-select-sm" title="Font Style" (change)="changeStyle($event)">
+            <option *ngFor="let font of fonts" [value]="font">{{font}}</option>
+        </select>
+    </div>
+    <div>
+        <select class="form-select form-select-sm" title="Font Color" (change)="changeColor($event)">
+            <option *ngFor="let color of colors" [value]="color.hex">{{color.name}}</option>
+        </select>
+    </div>
+    <div>
+        <input class="form-control form-control-sm" type="number" [min]="min" [max]="max" [value]="fontsize" title="Font Size" (change)="changeSize($event)">
+    </div>
+    <div [ngClass]="alignment=='left'?'allign active':'allign'">
+        <i class="fa fa-align-left" (click)="changeAlignment('left')"></i>
+    </div>
+    <div [ngClass]="alignment=='center'?'allign active':'allign'">
+        <i class="fa fa-align-center" (click)="changeAlignment('center')"></i>
+    </div>
+    <div [ngClass]="alignment=='right'?'allign active':'allign'">
+        <i class="fa fa-align-right" (click)="changeAlignment('right')"></i>
+    </div>
+    <div class="emoji">
+        <span (click)="emoji(!toggle)">😀</span>
+    </div>
+    <div class="emoji-picker-container" [hidden]="!toggle">
+        <emoji-mart title="Pick your emoji…" emoji="point_up" [perLine]="8" set="facebook" (emojiClick)="addEmoji($event)"></emoji-mart>
+    </div>
+</div>
+<textarea class="form-control" 
+    [placeholder]="placeholder" 
+    [style.font-family]="fontstyle" 
+    [style.font-size.px]="fontsize" 
+    [style.text-align]="alignment" 
+    [style.color]="fontcolor" 
+    [value]="text" 
+    [maxLength]="maxlength"
+    (keyup)="keyup($event)"
+    (focus)="focus($event)"
+    (click)="click($event)"
+></textarea>
+

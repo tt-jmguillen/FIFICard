@@ -131,6 +131,7 @@ import { PoetryCardsComponent } from './poetry-cards/poetry-cards.component';
 import { CartTotalComponent } from './carts/cart-total/cart-total.component';
 import { FavoriteCardComponent } from './settings/profile/profile-list/favorite-card/favorite-card.component';
 import { PhotoUploadComponent } from './order/photo-upload/photo-upload.component';
+import { MessageAreaComponent } from './modules/message-area/message-area.component';
 
 @NgModule({
   declarations: [
@@ -235,7 +236,8 @@ import { PhotoUploadComponent } from './order/photo-upload/photo-upload.componen
     PoetryCardsComponent,
     CartTotalComponent,
     FavoriteCardComponent,
-    PhotoUploadComponent
+    PhotoUploadComponent,
+    MessageAreaComponent
   ],
   imports: [
     BrowserModule,

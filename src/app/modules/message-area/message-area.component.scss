@@ -1,0 +1,78 @@
+.ctrls{
+    position: relative;
+    width: 100%;
+    height: 35px;
+    background-color: whitesmoke;
+    border-left: 1px solid #ced4da;
+    border-right: 1px solid #ced4da;
+    border-top: 1px solid #ced4da;
+    border-top-right-radius: .25rem;
+    border-top-left-radius: .25rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+textarea{
+    border-top-right-radius: 0rem;
+    border-top-left-radius: 0rem;
+    border-bottom-right-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+    height: 150px;
+    resize: none;
+}
+
+select{
+    background-color: whitesmoke;
+}
+
+select:active{
+    border: none;
+}
+
+input{
+    background-color: whitesmoke;
+    width: 60px;
+    color: #212529;
+}
+
+.allign{
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    height: 29px;
+    aspect-ratio: 1/1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.active{
+    background-color: white;
+}
+
+.emoji{
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    height: 29px;
+    aspect-ratio: 1/1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.emoji span{
+    cursor: pointer;
+}
+
+.emoji-picker-container{
+    position: absolute;
+    top: 32px;
+    right: 0px;
+}

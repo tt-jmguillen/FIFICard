@@ -4,15 +4,6 @@
             <div class="row align-top">
                 <div class="col-12 mb-2">
                     <button class="btn rounded-0" style="background-color: #8a2be2; color: #ffffff;" (click)="onBack()">Back</button>
-                    <!--
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a [routerLink]="['/']">{{'order.home'|translate}}</a></li>
-                            <li class="breadcrumb-item"><a [routerLink]="['/card', id]">{{card.name}}</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{'order.order'|translate}}</li>
-                        </ol>
-                    </nav>
-                    -->
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <header class="section-heading mt-0 mb-0">
@@ -24,6 +15,12 @@
                     <h4 class="section-title" *ngIf="card && (priceService.getECardPrice(card) > 0)"><b>{{priceService.getSign()}} {{priceService.getECardPrice(card)| number:'1.2-2'}}</b></h4>
                     <h4 class="section-title" *ngIf="card && (priceService.getECardPrice(card) == 0)"><b>Free</b></h4>
                     <app-ecard-image-grid id="{{id}}"></app-ecard-image-grid>
+                    <div class="w-100 py-4 px-2" [style.font-family]="message.fontstyle" [style.font-size.px]="message.fontsize" [style.text-align]="message.alignment" [style.color]="message.fontcolor">
+                        <p class="1-100" [innerText]="message.text"></p>
+                    </div>
+                    <div class="w-100 text-center mt-5">
+                        <span class="preview" *ngIf="message.text != ''" (click)="previewMessage()"><i class="fa fa-search"></i> Click to Preview</span>
+                    </div>
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <div class="e-card-info">
@@ -34,11 +31,8 @@
                                 </div>
                                 <div class="col-12 mb-2">
                                     <label for="sender_name" class="form-label">*Name</label>
-                                    <input type="text" class="form-control" id="sender_name" placeholder="Name"
-                                        formControlName="sender_name"
-                                        [ngClass]="{ 'is-invalid': submitted && controls().sender_name.errors}">
-                                    <div *ngIf="submitted && controls().sender_name.errors"
-                                        class="text-start invalid-feedback">
+                                    <input type="text" class="form-control" id="sender_name" placeholder="Name" formControlName="sender_name" [ngClass]="{ 'is-invalid': submitted && controls().sender_name.errors}">
+                                    <div *ngIf="submitted && controls().sender_name.errors" class="text-start invalid-feedback">
                                         <div *ngIf="controls().sender_name.errors!['required']">Sender name is required
                                         </div>
                                         <div *ngIf="controls().sender_name.errors!['maxlength']">Sender name must not
@@ -47,25 +41,19 @@
                                 </div>
                                 <div class="col-6 mb-2">
                                     <label for="sender_email" class="form-label">*Email</label>
-                                    <input type="email" class="form-control" id="sender_email"
-                                        placeholder="Email Address" formControlName="sender_email"
-                                        [ngClass]="{ 'is-invalid': submitted && controls().sender_email.errors}">
-                                    <div *ngIf="submitted && controls().sender_email.errors"
-                                        class="text-start invalid-feedback">
+                                    <input type="email" class="form-control" id="sender_email" placeholder="Email Address" formControlName="sender_email" [ngClass]="{ 'is-invalid': submitted && controls().sender_email.errors}">
+                                    <div *ngIf="submitted && controls().sender_email.errors" class="text-start invalid-feedback">
                                         <div *ngIf="controls().sender_email.errors!['required']">Sender email address is
                                             required</div>
                                         <div *ngIf="controls().sender_email.errors!['email']">Invalid email address
                                         </div>
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-6 mb-2">
                                     <label for="sender_phone" class="form-label">*Phone</label>
-                                    <input type="text" class="form-control" id="sender_phone" placeholder="Phone Number"
-                                        formControlName="sender_phone"
-                                        [ngClass]="{ 'is-invalid': submitted && controls().sender_phone.errors}">
-                                    <div *ngIf="submitted && controls().sender_phone.errors"
-                                        class="text-start invalid-feedback">
+                                    <input type="text" class="form-control" id="sender_phone" placeholder="Phone Number" formControlName="sender_phone" [ngClass]="{ 'is-invalid': submitted && controls().sender_phone.errors}">
+                                    <div *ngIf="submitted && controls().sender_phone.errors" class="text-start invalid-feedback">
                                         <div *ngIf="controls().sender_phone.errors!['required']">Sender phone number is
                                             required</div>
                                         <div *ngIf="controls().sender_phone.errors!['maxlength']">Sender phone number
@@ -75,17 +63,13 @@
                                 <div class="col-12">
                                     <div class="divider"></div>
                                 </div>
-                                <div class="col-12 mb-3">
+                                <div class="col-12 mb-2">
                                     <label for="message" class="form-label">* Personal Message</label>
-                                    <textarea class="form-control" placeholder="Message" rows="5"
-                                        formControlName="message"
-                                        [ngClass]="{ 'is-invalid': submitted && controls().message.errors}"></textarea>
-                                    <div *ngIf="submitted && controls().message.errors"
-                                        class="text-start invalid-feedback">
-                                        <div *ngIf="controls().message.errors!['required']">Personal message is required
-                                        </div>
-                                        <div *ngIf="controls().message.errors!['maxlength']">Personal message must not
-                                            exceed 500 characters</div>
+                                    <app-message-area placeholder="Message" (changeText)="onChangeMessage($event)"></app-message-area>
+                                    <input type="text" class="form-control" id="message" formControlName="message" [ngClass]="{ 'is-invalid': submitted && controls().sender_email.errors}" [hidden]="true">
+                                    <div *ngIf="submitted && controls().sender_email.errors" class="text-start invalid-feedback">
+                                        <div *ngIf="controls().sender_email.errors!['required']">Personal message is required</div>
+                                        <div *ngIf="controls().sender_email.errors!['maxlength']">Personal message must not exceed 500 characters</div>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -96,11 +80,8 @@
                                 </div>
                                 <div class="col-12 mb-2">
                                     <label for="receiver_name" class="form-label">*Name</label>
-                                    <input type="text" class="form-control" id="receiver_name" placeholder="Name"
-                                        formControlName="receiver_name"
-                                        [ngClass]="{ 'is-invalid': submitted && controls().receiver_name.errors}">
-                                    <div *ngIf="submitted && controls().receiver_name.errors"
-                                        class="text-start invalid-feedback">
+                                    <input type="text" class="form-control" id="receiver_name" placeholder="Name" formControlName="receiver_name" [ngClass]="{ 'is-invalid': submitted && controls().receiver_name.errors}">
+                                    <div *ngIf="submitted && controls().receiver_name.errors" class="text-start invalid-feedback">
                                         <div *ngIf="controls().receiver_name.errors!['required']">Receiver name is
                                             required</div>
                                         <div *ngIf="controls().receiver_name.errors!['maxlength']">Receiver name must
@@ -109,11 +90,8 @@
                                 </div>
                                 <div class="col-6 mb-2">
                                     <label for="receiver_email" class="form-label">*Email</label>
-                                    <input type="email" class="form-control" id="receiver_email"
-                                        placeholder="Email Address" formControlName="receiver_email"
-                                        [ngClass]="{ 'is-invalid': submitted && controls().receiver_email.errors}">
-                                    <div *ngIf="submitted && controls().receiver_email.errors"
-                                        class="text-start invalid-feedback">
+                                    <input type="email" class="form-control" id="receiver_email" placeholder="Email Address" formControlName="receiver_email" [ngClass]="{ 'is-invalid': submitted && controls().receiver_email.errors}">
+                                    <div *ngIf="submitted && controls().receiver_email.errors" class="text-start invalid-feedback">
                                         <div *ngIf="controls().receiver_email.errors!['required']">Receiver email
                                             address is required</div>
                                         <div *ngIf="controls().receiver_email.errors!['email']">Invalid email address
@@ -122,11 +100,8 @@
                                 </div>
                                 <div class="col-6 mb-3">
                                     <label for="receiver_phone" class="form-label">*Phone</label>
-                                    <input type="text" class="form-control" id="receiver_phone"
-                                        placeholder="Phone Number" formControlName="receiver_phone"
-                                        [ngClass]="{ 'is-invalid': submitted && controls().receiver_phone.errors}">
-                                    <div *ngIf="submitted && controls().receiver_phone.errors"
-                                        class="text-start invalid-feedback">
+                                    <input type="text" class="form-control" id="receiver_phone" placeholder="Phone Number" formControlName="receiver_phone" [ngClass]="{ 'is-invalid': submitted && controls().receiver_phone.errors}">
+                                    <div *ngIf="submitted && controls().receiver_phone.errors" class="text-start invalid-feedback">
                                         <div *ngIf="controls().receiver_phone.errors!['required']">Receiver phone number
                                             is required</div>
                                         <div *ngIf="controls().receiver_phone.errors!['maxlength']">Receiver phone
@@ -135,8 +110,7 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <button class="btn btn-primary w-100" type="submit"
-                                        [disabled]="!form.dirty && !saving">{{'order.addtocart'|translate}}</button>
+                                    <button class="btn btn-primary w-100" type="submit" [disabled]="!form.dirty && !saving">{{'order.addtocart'|translate}}</button>
                                 </div>
                             </div>
                         </form>
@@ -168,8 +142,29 @@
                 </div>
                 <div class="modal-footer footer">
                     <button class="btn btn-link" (click)="keepShopping()">{{'order.keepshopping'|translate}}</button>
-                    <button class="btn btn-primary" ngbAutofocus
-                        (click)="cart()">{{'order.viewcart'|translate}}</button>
+                    <button class="btn btn-primary" ngbAutofocus (click)="cart()">{{'order.viewcart'|translate}}</button>
+                </div>
+            </ng-template>
+
+            <ng-template #preview>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Preview</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12 mb-4" [style.font-family]="message.fontstyle" [style.font-size.px]="message.fontsize" [style.color]="message.fontcolor">
+                            <p>{{controls().receiver_name.value?controls().receiver_name.value:"[RECEIVER'S NAME]"}}</p>
+                        </div>
+                        <div class="col-8 text-center mb-4">
+                            <app-ecard-image-grid id="{{id}}"></app-ecard-image-grid>
+                        </div>
+                        <div class="col-8 text-center my-4" [style.font-family]="message.fontstyle" [style.font-size.px]="message.fontsize" [style.color]="message.fontcolor">
+                            <p class="w-100" [innerText]="message.text" [style.text-align]="message.alignment"></p>
+                        </div>
+                        <div class="col-12 text-end mt-4" [style.font-family]="message.fontstyle" [style.font-size.px]="message.fontsize" [style.color]="message.fontcolor">
+                            <p>FROM {{controls().sender_name.value?controls().sender_name.value:"[SENDER'S NAME]"}}</p>
+                        </div>
+                    </div>
                 </div>
             </ng-template>
         </div>

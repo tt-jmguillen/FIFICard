@@ -13,6 +13,10 @@ export class OrderECard {
     public receiver_phone: string;
     public receiver_email: string;
     public message: string;
+    public fontstyle: string;
+    public fontcolor: string;
+    public fontsize: number;
+    public alignment: 'left' | 'center' | 'right';
     public isPaid: Boolean;
     public paymentId: string;
     public sentid: string;

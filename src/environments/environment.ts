@@ -83,6 +83,20 @@ export const environment = {
       us: "https://www.pinterest.ph/FiBeiGreetingsUSA/"
     }
   },
+  fontstyles: [
+    'Open Sans',
+    'Dancing Script',
+    'Pacifico',
+    'Satisfy',
+    'Cookie',
+    'Great Vibes',
+    'Lora',
+    'Lobster',
+    'Playball',
+    'Courgette',
+    'Smooch',
+    'Zen Loop'
+  ],
   fontcolors: [
     { name: "Black", hex: '#000000' },
     { name: "Red", hex: '#800000' },
