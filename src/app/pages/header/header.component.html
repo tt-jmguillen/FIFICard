@@ -4,7 +4,10 @@
       <div class="row align-items-center">
         <div class="col-lg-2 col-4 my-logo">
           <!-- <a   href="/">FibeiGreetings</a> -->
-          <img src="{{logo}}" class="img-fluid" style=" cursor:pointer" routerLink="/">
+          <!-- <img src="{{logo}}" class="img-fluid" style=" cursor:pointer" routerLink="/"> -->
+          <img src="/assets/images/logo_fibeigreetings-com.png"  *ngIf="priceService.getLocation() == 'ph'"class="img-fluid" style=" cursor:pointer" routerLink="/">
+          <img src="/assets/images/logo_fibeigreetings-us.png"  *ngIf="priceService.getLocation() == 'us'"class="img-fluid" style=" cursor:pointer" routerLink="/">
+          <img src="/assets/images/logo_fibeigreetings-sg.png"  *ngIf="priceService.getLocation() == 'sg'" class="img-fluid" style=" cursor:pointer" routerLink="/">
           <div class="my-loc" *ngIf="priceService.getLocation() == 'ph'">Philippines</div>
           <div class="my-loc" *ngIf="priceService.getLocation() == 'us'">USA</div>
           <div class="my-loc" *ngIf="priceService.getLocation() == 'sg'">Singapore</div>
