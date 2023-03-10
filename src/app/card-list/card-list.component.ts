@@ -84,17 +84,43 @@ export class CardListComponent implements OnInit {
 
   }
 
-  loadRecipients() {
-    this.recipientService.getRecipients().then(recipients => {
-      this.recipientConfig = recipients;
-      this.loadCards();
-    });
+  initializeSorting(cards: Card[]) {
+    let withRatings = cards.filter(x => x.ratings! > 0);
+    let withFeatured = cards.filter(x => x.featured! == true);
+    let withBestseller = cards.filter(x => x.bestseller! == true);
+
+    this.allCards = withRatings;
+    withFeatured.forEach(card => {
+      if (this.allCards.findIndex(x => x.id! == card.id!) < 0) {
+        this.allCards.push(card);
+      }
+    })
+    withBestseller.forEach(card => {
+      if (this.allCards.findIndex(x => x.id! == card.id!) < 0) {
+        this.allCards.push(card);
+      }
+    })
+    cards.forEach(card => {
+      if (this.allCards.findIndex(x => x.id! == card.id!) < 0) {
+        this.allCards.push(card);
+      }
+    })
+
+    this.getTypes();
+    this.loadRecipients();
   }
 
   getTypes() {
     this.settingService.getCardType().then(types => {
       this.types = types;
     })
+  }
+
+  loadRecipients() {
+    this.recipientService.getRecipients().then(recipients => {
+      this.recipientConfig = recipients;
+      this.loadCards();
+    });
   }
 
   loadCards() {
@@ -240,7 +266,80 @@ export class CardListComponent implements OnInit {
     else if (_sort == "Highest Ratings") {
       return data.sort((a, b) => 0 - (this.averageRatings(a.ratings) > this.averageRatings(b.ratings) ? 1 : -1));
     }
-    return data.sort((a, b) => 0 - (a.name!.trim().toUpperCase() > b.name!.trim().toUpperCase() ? -1 : 1));
+    else {
+      let allData: Card[] = JSON.parse(JSON.stringify(data));
+      let newData: Card[];
+
+      let temp = allData.filter(x => {
+        return (x.ratings ? x.ratings! : 0) > 0 && (x.featured ? x.featured : false) == true && (x.bestseller ? x.bestseller : false) == true;
+      });
+      newData = temp;
+
+      temp = allData.filter(x => {
+        return (x.ratings ? x.ratings! : 0) > 0 && (x.featured ? x.featured : false) == true && (x.bestseller ? x.bestseller : false) == false;
+      });
+      temp.forEach(card => {
+        if (newData.findIndex(x => x.id! == card.id!) < 0) {
+          newData.push(card);
+        }
+      })
+
+      temp = allData.filter(x => {
+        return (x.ratings ? x.ratings! : 0) > 0 && (x.featured ? x.featured : false) == false && (x.bestseller ? x.bestseller : false) == true;
+      });
+      temp.forEach(card => {
+        if (newData.findIndex(x => x.id! == card.id!) < 0) {
+          newData.push(card);
+        }
+      })
+
+      temp = allData.filter(x => {
+        return (x.ratings ? x.ratings! : 0) > 0 && (x.featured ? x.featured : false) == false && (x.bestseller ? x.bestseller : false) == false;
+      });
+      temp.forEach(card => {
+        if (newData.findIndex(x => x.id! == card.id!) < 0) {
+          newData.push(card);
+        }
+      })
+
+      temp = allData.filter(x => {
+        return (x.ratings ? x.ratings! : 0) == 0 && (x.featured ? x.featured : false) == true && (x.bestseller ? x.bestseller : false) == true;
+      });
+      temp.forEach(card => {
+        if (newData.findIndex(x => x.id! == card.id!) < 0) {
+          newData.push(card);
+        }
+      })
+
+      temp = allData.filter(x => {
+        return (x.ratings ? x.ratings! : 0) == 0 && (x.featured ? x.featured : false) == true && (x.bestseller ? x.bestseller : false) == false;
+      });
+      temp.forEach(card => {
+        if (newData.findIndex(x => x.id! == card.id!) < 0) {
+          newData.push(card);
+        }
+      })
+
+      temp = allData.filter(x => {
+        return (x.ratings ? x.ratings! : 0) == 0 && (x.featured ? x.featured : false) == false && (x.bestseller ? x.bestseller : false) == true;
+      });
+      temp.forEach(card => {
+        if (newData.findIndex(x => x.id! == card.id!) < 0) {
+          newData.push(card);
+        }
+      })
+
+      temp = allData.filter(x => {
+        return (x.ratings ? x.ratings! : 0) == 0 && (x.featured ? x.featured : false) == false && (x.bestseller ? x.bestseller : false) == false;
+      });
+      temp.forEach(card => {
+        if (newData.findIndex(x => x.id! == card.id!) < 0) {
+          newData.push(card);
+        }
+      })
+      
+      return newData;
+    }
   }
 
   onRecipientClick(recipient: string) {
