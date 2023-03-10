@@ -1,45 +1,61 @@
 <h2>{{'profile.commpref'|translate}}</h2>
 <div class="card">
-    <div class="card-body">
-        <h3> {{'profile.emailpref'|translate}}</h3>
-        <p>
-            {{'profile.emailprofile'|translate}} <b *ngIf="user">{{user.email}}</b> {{'profile.youcan'|translate}} <span (click)="open(content)" class="mode">{{'profile.changeyouremail'|translate}}</span> {{'profile.atanytime'|translate}}
-        </p>
-        <br />
-        <div class="custom-control custom-checkbox">
-            <input *ngIf="user" type="checkbox" class="custom-control-input me-2" id="customCheck1" [checked]="user.notification" (change)="notificationChange(user.notification)">
-            <label class="custom-control-label" for="customCheck1"> {{'profile.clicknotif'|translate}}</label>
-        </div>
-        <br />
-        <p> {{'profile.seeour'|translate}} <a [routerLink]="['/page/PrivacyPolicy']" class="bold"><b>{{'profile.privacypolicy'|translate}}</b></a></p>
-        <br />
+  <div class="card-body">
+    <h3> {{'profile.emailpref'|translate}}</h3>
+    <p>
+      {{'profile.emailprofile'|translate}} <b *ngIf="user">{{user.email}}</b> {{'profile.youcan'|translate}} <span (click)="open(content)" class="mode">{{'profile.changeyouremail'|translate}}</span> {{'profile.atanytime'|translate}}
+    </p>
+    <br />
+    <div class="custom-control custom-checkbox">
+      <input *ngIf="user" type="checkbox" class="custom-control-input me-2" id="customCheck1" [checked]="user.notification" (change)="notificationChange(user.notification)">
+      <label class="custom-control-label" for="customCheck1"> {{'profile.clicknotif'|translate}}</label>
     </div>
+    <br />
+    <p> {{'profile.seeour'|translate}} <a [routerLink]="['/page/PrivacyPolicy']" class="bold"><b>{{'profile.privacypolicy'|translate}}</b></a></p>
+    <br />
+  </div>
 </div>
 
 <ng-template #content let-modal>
-    <form [formGroup]="form"> 
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">{{'profile.changeemail'|translate}}</h4>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label>{{'profile.currentemail'|translate}}</label>
-          <input type="email" class="form-control" placeholder="{{'profile.currentemail'|translate}}" formControlName="email">
-        </div>
-        <div class="mb-3">
-            <label>{{'profile.password'|translate}}</label>
-            <input type="password" class="form-control" placeholder="{{'profile.password'|translate}}" formControlName="password">
-          </div>
-        <div class="mb-3">
-          <label>{{'profile.newemail'|translate}}</label>
-          <input type="email" class="form-control" placeholder="{{'profile.newemail'|translate}}" formControlName="newemail">
-        </div>
-        <div class="model-footer">
-          <div class="mb-3">
-            <button type="button" class="btn btn-primary" (click)="save()">{{'button.save'|translate}}</button>
-            <button type="button" class="btn btn-danger" (click)="close()">{{'button.cancel'|translate}}</button>
-          </div>
+  <form [formGroup]="form" (ngSubmit)="save()" autocomplete="off">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{'profile.changeemail'|translate}}</h4>
+    </div>
+    <div class="modal-body">
+      <div class="mb-3">
+        <label>{{'profile.currentemail'|translate}}</label>
+        <input type="email" class="form-control" placeholder="{{'profile.currentemail'|translate}}" formControlName="email" [ngClass]="{ 'is-invalid': submitted && controls()['email'].errors}" autocomplete="new-password">
+        <div *ngIf="submitted && controls()['email'].errors" class="invalid-feedback">
+          <div *ngIf="controls()['email'].errors!['required']">Email is Required</div>
+          <div *ngIf="controls()['email'].errors!['email']">Invalid Email</div>
+          <div *ngIf="controls()['email'].errors!['authen']">Authentication Failed</div>
         </div>
       </div>
-    </form>
-  </ng-template>
+      <div class="mb-3">
+        <label>{{'profile.password'|translate}}</label>
+        <input type="password" class="form-control" placeholder="{{'profile.password'|translate}}" formControlName="password" [ngClass]="{ 'is-invalid': submitted && controls()['password'].errors}" autocomplete="new-password">
+        <div *ngIf="submitted && controls()['password'].errors" class="invalid-feedback">
+          <div *ngIf="controls()['password'].errors!['required']">Password is Required</div>
+          <div *ngIf="controls()['password'].errors!['authen']">Authentication Failed</div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label>{{'profile.newemail'|translate}}</label>
+        <input type="email" class="form-control" placeholder="{{'profile.newemail'|translate}}" formControlName="newemail" [ngClass]="{ 'is-invalid': submitted && controls()['newemail'].errors}" autocomplete="new-password">
+        <div *ngIf="submitted && controls()['newemail'].errors" class="invalid-feedback">
+          <div *ngIf="controls()['newemail'].errors!['required']">New Email is Required</div>
+          <div *ngIf="controls()['newemail'].errors!['email']">Invalid Email</div>
+          <div *ngIf="controls()['newemail'].errors!['newemail']">Enter a New Email</div>
+        </div>
+      </div>
+      <div class="model-footer">
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary" [disabled]="loading">
+            <span class="spinner-border spinner-border-sm" *ngIf="loading"></span> Submit
+          </button>
+          <button type="button" class="btn btn-danger" (click)="close()">{{'button.cancel'|translate}}</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>

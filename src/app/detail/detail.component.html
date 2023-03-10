@@ -45,12 +45,17 @@
                                             <p>Recipient: <span *ngFor="let recipient of card!.recipients" class="custom-pill mb-1">{{recipient}}</span></p>
                                             <app-bundle [view]="true" [card]="card" *ngIf="card.type != 'ecard'"></app-bundle>
                                             <img src="assets/images/sign-send-logo.png" style=" height: 40px;" *ngIf="card?.signAndSend">
-                                            <h3 class="section-title" *ngIf="card.type != 'postcard'">Price: {{priceService.getSign()}} {{getPrice() | number:'1.2-2'}} </h3>
+                                            <div *ngIf="getPrice() > 0">
+                                                <h3 class="section-title" *ngIf="card.type != 'postcard'">Price: {{priceService.getSign()}} {{getPrice() | number:'1.2-2'}}</h3>
+                                            </div>
+                                            <div *ngIf="getPrice() == 0">
+                                                <h3 class="section-title" *ngIf="card.type != 'postcard'">Free</h3>
+                                            </div>
                                             <a [ngClass]="orderEnable?'order':'order disable'" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)" [disabled]="!orderEnable" style="display:block" disabled>{{'card.buynow'|translate}}</a>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" [checked]="orderEnable" id="agreement" (change)="setEnable($event)">
                                                 <label class="form-check-label" for="agreement">
-                                                    Accept Terms & Condition
+                                                    Accept Terms & Conditions
                                                 </label>
                                             </div>
                                         </div>
@@ -75,9 +80,11 @@
                                 <section>
                                     <h5 style="font-weight: 600;" *ngIf="card">{{'card.details'|translate}}:</h5>
                                     <div style="white-space:pre-wrap">{{card!.details}}</div>
-                                    <br />
-                                    <img src="/assets/images/logo_fibeigreetings.png" routerLink="/" class="img-fluid cursor" style="max-height:100px;" *ngIf="card">
-                                    <br />
+                                    <div class="row mt-5">
+                                        <div class="col-12 text-center">
+                                            <img src="/assets/images/logo_fibeigreetings.png" routerLink="/" class="img-fluid cursor" style="max-height:100px;" *ngIf="card">
+                                        </div>
+                                    </div>
                                 </section>
                             </div>
                         </div>

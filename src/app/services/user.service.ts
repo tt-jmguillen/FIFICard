@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { doc, docData, Firestore } from '@angular/fire/firestore';
-import { resolveSoa } from 'dns';
 import { updateDoc } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
@@ -68,15 +67,46 @@ export class UserService {
     });
   }
 
-  changeEmail(currentEmail: string, password: string, newEmail: string) {
-    this.auth.signInWithEmailAndPassword(currentEmail, password).then(userCredential => {
-      userCredential.user?.updateEmail(newEmail);
+  changeEmail(currentEmail: string, password: string, newEmail: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.auth.signInWithEmailAndPassword(currentEmail, password).then(userCredential => {
+        if (userCredential) {
+          userCredential.user?.updateEmail(newEmail);
+        }
+        else {
+          resolve(false);
+        }
+      }).catch(err => {
+        resolve(false);
+      })
     })
   }
 
-  changePassword(email: string, password: string, newPassword: string) {
-    this.auth.signInWithEmailAndPassword(email, password).then(userCredential => {
-      userCredential.user?.updatePassword(newPassword);
+  userAuth(email: string, password: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.auth.signInWithEmailAndPassword(email, password).then(user => {
+        console.log(user)
+        resolve(user ? true : false);
+      }).catch(err => {
+        resolve(false);
+      })
+    })
+  }
+
+  changePassword(email: string, password: string, newPassword: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.auth.signInWithEmailAndPassword(email, password).then(userCredential => {
+        if (userCredential) {
+          userCredential.user?.updatePassword(newPassword).then(() => {
+            resolve(true);
+          })
+        }
+        else {
+          resolve(false);
+        }
+      }).catch(err => {
+        resolve(false);
+      })
     })
   }
 

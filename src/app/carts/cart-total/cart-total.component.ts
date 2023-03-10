@@ -174,6 +174,13 @@ export class CartTotalComponent implements OnInit {
         this.userService.addOrder(this.uid, order.id!);
         this.cardService.updateCardOrder(order.card_id!, order.id!);
 
+        if (card.type != 'ecard') {
+          this.userService.removeItemOnCart(this.uid, order.id!);
+        }
+        else{
+          this.userService.removeItemOnECart(this.uid, order.id!);
+        }
+
         if (card.type == 'ecard') {
           this.sendECardEmail(order as OrderECard);
         }
@@ -185,6 +192,8 @@ export class CartTotalComponent implements OnInit {
         this.allOrders.splice(index, 1);
 
         this.calculateTotal();
+
+        this.gcashRef.close('');
       });
     });
   }

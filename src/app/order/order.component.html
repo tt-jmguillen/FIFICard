@@ -35,7 +35,8 @@
                         <app-bundle [card]="card" (bundle)="bundle($event)"></app-bundle>
                     </div>
                     <div class=" col-6 mb-2">
-                        <h3 class="section-title" *ngIf="card"><b>{{priceService.getSign()}} {{cardPrice| number:'1.2-2'}}</b></h3>
+                        <h3 class="section-title" *ngIf="card && (cardPrice > 0)"><b>{{priceService.getSign()}} {{cardPrice| number:'1.2-2'}}</b></h3>
+                        <h3 class="section-title" *ngIf="card && (cardPrice == 0)"><b>Free</b></h3>
                     </div>
                     <div class="col-6 mb-2 d-flex align-items-center justify-content-end">
                         <button class="btn btn-light text-primary" (click)="loadUserProfile()" [disabled]="isUserProfileLoaded" *ngIf="isWithUserProfile">Use Default Profile Information</button>
@@ -190,7 +191,7 @@
                         </div>
                         <div class="col-12 mb-2" *ngIf="card?.signAndSend">
                             <span class="instruction" *ngIf="instruction">{{'order.insertsignandsend'|translate}}</span>
-                            <app-sign-and-send (signAndSendEvent)="receiveSignAndSend($event)"></app-sign-and-send>
+                            <app-sign-and-send (signAndSendEvent)="receiveSignAndSend($event)" (signAndSendPhotoEvent)="receiveSignAndSendPhoto($event)"></app-sign-and-send>
                         </div>
                         <div class="col-12 mb-2" *ngIf="!card?.signAndSend">
                             <label class="form-label">{{'order.personal'|translate}}</label>

@@ -85,7 +85,7 @@ export class DetailComponent implements OnInit {
   }
 
   checkIfLoggedIn(id: any): void {
-    if (this.orderEnable){
+    if (this.orderEnable) {
       let userDetails: string = localStorage.getItem('user')!;
       if (userDetails == null || userDetails.length < 0) {
         this.appComponent.openLoginDialog(id);
@@ -161,17 +161,22 @@ export class DetailComponent implements OnInit {
   }
 
   getPrice(): number {
-    let type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED' = 'STANDARD'
-    if (this.card!.types!.findIndex(x => x == 'STANDARD') >= 0) {
-      type = 'STANDARD';
+    if (this.card!.type == 'ecard') {
+      return this.priceService.getECardPrice(this.card)
     }
-    else if (this.card!.types!.findIndex(x => x == 'GLITTERED') >= 0) {
-      type = 'GLITTERED';
+    else {
+      let type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED' = 'STANDARD'
+      if (this.card!.types!.findIndex(x => x == 'STANDARD') >= 0) {
+        type = 'STANDARD';
+      }
+      else if (this.card!.types!.findIndex(x => x == 'GLITTERED') >= 0) {
+        type = 'GLITTERED';
+      }
+      if (this.card!.types!.findIndex(x => x == 'EMBOSSED') >= 0) {
+        type = 'EMBOSSED';
+      }
+      return this.priceService.getPrice(this.card!, type)
     }
-    if (this.card!.types!.findIndex(x => x == 'EMBOSSED') >= 0) {
-      type = 'EMBOSSED';
-    }
-    return this.priceService.getPrice(this.card!, type)
   }
 
   getEventTitle(card: Card): string {
@@ -182,7 +187,7 @@ export class DetailComponent implements OnInit {
     return value;
   }
 
-  setEnable(event: any){
+  setEnable(event: any) {
     this.orderEnable = event.target.checked;
   }
 
@@ -190,7 +195,7 @@ export class DetailComponent implements OnInit {
     this.location.back();
   }
 
-  isGlittered(){
+  isGlittered() {
     return (this.card!.types!.findIndex(x => x == 'GLITTERED') >= 0);
   }
 }

@@ -3,10 +3,10 @@
         <div class="container animate main">
             <div class="row">
                 <div class="col-md-2">
-                    <a [routerLink]="['/cards/event/sgIr7LDhGSnxOOIzjZXG']" class="to-link"  *ngIf="priceService.getLocation() == 'ph'">
+                    <a [routerLink]="['/cards/event/sgIr7LDhGSnxOOIzjZXG']" class="to-link" *ngIf="priceService.getLocation() == 'ph'">
                         <img src="/assets/images/bday/gifts-bday.png">
                     </a>
-                    <a [routerLink]="['/poetrycards/dGiyJX4go7yPhCJNJN4P']" class="to-link"  *ngIf="priceService.getLocation() != 'ph'">
+                    <a [routerLink]="['/poetrycards/dGiyJX4go7yPhCJNJN4P']" class="to-link" *ngIf="priceService.getLocation() != 'ph'">
                         <img src="/assets/images/bday/poetry-bday.png">
                     </a>
                 </div>
@@ -119,7 +119,7 @@
                     <div class="col-md-12 sns-no-label">
                         <!-- <div [routerLink]="['/signandsendpage']" class="to-link"> <img src="/assets/images/hw/sign-and-send-02.png" style="width:100%"></div>
                         <br /> <br />-->
-                        <app-home-featured caption="Sign and Send" [isSignAndSend]=true></app-home-featured>
+                        <app-home-featured caption="Sign and Send" [ids]="['FUmF8oMnhmpO9WgkziZN','GaHUF8E482lLIIebNPrY','JEiZgBQumVFDDyfxlJ24','JLpujLChwAf7CAay9HAx','UP19y5cwfVJByXTlmWQG','IPp9QMwawzBFgtgTxDQ1','gktcGJN6v6ROGUJSrMAU','xFG9kBmBv8sUgwvTWHVM','0PndLlvpXe3V46zHT5RY','2dH8qe9kgc7aN7pHSp4a','4Wz5Qqoa7yYpU0DfIlXA','5KIsabJ3spJSkOmbZLVD','Bfpij5w6qKeXusgh5CwV','QCqK7J0gEmm6sf2gznDj','1e3HY8oyjU0CwsZWqpoK','Gj9DQKqN3krzeVVhJRHb','OqiMLF73ek3TBE2PNPq6','cJXDwCuwCisW1vg24CsP','Ae11kuzI272NDJ159FwT','Tt7wE47yUOCBczValj3b','mqu9kvb4AdF8WwL9TAvA','qbQIVVGWv6LD0V1kPfkR','YM0LKWPou3NXAIAARtGR','6JHecB0o2wkJmYbKXCj8']"></app-home-featured>
 
                     </div>
                     <div class="col-md-12">
@@ -127,16 +127,13 @@
                         <h2 class="text-center cus-text-title">{{'home.featuredcategories'|translate}}</h2>
                     </div>
                     <div class="col-md-12">
-                        <app-home-featured caption="Mother's Day" homeCardEvent="Mother's Day"
-                            [limit]="100"></app-home-featured>
+                        <app-home-featured caption="Mother's Day" homeCardEvent="Mother's Day" [limit]="100"></app-home-featured>
                     </div>
                     <div class="col-md-12">
-                        <app-home-featured caption="Anniversary" homeCardEvent="Anniversary"
-                            [limit]="100"></app-home-featured>
+                        <app-home-featured caption="Anniversary" homeCardEvent="Anniversary" [limit]="100"></app-home-featured>
                     </div>
                     <div class="col-md-12">
-                        <app-home-featured caption="Sympathy" homeCardEvent="Sympathy"
-                            [limit]="100"></app-home-featured>
+                        <app-home-featured caption="Sympathy" homeCardEvent="Sympathy" [limit]="100"></app-home-featured>
                     </div>
                     <div class="col-md-12">
                         <app-home-featured caption="Pet Cards" homeCardEvent="Pet" [limit]="100"></app-home-featured>
@@ -149,10 +146,10 @@
                     <img src="/assets/images/bday/sns.png">
                 </div>
                 <div class="col-md-6">
-                    <a  [routerLink]="['/signandsend']"><img src="/assets/images/bday/pink.png"></a>
+                    <a [routerLink]="['/signandsend']"><img src="/assets/images/bday/pink.png"></a>
                 </div>
                 <div class="col-md-6">
-                    <a  [routerLink]="['/signandsendpage']"><img src="/assets/images/bday/blue.png"></a>
+                    <a [routerLink]="['/signandsendpage']"><img src="/assets/images/bday/blue.png"></a>
                 </div>
             </div>
 
@@ -183,8 +180,7 @@
                 <!-- caption="BEST SELLER GIFTS" -->
                 <!-- <app-home-bestseller
                     [ids]="['TWHYSqWcfejKR4ISqgkJ','RKAwStKSVltG6PgSrhKr','65R0tzljmfUbHTJ2oLDI','Ca4O3n9XhgEycwsQSeCQ','U7dYbkrpzv1kRopldrTG','WyloWUTIwkIUkoKhAMQA','pOxaKCkomN6vvqXsWq32','Bt8IoYIQLVjsm5qf0yes']"></app-home-bestseller> -->
-                <app-home-bestseller
-                    [ids]="['2X3ni7P5BqGPU1UbBpwq','Euxi0KuwUQuzBvN29vEo','q7d8sezaICMch9CxdDKm','JKoqEQ373txpRG6e9u4r']"></app-home-bestseller>
+                <app-home-bestseller [ids]="['2X3ni7P5BqGPU1UbBpwq','Euxi0KuwUQuzBvN29vEo','q7d8sezaICMch9CxdDKm','JKoqEQ373txpRG6e9u4r']"></app-home-bestseller>
 
             </div>
             <!-- <div>
@@ -206,10 +202,8 @@
             <div>
                 <div class="row">
                     <div class="col-md-12">
-                        <img src="/assets/images/valentines/v2/bottom-banner-min.png"
-                            *ngIf="priceService.getLocation() == 'ph'" class="img-fluid " style="width:100%">
-                        <img src="/assets/images/valentines/v2/bottom-banner-min-us.png"
-                            *ngIf="priceService.getLocation() != 'ph'" class="img-fluid " style="width:100%">
+                        <img src="/assets/images/valentines/v2/bottom-banner-min.png" *ngIf="priceService.getLocation() == 'ph'" class="img-fluid " style="width:100%">
+                        <img src="/assets/images/valentines/v2/bottom-banner-min-us.png" *ngIf="priceService.getLocation() != 'ph'" class="img-fluid " style="width:100%">
                         <br /> <br />
                         <img src="/assets/images/valentines/v2/2-min.png" class="img-fluid" style="width:100%">
                         <br /> <br />

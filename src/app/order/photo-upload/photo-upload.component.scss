@@ -1,0 +1,83 @@
+.photo-area button {
+    visibility: hidden;
+    position: absolute;
+}
+
+.photo-area:hover button {
+    visibility: visible;
+}
+
+.photo-area-image {
+    overflow: hidden;
+    position: relative;
+}
+
+.photo-area-image img {
+    position: absolute;
+}
+
+.progress {
+    width: 90%;
+}
+
+.resize {
+    position: absolute;
+    right: 3px;
+    top: 3px;
+}
+
+.resize div {
+    width: 22px;
+    height: 22px;
+    aspect-ratio: 1/1;
+    background-color: whitesmoke;
+    margin-bottom: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.resize div:hover {
+    opacity: 1;
+}
+
+.position {
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.position div {
+    width: 22px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.position div div {
+    width: 22px;
+    height: 22px;
+    aspect-ratio: 1/1;
+    background-color: whitesmoke;
+    margin-bottom: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.position div div:hover {
+    opacity: 1;
+}

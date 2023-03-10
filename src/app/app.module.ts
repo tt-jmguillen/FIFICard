@@ -89,6 +89,7 @@ import { CardListComponent } from './card-list/card-list.component';
 import { JustBecauseComponent } from './just-because/just-because.component';
 import { JustBecauseGreetingsComponent } from './just-because/just-because-greetings/just-because-greetings.component';
 import { EmojiComponent } from './modules/emoji/emoji.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 // import ngx-translate and the http loader
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -129,6 +130,7 @@ import { StickersCardsComponent } from './stickers-cards/stickers-cards.componen
 import { PoetryCardsComponent } from './poetry-cards/poetry-cards.component';
 import { CartTotalComponent } from './carts/cart-total/cart-total.component';
 import { FavoriteCardComponent } from './settings/profile/profile-list/favorite-card/favorite-card.component';
+import { PhotoUploadComponent } from './order/photo-upload/photo-upload.component';
 
 @NgModule({
   declarations: [
@@ -232,7 +234,8 @@ import { FavoriteCardComponent } from './settings/profile/profile-list/favorite-
     StickersCardsComponent,
     PoetryCardsComponent,
     CartTotalComponent,
-    FavoriteCardComponent
+    FavoriteCardComponent,
+    PhotoUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -260,6 +263,7 @@ import { FavoriteCardComponent } from './settings/profile/profile-list/favorite-
     NgxImageZoomModule,
     AppRoutingModule,
     HttpClientModule,
+    PickerModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

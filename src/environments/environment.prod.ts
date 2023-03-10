@@ -70,5 +70,15 @@ export const environment = {
       sg: "https://www.pinterest.ph/FibeiGreetings/_saved",
       us: "https://www.pinterest.ph/FiBeiGreetingsUSA/"
     }
-  }
+  },
+  fontcolors: [
+    { name: "Black", hex: '#000000' },
+    { name: "Red", hex: '#800000' },
+    { name: "Blue", hex: '#3A9BDC' },
+    { name: "White", hex: '#F8F8FF' },
+    { name: "Yellow", hex: '#FDD128' },
+    { name: "Violet", hex: '#6B2D98' },
+    { name: "Brown", hex: '#B87333' },
+    { name: "Green", hex: '#228B22' }
+  ]
 };

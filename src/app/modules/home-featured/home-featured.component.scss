@@ -29,6 +29,10 @@
     width: 100%;
 }
 
+.cursor img:hover{
+    background-color: #d419bb;
+}
+
 .custom-ico .material-icons {
 
     font-size: 60px !important;
@@ -80,33 +84,20 @@
 }
 
 ::ng-deep .carousel-item {
-    transition: transform 1.5s ease-in-out !important;
+    transition: transform 3s ease-in-out !important;
 }
 
-// h5.xmas-draft  
-// {
-//     margin: 0;
-//     padding: 10px;
-//     background: #b32621;
-//     color: white;
-//     border-bottom: 5px solid #459e52;
-
-// }  
-// h5.xmas-draft  new year
-// {
-//     margin: 0;
-//     padding: 10px;
-//     background: #c32724;
-//     color: white;
-//     border-bottom: 5px solid  #db8d46;
-//}  
-
-h5.xmas-draft
-{
+h5.xmas-draft {
     margin: 0;
     padding: 10px;
     background: #b40a1d;
     color: white;
-    border-bottom: 5px solid  #fb7f79;
+    border-bottom: 5px solid #fb7f79;
 
-}  
+}
+
+.ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

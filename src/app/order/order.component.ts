@@ -6,7 +6,7 @@ import { EventService } from './../services/event.service';
 import { Fee } from './../models/fee';
 import { AddressConfig } from './../models/address-config';
 import { AddMore } from './../models/add-more';
-import { SignAndSendDetails } from './../models/sign-and-send-details';
+import { SignAndSendDetails, SignAndSendPhotoDetails } from './../models/sign-and-send-details';
 import { AddressService } from './../services/address.service';
 import { EmailService } from './../services/email.service';
 import { OrderService } from './../services/order.service';
@@ -44,6 +44,7 @@ export class OrderComponent implements OnInit {
   shippingfee: number = 0;
   isWithSignAndSend: boolean = false;
   SignAndSend: SignAndSendDetails[] = [];
+  SignAndSendPhoto: SignAndSendPhotoDetails[] = [];
 
   title: Title;
   appComponent: AppComponent
@@ -338,9 +339,12 @@ export class OrderComponent implements OnInit {
   createAnOrder(order: Order): Promise<string> {
     return new Promise((resolve) => {
       this.orderService.createOrder(order).then(id => {
-        this.SignAndSend.forEach(sign => {
-          this.orderService.addSignAndSend(id, sign);
+        this.SignAndSend.forEach(async sign => {
+          await this.orderService.addSignAndSend(id, sign);
         });
+        this.SignAndSendPhoto.forEach(async photo => {
+          await this.orderService.addSignAndSendPhoto(id, photo);
+        })
         this.userService.addItemOnCart(this.uid, id);
         resolve(id);
       })
@@ -365,8 +369,13 @@ export class OrderComponent implements OnInit {
   }
 
   receiveSignAndSend(signAndSendDetails: SignAndSendDetails[]) {
-    this.isWithSignAndSend = true;
     this.SignAndSend = signAndSendDetails;
+    this.isWithSignAndSend = (this.SignAndSend.length > 0) || (this.SignAndSendPhoto.length > 0);
+  }
+
+  receiveSignAndSendPhoto(signAndSendPhotoDetails: SignAndSendPhotoDetails[]){
+    this.SignAndSendPhoto = signAndSendPhotoDetails;
+    this.isWithSignAndSend = (this.SignAndSend.length > 0) || (this.SignAndSendPhoto.length > 0);
   }
 
   getAvailableURL(image: string): Promise<string> {
