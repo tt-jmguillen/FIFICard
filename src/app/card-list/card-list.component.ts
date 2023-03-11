@@ -35,6 +35,9 @@ export class CardListComponent implements OnInit {
   @Input() recipient: string;
   @Input() footer: boolean = true;
   @Input() mode: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' = 'card';
+  @Input() set categories(_categories: string[]){
+    this.filterCategories = _categories;
+  }
   @Input() nomessagetype: boolean = false;
 
   recipientService: RecipientService;
@@ -49,6 +52,7 @@ export class CardListComponent implements OnInit {
   sort: string = '';
   message: '' | 'regular' | 'poetry' = '';
   select: '' | 'featured' | 'bestseller' = '';
+  category: string = '';
 
   allCards: Card[] = [];
   filterCards: Card[] = [];
@@ -67,6 +71,8 @@ export class CardListComponent implements OnInit {
   selectedRecipient: string;
 
   types: Cardtype[] = [];
+
+  filterCategories: string[] = [];
 
   constructor(
     _recipientService: RecipientService,
@@ -145,7 +151,10 @@ export class CardListComponent implements OnInit {
 
   applyDisplayFilterAndSort() {
     this.sortCards = this.filterCards;
-
+    
+    if (this.category != ''){
+      this.sortCards = this.filterForCategories(this.category, this.sortCards);
+    }
     if (this.budget != '') {
       this.sortCards = this.filterForBudget(this.budget, this.sortCards);
     }
@@ -251,6 +260,19 @@ export class CardListComponent implements OnInit {
     else {
       return data.filter(x => x.bestseller! == true);
     }
+  }
+
+  filterForCategories(_type: string, data: Card[]): Card[]{
+    let filtered: Card[] = [];
+    data.forEach(card => {
+      if (card.events && (card.events.length > 0)){
+        let events: string[] = card.events!
+        if (events.findIndex(x => x.toLowerCase() == _type.toLowerCase()) >= 0){
+          filtered.push(card);
+        }
+      }
+    })
+    return filtered;
   }
 
   sortRecord(_sort: string, data: Card[]): Card[] {
@@ -485,6 +507,13 @@ export class CardListComponent implements OnInit {
 
   changeSelect(event: any) {
     this.select = event.target.value;
+    if (this.filterCards.length > 0) {
+      this.applyDisplayFilterAndSort();
+    }
+  }
+
+  changeCategory(event: any) {
+    this.category = event.target.value;
     if (this.filterCards.length > 0) {
       this.applyDisplayFilterAndSort();
     }

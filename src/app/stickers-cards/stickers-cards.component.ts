@@ -38,6 +38,7 @@ export class StickersCardsComponent implements OnInit {
   caption: string = '';
   loading: boolean = false;
   cards: Card[] = [];
+  categories: string[] = [];
 
   ngOnInit(): void {
     this.activateRoute.params.subscribe(params => {
@@ -50,6 +51,7 @@ export class StickersCardsComponent implements OnInit {
       }
       else{
         this.loadAllCards();
+        this.loadCategories();
       }
     })
   }
@@ -67,6 +69,12 @@ export class StickersCardsComponent implements OnInit {
     this.cardService.getCardsByType('sticker').then(cards => {
       this.cards = cards;
       this.loading = false;
+    })
+  }
+
+  loadCategories(){
+    this.eventService.getEventSticker().then(events => {
+      this.categories = events.map(x => x.name!);
     })
   }
 }
