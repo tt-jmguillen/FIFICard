@@ -381,7 +381,8 @@ export class CardListComponent implements OnInit {
       }
     }
     else {
-      this.recipients.unshift("All");
+      if (this.recipients.findIndex(x => x == "All") < 0)
+        this.recipients.unshift("All");
     }
 
     this.selectedRecipient = this.recipients[0];
