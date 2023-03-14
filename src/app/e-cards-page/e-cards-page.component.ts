@@ -1,3 +1,4 @@
+import { CardService } from './../services/card.service';
 import { Title } from '@angular/platform-browser';
 import { EventService } from 'src/app/services/event.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,13 +12,16 @@ import { Event } from '../models/event';
 export class ECardsPageComponent implements OnInit {
   title: Title;
   eventService: EventService;
+  cardService: CardService;
 
   constructor(
     _title: Title,
     _eventService: EventService,
+    _cardService: CardService
   ) { 
     this.title = _title;
-    this.eventService = _eventService
+    this.eventService = _eventService;
+    this.cardService = _cardService;
   }
 
   orders = [
@@ -42,14 +46,21 @@ export class ECardsPageComponent implements OnInit {
     this.loadEvents();
   }
 
-  loadEvents(){
-    this.eventService.getEventECard().then(events => {
-      this.orders.forEach(order => {
+  async loadEvents(){
+    this.eventService.getEventECard().then(async events => {
+      this.orders.forEach(async order => {
         let event = events.find(x => x.name! == order);
         if (event != undefined){
-          this.events.push(event);
+          let cards = await this.cardService.getCardsByTypeAndEvent('ecard', event.name!);
+          if (cards.length > 0)
+            this.events.push(event);
         }
       })
     })
+  }
+
+  async checkAvailability(event: Event): Promise<Boolean>{
+    let cards = await this.cardService.getCardsByTypeAndEvent('ecard', event.name!);
+    return cards.length > 0;
   }
 }
