@@ -169,7 +169,7 @@ export class CardListComponent implements OnInit {
     }
     this.sortCards = this.sortRecord(this.sort, this.sortCards);
 
-    if (this.priority != undefined) {
+    if (this.priority != '') {
       let index: number = this.sortCards.findIndex(x => x.id! == this.priority);
       if (index >= 0) {
         let card = this.sortCards[index];

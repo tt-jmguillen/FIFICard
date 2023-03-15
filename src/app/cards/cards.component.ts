@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { ImageService } from 'src/app/services/image.service';
 import { FilterService } from './../services/filter.service';
 import { Card } from './../models/card';
@@ -46,10 +47,8 @@ export class CardsComponent implements OnInit {
   cards: Card[] = [];
   loading: boolean = true;
 
-  eventSettings: EventSetting[] = [];
-  eventSetting: EventSetting;
-
   type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' = 'card';
+  priority: string = '';
 
   constructor(
     private _title: Title,
@@ -73,37 +72,6 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.eventSettings.push(new EventSetting('Confirmation', 'tdvYzC3lT3vPdZzTkP7D', '/card/9gJZdaXDGk74siRExTrd'));
-    this.eventSettings.push(new EventSetting('Wedding', 'P390wMwR8PGyAgy51vrY', '/card/B7xwfIgXhIUFxfNhI8xX'));
-    this.eventSettings.push(new EventSetting('Thinking Of You', 'mAyLGGHHq8x1XqawDacL', '/card/6utqlq60ud67qCKbOcm4'));
-    this.eventSettings.push(new EventSetting('Halloween', 'wkrjkOcpYUX3eUyJ08tj', '/card/07F8gW94f6mGFHISQpWx'));
-    this.eventSettings.push(new EventSetting('First Communion', '8woCW1eoUIooXjgvjMSx', '/card/U34l4tVO9NAaLfJFuDRm'));
-    this.eventSettings.push(new EventSetting('Baptism', '68VpIN3szeQ2VNj2InGD', '/card/YqFMboYkU8KqULTVYCD0'));
-    this.eventSettings.push(new EventSetting('Parents Appreciation', 'vJ0Rk9KoFwnISsjdKtRJ', '/card/RTKaRLkckcFHBVTvwFC9'));
-    this.eventSettings.push(new EventSetting('Teacher Appreciation', 'hwRqfPGajCmVvWBQ8OIY', '/card/5AeQBWLOrvxpNV3Ff9TY'));
-    this.eventSettings.push(new EventSetting('BIRTHDAY', '08VjvPay1RNWZCvkI4Gt', '/card/YbLeDTqC8nd4V85uJ0aq'));
-    this.eventSettings.push(new EventSetting('CHRISTMAS', 'JHPAAFJDLHm8Ao8rS8px', '/card/EmwhypC9otvbFcoo2yET'));
-    this.eventSettings.push(new EventSetting('THANK YOU', 'Ov40VgNzgtuObCrVJTe3', '/card/TZr0w3xILIYvXdm8spGc'));
-    this.eventSettings.push(new EventSetting('MILITARY APPRECIATION', 'vP08uWaWJ2fNePPpHeoT', '/card/dEQWrVtbl3Q5IYUFmIGn'));
-    this.eventSettings.push(new EventSetting('MOTHERS DAY', '6C3GEEQumsH9rh1iRV9y', '/card/qlYBuR3MbsgYQIwTCLBh'));
-    this.eventSettings.push(new EventSetting('RETIREMENT', 'rmpdW3x0NH2r8LZr9l8U', '/card/excJgjQ91iECBWEkR51p'));
-    this.eventSettings.push(new EventSetting('LOVE YOUR ENEMY', 'caUWVUzKKJui3hmnalaQ', '/card/ttTvbl6pLgKC9FdWOp5u'));
-    this.eventSettings.push(new EventSetting('DISTRESS', 'z3Vlo33fi5BUTEOcJ0t1', '/card/xC9akQ3IwA9QsE9jRbw4'));
-    this.eventSettings.push(new EventSetting('GRADUATION', 'hYCJwp6kDMHVgXY4FMuJ', '/card/LG91AKqkj1dsvvql51Zv'));
-    this.eventSettings.push(new EventSetting('CONGRATULATIONS', 'LT6CjyAyAqmYYTihNOx1', '/card/nkUZxp04stsB8SVxCVhy'));
-    this.eventSettings.push(new EventSetting('FATHERS DAY', 'IMHQhzRssP2cZdfqOfWb', '/card/OkBSquS8aTDTrTmscFaa'));
-    this.eventSettings.push(new EventSetting('FRIENDSHIP', 'P9whSpKaPTYqYBN1IWmw', '/card/KpBq9Atga2LkaTKX0hcD'));
-    this.eventSettings.push(new EventSetting('GRANDPARENTS DAY', 'QO2TVXdSZEoimL49VKuC', '/card/KpW0laiSbUfAmhoqLcgG'));
-    this.eventSettings.push(new EventSetting('PET CARDS', '5sxryZAm4b1aiAnIfdxv', '/card/uGkW25dFLiZFDMvdYw6v'));
-    this.eventSettings.push(new EventSetting('GET WELL', 'bW4l1zph6jKHrghKBLWY', '/card/y2sxhRoday8B3hWg3HRt'));
-    this.eventSettings.push(new EventSetting('Valentines day', 'Roye9MTtU2azReOnMHrV', '/card/UaFgHHAgfAn6rd4jFyvq'));
-    this.eventSettings.push(new EventSetting('Anniversary', 'jPfJA2o2s6KbyKdhJJDe', '/card/xucXPthnzIRfn0oHbI4X'));
-    this.eventSettings.push(new EventSetting('Love', 'dR2Wb8cvjTAJMa29DIhU', '/card/3nczwYuTxv9o1imzMkoy'));
-    this.eventSettings.push(new EventSetting('New Year', 'izfn4TE6voc9BSdiajTp', '/card/l1BUektIMItpJSjTLel5'));
-    this.eventSettings.push(new EventSetting('Baby', 'EAjQkiW7pxM3B4uvzrT4', '/card/VLb0P0etpFC1i7fCJdfF'));
-    this.eventSettings.push(new EventSetting('Easter', '0P6vkjd1vtozLlSEi6D3', '/card/grPJr0pX8fk5SRpH4SG3'));
-    this.eventSettings.push(new EventSetting('Funny', 'T8N5NmIKxrZUpQFszUBV', '/card/e7X2DddeJ0fuTLQ9P7jr?fbclid=IwAR2ujAuxiM3BVHZEPkDYYVxpseRO586BGMXm5ClLTPgdKMUatkLMIz3cR9Y'));
-
     this.activateRoute.params.subscribe(params => {
 
       this.id = params['id'];
@@ -117,6 +85,9 @@ export class CardsComponent implements OnInit {
           this.title.setTitle(this.event);
           this.caption = this.event;
           this.def.detectChanges();
+
+          if (environment.priority.find(x => x.event == this.id!))
+            this.priority = environment.priority.find(x => x.event == this.id!)!.card;
 
           if (event.banner != undefined) {
             this.imageService.getImageURL(event.banner).then(img => {
@@ -170,10 +141,6 @@ export class CardsComponent implements OnInit {
         }
 
         if ((this.event) && (this.event! != 'All')) {
-          let index = this.eventSettings.findIndex(x => this.replaceAll(x.event) == this.replaceAll(this.event!));
-          if (index >= 0) {
-            this.eventSetting = this.eventSettings[index];
-          }
           this.getCardsForEvent(this.event!);
         }
         else if ((this.search) && (this.search != '')) {
