@@ -5,10 +5,13 @@
                 <div class="col-md-12 mb-4">
                     <img src="/assets/images/ecards/banner.png">
                 </div>
+                <div class="col-12 my-2">
+                    <img src="/assets/images/ecards/e-card-cat.png">
+                </div>
             </div>
             <div class="row">
                 <div class="col-12 my-2">
-                    Events and Occasions
+                    <img src="/assets/images/ecards/eo.png" style="height:100px">
                 </div>
                 <div class="col-md-3 col-sm-6 col-6 mb-4" *ngFor="let event of events">
                     <app-ecard-event [event]="event"></app-ecard-event>
@@ -16,12 +19,15 @@
             </div>
             <div class="row">
                 <div class="col-12 my-2">
-                    Specialty Cards
+                    <img src="/assets/images/ecards/sc.png" style="height:100px">
                 </div>
                 <div class="col-md-3 col-sm-6 col-6 mb-4" *ngFor="let event of spEvents">
                     <app-ecard-event [event]="event"></app-ecard-event>
                 </div>
             </div>
+            <br /> <br />
+            <img src="assets/images/ecards/implored.jpg">
+            <br /> <br />
             <div class="row">
                 <div class="col-md-12 mb-4">
                     <img src="assets/images/banner/select/title.png">
@@ -42,14 +48,11 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <br /> <br />
-                    <img src="assets/images/ecards/implored.jpg">
+                  
                     <br /> <br />
                     <div class="purple-box">
                         <div class="row">
-                            <div class="col-md-12">
-                                <img src="assets/images/banner/option/banner.png">
-                            </div>
+                           
                             <div class="col-md-4">
                                 <a [routerLink]="['/events']" class="to-link"><img
                                         src="assets/images/banner/option/event.png"></a>
@@ -63,6 +66,10 @@
                                         src="assets/images/banner/option/specialty.png"></a>
                             </div>
                         </div>
+                    </div>
+                   
+                    <div class="col-md-12">
+                        <img src="assets/images/banner/option/banner.png">
                     </div>
 
                 </div>
