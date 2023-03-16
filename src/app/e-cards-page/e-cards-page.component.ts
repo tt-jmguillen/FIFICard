@@ -18,48 +18,61 @@ export class ECardsPageComponent implements OnInit {
     _title: Title,
     _eventService: EventService,
     _cardService: CardService
-  ) { 
+  ) {
     this.title = _title;
     this.eventService = _eventService;
     this.cardService = _cardService;
   }
 
   orders = [
-    "Valentine's Day",
+    "Happy Birthday",
+    "Anniversary",
+    "Wedding",
     "Graduation",
     "Mother's Day",
     "Father’s Day",
     "Grandparent's Day",
     "Baptism",
-    "Anniversary",
-    "Happy Birthday",
-    "Wedding",
-    "Get Well",
+    "Valentine's Day",
+  ]
+
+  spOrder = [
     "Thank You",
+    "Get Well",
     "Pet"
   ]
 
   events: Event[] = [];
+  spEvents: Event[] = [];
 
   ngOnInit(): void {
     this.title.setTitle('E-Cards');
     this.loadEvents();
   }
 
-  async loadEvents(){
+  async loadEvents() {
     this.eventService.getEventECard().then(async events => {
       this.orders.forEach(async order => {
         let event = events.find(x => x.name! == order);
-        if (event != undefined){
+        if (event != undefined) {
           let cards = await this.cardService.getCardsByTypeAndEvent('ecard', event.name!);
           if (cards.length > 0)
             this.events.push(event);
         }
       })
+
+      this.spOrder.forEach(async order => {
+        let event = events.find(x => x.name! == order);
+        if (event != undefined) {
+          let cards = await this.cardService.getCardsByTypeAndEvent('ecard', event.name!);
+          if (cards.length > 0)
+            this.spEvents.push(event);
+        }
+      })
     })
   }
 
-  async checkAvailability(event: Event): Promise<Boolean>{
+  async checkAvailability(event: Event): Promise<Boolean> {
     let cards = await this.cardService.getCardsByTypeAndEvent('ecard', event.name!);
     return cards.length > 0;
   }

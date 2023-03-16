@@ -7,7 +7,18 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-12 my-2">
+                    Events and Occasions
+                </div>
                 <div class="col-md-3 col-sm-6 col-6 mb-4" *ngFor="let event of events">
+                    <app-ecard-event [event]="event"></app-ecard-event>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 my-2">
+                    Specialty Cards
+                </div>
+                <div class="col-md-3 col-sm-6 col-6 mb-4" *ngFor="let event of spEvents">
                     <app-ecard-event [event]="event"></app-ecard-event>
                 </div>
             </div>
