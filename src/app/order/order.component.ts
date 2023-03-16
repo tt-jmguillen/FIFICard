@@ -107,6 +107,8 @@ export class OrderComponent implements OnInit {
 
   location: 'ph' | 'sg' | 'us' = 'ph';
 
+  isGlittered: boolean = false;
+
   constructor(
     _title: Title,
     _formBuilder: UntypedFormBuilder,
@@ -580,6 +582,7 @@ export class OrderComponent implements OnInit {
         if (def.toLowerCase() == cardType.name.toLowerCase()) {
           this.defaultType = cardType.name;
           this.changeTo = cardType.name;
+          this.isGlittered = cardType.name == 'GLITTERED';
         }
       })
     })
@@ -597,6 +600,7 @@ export class OrderComponent implements OnInit {
     if (this.changeTo == 'EMBOSSED') {
       type = 'EMBOSSED';
     }
+    this.isGlittered = type == 'GLITTERED';
     this.cardPrice = this.priceService.getPrice(this.card!, type)
   }
 
