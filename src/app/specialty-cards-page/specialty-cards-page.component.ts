@@ -10,16 +10,13 @@ import { EventService } from '../services/event.service';
   styleUrls: ['./specialty-cards-page.component.scss']
 })
 export class SpecialtyCardsPageComponent implements OnInit {
-  title: Title;
   service: EventService;
   priceService: PriceService;
 
   constructor(
-    _title: Title,
     _service: EventService,
     _priceService: PriceService
   ) {
-    this.title = _title;
     this.service = _service;
     this.priceService = _priceService;
   }
@@ -27,7 +24,6 @@ export class SpecialtyCardsPageComponent implements OnInit {
   events: Event[] = [];
 
   ngOnInit(): void {
-    this.title.setTitle("Specialty Card");
     this.loadevents();
   }
 

@@ -9,19 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostcardsComponent implements OnInit {
 
-  title: Title;
   priceService: PriceService;
 
   constructor(
-    _title: Title,
     _priceService: PriceService
   ) { 
-    this.title = _title;
     this.priceService = _priceService;
   }
 
   ngOnInit(): void {
-    this.title.setTitle("Postcards");
   }
 
 }

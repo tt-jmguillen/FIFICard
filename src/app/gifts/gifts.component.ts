@@ -10,16 +10,13 @@ import { Event } from '../models/event';
   styleUrls: ['./gifts.component.scss']
 })
 export class GiftsComponent implements OnInit {
-  title: Title;
   service: EventService;
   priceService: PriceService;
 
   constructor(
-    _title: Title,
     _service: EventService,
     _priceService: PriceService
   ) {
-    this.title = _title;
     this.service = _service;
     this.priceService = _priceService
   }
@@ -31,7 +28,6 @@ export class GiftsComponent implements OnInit {
   mode: 'Category' | 'Recipient' | 'Event' = 'Category';
 
   ngOnInit(): void {
-    this.title.setTitle("Gifts");
     this.loadCategory();
     this.loadRecipient();
     this.loadEvent();

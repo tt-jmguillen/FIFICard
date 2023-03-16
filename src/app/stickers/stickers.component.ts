@@ -13,20 +13,17 @@ import { Card } from '../models/card';
   styleUrls: ['./stickers.component.scss']
 })
 export class StickersComponent implements OnInit {
-  title: Title;
   service: EventService;
   cardService: CardService;
   priceService: PriceService;
   def: ChangeDetectorRef;
 
   constructor(
-    private _title: Title,
     private _service: EventService,
     private _cardService: CardService,
     private _priceService: PriceService,
     private _def: ChangeDetectorRef
   ) {
-    this.title = _title;
     this.service = _service;
     this.cardService = _cardService;
     this.priceService = _priceService
@@ -37,7 +34,6 @@ export class StickersComponent implements OnInit {
   featured: Event;
 
   ngOnInit(): void {
-    this.title.setTitle("Stickers");
     this.loadStickers();
   }
 

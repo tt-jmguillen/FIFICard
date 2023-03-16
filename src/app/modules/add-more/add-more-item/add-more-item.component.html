@@ -7,7 +7,7 @@
             <p>{{card.name}}</p>
         </div>
         <div class="price">
-            <p><strong>{{card.price!.toFixed(2)}}</strong></p>
+            <p><strong>{{priceService.getSign()}} {{card.price!.toFixed(2)}}</strong></p>
         </div>
         <div *ngIf="count == 0" class="text-center addtocart">
             Add to Cart
@@ -28,7 +28,7 @@
         <div class="content">
             <span><strong>{{card.name}}</strong></span><br />
             <span>Description: <strong>{{card.description}}</strong></span><br />
-            <span>Price: <strong>{{card.price!.toFixed(2)}}</strong></span>
+            <span>Price: <strong>{{priceService.getSign()}} {{card.price!.toFixed(2)}}</strong></span>
         </div>
     </ng-template>
 </div>

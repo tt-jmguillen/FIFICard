@@ -1,3 +1,4 @@
+import { PriceService } from './../../../services/price.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Card } from 'src/app/models/card';
 import { CardService } from 'src/app/services/card.service';
@@ -14,16 +15,20 @@ export class AddMoreItemComponent implements OnInit {
   @Output() addMoreChange: EventEmitter<number> = new EventEmitter<number>();
 
   service: CardService;
-  imageURL: string = ''
-  currentCount: number = 0;
-
-  show: boolean = false;
+  priceService: PriceService;
 
   constructor(
-    _service: CardService
+    _service: CardService,
+    _priceService: PriceService
   ) {
     this.service = _service;
+    this.priceService = _priceService;
   }
+
+
+  imageURL: string = ''
+  currentCount: number = 0;
+  show: boolean = false;
 
   ngOnInit(): void {
     this.loadImage(this.card.id!);

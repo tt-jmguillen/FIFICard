@@ -1,5 +1,5 @@
 import { PriceService } from './../services/price.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
@@ -34,23 +34,21 @@ export class HomeComponent implements OnInit {
   ];
 
   router: Router;
-  title: Title;
+  def: ChangeDetectorRef;
   priceService: PriceService;
 
   constructor(
     _router: Router,
-    _title: Title,
+    _def: ChangeDetectorRef,
     _priceService: PriceService
   ) {
     this.router = _router;
-    this.title = _title;
+    this.def = _def;
     this.priceService = _priceService
   }
 
   ngOnInit(): void {
-    //this.carousel.animation = true;
-    //this.carousel.cycle();
-    this.title.setTitle('Fibei Greetings');
+    this.def.detectChanges();
 
     environment.redirect.forEach(element => {
       if (window.location.hostname.toLowerCase() == element.host.toLowerCase()) {

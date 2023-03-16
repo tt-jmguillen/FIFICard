@@ -10,16 +10,13 @@ import { Event } from '../models/event';
   styleUrls: ['./e-cards-page.component.scss']
 })
 export class ECardsPageComponent implements OnInit {
-  title: Title;
   eventService: EventService;
   cardService: CardService;
 
   constructor(
-    _title: Title,
     _eventService: EventService,
     _cardService: CardService
   ) {
-    this.title = _title;
     this.eventService = _eventService;
     this.cardService = _cardService;
   }
@@ -46,7 +43,6 @@ export class ECardsPageComponent implements OnInit {
   spEvents: Event[] = [];
 
   ngOnInit(): void {
-    this.title.setTitle('E-Cards');
     this.loadEvents();
   }
 

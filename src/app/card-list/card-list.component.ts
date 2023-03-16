@@ -359,6 +359,8 @@ export class CardListComponent implements OnInit {
           newData.push(card);
         }
       })
+
+      console.log(newData);
       
       return newData;
     }

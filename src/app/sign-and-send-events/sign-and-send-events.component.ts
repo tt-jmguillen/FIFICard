@@ -10,16 +10,13 @@ import { Event } from '../models/event';
   styleUrls: ['./sign-and-send-events.component.scss']
 })
 export class SignAndSendEventsComponent implements OnInit {
-  title: Title;
   service: EventService;
   priceService: PriceService;
 
   constructor(
-    _title: Title,
     _service: EventService,
     _priceService: PriceService
   ) {
-    this.title = _title;
     this.service = _service;
     this.priceService = _priceService;
   }
@@ -28,7 +25,6 @@ export class SignAndSendEventsComponent implements OnInit {
   events: Event[] = [];
 
   ngOnInit(): void {
-    this.title.setTitle("Sign and Send");
     this.loadevents();
   }
 

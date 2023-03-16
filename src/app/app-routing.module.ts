@@ -1,3 +1,4 @@
+import { title } from 'process';
 import { PoetryCardsComponent } from './poetry-cards/poetry-cards.component';
 import { StickersCardsComponent } from './stickers-cards/stickers-cards.component';
 import { PlayComponent } from './play/play.component';
@@ -49,10 +50,10 @@ import { ValentinesGreetingsComponent } from './valentines/valentines-greetings/
 
 const routes: Routes = [
   {
-    path: '', component: HomeComponent
+    path: '', component: HomeComponent, title: "Fibei Greetings"
   },
   {
-    path: 'home', component: HomeComponent
+    path: 'home', component: HomeComponent, title: "Fibei Greetings"
   },
   {
     path: 'mother', component: MothersDayComponent
@@ -76,19 +77,19 @@ const routes: Routes = [
     path: 'tabs', component: TabsComponent
   },
   {
-    path: 'profile/:id', component: ProfileComponent
+    path: 'profile/:id', component: ProfileComponent, title: "User Profile"
   },
   {
-    path: 'events', component: EventsComponent
+    path: 'events', component: EventsComponent, title: "Events"
   },
   {
-    path: 'gifts', component: GiftsComponent
+    path: 'gifts', component: GiftsComponent, title: "Gifts"
   },
   {
     path: 'creations', component: CreationsComponent
   },
   {
-    path: 'stickers', component: StickersComponent
+    path: 'stickers', component: StickersComponent, title: "Stickers"
   },
   {
     path: 'stickercards', component: StickersCardsComponent
@@ -97,7 +98,7 @@ const routes: Routes = [
     path: 'stickercards/:id', component: StickersCardsComponent
   },
   {
-    path: 'signandsend', component: SignAndSendEventsComponent
+    path: 'signandsend', component: SignAndSendEventsComponent, title: 'Sign & Send'
   },
   {
     path: 'signandsendcards/:id', component: SignAndSendCardsComponent
@@ -115,7 +116,7 @@ const routes: Routes = [
     path: 'cards/event/:id/:recipient', component: CardsComponent
   },
   {
-    path: 'search/:search', component: CardsComponent
+    path: 'search/:search', component: CardsComponent, title: "Fibei Greetings"
   },
   {
     path: 'e-cards/events/:id', component: CardsComponent
@@ -136,13 +137,13 @@ const routes: Routes = [
     path: 'status/:id', component: StatusComponent
   },
   {
-    path: 'page/:id', component: PageComponent
+    path: 'page/:id', component: PageComponent, title: "Fibei Greetings"
   },
   {
     path: 'login', component: LoginComponent
   },
   {
-    path: 'cart', component: CartsComponent
+    path: 'cart', component: CartsComponent, title: 'Cart'
   },
   {
     path: 'signandsendpage', component: SignAndSendPageComponent
@@ -160,7 +161,7 @@ const routes: Routes = [
     path: 'justbecause/greetings', component: JustBecauseGreetingsComponent
   },
   {
-    path: 'specialtycardpage', component: SpecialtyCardsPageComponent
+    path: 'specialtycardpage', component: SpecialtyCardsPageComponent, title: "Specialty"
   },
   {
     path: 'ecardspage', component: ECardsPageComponent
@@ -178,7 +179,7 @@ const routes: Routes = [
     path: 'christmas/greetings', component: ChristmasGreetingsComponent
   },
   {
-    path: 'poetry', component: PoetryComponent
+    path: 'poetry', component: PoetryComponent, title: 'Poetry'
   },
   {
     path: 'poetrycards/:id', component: PoetryCardsComponent
@@ -196,10 +197,10 @@ const routes: Routes = [
     path: 'valentines/greetings', component: ValentinesGreetingsComponent
   },
   {
-    path: 'postcards', component: PostcardsComponent
+    path: 'postcards', component: PostcardsComponent, title: 'Postcards'
   },
   {
-    path: 'e-cards', component: ECardsPageComponent
+    path: 'e-cards', component: ECardsPageComponent, title: 'E-Cards'
   },
   {
     path: 'samples', component: SampleComponent

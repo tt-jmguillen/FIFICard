@@ -13,20 +13,17 @@ import { ViewportScroller } from '@angular/common';
   styleUrls: ['./poetry.component.scss']
 })
 export class PoetryComponent implements OnInit {
-  title: Title;
   def: ChangeDetectorRef;
   service: EventService;
   cardService: CardService;
   priceService: PriceService;
 
   constructor(
-    _title: Title,
     _def: ChangeDetectorRef,
     _service: EventService,
     _cardService: CardService,
     _priceService: PriceService
   ) {
-    this.title = _title;
     this.def = _def;
     this.service = _service;
     this.cardService = _cardService;
@@ -57,7 +54,6 @@ export class PoetryComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.title.setTitle("Poetry");
     this.loadEvents();
   }
 
