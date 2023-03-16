@@ -39,11 +39,11 @@
                     </div>
                     <div class="col-12">
                         <div class="form-check form-check-inline">
-                            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="form-check-input" value="Female" formControlName="gender">
+                            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="form-check-input" value="Female" formControlName="gender" [attr.disabled]="isEdit? null: ''">
                             <label class="form-check-label" for="customRadioInline1">{{'profile.female'|translate}}</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="form-check-input" value="Male" formControlName="gender">
+                            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="form-check-input" value="Male" formControlName="gender" [attr.disabled]="isEdit? null: ''">
                             <label class="form-check-label" for="customRadioInline2">{{'profile.male'|translate}}</label>
                         </div>
                     </div>
