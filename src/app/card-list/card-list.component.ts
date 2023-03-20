@@ -374,6 +374,7 @@ export class CardListComponent implements OnInit {
   }
 
   loadRecipient(cards: Card[]) {
+    this.recipients = [];
     let withOther: boolean = false;
     let forceAll: boolean = true;
 

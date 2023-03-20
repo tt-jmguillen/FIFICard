@@ -140,7 +140,7 @@ export class CartTotalComponent implements OnInit {
     })
   }
 
-  saveTransaction(gateway: string) {
+  saveTransaction(gateway: 'NOGATEWAY' | 'GCash' | 'PayPal') {
     let items: string[] = this.selected.map(x => x.id!);
 
     let payment: Payment = new Payment();
@@ -151,7 +151,7 @@ export class CartTotalComponent implements OnInit {
     if (gateway == "GCash") {
       payment.proof = this.gcashUploadedFile;
     }
-    if (gateway == "PayPal") {
+    else if (gateway == "PayPal") {
       payment.transactionId = this.payPalTransactionId;
       payment.payerId = this.payPalPayerId;
       payment.payerEmail = this.payPalPayerEmail;
@@ -261,8 +261,13 @@ export class CartTotalComponent implements OnInit {
   }
 
   toPay() {
-    this.setPayPal();
-    this.isPayment = true;
+    if (this.total > 0){
+      this.setPayPal();
+      this.isPayment = true;
+    }
+    else{
+      this.saveTransaction('NOGATEWAY');
+    }
   }
 
   uploadFile(event: any) {

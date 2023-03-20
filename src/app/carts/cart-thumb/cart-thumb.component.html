@@ -30,14 +30,12 @@
             </div>
         </div>
     </div>
-    <div class="col-md-1 col-6 valign-center text-center">
-        <span>
-            <mat-icon class="delete" (click)="delete()" title="Remove">delete</mat-icon>
-        </span>
+    <div class="col-md-1 col-6 contols">
+        <!--<mat-icon class="open" (click)="open()" title="Open">open_in_new</mat-icon>-->
+        <mat-icon class="delete" (click)="delete()" title="Remove">delete</mat-icon>
     </div>
     <div class="col-md-2 col-6 valign-center allign-right">
-        <span *ngIf="!order.bundle"><strong>{{getSign()}} {{order.card_price| number:'1.2-2'}} x {{order.count?order.count:1}}</strong></span><br />
-        <span *ngIf="order.bundle"><strong>{{order.count}} for {{getSign()}} {{order.card_price| number:'1.2-2'}}</strong></span><br />
+        <span><strong>{{getPrice()}}</strong></span><br />
         <span *ngIf="card.type != 'ecard'">{{'cart.shippingfee'|translate}}</span>
     </div>
     <div class="col-md-1 col-6 allign-right pr-0 valign-center">

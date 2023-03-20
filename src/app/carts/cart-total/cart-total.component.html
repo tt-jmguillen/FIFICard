@@ -11,7 +11,7 @@
 <div class="row total" *ngIf="isPayment == false">
     <div class="col-md-9"></div>
     <div class="col-md-3 col-12 text-end d-grid px-0">
-        <button class="btn btn-primary" [disabled]="total == 0" (click)="toPay()">To Pay {{priceService.locationSign(location)}} {{this.total.toFixed(2)}}</button>
+        <button class="btn btn-primary" [disabled]="selected.length == 0" (click)="toPay()">To Pay {{priceService.locationSign(location)}} {{this.total.toFixed(2)}}</button>
     </div>
 </div>
 <div class="row total " *ngIf="location == 'ph' && isPayment == true">

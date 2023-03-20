@@ -10,7 +10,7 @@ import { SignAndSendDetails, SignAndSendPhotoDetails } from './../models/sign-an
 import { AddressService } from './../services/address.service';
 import { EmailService } from './../services/email.service';
 import { OrderService } from './../services/order.service';
-import { Component, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Card } from '../models/card';
@@ -36,6 +36,8 @@ import { Bundle } from '../models/bundle';
 
 export class OrderComponent implements OnInit {
   id?: string;
+  orderid?: string;
+
   form: UntypedFormGroup;
   formBuilder: UntypedFormBuilder;
   card: Card;
@@ -47,7 +49,8 @@ export class OrderComponent implements OnInit {
   SignAndSendPhoto: SignAndSendPhotoDetails[] = [];
 
   title: Title;
-  appComponent: AppComponent
+  def: ChangeDetectorRef;
+  appComponent: AppComponent;
   activateRoute: ActivatedRoute;
   cardService: CardService;
   orderService: OrderService;
@@ -111,6 +114,7 @@ export class OrderComponent implements OnInit {
 
   constructor(
     _title: Title,
+    _def: ChangeDetectorRef,
     _formBuilder: UntypedFormBuilder,
     _appComponent: AppComponent,
     _activateRoute: ActivatedRoute,
@@ -130,6 +134,7 @@ export class OrderComponent implements OnInit {
     private _emailService: EmailService,
   ) {
     this.title = _title;
+    this.def = _def;
     this.formBuilder = _formBuilder;
     this.appComponent = _appComponent;
     this.activateRoute = _activateRoute;
@@ -178,7 +183,7 @@ export class OrderComponent implements OnInit {
       this.form.controls['address1'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
       this.form.controls['address2'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
       this.form.controls['province'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
-      this.form.controls['province'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
+      this.form.controls['city'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
       this.form.controls['country'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
       this.form.controls['postcode'].setValidators(Validators.compose([Validators.required, Validators.maxLength(20)]));
     }
@@ -191,6 +196,8 @@ export class OrderComponent implements OnInit {
 
     this.activateRoute.params.subscribe(params => {
       this.id = params['id'];
+      this.orderid = params['orderid'];
+
       this.loadCard();
     });
 
@@ -215,6 +222,49 @@ export class OrderComponent implements OnInit {
       this.subscribeTranslation(this.card.id!);
 
       this.getType(this.card.types![0]);
+      this.def.detectChanges();
+
+      if (this.orderid) {
+        this.loadOrder();
+      }
+    });
+  }
+
+  loadOrder() {
+    this.orderService.getOrder(this.orderid!).then(order => {
+      this.form.controls['sender_name'].patchValue(order.sender_name!);
+      this.form.controls['sender_email'].patchValue(order.sender_email!);
+      this.form.controls['sender_phone'].patchValue(order.sender_phone!);
+      this.form.controls['receiver_name'].patchValue(order.receiver_name!);
+      this.form.controls['receiver_email'].patchValue(order.receiver_email!);
+      this.form.controls['receiver_phone'].patchValue(order.receiver_phone!);
+      if (this.location == 'ph') {
+        this.form.controls['address1'].patchValue(order.address1!);
+        this.form.controls['address2'].patchValue(order.address2!);
+        this.form.controls['province'].patchValue(order.province!);
+        this.form.controls['city'].patchValue(order.city!);
+        this.form.controls['country'].patchValue(order.country!);
+        this.form.controls['postcode'].patchValue(order.postcode!);
+      }
+      else {
+        this.form.controls['address'].patchValue(order.address!);
+      }
+      this.form.controls['anonymously'].patchValue(order.anonymously!);
+      this.form.controls['sendto'].patchValue(order.sendto!);
+      this.form.controls['message'].patchValue(order.message!);
+      this.def.detectChanges();
+      
+      this.isWithSignAndSend = order.withSignAndSend!;
+      if (order.withSignAndSend!){
+        this.orderService.getSignAndSend(this.orderid!).then(signandsends => {
+          this.SignAndSend = signandsends;
+          this.def.detectChanges();
+        })
+        this.orderService.getSignAndSendPhoto(this.orderid!).then(signAndSendPhotoDetails => {
+          this.SignAndSendPhoto = signAndSendPhotoDetails;
+          this.def.detectChanges();
+        })
+      }
     });
   }
 
@@ -320,22 +370,30 @@ export class OrderComponent implements OnInit {
 
     this.computeTotal();
 
-    this.createAnOrder(order).then(id => {
-      this.addMore.forEach(item => {
-        if (item.count > 0) {
-          let order: Order = new Order();
-          order.card_id = item.card.id;
-          order.card_price = item.card.price;
-          order.count = item.count;
-          order.parentOrder = id;
-          order.shipping_fee = item.shipping_fee;
-          order.user_id = this.uid;
-          this.createAnAddMoreOrder(order).then(_id => {
-          });
-        }
+    if (this.orderid!) {
+      order.id = this.orderid!
+      this.updateAnOrder(order).then(() => {
+        this.confirmRef = this.modalService.open(confirm, this.ngbModalOptions);
+      })
+    }
+    else {
+      this.createAnOrder(order).then(id => {
+        this.addMore.forEach(item => {
+          if (item.count > 0) {
+            let order: Order = new Order();
+            order.card_id = item.card.id;
+            order.card_price = item.card.price;
+            order.count = item.count;
+            order.parentOrder = id;
+            order.shipping_fee = item.shipping_fee;
+            order.user_id = this.uid;
+            this.createAnAddMoreOrder(order).then(_id => {
+            });
+          }
+        });
+        this.confirmRef = this.modalService.open(confirm, this.ngbModalOptions);
       });
-      this.confirmRef = this.modalService.open(confirm, this.ngbModalOptions);
-    });
+    }
   }
 
   createAnOrder(order: Order): Promise<string> {
@@ -362,6 +420,14 @@ export class OrderComponent implements OnInit {
     })
   }
 
+  updateAnOrder(order: Order): Promise<void> {
+    return new Promise((resolve) => {
+      this.orderService.updateOrder(order).then(() => {
+        resolve();
+      })
+    })
+  }
+
   test(confirm: any) {
     this.confirmRef = this.modalService.open(confirm, this.ngbModalOptions);
   }
@@ -375,7 +441,7 @@ export class OrderComponent implements OnInit {
     this.isWithSignAndSend = (this.SignAndSend.length > 0) || (this.SignAndSendPhoto.length > 0);
   }
 
-  receiveSignAndSendPhoto(signAndSendPhotoDetails: SignAndSendPhotoDetails[]){
+  receiveSignAndSendPhoto(signAndSendPhotoDetails: SignAndSendPhotoDetails[]) {
     this.SignAndSendPhoto = signAndSendPhotoDetails;
     this.isWithSignAndSend = (this.SignAndSend.length > 0) || (this.SignAndSendPhoto.length > 0);
   }
@@ -517,7 +583,7 @@ export class OrderComponent implements OnInit {
           rejects("Not enough parameter");
         }
       }
-      else{
+      else {
         resolve(0);
       }
     });

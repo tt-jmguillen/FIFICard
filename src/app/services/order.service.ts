@@ -1,7 +1,8 @@
+import { query } from '@firebase/firestore';
 import { environment } from './../../environments/environment.prod';
 import { SignAndSendDetails, SignAndSendPhotoDetails } from './../models/sign-and-send-details';
 import { Injectable } from '@angular/core';
-import { collection, Firestore, doc, addDoc, docData, updateDoc, serverTimestamp } from '@angular/fire/firestore';
+import { collection, Firestore, doc, addDoc, docData, updateDoc, serverTimestamp, collectionData } from '@angular/fire/firestore';
 import { Storage } from '@angular/fire/storage';
 import { Order } from '../models/order';
 import { Timestamp } from "@angular/fire/firestore";
@@ -60,6 +61,39 @@ export class OrderService {
         rejects(reason);
       })
     });
+  }
+
+  async updateOrder(order: Order): Promise<void> {
+    const data = doc(this.store, 'orders/' + order.id!);
+    return updateDoc(data, {
+      user_id: order.user_id,
+      card_id: order.card_id,
+      card_price: order.card_price,
+      location: order.location,
+      sender_name: order.sender_name,
+      sender_phone: order.sender_phone,
+      sender_email: order.sender_email,
+      receiver_name: order.receiver_name,
+      receiver_phone: order.receiver_phone,
+      receiver_email: order.receiver_email,
+      address: order.address,
+      address1: order.address1,
+      address2: order.address2,
+      province: order.province,
+      city: order.city,
+      country: order.country,
+      postcode: order.postcode,
+      anonymously: order.anonymously,
+      sendto: order.sendto,
+      message: order.message,
+      withSignAndSend: order.withSignAndSend,
+      isPaid: false,
+      count: order.count,
+      shipping_fee: order.shipping_fee,
+      type: order.type,
+      bundle: order.bundle,
+      modified: Timestamp.now()
+    })
   }
 
   async createECardOrder(order: OrderECard): Promise<string> {
@@ -186,6 +220,17 @@ export class OrderService {
     });
   }
 
+  getSignAndSend(orderId: string): Promise<SignAndSendDetails[]>
+  {
+    return new Promise((resolve) => {
+      let data = collection(this.store, 'orders/' + orderId + '/signandsend');
+      (collectionData(data, { idField: 'id' }) as Observable<SignAndSendDetails[]>).subscribe(
+        signAndSendDetails => resolve(signAndSendDetails),
+        err => resolve([])
+      );
+    });
+  }
+
   addSignAndSendPhoto(orderId: string, photo: SignAndSendPhotoDetails) {
     return new Promise((resolve, rejects) => {
       const data = collection(this.store, 'orders/' + orderId + '/signandsendphoto')
@@ -208,6 +253,17 @@ export class OrderService {
       }).catch(reason => {
         rejects(reason);
       })
+    });
+  }
+
+  getSignAndSendPhoto(orderId: string): Promise<SignAndSendPhotoDetails[]>
+  {
+    return new Promise((resolve) => {
+      let data = collection(this.store, 'orders/' + orderId + '/signandsend');
+      (collectionData(data, { idField: 'id' }) as Observable<SignAndSendPhotoDetails[]>).subscribe(
+        signAndSendPhotoDetails => resolve(signAndSendPhotoDetails),
+        err => resolve([])
+      );
     });
   }
 

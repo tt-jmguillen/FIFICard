@@ -1,3 +1,5 @@
+import { Bundle } from './../../models/bundle';
+import { Router } from '@angular/router';
 import { ImageService } from './../../services/image.service';
 import { CardService } from 'src/app/services/card.service';
 import { OrderService } from './../../services/order.service';
@@ -13,7 +15,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CartThumbComponent implements OnInit {
   @Input() order: any;
-  @Input() set selected(_selected: boolean){
+  @Input() set selected(_selected: boolean) {
     this.mark = _selected
   }
   @Output() updateOrder: EventEmitter<Order> = new EventEmitter<Order>();
@@ -24,17 +26,20 @@ export class CartThumbComponent implements OnInit {
   orderService: OrderService;
   cardService: CardService;
   imageService: ImageService;
+  router: Router;
   def: ChangeDetectorRef;
 
   constructor(
     _orderService: OrderService,
     _cardService: CardService,
     _imageService: ImageService,
+    _router: Router,
     _def: ChangeDetectorRef
   ) {
     this.orderService = _orderService;
     this.cardService = _cardService;
     this.imageService = _imageService;
+    this.router = _router;
     this.def = _def;
   }
 
@@ -111,5 +116,28 @@ export class CartThumbComponent implements OnInit {
     else {
       return 'Free'
     }
+  }
+
+  open() {
+    if (this.card.type != 'ecard')
+      this.router.navigate(['order/', this.card.id!, this.order.id!]);
+    //else
+    //  this.router.navigate(['/ecardorder', id]);
+  }
+
+  getPrice(): string{
+    let value: string;
+    if (this.order.bundle){
+      value = this.order.count + ' for ' + this.getSign() + ' ' +  this.order.card_price.toFixed(2);
+    }
+    else{
+      if (this.order.card_price == 0){
+        value = 'Free x ' + (this.order.count?this.order.count:1);
+      }
+      else{
+        value = this.getSign() + ' ' + this.order.card_price.toFixed(2) + ' x ' + (this.order.count?this.order.count:1);
+      }
+    }
+    return value;
   }
 }

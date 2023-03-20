@@ -10,10 +10,22 @@
     max-width: 100%;
 }
 
+.contols{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .valign-center{
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.open{
+    color: green;
+    cursor: pointer;
 }
 
 .delete{

@@ -1,4 +1,3 @@
-import { title } from 'process';
 import { PoetryCardsComponent } from './poetry-cards/poetry-cards.component';
 import { StickersCardsComponent } from './stickers-cards/stickers-cards.component';
 import { PlayComponent } from './play/play.component';
@@ -126,6 +125,9 @@ const routes: Routes = [
   },
   {
     path: 'order/:id', component: OrderComponent
+  },
+  {
+    path: 'order/:id/:orderid', component: OrderComponent
   },
   {
     path: 'ecardorder/:id', component: ECardOrderComponent
