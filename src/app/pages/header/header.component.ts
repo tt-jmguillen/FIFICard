@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.languages.push(new Language('English', 'en'));
+    //this.languages.push(new Language('English', 'en'));
     /*
     this.languages.push(new Language('Mandarin', 'zh'));
     this.languages.push(new Language('Spanish', 'es'));
