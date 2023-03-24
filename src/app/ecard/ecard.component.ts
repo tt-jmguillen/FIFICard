@@ -13,6 +13,8 @@ import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 export class ECardComponent implements OnInit {
   @Input() card: Card;
 
+  @Input() showRatings: boolean = true;
+
   service: CardService;
   imageService: ImageService;
   priceService: PriceService;

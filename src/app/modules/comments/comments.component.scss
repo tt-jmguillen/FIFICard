@@ -1,0 +1,23 @@
+.header{
+    color: #d518bb;
+}
+
+::ng-deep .carousel-control-prev,
+::ng-deep .carousel-control-next {
+    width: 3% !important;
+}
+
+::ng-deep .carousel-control-prev-icon,
+::ng-deep .carousel-control-next-icon {
+    filter: invert(100%) !important;
+}
+
+::ng-deep .carousel-indicators {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    bottom: -25px;
+}
+
+::ng-deep .carousel-item {
+    transition: transform 3s ease-in-out !important;
+}

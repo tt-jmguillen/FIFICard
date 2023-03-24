@@ -108,6 +108,7 @@ export class PlayComponent implements OnInit, AfterViewInit {
         this.emailService.SendECardOpenedEmail(order).then(id => {
           this.orderService.updateECardOpened(this.orderid, id);
         })
+        this.emailService.SendECardOpenedConfirmEmail(order);
       });
     })
   }

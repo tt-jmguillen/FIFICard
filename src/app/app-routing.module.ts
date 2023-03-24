@@ -1,3 +1,4 @@
+import { EmailMessageComponent } from './email-message/email-message.component';
 import { PoetryCardsComponent } from './poetry-cards/poetry-cards.component';
 import { StickersCardsComponent } from './stickers-cards/stickers-cards.component';
 import { PlayComponent } from './play/play.component';
@@ -215,6 +216,9 @@ const routes: Routes = [
   },
   {
     path: 'playtrack/:id', component: PlayComponent
+  },
+  {
+    path: 'email/:type/:id', component: EmailMessageComponent
   },
 ];
 

@@ -1,4 +1,5 @@
-import { query } from '@firebase/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { ECardComment } from './../models/comment';
 import { environment } from './../../environments/environment.prod';
 import { SignAndSendDetails, SignAndSendPhotoDetails } from './../models/sign-and-send-details';
 import { Injectable } from '@angular/core';
@@ -15,13 +16,16 @@ import { OrderECard } from '../models/order-ecard';
 export class OrderService {
   storage: Storage;
   store: Firestore;
+  db: AngularFirestore;
 
   constructor(
     private _storage: Storage,
-    private _store: Firestore
+    private _store: Firestore,
+    private _db: AngularFirestore
   ) {
     this.storage = _storage;
     this.store = _store;
+    this.db = _db;
   }
 
   async createOrder(order: Order): Promise<string> {
@@ -295,6 +299,40 @@ export class OrderService {
     const data = doc(this.store, 'ecard-orders/' + id);
     updateDoc(data, {
       openedid: openedid
+    });
+  }
+
+  getComments(id: string): Promise<ECardComment[]> {
+    return new Promise((resolve) => {
+      this.db.collection('ecard-orders').doc(id).collection('comments', ref => ref.orderBy('created', 'asc')).get().subscribe(data => {
+        if (!data.empty) {
+          let comments: ECardComment[] = [];
+          data.forEach(doc => {
+            let comment: ECardComment = doc.data() as ECardComment;
+            comment.id = doc.id;
+            comments.push(comment);
+          });
+          resolve(comments);
+        }
+      });
+    });
+  }
+
+  addComment(id: string, comment: ECardComment): Promise<ECardComment>{
+    return new Promise((resolve) => {
+      const data = collection(this.store, 'ecard-orders/' + id + '/comments')
+      addDoc(data, {
+        message: comment.message,
+        fontstyle: comment.fontstyle,
+        fontcolor: comment.fontcolor,
+        fontsize: comment.fontsize,
+        user: comment.user,
+        created: Timestamp.now()
+      }).then(docRef => {
+        (docData(docRef, { idField: 'id' }) as Observable<ECardComment>).subscribe(comment => {
+          resolve(comment);
+        });
+      });
     });
   }
 }

@@ -15,7 +15,7 @@
                 <img src="../assets/images/badge-featured.png" class="featured ms-2" *ngIf="card.featured" />
             </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="showRatings">
             <div class="col-12">
                 <app-rating-decimal cardId="{{card.id}}"></app-rating-decimal>
             </div>

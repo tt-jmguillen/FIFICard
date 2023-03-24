@@ -132,6 +132,9 @@ import { CartTotalComponent } from './carts/cart-total/cart-total.component';
 import { FavoriteCardComponent } from './settings/profile/profile-list/favorite-card/favorite-card.component';
 import { PhotoUploadComponent } from './order/photo-upload/photo-upload.component';
 import { MessageAreaComponent } from './modules/message-area/message-area.component';
+import { CommentsComponent } from './modules/comments/comments.component';
+import { CommentComponent } from './modules/comments/comment/comment.component';
+import { EmailMessageComponent } from './email-message/email-message.component';
 
 @NgModule({
   declarations: [
@@ -237,7 +240,10 @@ import { MessageAreaComponent } from './modules/message-area/message-area.compon
     CartTotalComponent,
     FavoriteCardComponent,
     PhotoUploadComponent,
-    MessageAreaComponent
+    MessageAreaComponent,
+    CommentsComponent,
+    CommentComponent,
+    EmailMessageComponent
   ],
   imports: [
     BrowserModule,

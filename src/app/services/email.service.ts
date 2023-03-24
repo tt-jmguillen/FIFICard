@@ -1,3 +1,4 @@
+import { Card } from 'src/app/models/card';
 import { SettingService } from './setting.service';
 import { PriceService } from './price.service';
 import { CardService } from 'src/app/services/card.service';
@@ -65,6 +66,19 @@ export class EmailService {
     });
   }
 
+  private async getCardEvent(id: string): Promise<string> {
+    return new Promise((resolve, rejects) => {
+      this.cardService.getCard(id).pipe().subscribe(card => {
+        if (card.events) {
+          resolve(card.events![0]);
+        }
+        else {
+          resolve("");
+        }
+      })
+    });
+  }
+
   sendOrderEmail(order: Order) {
     this.getCard(order.card_id!).then(primary => {
       this.cardService.getImageURL(primary).then(url => {
@@ -117,52 +131,126 @@ export class EmailService {
     })
   }
 
-  async sendECardEmail(order: OrderECard): Promise<string> {
+  generateSubjectEcardEmail(order: OrderECard): Promise<string> {
     return new Promise(resolve => {
-      fetch('/assets/static/ecard.html').then(res => res.text()).then(data => {
+      this.getCardEvent(order.card_id).then(event => {
+        resolve(order.sender_email + ' has sent you a ' + event + ' ECard');
+      })
+    });
+  }
+
+  async generateECardEmail(order: OrderECard): Promise<string> {
+    return new Promise(resolve => {
+      this.generateSubjectEcardEmail(order).then(subject => {
+        fetch('/assets/static/ecard.html').then(res => res.text()).then(data => {
+          this.settingService.getMailSupport().then(mailsupport => {
+            let html: string = data;
+            html = html.replaceAll('[SUBJECT]', subject);
+            html = html.replaceAll('[SENDERNAME]', order.sender_name);
+            html = html.replaceAll('[SENDEREMAIL]', order.sender_email);
+            html = html.replaceAll('[TRACKLINK]', this.ecardTrackLink(order.id));
+            html = html.replaceAll('[ROOT]', this.getRootURL());
+            html = html.replaceAll('[ID]', order.id);
+            html = html.replaceAll('[EMAILSUPPORT]', mailsupport);
+            resolve(html);
+          });
+        });
+      })
+      
+    })
+  }
+
+  async sendECardEmail(order: OrderECard): Promise<string> {
+    let html = await this.generateECardEmail(order);
+    let subject = await this.generateSubjectEcardEmail(order);
+    return this.sendEmail(order.receiver_email, subject, html);
+  }
+
+  generateSubjectEcardConfirmEmail(order: OrderECard): string {
+    return 'Your E-Card Send to ' + order.receiver_email
+  }
+
+  async generateECardConfimation(order: OrderECard): Promise<string> {
+    return new Promise(resolve => {
+      fetch('/assets/static/ecardconfirm.html').then(res => res.text()).then(data => {
         this.settingService.getMailSupport().then(mailsupport => {
           let html: string = data;
           html = html.replaceAll('[ROOT]', this.getRootURL());
-          html = html.replaceAll('[TRACKLINK]', this.ecardTrackLink(order.id));
-          html = html.replaceAll('[SENDERNAME]', order.sender_name);
-          html = html.replaceAll('[MESSAGE]', order.message);
+          html = html.replaceAll('[SUBJECT]', this.generateSubjectEcardConfirmEmail(order));
+          html = html.replaceAll('[ID]', order.id);
+          html = html.replaceAll('[RECEIVERNAME]', order.receiver_name);
+          html = html.replaceAll('[RECEIVEREMAIL]', order.receiver_email);
+          html = html.replaceAll('[DATE]', order.created.toDate().toLocaleDateString());
+          html = html.replaceAll('[LINK]', this.ecardLink(order.id));
           html = html.replaceAll('[EMAILSUPPORT]', mailsupport);
-          return this.sendEmail(order.receiver_email, "You receive an E-Card from FibeiGreetings.com", html);
+          resolve(html);
         });
       });
     })
   }
 
   async SendECardConfirmEmail(order: OrderECard): Promise<string> {
+    let html = await this.generateECardConfimation(order);
+    let subject = this.generateSubjectEcardConfirmEmail(order)
+    return this.sendEmail(order.sender_email, subject, html);
+  }
+
+  generateSubjectECardOpenedEmail(order: OrderECard): string {
+    return 'Your E-Cards sent to ' + order.receiver_email + ' has been viewed'
+  }
+
+  async generateECardOpenedEmail(order: OrderECard): Promise<string> {
     return new Promise(resolve => {
-      fetch('/assets/static/ecardconfirm.html').then(res => res.text()).then(data => {
-        this.settingService.getMailSupport().then(mailsupport => {
-          let html: string = data;
-          html = html.replaceAll('[ROOT]', this.getRootURL());
-          html = html.replaceAll('[LINK]', this.ecardLink(order.id));
-          html = html.replaceAll('[RECEIVERNAME]', order.receiver_name);
-          html = html.replaceAll('[MESSAGE]', order.message);
-          html = html.replaceAll('[EMAILSUPPORT]', mailsupport);
-          return this.sendEmail(order.receiver_email, "You send an E-Card from FibeiGreetings.com", html);
+      this.getCardEvent(order.card_id).then(event => {
+        fetch('/assets/static/ecardopened.html').then(res => res.text()).then(data => {
+          this.settingService.getMailSupport().then(mailsupport => {
+            let html: string = data;
+            html = html.replaceAll('[ROOT]', this.getRootURL());
+            html = html.replaceAll('[SUBJECT]', this.generateSubjectECardOpenedEmail(order));
+            html = html.replaceAll('[RECEIVERNAME]', order.receiver_name);
+            html = html.replaceAll('[RECEIVEREMAIL]', order.receiver_email);
+            html = html.replaceAll('[EVENT]', event);
+            html = html.replaceAll('[DATE]', order.created.toDate().toLocaleDateString());
+            html = html.replaceAll('[EMAILSUPPORT]', mailsupport);
+            resolve(html);
+          });
         });
-      });
+      })
     })
   }
 
   async SendECardOpenedEmail(order: OrderECard): Promise<string> {
+    let html = await this.generateECardOpenedEmail(order);
+    let subject = this.generateSubjectECardOpenedEmail(order)
+    return this.sendEmail(order.sender_email, subject, html);
+  }
+
+  generateSubjectECardOpenedConfirmEmail(order: OrderECard): string {
+    return 'Extend your thanks! Send a Thank You E-Card to ' + order.sender_email;
+  }
+
+  async generateECardOpenedConfirmEmail(order: OrderECard): Promise<string> {
     return new Promise(resolve => {
-      fetch('/assets/static/ecardopened.html').then(res => res.text()).then(data => {
-        this.settingService.getMailSupport().then(mailsupport => {
-          let html: string = data;
-          html = html.replaceAll('[ROOT]', this.getRootURL());
-          html = html.replaceAll('[LINK]', this.ecardLink(order.id));
-          html = html.replaceAll('[SENDERNAME]', order.sender_name);
-          html = html.replaceAll('[MESSAGE]', order.message);
-          html = html.replaceAll('[EXPIRED]', order.expire.toDate().toDateString());
-          html = html.replaceAll('[EMAILSUPPORT]', mailsupport);
-          return this.sendEmail(order.sender_email, "Your E-Card from Fibeigreetings.com has been opened", html);
+      this.getCardEvent(order.card_id).then(event => {
+        fetch('/assets/static/ecardopenedconfirm.html').then(res => res.text()).then(data => {
+          this.settingService.getMailSupport().then(mailsupport => {
+            let html: string = data;
+            html = html.replaceAll('[ROOT]', this.getRootURL());
+            html = html.replaceAll('[SUBJECT]', this.generateSubjectECardOpenedConfirmEmail(order));
+            html = html.replaceAll('[EVENT]', event);
+            html = html.replaceAll('[SENDERNAME]', order.sender_name);
+            html = html.replaceAll('[SENDEREMAIL]', order.sender_email);
+            html = html.replaceAll('[EMAILSUPPORT]', mailsupport);
+            resolve(html);
+          });
         });
-      });
+      })
     })
+  }
+
+  async SendECardOpenedConfirmEmail(order: OrderECard): Promise<string> {
+    let html = await this.generateECardOpenedConfirmEmail(order);
+    let subject = this.generateSubjectECardOpenedConfirmEmail(order)
+    return this.sendEmail(order.receiver_email, subject, html);
   }
 }
