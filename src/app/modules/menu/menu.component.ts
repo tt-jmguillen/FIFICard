@@ -131,4 +131,19 @@ export class MenuComponent implements OnInit {
       .catch((e) => console.error("An error happened while signing out!", e));
     window.location.href = "";
   }
+
+  getName(): string{
+    let name = '';
+    if (this.userProfile!.firstname != undefined){
+      name = this.userProfile!.firstname;
+    }
+    if (this.userProfile!.lastname != undefined){
+      if (name != '') name += ' ';
+      name += this.userProfile!.lastname;
+    }
+    if (name == ''){
+      name = this.userProfile!.displayName
+    }
+    return name;
+  }
 }

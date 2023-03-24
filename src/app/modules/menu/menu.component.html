@@ -58,7 +58,8 @@
                 <div class="col-10" style="display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end;">
                     <div ngbDropdown class="d-inline-block">
                         <a ngbDropdownToggle id="dropdownBasic1" style="cursor: pointer;">{{ 'menu.hi' | translate }}
-                            {{userProfile!.displayName?userProfile!.displayName:userProfile!.firstname}}</a>
+                            {{getName()}}
+                        </a>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dp-div">
                             <p ngbDropdownItem routerLink='/profile/info' class="cursor">{{ 'menu.profile' | translate }}</p>
                             <div class="dropdown-divider"></div>
