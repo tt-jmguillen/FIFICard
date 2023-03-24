@@ -16,6 +16,7 @@ export class ProfileInfoComponent implements OnInit {
   form: UntypedFormGroup;
   currentYear: Number = new Date().getFullYear();
   isEdit: boolean = false;
+  submitted: boolean = false;
 
   constructor(
     private _userService: UserService,
@@ -65,6 +66,7 @@ export class ProfileInfoComponent implements OnInit {
 
   updateMode() {
     if (this.isEdit) {
+      this.submitted = true;
       if (this.form.valid) {
         let user: User = this.form.value as User;
         this.user.firstname = user.firstname;
@@ -83,7 +85,12 @@ export class ProfileInfoComponent implements OnInit {
   }
 
   cancelEdit() {
+    this.submitted = false;
     this.loadUserDisplay();
     this.isEdit = false;
+  }
+
+  controls() {
+    return this.form.controls;
   }
 }

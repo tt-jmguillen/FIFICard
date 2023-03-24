@@ -17,16 +17,16 @@
         <form [formGroup]="form" class="row">
             <div class="mb-3 col-6">
                 <label>* {{'profile.firstname'|translate}}</label>
-                <input type="text" class="form-control" placeholder="{{'profile.firstname'|translate}}" formControlName="firstname" readonly="{{isEdit? '': 'readonly'}}">
+                <input type="text" class="form-control" placeholder="{{'profile.firstname'|translate}}" formControlName="firstname" readonly="{{isEdit? '': 'readonly'}}" [ngClass]="{ 'is-invalid': submitted && controls()['firstname'].errors}">
             </div>
             <div class="mb-3 col-6">
                 <label>* {{'profile.lastname'|translate}}</label>
-                <input type="text" class="form-control" placeholder="{{'profile.lastname'|translate}}" formControlName="lastname" readonly="{{isEdit? '': 'readonly'}}">
+                <input type="text" class="form-control" placeholder="{{'profile.lastname'|translate}}" formControlName="lastname" readonly="{{isEdit? '': 'readonly'}}" [ngClass]="{ 'is-invalid': submitted && controls()['lastname'].errors}">
             </div>
 
             <div class="mb-3 col-4">
                 <label>* {{'profile.contact'|translate}}</label>
-                <input type="text" class="form-control" placeholder="{{'profile.contact'|translate}}" formControlName="contact" readonly="{{isEdit? '': 'readonly'}}">
+                <input type="text" class="form-control" placeholder="{{'profile.contact'|translate}}" formControlName="contact" readonly="{{isEdit? '': 'readonly'}}" [ngClass]="{ 'is-invalid': submitted && controls()['contact'].errors}">
             </div>
             <div class="mb-3 col-4">
                 <label>* {{'profile.email'|translate}}</label>
@@ -39,11 +39,11 @@
                     </div>
                     <div class="col-12">
                         <div class="form-check form-check-inline">
-                            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="form-check-input" value="Female" formControlName="gender" [attr.disabled]="isEdit? null: ''">
+                            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="form-check-input" value="Female" formControlName="gender" [attr.disabled]="isEdit? null: ''" [ngClass]="{ 'is-invalid': submitted && controls()['gender'].errors}">
                             <label class="form-check-label" for="customRadioInline1">{{'profile.female'|translate}}</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="form-check-input" value="Male" formControlName="gender" [attr.disabled]="isEdit? null: ''">
+                            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="form-check-input" value="Male" formControlName="gender" [attr.disabled]="isEdit? null: ''" [ngClass]="{ 'is-invalid': submitted && controls()['gender'].errors}">
                             <label class="form-check-label" for="customRadioInline2">{{'profile.male'|translate}}</label>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                         <option value="12">{{'month.dec'|translate}}</option>
                     </select>
                     <input type="number" aria-label="Day" class="form-control" placeholder="{{'profile.day'|translate}}" min="1" max="31" readonly="{{isEdit? '': 'readonly'}}" formControlName="day">
-                    <input type="number" aria-label="Year" class="form-control" placeholder="{{'profile.year'|translate}}" min="1950" max="{{currentYear}}" readonly="{{isEdit? '': 'readonly'}}" formControlName="year">
+                    <input type="number" aria-label="Year" class="form-control" placeholder="{{'profile.year'|translate}}" min="1950" max="{{currentYear}}" readonly="{{isEdit? '': 'readonly'}}" formControlName="year" [ngClass]="{ 'is-invalid': submitted && controls()['year'].errors}">
                 </div>
             </div>
         </form>
