@@ -104,13 +104,14 @@
 
 .my-recipient span {
   border: 1px solid #ccc;
-  padding: 8px 16px;
-  margin-right: 10px;
-  cursor: pointer;
-  display: inline-block;
-  margin-bottom: 10px;
-  font-size: 12px;
-  background: white;
+    padding: 6px 16px;
+    margin-right: 6px;
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    background: white;
+    border-radius: 8px 8px;
 }
 
 .card .img-wrap {

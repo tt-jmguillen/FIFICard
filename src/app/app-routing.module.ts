@@ -50,175 +50,175 @@ import { ValentinesGreetingsComponent } from './valentines/valentines-greetings/
 
 const routes: Routes = [
   {
-    path: '', component: HomeComponent, title: "Fibei Greetings"
+    path: '', component: HomeComponent, title: "FibeiGreetings"
   },
   {
-    path: 'home', component: HomeComponent, title: "Fibei Greetings"
+    path: 'home', component: HomeComponent, title: "FibeiGreetings Homepage"
   },
   {
-    path: 'mother', component: MothersDayComponent
+    path: 'mother', component: MothersDayComponent, title: "FibeiGreetings MothersDay"
   },
   {
-    path: 'mother/cards', component: MotherCardsComponent
+    path: 'mother/cards', component: MotherCardsComponent, title: "FibeiGreetings MothersDay Card"
   },
   {
-    path: 'mother/gifts', component: MotherGiftsComponent
+    path: 'mother/gifts', component: MotherGiftsComponent, title: "FibeiGreetings MothersDay Gifts"
   },
   {
-    path: 'mother/greetings', component: MotherGreetingsComponent
+    path: 'mother/greetings', component: MotherGreetingsComponent, title: "FibeiGreetings MothersDay Greetings"
   },
   {
-    path: 'father', component: FathersDayComponent
+    path: 'father', component: FathersDayComponent, title: "FibeiGreetings FathersDay"
   },
   {
-    path: 'father/greetings', component: FatherGreetingsComponent
+    path: 'father/greetings', component: FatherGreetingsComponent, title: "FibeiGreetings FathersDay Greetings" 
   },
   {
-    path: 'tabs', component: TabsComponent
+    path: 'tabs', component: TabsComponent, title: "FibeiGreetings"
   },
   {
-    path: 'profile/:id', component: ProfileComponent, title: "User Profile"
+    path: 'profile/:id', component: ProfileComponent, title: "FibeiGreetings User Profile"
   },
   {
-    path: 'events', component: EventsComponent, title: "Events"
+    path: 'events', component: EventsComponent, title: "FibeiGreetings Events"
   },
   {
-    path: 'gifts', component: GiftsComponent, title: "Gifts"
+    path: 'gifts', component: GiftsComponent, title: "FibeiGreetings Gifts"
   },
   {
-    path: 'creations', component: CreationsComponent
+    path: 'creations', component: CreationsComponent, title: "FibeiGreetings Creations"
   },
   {
-    path: 'stickers', component: StickersComponent, title: "Stickers"
+    path: 'stickers', component: StickersComponent, title: "FibeiGreetings Stickers"
   },
   {
-    path: 'stickercards', component: StickersCardsComponent
+    path: 'stickercards', component: StickersCardsComponent, title: "FibeiGreetings Stickercards"
   },
   {
-    path: 'stickercards/:id', component: StickersCardsComponent
+    path: 'stickercards/:id', component: StickersCardsComponent, title: "FibeiGreetings Stickercards" 
   },
   {
-    path: 'signandsend', component: SignAndSendEventsComponent, title: 'Sign & Send'
+    path: 'signandsend', component: SignAndSendEventsComponent, title: 'FibeiGreetings Sign & Send'
   },
   {
-    path: 'signandsendcards/:id', component: SignAndSendCardsComponent
+    path: 'signandsendcards/:id', component: SignAndSendCardsComponent, title: "FibeiGreetings Sign & Send"
   },
   {
-    path: 'cards/events/:event', component: CardsComponent
+    path: 'cards/events/:event', component: CardsComponent, title: "FibeiGreetings Cards"
   },
   {
-    path: 'cards/events/:event/:recipient', component: CardsComponent
+    path: 'cards/events/:event/:recipient', component: CardsComponent, title: "FibeiGreetings Cards"
   },
   {
-    path: 'cards/event/:id', component: CardsComponent
+    path: 'cards/event/:id', component: CardsComponent, title: "FibeiGreetings Cards"
   },
   {
-    path: 'cards/event/:id/:recipient', component: CardsComponent
+    path: 'cards/event/:id/:recipient', component: CardsComponent, title: "FibeiGreetings Cards"
   },
   {
-    path: 'search/:search', component: CardsComponent, title: "Fibei Greetings"
+    path: 'search/:search', component: CardsComponent, title: "Fibei Greetings Search"
   },
   {
-    path: 'e-cards/events/:id', component: CardsComponent
+    path: 'e-cards/events/:id', component: CardsComponent, title: "FibeiGreetings e-Card"
   },
   {
-    path: 'card/:id', component: DetailComponent
+    path: 'card/:id', component: DetailComponent, title: "FibeiGreetings Card"
   },
   {
-    path: 'order/:id', component: OrderComponent
+    path: 'order/:id', component: OrderComponent, title: "FibeiGreetings Order"
   },
   {
-    path: 'order/:id/:orderid', component: OrderComponent
+    path: 'order/:id/:orderid', component: OrderComponent, title: "FibeiGreetings Order" 
   },
   {
-    path: 'ecardorder/:id', component: ECardOrderComponent
+    path: 'ecardorder/:id', component: ECardOrderComponent, title: "FibeiGreetings e-Card Order"
   },
   {
-    path: 'signandsend/:id', component: SignAndSendComponent
+    path: 'signandsend/:id', component: SignAndSendComponent, title: "FibeiGreetings Sign & Send"
   },
   {
-    path: 'status/:id', component: StatusComponent
+    path: 'status/:id', component: StatusComponent, title: "FibeiGreetings Status"
   },
   {
-    path: 'page/:id', component: PageComponent, title: "Fibei Greetings"
+    path: 'page/:id', component: PageComponent, title: "Fibei Greetings Page"
   },
   {
-    path: 'login', component: LoginComponent
+    path: 'login', component: LoginComponent, title: "FibeiGreetings Login"
   },
   {
-    path: 'cart', component: CartsComponent, title: 'Cart'
+    path: 'cart', component: CartsComponent, title: 'FibeiGreetings Cart'
   },
   {
-    path: 'signandsendpage', component: SignAndSendPageComponent
+    path: 'signandsendpage', component: SignAndSendPageComponent, title: "FibeiGreetings Sign & Send Page"
   },
   {
-    path: 'graduation', component: GraduationComponent
+    path: 'graduation', component: GraduationComponent, title: "FibeiGreetings Graduation"
   },
   {
-    path: 'graduation/greetings', component: GraduationGreetingsComponent
+    path: 'graduation/greetings', component: GraduationGreetingsComponent, title: "FibeiGreetings Graduation Greetings"
   },
   {
-    path: 'justbecause', component: JustBecauseComponent
+    path: 'justbecause', component: JustBecauseComponent, title: "FibeiGreetings Just Because"
   },
   {
-    path: 'justbecause/greetings', component: JustBecauseGreetingsComponent
+    path: 'justbecause/greetings', component: JustBecauseGreetingsComponent, title: "FibeiGreetings Just Because Greetings"
   },
   {
-    path: 'specialtycardpage', component: SpecialtyCardsPageComponent, title: "Specialty"
+    path: 'specialtycardpage', component: SpecialtyCardsPageComponent, title: "FibeiGreetings Specialty"
   },
   {
-    path: 'ecardspage', component: ECardsPageComponent
+    path: 'ecardspage', component: ECardsPageComponent, title: "FibeiGreetings e-Cards Page"
   },
   {
-    path: 'halloween', component: HalloweenComponent
+    path: 'halloween', component: HalloweenComponent, title: "FibeiGreetings Halloween"
   },
   {
-    path: 'halloween/greetings', component: HalloweenGreetingsComponent
+    path: 'halloween/greetings', component: HalloweenGreetingsComponent, title: "FibeiGreetings Halloween Greetings"
   },
   {
-    path: 'christmas', component: ChristmasComponent
+    path: 'christmas', component: ChristmasComponent, title: "FibeiGreetings Christmas"
   },
   {
-    path: 'christmas/greetings', component: ChristmasGreetingsComponent
+    path: 'christmas/greetings', component: ChristmasGreetingsComponent, title: "FibeiGreetings Christmas Greetings"
   },
   {
-    path: 'poetry', component: PoetryComponent, title: 'Poetry'
+    path: 'poetry', component: PoetryComponent, title: 'FibeiGreetings Poetry'
   },
   {
-    path: 'poetrycards/:id', component: PoetryCardsComponent
+    path: 'poetrycards/:id', component: PoetryCardsComponent, title: "FibeiGreetings Poetry"
   },
   {
-    path: 'newyear', component: NewyearComponent
+    path: 'newyear', component: NewyearComponent, title: "FibeiGreetings New Year"
   },
   {
-    path: 'newyear/greetings', component: NewyearGreetingsComponent
+    path: 'newyear/greetings', component: NewyearGreetingsComponent, title: "FibeiGreetings New Year Greetings"
   },
   {
-    path: 'valentines', component: ValentinesComponent
+    path: 'valentines', component: ValentinesComponent, title: "FibeiGreetings Valentines"
   },
   {
-    path: 'valentines/greetings', component: ValentinesGreetingsComponent
+    path: 'valentines/greetings', component: ValentinesGreetingsComponent, title: "FibeiGreetings Valentines Greetings"
   },
   {
-    path: 'postcards', component: PostcardsComponent, title: 'Postcards'
+    path: 'postcards', component: PostcardsComponent, title: 'FibeiGreetings Postcards'
   },
   {
-    path: 'e-cards', component: ECardsPageComponent, title: 'E-Cards'
+    path: 'e-cards', component: ECardsPageComponent, title: 'FibeiGreetings E-Cards'
   },
   {
-    path: 'samples', component: SampleComponent
+    path: 'samples', component: SampleComponent, title: "FibeiGreetings Samples"
   },
   {
-    path: 'player/:id', component: SamplePlayerComponent
+    path: 'player/:id', component: SamplePlayerComponent, title: "FibeiGreetings"
   },
   {
-    path: 'play/:id', component: PlayComponent
+    path: 'play/:id', component: PlayComponent, title: "FibeiGreetings"
   },
   {
-    path: 'playtrack/:id', component: PlayComponent
+    path: 'playtrack/:id', component: PlayComponent, title: "FibeiGreetings"
   },
   {
-    path: 'email/:type/:id', component: EmailMessageComponent
+    path: 'email/:type/:id', component: EmailMessageComponent, title: "FibeiGreetings"
   },
 ];
 

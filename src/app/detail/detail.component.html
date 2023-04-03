@@ -34,7 +34,7 @@
                                 <section>
                                     <div class="row">
                                         <div class="col-md-7">
-                                            <h2 class="section-title" style="color:indigo;font-weight:bolder">{{card!.name}} </h2>
+                                            <h3 class="section-title v-title">{{card!.name}} </h3>
                                             <div class="row" *ngIf="card.type == 'card'">
                                                 <div class="col-12">
                                                     <p>Available in: <span *ngFor="let type of card!.types" class="custom-pill mb-1">{{type}}</span></p>
@@ -46,10 +46,10 @@
                                             <app-bundle [view]="true" [card]="card" *ngIf="card.type != 'ecard'"></app-bundle>
                                             <img src="assets/images/sign-send-logo.png" style=" height: 40px;" *ngIf="card?.signAndSend">
                                             <div *ngIf="getPrice() > 0">
-                                                <h3 class="section-title" *ngIf="card.type != 'postcard'">Price: {{priceService.getSign()}} {{getPrice() | number:'1.2-2'}}</h3>
+                                                <h4 class="section-title v-title" *ngIf="card.type != 'postcard'">Price: {{priceService.getSign()}} {{getPrice() | number:'1.2-2'}}</h4>
                                             </div>
                                             <div *ngIf="getPrice() == 0">
-                                                <h3 class="section-title" *ngIf="card.type != 'postcard'">Free</h3>
+                                                <h4 class="section-title v-title" *ngIf="card.type != 'postcard'">Free</h4>
                                             </div>
                                             <a [ngClass]="orderEnable?'order':'order disable'" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)" [disabled]="!orderEnable" style="display:block" disabled>{{'card.buynow'|translate}}</a>
                                             <div class="form-check">
