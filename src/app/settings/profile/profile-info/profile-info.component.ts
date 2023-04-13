@@ -32,7 +32,7 @@ export class ProfileInfoComponent implements OnInit {
       lastname: ['', [Validators.required]],
       email: ['', [Validators.required]],
       gender: ['', [Validators.required]],
-      contact: ['', [Validators.required]],
+      contact: ['', [Validators.required, Validators.pattern(/^[0-9 +]*$/)]],
       month: ['', [Validators.required]],
       day: [Number(0), [Validators.required, Validators.min(1), Validators.max(31)]],
       year: [Number(0), [Validators.required, Validators.min(1950), Validators.max((new Date).getFullYear())]]
