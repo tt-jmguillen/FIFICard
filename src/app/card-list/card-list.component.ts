@@ -35,7 +35,7 @@ export class CardListComponent implements OnInit {
   @Input() recipient: string;
   @Input() footer: boolean = true;
   @Input() mode: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' = 'card';
-  @Input() set categories(_categories: string[]){
+  @Input() set categories(_categories: string[]) {
     this.filterCategories = _categories;
   }
   @Input() nomessagetype: boolean = false;
@@ -151,8 +151,8 @@ export class CardListComponent implements OnInit {
 
   applyDisplayFilterAndSort() {
     this.sortCards = this.filterCards;
-    
-    if (this.category != ''){
+
+    if (this.category != '') {
       this.sortCards = this.filterForCategories(this.category, this.sortCards);
     }
     if (this.budget != '') {
@@ -183,17 +183,22 @@ export class CardListComponent implements OnInit {
   }
 
   getPrice(card: Card): number {
-    let type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED' = 'STANDARD'
-    if (card.types!.findIndex(x => x == 'STANDARD') >= 0) {
-      type = 'STANDARD';
+    if (card.type == 'ecard') {
+      return this.priceService.getECardPrice(card);
     }
-    else if (card.types!.findIndex(x => x == 'GLITTERED') >= 0) {
-      type = 'GLITTERED';
+    else {
+      let type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED' = 'STANDARD'
+      if (card.types!.findIndex(x => x == 'STANDARD') >= 0) {
+        type = 'STANDARD';
+      }
+      else if (card.types!.findIndex(x => x == 'GLITTERED') >= 0) {
+        type = 'GLITTERED';
+      }
+      if (card.types!.findIndex(x => x == 'EMBOSSED') >= 0) {
+        type = 'EMBOSSED';
+      }
+      return this.priceService.getPrice(card, type);
     }
-    if (card.types!.findIndex(x => x == 'EMBOSSED') >= 0) {
-      type = 'EMBOSSED';
-    }
-    return this.priceService.getPrice(card, type)
   }
 
   filterForRecipient(): Card[] {
@@ -262,12 +267,12 @@ export class CardListComponent implements OnInit {
     }
   }
 
-  filterForCategories(_type: string, data: Card[]): Card[]{
+  filterForCategories(_type: string, data: Card[]): Card[] {
     let filtered: Card[] = [];
     data.forEach(card => {
-      if (card.events && (card.events.length > 0)){
+      if (card.events && (card.events.length > 0)) {
         let events: string[] = card.events!
-        if (events.findIndex(x => x.toLowerCase() == _type.toLowerCase()) >= 0){
+        if (events.findIndex(x => x.toLowerCase() == _type.toLowerCase()) >= 0) {
           filtered.push(card);
         }
       }
@@ -280,10 +285,10 @@ export class CardListComponent implements OnInit {
       return data.sort((a, b) => 0 - (a.created! > b.created! ? -1 : 1));
     }
     else if (_sort == "Price from Low to High") {
-      return data.sort((a, b) => 0 - (this.getPrice(a) > this.getPrice(b) ? -1 : 1));
+      return data.sort((a, b) => { return this.getPrice(a) - this.getPrice(b) });
     }
     else if (_sort == "Price from High to Low") {
-      return data.sort((a, b) => 0 - (this.getPrice(a) > this.getPrice(b) ? 1 : -1));
+      return data.sort((a, b) => { return this.getPrice(b) - this.getPrice(a) });
     }
     else if (_sort == "Highest Ratings") {
       return data.sort((a, b) => 0 - (this.averageRatings(a.ratings) > this.averageRatings(b.ratings) ? 1 : -1));
@@ -361,7 +366,7 @@ export class CardListComponent implements OnInit {
       })
 
       console.log(newData);
-      
+
       return newData;
     }
   }

@@ -79,17 +79,22 @@ export class CardComponent implements OnInit {
   }
 
   getPrice(): number {
-    let type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED' = 'STANDARD'
-    if (this.card!.types!.findIndex(x => x == 'STANDARD') >= 0) {
-      type = 'STANDARD';
+    if (this.card!.type == 'ecard') {
+      return this.priceService.getECardPrice(this.card!)
     }
-    else if (this.card!.types!.findIndex(x => x == 'GLITTERED') >= 0) {
-      type = 'GLITTERED';
+    else {
+      let type: 'STANDARD' | 'GLITTERED' | 'EMBOSSED' = 'STANDARD'
+      if (this.card!.types!.findIndex(x => x == 'STANDARD') >= 0) {
+        type = 'STANDARD';
+      }
+      else if (this.card!.types!.findIndex(x => x == 'GLITTERED') >= 0) {
+        type = 'GLITTERED';
+      }
+      if (this.card!.types!.findIndex(x => x == 'EMBOSSED') >= 0) {
+        type = 'EMBOSSED';
+      }
+      return this.priceService.getPrice(this.card!, type)
     }
-    if (this.card!.types!.findIndex(x => x == 'EMBOSSED') >= 0) {
-      type = 'EMBOSSED';
-    }
-    return this.priceService.getPrice(this.card!, type)
   }
 
   getBundles(id: string) {
