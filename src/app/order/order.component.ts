@@ -164,9 +164,9 @@ export class OrderComponent implements OnInit {
       sender_name: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
       sender_phone: ['', Validators.compose([Validators.required, Validators.maxLength(20)])],
       sender_email: ['', Validators.compose([Validators.required, Validators.email])],
-      receiver_name: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
-      receiver_phone: ['', Validators.compose([Validators.required, Validators.maxLength(20)])],
-      receiver_email: ['', Validators.compose([Validators.required, Validators.email])],
+      receiver_name: [''],
+      receiver_phone: [''],
+      receiver_email: [''],
       address: [''],
       address1: [''],
       address2: [''],
@@ -191,6 +191,8 @@ export class OrderComponent implements OnInit {
       this.form.controls['address'].setValidators(Validators.compose([Validators.required, Validators.maxLength(250)]));
     }
 
+    this.updateValidation();
+
     const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.uid = userDetails?.uid;
 
@@ -202,6 +204,29 @@ export class OrderComponent implements OnInit {
     });
 
     this.loadUser();
+  }
+
+  updateValidation(){
+    if (this.form.controls['sendto'].value == 'Recipient'){
+      this.form.controls['receiver_name'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
+      this.form.controls['receiver_phone'].setValidators(Validators.compose([Validators.required, Validators.maxLength(20)]));
+      this.form.controls['receiver_email'].setValidators(Validators.compose([Validators.required, Validators.email]));
+      this.form.controls['receiver_name'].updateValueAndValidity();
+      this.form.controls['receiver_phone'].updateValueAndValidity();
+      this.form.controls['receiver_email'].updateValueAndValidity();
+    }
+    else{
+      this.form.controls['receiver_name'].clearValidators();
+      this.form.controls['receiver_phone'].clearValidators();
+      this.form.controls['receiver_email'].clearValidators();
+      this.form.controls['receiver_name'].updateValueAndValidity();
+      this.form.controls['receiver_phone'].updateValueAndValidity();
+      this.form.controls['receiver_email'].updateValueAndValidity();
+    }
+
+    if (this.submitted){
+      this.form.invalid;
+    }
   }
 
   controls() {
@@ -693,5 +718,9 @@ export class OrderComponent implements OnInit {
 
   onBack() {
     this.loc.back();
+  }
+
+  onChangeSendTo(e: any){
+    this.updateValidation();
   }
 }

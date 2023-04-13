@@ -184,7 +184,7 @@
                         <div class="col-12 mb-2">
                             <label class="form-label">{{'order.sendto'|translate}}</label>
                             <span class="instruction" *ngIf="instruction">{{'order.insertsendto'|translate}}</span>
-                            <select class="form-select form-control" formControlName="sendto">
+                            <select class="form-select form-control" formControlName="sendto" (change)="onChangeSendTo($event)">
                                 <option selected value="Recipient">{{'order.recipient'|translate}}</option>
                                 <option value="Sender">{{'order.sender'|translate}}</option>
                             </select>
