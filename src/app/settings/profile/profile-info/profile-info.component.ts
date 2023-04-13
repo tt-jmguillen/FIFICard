@@ -64,19 +64,44 @@ export class ProfileInfoComponent implements OnInit {
     });
   }
 
+  dateIsValid(date: Date) {
+    if (
+      typeof date === 'object' &&
+      date !== null &&
+      typeof date.getTime === 'function' &&
+      !isNaN(Number(date))
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
   updateMode() {
     if (this.isEdit) {
+      this.form.controls['month'].setErrors(null);
+      this.form.controls['day'].setErrors(null);
+      this.form.controls['year'].setErrors(null);
+
       this.submitted = true;
       if (this.form.valid) {
-        let user: User = this.form.value as User;
-        this.user.firstname = user.firstname;
-        this.user.lastname = user.lastname;
-        this.user.displayName = user.firstname + " " + user.lastname;
-        this.user.gender = user.gender;
-        this.user.contact = user.contact;
-        this.user.birthday = this.form.value.year + "-" + this.form.value.month + "-" + this.form.value.day;
-        this.userService.updateUser(this.user);
-        this.isEdit = false;
+        let date = new Date(this.form.value.year + "-" + this.form.value.month + "-" + this.form.value.day);
+        if (this.dateIsValid(date)) {
+          let user: User = this.form.value as User;
+          this.user.firstname = user.firstname;
+          this.user.lastname = user.lastname;
+          this.user.displayName = user.firstname + " " + user.lastname;
+          this.user.gender = user.gender;
+          this.user.contact = user.contact;
+          this.user.birthday = this.form.value.year + "-" + this.form.value.month + "-" + this.form.value.day;
+          this.userService.updateUser(this.user);
+          this.isEdit = false;
+        }
+        else{
+          this.form.controls['month'].setErrors({ 'invalid': true });
+          this.form.controls['day'].setErrors({ 'invalid': true });
+          this.form.controls['year'].setErrors({ 'invalid': true });
+        }
       }
     }
     else {
