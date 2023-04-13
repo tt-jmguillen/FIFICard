@@ -59,6 +59,7 @@ export class CardService {
       this.db.collection('cards', ref => ref
         .where('active', "==", true)
         .where('featured', "==", true)
+        .where('type', '==', 'card')
         .where('events', "array-contains", _event.trim())
         .limit(limit)
       ).get().subscribe(data => {
