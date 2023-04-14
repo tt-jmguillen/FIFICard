@@ -1,6 +1,6 @@
-<div *ngIf="currentRateStr!='0.0'">
+<div>
   <p style="font-size: 150%; text-align: center;" *ngIf="currentRateStr!='0.0'"><b>{{'card.customerreviews'|translate}}</b></p>
-  <div class="row main" style="display: flex; background-color: #f8f9fa;border:1px solid #ccc">
+  <div class="row main" style="display: flex; background-color: #f8f9fa;border:1px solid #ccc" *ngIf="currentRateStr!='0.0'">
     <div class="col-md-5 col-12 v-align">
       <ng-template #t let-fill="fill">
         <span class="star" [class.full]="fill === 100">
