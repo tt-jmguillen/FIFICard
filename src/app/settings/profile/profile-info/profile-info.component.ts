@@ -71,7 +71,12 @@ export class ProfileInfoComponent implements OnInit {
       typeof date.getTime === 'function' &&
       !isNaN(Number(date))
     ) {
-      return true;
+      if (date >= (new Date())){
+        return false;
+      }
+      else{
+        return true;
+      }
     }
 
     return false;
