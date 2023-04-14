@@ -1,3 +1,4 @@
+import { USAddress } from './../models/usaddress';
 import { Location } from '@angular/common';
 import { PriceService } from './../services/price.service';
 import { SettingService } from './../services/setting.service';
@@ -10,9 +11,9 @@ import { SignAndSendDetails, SignAndSendPhotoDetails } from './../models/sign-an
 import { AddressService } from './../services/address.service';
 import { EmailService } from './../services/email.service';
 import { OrderService } from './../services/order.service';
-import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Card } from '../models/card';
 import { Order } from '../models/order';
 import { CardService } from '../services/card.service';
@@ -27,6 +28,9 @@ import { Translation } from '../models/translation';
 import { TranslationService } from '../services/translation.service';
 import { FilterService } from '../services/filter.service';
 import { Bundle } from '../models/bundle';
+import usaddressdata from '../../assets/address/us.json';
+import phaddressdata from '../../assets/address/ph.json';
+import { PHAddress } from '../models/phaddress';
 
 @Component({
   selector: 'app-order',
@@ -88,8 +92,7 @@ export class OrderComponent implements OnInit {
 
   instruction: boolean = false;
 
-  addressConfig: AddressConfig[] = [];
-  cities: string[] = [];
+  
 
   allEvents: Event[] = [];
   allFees: Fee[] = [];
@@ -111,6 +114,12 @@ export class OrderComponent implements OnInit {
   location: 'ph' | 'sg' | 'us' = 'ph';
 
   isGlittered: boolean = false;
+
+  phAddress: PHAddress[] = phaddressdata as unknown as PHAddress[]; 
+  cities: string[] = [];
+
+  usAddress: USAddress[] = usaddressdata as unknown as USAddress[]; 
+  usAddresses: string[];
 
   constructor(
     _title: Title,
@@ -154,7 +163,8 @@ export class OrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAddressConfig();
+    this.usAddresses = this.usAddress.map(x => x.state_name).filter((value, index, self) => self.indexOf(value) === index).sort((a, b) => a.localeCompare(b));
+
     this.getAllEvents();
     this.getAllFees();
 
@@ -172,7 +182,7 @@ export class OrderComponent implements OnInit {
       address2: [''],
       province: [''],
       city: [''],
-      country: ['Philippines'],
+      country: [''],
       postcode: [''],
       anonymously: [false],
       sendto: ['Recipient', Validators.compose([Validators.required, Validators.maxLength(20)])],
@@ -180,6 +190,7 @@ export class OrderComponent implements OnInit {
     }, {});
 
     if (this.location == 'ph') {
+      this.form.controls['country'].setValue('Philippines');
       this.form.controls['address1'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
       this.form.controls['address2'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
       this.form.controls['province'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
@@ -187,7 +198,16 @@ export class OrderComponent implements OnInit {
       this.form.controls['country'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
       this.form.controls['postcode'].setValidators(Validators.compose([Validators.required, Validators.maxLength(20)]));
     }
+    else if (this.location == 'us') {
+      this.form.controls['country'].setValue('United States');
+      this.form.controls['address1'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
+      this.form.controls['province'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
+      this.form.controls['city'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
+      this.form.controls['country'].setValidators(Validators.compose([Validators.required, Validators.maxLength(50)]));
+      this.form.controls['postcode'].setValidators(Validators.compose([Validators.required, Validators.maxLength(20)]));
+    }
     else {
+      this.form.controls['country'].setValue('Singapore');
       this.form.controls['address'].setValidators(Validators.compose([Validators.required, Validators.maxLength(250)]));
     }
 
@@ -344,10 +364,6 @@ export class OrderComponent implements OnInit {
     return order.address1 + '\r\n' + order.address2 + '\r\n' + order.city + '\r\n' + order.province + '\r\n' + order.country + '\r\n ' + order.postcode;
   }
 
-  getAddressConfig() {
-    this.addressService.getAddressConfig().then(addressConfig => this.addressConfig = addressConfig);
-  }
-
   getAllEvents() {
     this.eventService.getEvents().then(events => this.allEvents = events);
   }
@@ -368,9 +384,14 @@ export class OrderComponent implements OnInit {
   }
 
   updateCity(province: string) {
-    let config = this.addressConfig.find(x => x.name == province);
-    if (config != undefined)
-      this.cities = config.city;
+    if (this.location == 'ph'){
+      let config = this.phAddress.find(x => x.name == province);
+      if (config != undefined)
+        this.cities = config.city;
+    }
+    else if (this.location == 'us'){
+      this.cities = this.usAddress.filter(x => x.state_name == province).map(x => x.city);
+    }
   }
 
   addToCart(confirm: any) {
@@ -552,7 +573,7 @@ export class OrderComponent implements OnInit {
           })
 
           let group: string = '';
-          let config = this.addressConfig.find(x => x.name == province);
+          let config = this.phAddress.find(x => x.name == province);
           if (config != undefined)
             group = config.group;
 

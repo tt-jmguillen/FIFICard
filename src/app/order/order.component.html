@@ -110,15 +110,21 @@
                             <span class="text-muted">{{'order.deliveryaddress'|translate}}</span>
                             <span class="instruction" *ngIf="instruction">{{'order.insertdeliveryaddress'|translate}}</span>
                         </div>
-                        <div class="col-12 mb-2" *ngIf="location == 'ph'">
-                            <label class="form-label">* {{'order.address1'|translate}}</label>
-                            <input type="text" class="form-control" formControlName="address1" placeholder="{{'order.address'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['address1'].errors}">
-                            <div *ngIf="submitted && controls()['address1'].errors" class="invalid-feedback">
+                        <!--PH and US Address-->
+                        <div class="col-12 mb-2" *ngIf="['ph', 'us'].includes(location)">
+                            <label class="form-label" *ngIf="location == 'ph'">* {{'order.address1'|translate}}</label>
+                            <label class="form-label" *ngIf="location == 'us'">* Street</label>
+                            <input type="text" class="form-control" formControlName="address1" placeholder="{{location=='ph'?('order.address'|translate):'Street'}}" [ngClass]="{ 'is-invalid': submitted && controls()['address1'].errors}">
+                            <div *ngIf="submitted && controls()['address1'].errors && (location == 'ph')" class="invalid-feedback">
                                 <div *ngIf="controls()['address1'].errors!['required']">{{'order.addressrequired'|translate}}</div>
                                 <div *ngIf="controls()['address1'].errors!['maxlength']">{{'order.addresscharlimit'|translate}}</div>
                             </div>
+                            <div *ngIf="submitted && controls()['address1'].errors && (location == 'us')" class="invalid-feedback">
+                                <div *ngIf="controls()['address1'].errors!['required']">Street is required</div>
+                                <div *ngIf="controls()['address1'].errors!['maxlength']">Street must not exceed 50 characters</div>
+                            </div>
                         </div>
-                        <div class="col-12 mb-2" *ngIf="location == 'ph'">
+                        <div class="col-12 mb-2" *ngIf="['ph'].includes(location)">
                             <label class="form-label">* {{'order.address2'|translate}}</label>
                             <input type="text" class="form-control" formControlName="address2" placeholder="{{'order.address'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['address2'].errors}">
                             <div *ngIf="submitted && controls()['address2'].errors" class="invalid-feedback">
@@ -126,48 +132,67 @@
                                 <div *ngIf="controls()['address2'].errors!['maxlength']">{{'order.addresscharlimit'|translate}}</div>
                             </div>
                         </div>
-                        <div class="row" *ngIf="location == 'ph'">
+                        <div class="row" *ngIf="['ph', 'us'].includes(location)">
                             <div class="col-6 mb-2">
-                                <label class="form-label">* {{'order.province'|translate}}</label>
-                                <input type="text" class="form-control" formControlName="province" placeholder="{{'order.province'|translate}}" list="provinceIds" [ngClass]="{ 'is-invalid': submitted && controls()['province'].errors}" (change)="proviceChange($event)">
-                                <div *ngIf="submitted && controls()['province'].errors" class="invalid-feedback">
+                                <label class="form-label" *ngIf="location == 'ph'">* {{'order.province'|translate}}</label>
+                                <label class="form-label" *ngIf="location == 'us'">* State</label>
+                                <input type="text" class="form-control" formControlName="province" placeholder="{{location=='ph'?('order.province'|translate):'State'}}" list="provinceIds" [ngClass]="{ 'is-invalid': submitted && controls()['province'].errors}" (change)="proviceChange($event)">
+                                <div *ngIf="submitted && controls()['province'].errors && (location == 'ph')" class="invalid-feedback">
                                     <div *ngIf="controls()['province'].errors!['required']">{{'order.provincerequired'|translate}}</div>
                                     <div *ngIf="controls()['province'].errors!['maxlength']">{{'order.provincecharlimit'|translate}}</div>
                                 </div>
-                                <datalist id="provinceIds">
-                                    <option *ngFor="let item of addressConfig" value="{{item.name}}">{{item.name}}</option>
+                                <div *ngIf="submitted && controls()['province'].errors && (location == 'us')" class="invalid-feedback">
+                                    <div *ngIf="controls()['province'].errors!['required']">State is required</div>
+                                    <div *ngIf="controls()['province'].errors!['maxlength']">State must not exceed 50 characters</div>
+                                </div>
+                                <datalist id="provinceIds" *ngIf="location == 'ph'">
+                                    <option *ngFor="let item of phAddress" value="{{item.name}}">{{item.name}}</option>
+                                </datalist>
+                                <datalist id="provinceIds" *ngIf="location == 'us'">
+                                    <option *ngFor="let item of usAddresses" value="{{item}}">{{item}}</option>
                                 </datalist>
                             </div>
                             <div class="col-6 mb-2">
-                                <label class="form-label">* {{'order.city'|translate}}</label>
-                                <input type="text" class="form-control" formControlName="city" placeholder="{{'order.city'|translate}}" list="cityIds" [ngClass]="{ 'is-invalid': submitted && controls()['city'].errors}">
-                                <div *ngIf="submitted && controls()['city'].errors" class="invalid-feedback">
+                                <label class="form-label" *ngIf="location == 'ph'">* {{'order.city'|translate}}</label>
+                                <label class="form-label" *ngIf="location == 'us'">* City</label>
+                                <input type="text" class="form-control" formControlName="city" placeholder="{{location=='ph'?('order.city'|translate):'City'}}" list="cityIds" [ngClass]="{ 'is-invalid': submitted && controls()['city'].errors}">
+                                <div *ngIf="submitted && controls()['city'].errors && (location == 'ph')" class="invalid-feedback">
                                     <div *ngIf="controls()['city'].errors!['required']">{{'order.cityrequired'|translate}}</div>
                                     <div *ngIf="controls()['city'].errors!['maxlength']">{{'order.citylimit'|translate}}</div>
+                                </div>
+                                <div *ngIf="submitted && controls()['city'].errors && (location == 'us')" class="invalid-feedback">
+                                    <div *ngIf="controls()['city'].errors!['required']">City is required</div>
+                                    <div *ngIf="controls()['city'].errors!['maxlength']">City must not exceed 50 characters</div>
                                 </div>
                                 <datalist id="cityIds">
                                     <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
                                 </datalist>
                             </div>
                         </div>
-                        <div class="row" *ngIf="location == 'ph'">
+                        <div class="row" *ngIf="['ph', 'us'].includes(location)">
                             <div class="col-6 mb-2">
                                 <label class="form-label">* {{'order.country'|translate}}</label>
                                 <input type="text" class="form-control" formControlName="country" placeholder="{{'order.country'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['country'].errors}">
                                 <div *ngIf="submitted && controls()['country'].errors" class="invalid-feedback">
                                     <div *ngIf="controls()['country'].errors!['required']">{{'order.countryrequired'|translate}}</div>
-                                    <div *ngIf="controls()['country'].errors!['maxlength']">{{'order.countrylimit'|translate}}</div>
+                                    <div *ngIf="controls()['country'].errors!['maxlength']">{{'order.countrylimsit'|translate}}</div>
                                 </div>
                             </div>
                             <div class="col-6 mb-2">
-                                <label class="form-label">* {{'order.postcode'|translate}}</label>
-                                <input type="text" class="form-control" formControlName="postcode" placeholder="{{'order.postcode'|translate}}" [ngClass]="{ 'is-invalid': submitted && controls()['postcode'].errors}">
-                                <div *ngIf="submitted && controls()['postcode'].errors" class="invalid-feedback">
+                                <label class="form-label" *ngIf="location == 'ph'">* {{'order.postcode'|translate}}</label>
+                                <label class="form-label" *ngIf="location == 'us'">* Zip code</label>
+                                <input type="text" class="form-control" formControlName="postcode" placeholder="{{location=='ph'?('order.postcode'|translate):'Zip code'}}" [ngClass]="{ 'is-invalid': submitted && controls()['postcode'].errors}">
+                                <div *ngIf="submitted && controls()['postcode'].errors && (location == 'ph')" class="invalid-feedback">
                                     <div *ngIf="controls()['postcode'].errors!['required']">{{'order.postcoderequired'|translate}}</div>
                                     <div *ngIf="controls()['postcode'].errors!['maxlength']">{{'order.postcodelimit'|translate}}</div>
                                 </div>
+                                <div *ngIf="submitted && controls()['postcode'].errors && (location == 'us')" class="invalid-feedback">
+                                    <div *ngIf="controls()['postcode'].errors!['required']">Zip code is required</div>
+                                    <div *ngIf="controls()['postcode'].errors!['maxlength']">Zip code must not exceed 20 characters</div>
+                                </div>
                             </div>
                         </div>
+                        <!--PH and US Address-->
                         <div class="col-12 mb-2" *ngIf="location != 'ph'">
                             <label class="form-label">* Complete Address</label>
                             <textarea class="form-control" placeholder="Complete Address" rows="5" formControlName="address" [ngClass]="{ 'is-invalid': submitted && controls()['address'].errors}"></textarea>
