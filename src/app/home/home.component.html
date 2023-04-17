@@ -206,7 +206,7 @@
                         <img src="/assets/images/valentines/v2/bottom-banner-min.png" *ngIf="priceService.getLocation() == 'ph'" class="img-fluid " style="width:100%">
                         <img src="/assets/images/valentines/v2/bottom-banner-min-us.png" *ngIf="priceService.getLocation() != 'ph'" class="img-fluid " style="width:100%">
                         <br /> <br />
-                        <img src="/assets/images/valentines/v2/2-min.png" class="img-fluid" style="width:100%">
+                        <img src="/assets/images/valentines/v2/2-min.png" class="img-fluid cursor" style="width:100%" [routerLink]="['/stickers']">
                         <br /> <br />
                     </div>
                 </div>
