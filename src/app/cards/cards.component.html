@@ -24,7 +24,8 @@
                     <mat-progress-bar mode="indeterminate" value=100></mat-progress-bar>
                 </div>
             </div>
-            <app-card-list *ngIf="cards.length > 0" [priority]="priority" [cards]="cards" [recipient]="recipient!" [mode]="type"></app-card-list>
+            <app-card-list *ngIf="(search === '') && (cards.length > 0)" [priority]="priority" [cards]="cards" [recipient]="recipient!" [mode]="type"></app-card-list>
+            <app-search-list *ngIf="(search !== '') && (cards.length > 0)" [cards]="cards"></app-search-list>
         </div>
     </section>
     <br><br>

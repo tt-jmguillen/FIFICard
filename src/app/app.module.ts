@@ -135,6 +135,8 @@ import { MessageAreaComponent } from './modules/message-area/message-area.compon
 import { CommentsComponent } from './modules/comments/comments.component';
 import { CommentComponent } from './modules/comments/comment/comment.component';
 import { EmailMessageComponent } from './email-message/email-message.component';
+import { SearchListComponent } from './search-list/search-list.component';
+import { SearchListingComponent } from './search-list/search-listing/search-listing.component';
 
 @NgModule({
   declarations: [
@@ -243,7 +245,9 @@ import { EmailMessageComponent } from './email-message/email-message.component';
     MessageAreaComponent,
     CommentsComponent,
     CommentComponent,
-    EmailMessageComponent
+    EmailMessageComponent,
+    SearchListComponent,
+    SearchListingComponent
   ],
   imports: [
     BrowserModule,
