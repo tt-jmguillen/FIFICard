@@ -1,16 +1,18 @@
 .star {
-    position: relative;
-    display: inline-block;
-    font-size: 1.75rem;
-    color: #d3d3d3;
-  }
-  .full {
-    color: darkviolet;
-  }
-  .half {
-    position: absolute;
-    display: inline-block;
-    overflow: hidden;
-    color: darkviolet;
-  }
+  position: relative;
+  display: inline-block;
+  font-size: 1.75rem;
+  color: #d3d3d3;
+}
 
+.full {
+  color: darkviolet;
+}
+
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: darkviolet;
+  letter-spacing: normal;
+}

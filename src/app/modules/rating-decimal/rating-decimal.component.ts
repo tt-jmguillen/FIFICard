@@ -31,11 +31,12 @@ export class RatingDecimalComponent implements OnInit {
             this.currentRate = this.currentRate + rating.rate;
           }
         });
+        if (this.norecords === false){
+          this.currentRate = Number((this.currentRate/this.ratings.length).toFixed(2));
+        }
       }
     }).catch(reason => {
       this.norecords = true;
     });
-
   }
-
 }

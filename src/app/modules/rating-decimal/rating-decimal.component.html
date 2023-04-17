@@ -1,16 +1,14 @@
 <ng-template #t let-fill="fill">
-    <span class="star" [class.full]="fill === 100">
-      <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
-    </span>
-  </ng-template>
-  
-  <div style="display: flex;" *ngIf="!norecords">
+  <span class="star" [class.full]="fill === 100">
+    <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+  </span>
+</ng-template>
+
+<div style="display: flex;" *ngIf="!norecords">
   <div>
-  <ngb-rating
-    [(rate)]="currentRate"
-    [starTemplate]="t"
-    [readonly]="true"
-    [max]=5
-  ></ngb-rating></div>
-  <div class="rate-count"><div><b>({{rateCount}})</b></div><div>
+    <ngb-rating [(rate)]="currentRate" [starTemplate]="t" [readonly]="true" [max]=5></ngb-rating>
+  </div>
+  <div class="rate-count">
+    <div><b>({{currentRate.toFixed(2)}}/{{rateCount}})</b></div>
+  <div>
 </div>
