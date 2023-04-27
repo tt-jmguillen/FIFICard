@@ -4,42 +4,39 @@
         <!-- mother-background -->
         <div class="container animate main">
             <div class="row">
-                <div class="col-md-12 mb-3">
+                <div class="col-md-12">
                     <img src="/assets/images/gift/banner.png" class="img-fluid">
-                    <br/><br/>
-                    <img src="/assets/images/featured/gifts/title.png">
-
-                </div>
-
-                <!-- <div class="col-md-12 mb-3">
-                    <img src="/assets/images/gift/gift-val.jpg" class="img-fluid"
-                        [routerLink]="['/cards/events/Gifts for Valentines day']">
-                </div> -->
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-6">
-                    <a [routerLink]="['/cards/event/sgIr7LDhGSnxOOIzjZXG']" class="to-link"> <img src="/assets/images/featured/gifts/birthday.png" alt="birthday" title="birthday"></a>
-                </div>
-                <div class="col-md-4 col-6">
-                    <a [routerLink]="['/cards/event/2I8JoQUc5eEjDQa1EbOK']" class="to-link"> <img src="/assets/images/featured/gifts/easter.png" alt="easter" title="easter"></a>
-                </div>
-                <div class="col-md-4 col-6">
-                    <a [routerLink]="['/cards/event/VZqEILBrTMtnLFxaBpjH']" class="to-link">  <img src="/assets/images/featured/gifts/graduation.png" alt="graduation" title="graduation"></a>
+                    <br /><br />
                 </div>
             </div>
-            <br/><br/>
+            <div class="row justify-content-md-center text-center" style="background-image: url('/assets/images/mothersday/gift-banner.png'); background-size: 100% 100%;">
+                <div class="col-md-12">
+                    <img src="/assets/images/mothersday/gift-title.png">
+                </div>
+                <div class="col-md-12">
+                    <div class="row justify-content-md-center text-center">
+                        <div class="col-md-3 col-6">
+                            <a [routerLink]="['/cards/event/HISzjwdxyGTDgdjmTp9o']" class="to-link"> <img src="/assets/images/mothersday/gift-mothersday.png" alt="mother's day" title="mother's day"></a>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <a [routerLink]="['/cards/event/sgIr7LDhGSnxOOIzjZXG']" class="to-link"> <img src="/assets/images/mothersday/gift-birthday.png" alt="birthday" title="birthday"></a>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <a [routerLink]="['/cards/event/VZqEILBrTMtnLFxaBpjH']" class="to-link"> <img src="/assets/images/mothersday/gift-graduation.png" alt="graduation" title="graduation"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br /><br />
             <div class="row header pb-2 mb-4">
                 <div class="col-md-4">
-                    <h2 [class]="mode =='Category'?'text-center my-header active':'text-center my-header'"
-                        (click)="modeChange('Category')">{{'gifts.categorytext'|translate}}</h2>
+                    <h2 [class]="mode =='Category'?'text-center my-header active':'text-center my-header'" (click)="modeChange('Category')">{{'gifts.categorytext'|translate}}</h2>
                 </div>
                 <div class="col-md-4">
-                    <h2 [class]="mode =='Recipient'?'text-center my-header active':'text-center my-header'"
-                        (click)="modeChange('Recipient')">{{'gifts.recipienttext'|translate}}</h2>
+                    <h2 [class]="mode =='Recipient'?'text-center my-header active':'text-center my-header'" (click)="modeChange('Recipient')">{{'gifts.recipienttext'|translate}}</h2>
                 </div>
                 <div class="col-md-4">
-                    <h2 [class]="mode =='Event'?'text-center my-header active':'text-center my-header'"
-                        (click)="modeChange('Event')">{{'gifts.eventtext'|translate}}</h2>
+                    <h2 [class]="mode =='Event'?'text-center my-header active':'text-center my-header'" (click)="modeChange('Event')">{{'gifts.eventtext'|translate}}</h2>
                 </div>
             </div>
             <app-gift-events *ngIf="mode=='Category'" [events]="categories">
@@ -69,7 +66,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <br /> <br />
-                    <a [routerLink]="['/e-cards']" > <img src="assets/images/banner/shop-ecards.png"></a>
+                    <a [routerLink]="['/e-cards']"> <img src="assets/images/banner/shop-ecards.png"></a>
                     <br /> <br />
                     <!-- <img src="assets/images/banner/fs-free.png" *ngIf="priceService.getLocation() == 'ph'">
                     <img src="assets/images/banner/fs-free-us.png" *ngIf="priceService.getLocation() != 'ph'"> -->
