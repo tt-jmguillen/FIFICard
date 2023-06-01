@@ -137,6 +137,7 @@ import { CommentComponent } from './modules/comments/comment/comment.component';
 import { EmailMessageComponent } from './email-message/email-message.component';
 import { SearchListComponent } from './search-list/search-list.component';
 import { SearchListingComponent } from './search-list/search-listing/search-listing.component';
+import { ClipartComponent } from './clipart/clipart.component';
 
 @NgModule({
   declarations: [
@@ -247,7 +248,8 @@ import { SearchListingComponent } from './search-list/search-listing/search-list
     CommentComponent,
     EmailMessageComponent,
     SearchListComponent,
-    SearchListingComponent
+    SearchListingComponent,
+    ClipartComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,28 @@
+.clip-choices a
+{
+    border: 2px solid #6b2d98;
+    font-size: 18px;
+    font-weight: bolder;
+    display: inline-block;
+    margin-right: 12px;
+    text-align: center;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #6b2d98;
+    text-transform: capitalize;
+    margin-bottom: 10px;
+}
+.clip-choices a:hover
+{
+    color:white;
+    background:#6b2d98;
+}
+.txt-violet
+{
+color:#6b2d98;
+font-weight: bolder;
+}
+.pointer
+{
+    cursor: pointer;
+}

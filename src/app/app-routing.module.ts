@@ -47,6 +47,8 @@ import { NewyearComponent } from './newyear/newyear.component';
 import { NewyearGreetingsComponent } from './newyear/newyear-greetings/newyear-greetings.component';
 import { ValentinesComponent } from './valentines/valentines.component';
 import { ValentinesGreetingsComponent } from './valentines/valentines-greetings/valentines-greetings.component';
+import { ClipartComponent } from './clipart/clipart.component';
+
 
 const routes: Routes = [
   {
@@ -183,6 +185,9 @@ const routes: Routes = [
   },
   {
     path: 'poetry', component: PoetryComponent, title: 'FibeiGreetings Poetry'
+  },
+  {
+    path: 'clipart', component: ClipartComponent, title: 'FibeiGreetings Clipart'
   },
   {
     path: 'poetrycards/:id', component: PoetryCardsComponent, title: "FibeiGreetings Poetry"
