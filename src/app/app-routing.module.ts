@@ -187,7 +187,7 @@ const routes: Routes = [
     path: 'poetry', component: PoetryComponent, title: 'FibeiGreetings Poetry'
   },
   {
-    path: 'clipart', component: ClipartComponent, title: 'FibeiGreetings Clipart'
+    path: 'cliparts', component: ClipartComponent, title: 'FibeiGreetings Clipart'
   },
   {
     path: 'poetrycards/:id', component: PoetryCardsComponent, title: "FibeiGreetings Poetry"

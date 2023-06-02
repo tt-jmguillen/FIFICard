@@ -1,18 +1,28 @@
+import { title } from 'process';
 import { LightboxImage } from './../lightbox/lightbox-image';
 import { ImageService } from 'src/app/services/image.service';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { CardService } from 'src/app/services/card.service';
 import { CardImage } from 'src/app/models/card-image';
 import { LightboxComponent } from '../lightbox/lightbox.component';
-import { title } from 'process';
+import { Card } from 'src/app/models/card';
+import { ClipartFile } from 'src/app/models/clipart-file';
 
 export class ItemImage {
   public id: number;
-  public cardImage: CardImage;
+  public url: string;
+  public title: string;
   public image: string;
 
-  constructor(_cardImage: CardImage) {
-    this.cardImage = _cardImage;
+  public load(_id: number, _cardImage: CardImage) {
+    this.id = _id;
+    this.url = _cardImage.url;
+    this.title = _cardImage.title;
+  }
+
+  public loadclipart(_id: number, _url: string) {
+    this.id = _id;
+    this.url = _url;
   }
 }
 
@@ -22,10 +32,11 @@ export class ItemImage {
   styleUrls: ['./imagegrid.component.scss']
 })
 export class ImagegridComponent implements OnInit {
-  @Input() set id(_id: string) {
-    this.loadImage(_id);
+  @Input() set card(_card: Card) {
+    this.main = _card;
+    this.loadImage();
   }
-  @Input() set glittered(_glittered: boolean){
+  @Input() set glittered(_glittered: boolean) {
     this.isGlittered = _glittered;
   }
   @ViewChild('lightbox') lightbox: LightboxComponent;
@@ -41,68 +52,83 @@ export class ImagegridComponent implements OnInit {
     this.imageService = _imageService;
   }
 
-  images: CardImage[] = [];
-  selectedimage: CardImage = new CardImage();
+  main: Card;
+  selectedimage: ItemImage = new ItemImage();
   itemImages: ItemImage[] = [];
   x: number = 0;
   isGalleryAvailable: boolean = false;
   lightboxImages: LightboxImage[] = [];
-  title: string = '';
   isGlittered: boolean = false;
 
   ngOnInit(): void { }
 
-  loadImage(_id: string) {
-    this.service.getImages(_id).then(cardimages => {
-      this.images = cardimages;
-      if (this.images.length > 0)
-        this.selectedimage = this.images[0];
+  loadImage() {
+    if (this.main.type === 'clipart') {
+      this.service.getClipartFile(this.main.id!).then(clipartfiles => {
+        if (this.main.primary){
+          let file: ClipartFile = clipartfiles.filter(x => x.title === 'preview').find(x => x.url === this.main.primary)!;
+          let item: ItemImage = new ItemImage;
+          item.loadclipart(0, file.url);
+          this.itemImages.push(item);
 
-      this.images.forEach(image => {
-        this.itemImages.push(new ItemImage(image));
+          let x: number = 1
+          clipartfiles.filter(x => x.title === 'preview').filter(x => x.url !== this.main.primary).forEach(file => {
+            let item: ItemImage = new ItemImage;
+            item.loadclipart(x, file.url);
+            this.itemImages.push(item);
+            x++;
+          });
+        }
+        this.selectedimage = this.itemImages[0];
+        this.loadImageFiles();
+      })
+    }
+    else {
+      this.service.getImages(this.main.id!).then(cardimages => {
+        cardimages.forEach(image => {
+          let itemimage: ItemImage = new ItemImage();
+          itemimage.load(cardimages.findIndex(x => x === image), image)
+          this.itemImages.push(itemimage);
+        });
+
+        this.selectedimage = this.itemImages[0];
+        this.loadImageFiles();
       });
-
-      this.loadImageFiles();
-    });
-
-    this.service.getACard(_id).then(card => {
-      this.title = card.name!;
-    })
+    }
   }
 
   changeImage(url: string) {
-    let index: number = this.images.findIndex(x => x.url == url);
-    this.selectedimage = this.images[index];
+    let index: number = this.itemImages.findIndex(x => x.url == url);
+    this.selectedimage = this.itemImages[index];
   }
 
   openItem(url: string) {
-    let index: number = this.itemImages.findIndex(x => x.image == url);
-    this.lightbox.open(this.itemImages[index].id);
+    let index: number = this.lightboxImages.findIndex(x => x.image == url);
+    console.log
+    this.lightbox.open(this.lightboxImages[index].id);
   }
 
   loadImageFiles() {
+    let requests: any[] = [];
     this.itemImages.forEach(itemImage => {
-      this.imageService.getImageURL(itemImage.cardImage.url).then(image => {
-        let index: number = this.itemImages.findIndex(x => x.cardImage.id == itemImage.cardImage.id);
-        if (index >= 0) {
-          this.itemImages[index].image = image;
-          this.x++;
+      requests.push(this.imageService.getImageURL(itemImage.url));
+    });
 
-          if (this.x == this.itemImages.length) {
-            this.isGalleryAvailable = true;
-            this.loadGallery();
-          }
-        }
+    Promise.all(requests).then(values => {
+      let idx: number = 0;
+      values.forEach(value => {
+        this.itemImages[idx].image = value;
+        idx++;
       });
+
+      this.isGalleryAvailable = true;
+      this.loadGallery();
     });
   }
 
   loadGallery() {
-    let x: number = 1;
     this.itemImages.forEach(item => {
-      item.id = x;
-      this.lightboxImages.push(new LightboxImage(x, item.image, item.cardImage.title));
-      x++;
+      this.lightboxImages.push(new LightboxImage(item.id, item.image, item.title));
     });
   }
 

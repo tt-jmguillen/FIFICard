@@ -16,6 +16,7 @@ export class Card {
   public active?: boolean;
   public bestseller?: boolean;
   public featured?: boolean;
+  public new?: boolean;
   public created?: Timestamp;
   public modified?: Timestamp;
   public images?: string[];
@@ -24,9 +25,10 @@ export class Card {
   public imageUrl?: string;
   public ratings?: number;
   public signAndSend?: boolean;
-  public type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard';
+  public type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' | 'clipart';
   public messagetype: 'regular' | 'poetry';
   public orders: string[] = [];
+  public imagecount: number;
 }
 
 

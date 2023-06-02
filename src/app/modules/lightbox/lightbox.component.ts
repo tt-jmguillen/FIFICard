@@ -54,30 +54,21 @@ export class LightboxComponent implements OnInit {
   }
 
   change(_id: number) {
-    if (_id == 0) {
-      if (this.current.id == 0) {
-        this.current = this.items[this.items.findIndex(x => x.id == 1)];
-      }
-    }
-    else {
-      if (this.current.id != _id) {
-        this.current = this.items[this.items.findIndex(x => x.id == _id)];
-      }
-    }
+    this.current = this.items[_id];
   }
 
   prev() {
     let id = this.current.id - 1;
-    if (id == 0) {
-      id = this.items.length;
+    if (id == -1) {
+      id = this.items.length - 1;
     }
     this.current = this.items[this.items.findIndex(x => x.id == id)];
   }
 
   next() {
     let id = this.current.id + 1;
-    if (id > this.items.length) {
-      id = 1;
+    if (id > this.items.length-1) {
+      id = 0;
     }
     this.current = this.items[this.items.findIndex(x => x.id == id)];
   }

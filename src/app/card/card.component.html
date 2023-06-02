@@ -1,5 +1,5 @@
 <div class="card position-relative rounded-0" *ngIf="card">
-  <img src="../assets/images/new.png" class="new-badge">
+  <img src="../assets/images/new.png" class="new-badge" *ngIf="card!.new">
   <a [routerLink]="['/card/' + card!.id]" class="img-wrap" title="{{card!.name}}">
     <img src="{{this.imageURL!}}" [ngClass]="card.type=='gift'?'giftimage':''">
   </a>

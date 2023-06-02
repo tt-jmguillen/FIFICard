@@ -11,6 +11,7 @@ import { Card } from '../models/card';
 import { Rating } from '../models/rating';
 import { Bundle } from '../models/bundle';
 import { ECardImage } from '../models/ecard-image';
+import { ClipartFile } from '../models/clipart-file';
 
 @Injectable({
   providedIn: 'root'
@@ -148,7 +149,7 @@ export class CardService {
     });
   }
 
-  getCardsByTypeAndEvent(_type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard',_event: string): Promise<Card[]> {
+  getCardsByTypeAndEvent(_type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' | 'clipart',_event: string): Promise<Card[]> {
     return new Promise((resolve) => {
       this.db.collection('cards', ref => ref
         .where('type', "==", _type)
@@ -170,7 +171,7 @@ export class CardService {
     });
   }
 
-  getCardsByType(_type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard'): Promise<Card[]> {
+  getCardsByType(_type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' | 'clipart'): Promise<Card[]> {
     return new Promise((resolve, rejects) => {
       this.db.collection('cards', ref => ref
         .where('active', "==", true)
@@ -644,6 +645,23 @@ export class CardService {
           rejects("No cards found.");
         }
       });
+    });
+  }
+
+  getClipartFile(id: string): Promise<ClipartFile[]>{
+    return new Promise((resolve) => {
+      this.db.collection('cards').doc(id).collection('clipartimages', ref =>
+        ref.orderBy('created', 'asc')).get().subscribe(data => {
+          if (!data.empty) {
+            let files: ClipartFile[] = [];
+            data.forEach(doc => {
+              let file: ClipartFile = doc.data() as ClipartFile;
+              file.id = doc.id;
+              files.push(file);
+            });
+            resolve(files);
+          }
+        });
     });
   }
 }

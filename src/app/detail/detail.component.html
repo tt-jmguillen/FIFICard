@@ -1,57 +1,57 @@
 <ion-content>
     <app-sub-header *ngIf="elementEvent == 'mothers day'"></app-sub-header>
-    <section class="section-name padding-y-sm">
+    <section class="section-name padding-y-sm" *ngIf="card">
         <div class="container animate main">
             <div class="row align-top mb-5">
                 <div class="row pad-botom">
                     <div class="col-md-8 col-sm-10">
-                        <button class="btn rounded-0" style="background-color: #8a2be2; color: #ffffff;" (click)="onBack()">Back</button>
-                        <!--
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <p routerLink="/" class="cursor">{{'card.home'|translate}}</p>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page" *ngIf="card">{{card!.name}}</li>
-                                </ol>
-                            </nav>
-                        -->
+                        <button class="btn rounded-0 back" (click)="onBack()">Back</button>
                     </div>
                     <div class="col-md-4 col-sm-2 card-other">
-                        <app-ordercount *ngIf="card && card.orders" [sold]="card.orders.length"></app-ordercount>
+                        <app-ordercount *ngIf="card.orders" [sold]="card.orders.length"></app-ordercount>
                         <app-favorite cardId="{{id}}" style="display: inline-block;"></app-favorite>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-sm-12 mb-4">
-                        <app-imagegrid id="{{id}}" *ngIf="card && card.type != 'ecard'" [glittered]="isGlittered()"></app-imagegrid>
-                        <app-ecard-image-grid id="{{id}}" *ngIf="card && card!.type == 'ecard'"></app-ecard-image-grid>
+                        <app-imagegrid [card]="card" *ngIf="['card','gift','sticker','postcard', 'clipart'].includes(card.type)" [glittered]="isGlittered()"></app-imagegrid>
+                        <app-ecard-image-grid id="{{id}}" *ngIf="['ecard'].includes(card.type)"></app-ecard-image-grid>
                         <app-rating id2="{{id}}" class="d-sm-none d-md-block"></app-rating>
                     </div>
                     <div class="col-lg-6 col-sm-12">
                         <div class="card">
-                            <div class="card-body" *ngIf="card">
+                            <div class="card-body">
                                 <section>
                                     <div class="row">
-                                        <div class="col-md-7">
-                                            <h3 class="section-title v-title">{{card!.name}} </h3>
-                                            <div class="row" *ngIf="card.type == 'card'">
+                                        <div class="col-md-7 pe-0">
+                                            <h3 class="section-title v-title">{{card.name}} </h3>
+                                            <div class="row" *ngIf="['card'].includes(card.type)">
                                                 <div class="col-12">
                                                     <p>Available in: <span *ngFor="let type of card!.types" class="custom-pill mb-1">{{type}}</span></p>
                                                 </div>
                                             </div>
-                                            <p>Description: "{{card!.description}}"</p>
-                                            <p>{{getEventTitle(card!)}}: <span *ngFor="let event of card!.events" class="custom-pill mb-1">{{event}}</span></p>
-                                            <p>Recipient: <span *ngFor="let recipient of card!.recipients" class="custom-pill mb-1">{{recipient}}</span></p>
-                                            <app-bundle [view]="true" [card]="card" *ngIf="card.type != 'ecard'"></app-bundle>
-                                            <img src="assets/images/sign-send-logo.png" style=" height: 40px;" *ngIf="card?.signAndSend">
+                                            <p>Description: "{{card.description}}"</p>
+                                            <p *ngIf="['card','gift','sticker','postcard','ecard'].includes(card.type)">
+                                                {{getEventTitle(card)}}: <span *ngFor="let event of card.events" class="custom-pill mb-1">{{event}}</span>
+                                            </p>
+                                            <p *ngIf="['card','gift','sticker','postcard','ecard'].includes(card.type)">
+                                                Recipient: <span *ngFor="let recipient of card.recipients" class="custom-pill mb-1">{{recipient}}</span>
+                                            </p>
+                                            <app-bundle [view]="true" [card]="card" *ngIf="['card','gift','sticker','postcard'].includes(card.type)"></app-bundle>
+                                            <img src="assets/images/sign-send-logo.png" style=" height: 40px;" *ngIf="card!.signAndSend">
                                             <div *ngIf="getPrice() > 0">
-                                                <h4 class="section-title v-title" *ngIf="card.type != 'postcard'">Price: {{priceService.getSign()}} {{getPrice() | number:'1.2-2'}}</h4>
+                                                <h4 class="section-title v-title" *ngIf="['card','gift','sticker','postcard','clipart'].includes(card.type)">
+                                                    Price: {{priceService.getSign()}} {{getPrice() | number:'1.2-2'}}
+                                                </h4>
                                             </div>
                                             <div *ngIf="getPrice() == 0">
-                                                <h4 class="section-title v-title" *ngIf="card.type != 'postcard'">Free</h4>
+                                                <h4 class="section-title v-title" *ngIf="['card','gift','sticker','postcard','clipart'].includes(card.type)">
+                                                    Free
+                                                </h4>
                                             </div>
-                                            <a [ngClass]="orderEnable?'order':'order disable'" mat-raised-button *ngIf="card" (click)="checkIfLoggedIn(id)" [disabled]="!orderEnable" style="display:block" disabled>{{'card.buynow'|translate}}</a>
+                                            <a [ngClass]="orderEnable?'order':'order disable'" mat-raised-button (click)="checkIfLoggedIn(id)" [disabled]="!orderEnable" style="display:block" disabled>
+                                                {{'card.buynow'|translate}}
+                                            </a>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" [checked]="orderEnable" id="agreement" (change)="setEnable($event)">
                                                 <label class="form-check-label" for="agreement">
@@ -59,19 +59,19 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-md-5" style="text-align:right">
-
-                                            <img src="../assets/images/badge-sticker-free-2.png" class="sticker ms-2 cursor" *ngIf="card && card!.type == 'sticker' && card!.price == 18" [routerLink]="getStickerLink()" />
-                                            <img src="../assets/images/badge-featured.png" class="featured ms-2" *ngIf="card && card!.featured" />
-                                            <img src="../assets/images/badge-poetry.png" class="poerty ms-2" *ngIf="card && card.messagetype=='poetry'" />
-                                            <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping" *ngIf="(card.type != 'ecard') && (priceService.getLocation() == 'ph')">
-                                            <img src="/assets/images/icon_free_shipping-v2.png" class="img-fluid icon-free-shipping" *ngIf="(card.type != 'ecard') && (priceService.getLocation() != 'ph')">
+                                        <div class="col-md-5 ps-0 text-end">
+                                            <img src="../assets/images/badge-sticker-free-2.png" class="sticker ms-2 cursor" *ngIf="['sticker'].includes(card.type) && card.price == 18" [routerLink]="getStickerLink()" />
+                                            <img src="../assets/images/badge-featured.png" class="featured ms-2" *ngIf="card.featured" />
+                                            <img src="../assets/images/badge-poetry.png" class="poerty ms-2" *ngIf="card.messagetype=='poetry'" />
+                                            <img src="/assets/images/icon_free_shipping.png" class="img-fluid icon-free-shipping" *ngIf="['card','gift','sticker','postcard'].includes(card.type) && (priceService.getLocation() == 'ph')">
+                                            <img src="/assets/images/icon_free_shipping-v2.png" class="img-fluid icon-free-shipping" *ngIf="['card','gift','sticker','postcard'].includes(card.type) && (priceService.getLocation() != 'ph')">
                                             <br />
-                                            <div *ngIf="card.type != 'ecard'">
+                                            <div *ngIf="['card','gift','sticker','postcard'].includes(card.type)">
                                                 <span><b>Standard Delivery:</b> {{priceService.getLocation() == 'ph'?'get by 2-3 days':'get by 5-7 days'}}</span>
                                             </div>
                                             <br />
-                                            <a href="/page/TermsAndCondition" target="_blank" title="Terms And Condition" class="t-links">{{'card.seeterms'|translate}}</a><br />
+                                            <a href="/page/TermsAndCondition" target="_blank" title="Terms And Condition" class="t-links">{{'card.seeterms'|translate}}</a>
+                                            <br />
                                             <a href="/page/PrivacyPolicy" target="_blank" title="Privacy Policy" class="t-links">{{'card.seeprivacy'|translate}}</a>
 
                                         </div>
@@ -82,7 +82,7 @@
                                     <div style="white-space:pre-wrap">{{card!.details}}</div>
                                     <div class="row mt-5">
                                         <div class="col-12 text-center">
-                                            <img src="/assets/images/logo_fibeigreetings.png" routerLink="/" class="img-fluid cursor" style="max-height:100px;" *ngIf="card">
+                                            <img src="/assets/images/logo_fibeigreetings.png" routerLink="/" class="img-fluid cursor" style="max-height:100px;">
                                         </div>
                                     </div>
                                 </section>

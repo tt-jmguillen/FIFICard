@@ -47,7 +47,7 @@ export class CardsComponent implements OnInit {
   cards: Card[] = [];
   loading: boolean = true;
 
-  type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' = 'card';
+  type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' | 'clipart'= 'card';
   priority: string = '';
 
   constructor(
@@ -172,7 +172,7 @@ export class CardsComponent implements OnInit {
     });
   }
 
-  getCards(type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard', event: string) {
+  getCards(type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' | 'clipart', event: string) {
     this.loading = true;
     this.service.getCardsByTypeAndEvent(type, event).then(data => {
       this.loading = false;

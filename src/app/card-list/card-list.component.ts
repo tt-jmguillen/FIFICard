@@ -34,7 +34,7 @@ export class CardListComponent implements OnInit {
   @Input() priority: string;
   @Input() recipient: string;
   @Input() footer: boolean = true;
-  @Input() mode: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' = 'card';
+  @Input() mode: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' | 'clipart' = 'card';
   @Input() set categories(_categories: string[]) {
     this.filterCategories = _categories;
   }
@@ -364,8 +364,6 @@ export class CardListComponent implements OnInit {
           newData.push(card);
         }
       })
-
-      console.log(newData);
 
       return newData;
     }

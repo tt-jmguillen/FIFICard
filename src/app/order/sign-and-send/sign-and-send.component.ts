@@ -441,13 +441,9 @@ export class SignAndSendComponent implements OnInit {
   }
 
   emoticon(emoji: string) {
-    console.log(this.position);
-
     if (this.position == -1) {
       exit;
     }
-
-    console.log(this.position, this.message.length)
 
     if (this.position == this.message.length) {
       this.message += emoji 
@@ -471,7 +467,6 @@ export class SignAndSendComponent implements OnInit {
   }
 
   addEmoji(event: any) {
-    console.log(event.emoji);
     this.emoticon(event.emoji.native);
   }
 }

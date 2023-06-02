@@ -85,7 +85,6 @@ export class UserService {
   userAuth(email: string, password: string): Promise<boolean> {
     return new Promise((resolve) => {
       this.auth.signInWithEmailAndPassword(email, password).then(user => {
-        console.log(user)
         resolve(user ? true : false);
       }).catch(err => {
         resolve(false);

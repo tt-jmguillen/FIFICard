@@ -1,0 +1,37 @@
+.new-badge {
+    width: 25%;
+    position: absolute;
+    left: -4px;
+    top: -4px;
+}
+
+.card {
+    background-color: #fafafa;
+    border: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.card:hover {
+    border: 1px solid darkviolet;
+  }
+
+.card .img-wrap {
+    background-color: #fbf4ff;
+    margin-bottom: 5px;
+}
+
+.title {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #6500ba;
+    margin-bottom: 0px;
+}
+
+.featured {
+    width: 100%;
+}

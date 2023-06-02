@@ -66,7 +66,6 @@ export class SuggestionListComponent implements OnInit {
 
   getImage(card: Card) {
     if (card.type == 'ecard') {
-      console.log(card)
       this.service.getECardImages(card.id!).then(images => {
         let preview = images.find(x => x.title == 'preview')!;
         this.getAvailableURL(preview.url).then(url => {

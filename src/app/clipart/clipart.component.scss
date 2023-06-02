@@ -1,28 +1,73 @@
-.clip-choices a
-{
+.clip-choices {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    gap: 8px;
+}
+
+.clip-choices button {
+    background-color: white;
     border: 2px solid #6b2d98;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bolder;
     display: inline-block;
-    margin-right: 12px;
-    text-align: center;
-    padding: 5px 10px;
     text-decoration: none;
     color: #6b2d98;
     text-transform: capitalize;
-    margin-bottom: 10px;
+    cursor: pointer;
+    min-width: 40px;
+    aspect-ratio: 1/1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center
 }
-.clip-choices a:hover
-{
-    color:white;
-    background:#6b2d98;
+
+.item:hover {
+    color: white !important;
+    background: #6b2d98 !important;
 }
-.txt-violet
-{
-color:#6b2d98;
-font-weight: bolder;
+
+.all {
+    border: 2px solid #6b2d98;
+    font-size: 20px;
+    font-weight: bolder;
+    text-decoration: none;
+    color: #6b2d98;
+    text-transform: capitalize;
+    cursor: pointer;
+    height: 40px;
+    width: 130px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center
 }
-.pointer
-{
+
+.all:hover {
+    color: white !important;
+    background: #6b2d98 !important;
+}
+
+.selected {
+    color: white !important;
+    background: #dc17be !important;
+}
+
+.disable {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+}
+
+.txt-violet {
+    color: #6b2d98;
+    font-weight: bolder;
+}
+
+.pointer {
     cursor: pointer;
 }

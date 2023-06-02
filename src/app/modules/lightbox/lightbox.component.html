@@ -1,10 +1,10 @@
 <ng-template #modal let-modal>
     <div class="modal-header">
         <div class="col-2">
-            <h4 class="my-0">{{current.id}} / {{items.length}}</h4>
+            <h4 class="my-0">{{current.id + 1}} / {{items.length}}</h4>
         </div>
         <div class="col-8 text-center">
-            <h4 class="my-0">{{cardtitle}} - {{current.title}}</h4>
+            <h4 class="my-0">{{cardtitle}}{{current.title ? ' - ' + current.title : ''}}</h4>
         </div>
         <div class="col-2 text-end">
             <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>

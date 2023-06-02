@@ -60,8 +60,6 @@ export class ProfileChangePasswordComponent implements OnInit {
   async save() {
     this.submitted = true;
 
-    console.log(this.form)
-
     if (this.form.invalid) {
       return;
     }

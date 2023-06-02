@@ -1,0 +1,34 @@
+<div class="card position-relative rounded-0" [routerLink]="['/card', clipart.id]">
+    <img src="../assets/images/new.png" class="new-badge" *ngIf="clipart.new">
+    <div class="img-wrap" title="{{clipart!.name}}">
+        <img [src]="image">
+    </div>
+    <figcaption class="info-wrap">
+        <div class="row">
+            <div class="col-8 pe-0 pt-2">
+                <p class="title cursor">{{clipart!.name}}</p>
+            </div>
+            <div class="col-4 ps-0">
+                <img src="../assets/images/featured.png" class="featured" *ngIf="clipart.featured">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <span>{{clipart.imagecount?clipart.imagecount:0}} {{(clipart.imagecount?clipart.imagecount:0) > 1 ? 'Images' : 'Image'}}</span>
+            </div>
+            <div class="col-6 text-end">
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <span *ngIf="getPrice() > 0">{{priceService.getSign()}} {{getPrice() | number:'1.2-2'}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <app-rating-decimal cardId="{{clipart!.id}}"></app-rating-decimal>
+            </div>
+        </div>
+    </figcaption>
+</div>

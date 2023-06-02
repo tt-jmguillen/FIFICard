@@ -122,16 +122,15 @@ section {
 .featured {
     width: 125px;
 }
-
-// .sticker {
-//     height: 90px;
-//     aspect-ratio: 2/1;
-// }
-
 .v-title
 {
     color:indigo;
     font-weight:bolder;
-    margin-top: 18px;
+    margin-top: 10px;
     font-size: 24px;
+}
+
+.back {
+    background-color: #8a2be2; 
+    color: #ffffff;
 }

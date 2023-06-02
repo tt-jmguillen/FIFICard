@@ -26,7 +26,7 @@ img {
   border: 1px solid darkviolet
 }
 
-.card:hover{
+.card:hover {
   border: 1px solid darkviolet;
 }
 
@@ -74,22 +74,22 @@ img {
   aspect-ratio: 1.4/1;
 }
 
-.giftimage{
+.giftimage {
   width: 100%;
   aspect-ratio: 1/1.2;
   object-fit: cover;
 }
 
-.title{
+.title {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.new-badge
-{
+
+.new-badge {
   width: 25%;
-    position: absolute;
-    left: -4px;
-    top: -4px;
+  position: absolute;
+  left: -4px;
+  top: -4px;
 }
