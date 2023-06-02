@@ -38,7 +38,12 @@ export class SuggestionListComponent implements OnInit {
 
   ngOnInit() {
     this.isMobile = window.innerWidth <= 500;
-    this.getEventCard(this.card.events![0]);
+    if (this.card.type === 'clipart') {
+      this.getClipart();
+    }
+    else {
+      this.getEventCard(this.card.events![0]);
+    }
   }
 
   getEventCard(event: string) {
@@ -54,6 +59,14 @@ export class SuggestionListComponent implements OnInit {
         this.getImages();
       });
     }
+  }
+
+  getClipart(){
+    this.service.getCardsByType("clipart").then(data => {
+      let cards: Card[] = data.filter(x => x.id !== this.card.id!).sort(() => Math.random() - 0.5).slice(0, 15);
+      this.loadBatch(cards);
+      this.getImages();
+    })
   }
 
   getImages() {
@@ -72,7 +85,7 @@ export class SuggestionListComponent implements OnInit {
           card.imageUrl = url;
         });
       })
-    } 
+    }
     else {
       this.service.getPrimaryImage(card.id!).then(image => {
         this.getAvailableURL(image).then(url => {
