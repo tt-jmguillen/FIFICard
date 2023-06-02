@@ -63,6 +63,7 @@ export class ImagegridComponent implements OnInit {
   ngOnInit(): void { }
 
   loadImage() {
+    this.itemImages = [];
     if (this.main.type === 'clipart') {
       this.service.getClipartFile(this.main.id!).then(clipartfiles => {
         if (this.main.primary){

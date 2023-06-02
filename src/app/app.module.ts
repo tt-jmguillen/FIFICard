@@ -139,6 +139,7 @@ import { SearchListComponent } from './search-list/search-list.component';
 import { SearchListingComponent } from './search-list/search-listing/search-listing.component';
 import { ClipartComponent } from './clipart/clipart.component';
 import { ClipartCardComponent } from './clipart-card/clipart-card.component';
+import { ReadmoreComponent } from './modules/readmore/readmore.component';
 
 @NgModule({
   declarations: [
@@ -251,7 +252,8 @@ import { ClipartCardComponent } from './clipart-card/clipart-card.component';
     SearchListComponent,
     SearchListingComponent,
     ClipartComponent,
-    ClipartCardComponent
+    ClipartCardComponent,
+    ReadmoreComponent
   ],
   imports: [
     BrowserModule,

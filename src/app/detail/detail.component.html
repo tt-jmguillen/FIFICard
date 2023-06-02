@@ -79,7 +79,7 @@
                                 </section>
                                 <section>
                                     <h5 style="font-weight: 600;" *ngIf="card">{{'card.details'|translate}}:</h5>
-                                    <div style="white-space:pre-wrap">{{card!.details}}</div>
+                                    <app-readmore [text]="card.details!"></app-readmore>
                                     <div class="row mt-5">
                                         <div class="col-12 text-center">
                                             <img src="/assets/images/logo_fibeigreetings.png" routerLink="/" class="img-fluid cursor" style="max-height:100px;">
