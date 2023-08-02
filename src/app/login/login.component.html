@@ -3,8 +3,15 @@
     <button mat-button (click)="onCloseClick($event)">X</button>
   </div>
   <mat-card-content style="border:none" class="mat-card-cus">
-    <ngx-auth-firebaseui [providers]="[this.providers.Google, this.providers.Facebook]" [guestEnabled]="false" (onSuccess)="printUser($event)" (onError)="printError($event)" (selectedTabChange)="onTabChange($event)">
+    <ngx-auth-firebaseui class="socials" [providers]="[this.providers.Google, this.providers.Facebook]" [guestEnabled]="false" (onSuccess)="printUser($event)" (onError)="printError($event)" (selectedTabChange)="onTabChange($event)">
     </ngx-auth-firebaseui>
   </mat-card-content>
 </div>
+<style>
+  .mat-icon,
+  mat-icon
+  {
+    height: auto !important;
+  }
+</style>
 <!-- </ion-content> -->

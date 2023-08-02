@@ -4,7 +4,7 @@
     <img src="{{this.imageURL!}}" [ngClass]="card.type=='gift'?'giftimage':''">
   </a>
   <figcaption class="info-wrap">
-    <p routerLink="{{'/card/' + card!.id}}" class="title cursor mb-2">{{card!.name}}</p>
+    <p routerLink="{{'/card/' + card!.id}}" class="title cursor mb-2"><b>{{card!.name}}</b></p>
     <div class="row">
       <div class="col-6 my-auto" *ngIf="card.type != 'postcard'">
         <div class="price" *ngIf="getPrice() > 0">{{priceService.getSign()}} {{getPrice() | number:'1.2-2'}}</div>
@@ -23,7 +23,7 @@
 
         <img src="../assets/images/badge-featured.png" class="featured ms-2" *ngIf="card!.featured" />
       </div>
-      <div class="col-6">
+      <div class="col-6 text-right">
         <app-rating-decimal cardId="{{card!.id}}"></app-rating-decimal>
       </div>
       <div class="col-6 text-end my-auto" *ngIf="card.messagetype=='poetry'">

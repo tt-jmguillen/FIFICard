@@ -4,11 +4,10 @@
   </span>
 </ng-template>
 
-<div style="display: flex;" *ngIf="!norecords">
-  <div>
+<div *ngIf="!norecords">
+  <!-- style="display: flex;" -->
+  <div style="text-align: right;">
     <ngb-rating [(rate)]="currentRate" [starTemplate]="t" [readonly]="true" [max]=5></ngb-rating>
+    <div>({{currentRate.toFixed(2)}}/{{rateCount}}) Reviews</div>
   </div>
-  <div class="rate-count">
-    <div><b>({{currentRate.toFixed(2)}}/{{rateCount}})</b></div>
-  <div>
 </div>

@@ -2,16 +2,20 @@
     opacity: 0.8
 }
 
+.myevent {
+    text-decoration: none;
+}
+
 .my-event div:hover,
 .my-event div:active {
     opacity: 1
 }
 
-.div-img{
+.div-img {
     aspect-ratio: 1 / 0.8;
 }
 
-.div-img img{
+.div-img img {
     object-fit: cover;
 }
 

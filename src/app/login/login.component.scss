@@ -1,9 +1,14 @@
-.mat-card-cus 
-{
-    border:none;
+.mat-card-cus {
+  border: none;
 }
 
-.mat-card
-{
-  background:red;
+.mat-card {
+  background: red;
+  padding:0 !Important;
+  margin:0 !Important
+}
+
+.mat-card-cus .mat-icon {
+  height: auto !important;
+  background: blue;
 }
