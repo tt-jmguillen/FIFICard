@@ -60,7 +60,7 @@
     <div class="col-4" *ngIf="isLogIn == false">
         <div class="full-width">
             <div class="row">
-                <div class="col-10" style="display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end;">
+                <div class="col-12 pt-2" style="display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end;">
                     <div ngbDropdown class="d-inline-block">
                         <a ngbDropdownToggle id="dropdownBasic1" style="cursor: pointer;">{{ 'menu.hi' | translate }}
                             {{getName()}}
@@ -80,11 +80,13 @@
                         </div>
                     </div>
                 </div>
+                <!--
                 <div class="col-lg-2" style="padding-top: 1%;">
                     <button mat-raised-button (click)="signOut()" class="my-nav-btn">
                         {{ 'menu.signout' | translate }}
                     </button>
                 </div>
+                -->
             </div>
         </div>
     </div>
