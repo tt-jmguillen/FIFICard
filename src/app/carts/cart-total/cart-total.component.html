@@ -1,8 +1,61 @@
-<div class="row">
-    <div class="col-12 border-top">
-        <app-cart-thumb *ngFor="let item of allOrders" [order]="item" [selected]="checkIfSelected(item.id!)" (changeInclude)="changeInclude($event)" (deleteItem)="delete($event)"></app-cart-thumb>
+<div class="row mb-2">
+    <div class="col-9">
+        <div class="row pe-2 mb-1">
+            <div class="col-12 bg-light p-2 mb-2">
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                        <input type="checkbox" id="all" class="me-2" (change)="includeAll()" [checked]="selectall" /><label for="all">SELECT ALL ({{allOrders.length.toString()}} ITEM(S))</label>
+                    </div>
+                    <div class="col-6 text-end">
+                        <button class="btn btn-light btn-sm" (click)="deleteAll()" [disabled]="selected.length === 0">DELETE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pe-2 mb-1">
+            <div class="col-12 bg-light p-2 mb-2" *ngFor="let item of allOrders">
+                <app-cart-thumb [order]="item" [selected]="checkIfSelected(item.id!)" (changeInclude)="changeInclude($event)" (deleteItem)="delete([$event])"></app-cart-thumb>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="p-3 bg-light">
+            <div class="row mb-2">
+                <div class="col-12">
+                    <h5 class="mt-2">Order Summary</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">Subtotal:</div>
+                <div class="col-6 text-end"><strong class="total">{{priceService.locationSign(location)}} {{subtotal | number:'1.2-2'}}</strong></div>
+            </div>
+            <div class="row">
+                <div class="col-6">Shipping:</div>
+                <div class="col-6 text-end"><strong class="total">{{priceService.locationSign(location)}} {{shipping | number:'1.2-2'}}</strong></div>
+            </div>
+            <div class="row pt-4">
+                <div class="col-6">Total:</div>
+                <div class="col-6 text-end"><strong class="total">{{priceService.locationSign(location)}} {{total | number:'1.2-2'}}</strong></div>
+            </div>
+            <div class="row pt-4">
+                <div class="col-12">
+                    <button class="btn btn-primary btn-block w-100" [disabled]="selected.length == 0" (click)="toPay()">To Pay {{priceService.locationSign(location)}} {{this.total.toFixed(2)}}</button>
+                </div>
+            </div>
+            <div class="row total" *ngIf="location == 'ph' && isPayment == true">
+                <div class="col-12 px-0 py-2">
+                    <button class="btn btn-primary btn-block w-100" [disabled]="total == 0" (click)="payNow(gcash_payment)">{{'cart.payviagcash'|translate}}</button>
+                </div>
+            </div>
+            <div class="row total" *ngIf="isPayment == true">
+                <div class="col-12 px-0 py-1">
+                    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<!--
 <div class="row total">
     <div class="col-md-1"></div>
     <div class="col-12 col-md-9 text-end">Total:</div>
@@ -62,3 +115,38 @@
         </div>
     </div>
 </ng-template>
+
+-->
+
+<ng-template #gcash_payment let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{'cart.scanandpay'|translate}}</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="mb-3">
+            <div class="row">
+                <div class="col-12 mb-2 text-center">
+                    <img src="/assets/images/gcash.png" class="mainitem">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <label class="form-label">{{'cart.totalamount'|translate}}: {{priceService.getSign()}} <strong>{{total | number:'1.2-2'}}</strong></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <input type="hidden" value="">
+                    <label for="formFile" class="form-label">{{'cart.proofofpayment'|translate}}</label>
+                    <input type="file" id="formFile" class="upload" (change)="uploadFile($event)">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <button class="btn btn-primary full-size" [disabled]="gcashUploadedFile == ''" (click)="saveTransaction('GCash')">{{'button.submit'|translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template> 

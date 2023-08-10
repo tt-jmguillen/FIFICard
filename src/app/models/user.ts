@@ -8,6 +8,8 @@ export class User {
     public uid: string;
     public firstname: string;
     public lastname: string;
+    public customer: boolean;
+    public admin: boolean;
     public gender: string;
     public birthday: string;
     public address: string;

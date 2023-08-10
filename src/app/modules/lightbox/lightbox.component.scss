@@ -14,7 +14,7 @@
 }
 
 .img-slide img {
-    max-height: 100%;
+    max-height: 60px;
     border: 1px solid white;
 }
 
@@ -23,6 +23,19 @@
 }
 
 .img-slide img.active {
+    border: 1px solid red;
+}
+
+.img-slide video {
+    max-height: 60px;
+    border: 1px solid white;
+}
+
+.img-slide video:hover {
+    border: 1px solid red;
+}
+
+.img-slide video.active {
     border: 1px solid red;
 }
 

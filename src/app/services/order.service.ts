@@ -148,6 +148,27 @@ export class OrderService {
     });
   }
 
+  async createClipartOrder(order: Order): Promise<string> {
+    return new Promise((resolve, rejects) => {
+      const data = collection(this.store, 'orders')
+      addDoc(data, {
+        user_id: order.user_id,
+        card_id: order.card_id,
+        card_price: order.card_price,
+        location: order.location,
+        isPaid: false,
+        count: order.count,
+        shipping_fee: order.shipping_fee,
+        type: order.type,
+        created: Timestamp.now()
+      }).then(docRef => {
+        resolve(docRef.id);
+      }).catch(reason => {
+        rejects(reason);
+      })
+    });
+  }
+
   async getOrder(id: string): Promise<Order> {
     return new Promise((resolve) => {
       const data = doc(this.store, 'orders/' + id);

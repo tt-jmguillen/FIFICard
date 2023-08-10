@@ -44,7 +44,7 @@ export class CartThumbComponent implements OnInit {
   }
 
   card: Card;
-  url: string;
+  url: string = '';
   mark: boolean;
 
   ngOnInit(): void {
@@ -64,7 +64,9 @@ export class CartThumbComponent implements OnInit {
 
   loadImage(id: string) {
     this.cardService.getPrimaryImage(id).then(img => {
-      this.url = img;
+      this.imageService.getImageURL(img).then(url => {
+        this.url = url;
+      })
     }).catch(err => {
     })
   }
@@ -125,17 +127,17 @@ export class CartThumbComponent implements OnInit {
     //  this.router.navigate(['/ecardorder', id]);
   }
 
-  getPrice(): string{
+  getPrice(): string {
     let value: string;
-    if (this.order.bundle){
-      value = this.order.count + ' for ' + this.getSign() + ' ' +  this.order.card_price.toFixed(2);
+    if (this.order.bundle) {
+      value = this.order.count + ' for ' + this.getSign() + ' ' + this.order.card_price.toFixed(2);
     }
-    else{
-      if (this.order.card_price == 0){
-        value = 'Free x ' + (this.order.count?this.order.count:1);
+    else {
+      if (this.order.card_price == 0) {
+        value = 'Free x ' + (this.order.count ? this.order.count : 1);
       }
-      else{
-        value = this.getSign() + ' ' + this.order.card_price.toFixed(2) + ' x ' + (this.order.count?this.order.count:1);
+      else {
+        value = this.getSign() + ' ' + this.order.card_price.toFixed(2) + ' x ' + (this.order.count ? this.order.count : 1);
       }
     }
     return value;

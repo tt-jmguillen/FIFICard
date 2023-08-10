@@ -150,8 +150,8 @@ export class UserService {
     });
   }
 
-  addItemOnCart(userId: string, orderId: string) {
-    this.getUser(userId).then(user => {
+  addItemOnCart(userId: string, orderId: string): Promise<void> {
+    return this.getUser(userId).then(user => {
       if (user.carts) {
         user.carts.push(orderId);
       }
@@ -166,8 +166,8 @@ export class UserService {
     });
   }
 
-  addItemOnECart(userId: string, orderId: string) {
-    this.getUser(userId).then(user => {
+  addItemOnECart(userId: string, orderId: string): Promise<void> {
+    return this.getUser(userId).then(user => {
       if (user.ecarts) {
         user.ecarts.push(orderId);
       }
@@ -186,7 +186,9 @@ export class UserService {
     return new Promise((resolve) => {
       this.getUser(userId).then(user => {
         let index = user.carts.findIndex(x => x == orderId);
+        console.log(orderId, user.carts);
         user.carts.splice(index, 1);
+        console.log(orderId, user.carts);
         const data = doc(this.store, 'users/' + userId);
         updateDoc(data, {
           carts: user.carts
@@ -273,5 +275,23 @@ export class UserService {
         'payments': user.payments
       });
     })
+  }
+
+  updateCart(userId: string, carts: string[]): Promise<void> {
+    return new Promise((resolve) => {
+      const data = doc(this.store, 'users/' + userId);
+      updateDoc(data, {
+        carts: carts
+      });
+    });
+  }
+
+  updateECart(userId: string, ecarts: string[]): Promise<void> {
+    return new Promise((resolve) => {
+      const data = doc(this.store, 'users/' + userId);
+      updateDoc(data, {
+        ecarts: ecarts
+      });
+    });
   }
 }

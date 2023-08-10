@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class ImageLoaderComponent implements OnInit {
   @Input() set img(img: string) {
     this.image = img;
+    this.isVideo = this.image.includes('.mp4')
     this.loadImage();
   }
 
@@ -35,6 +36,7 @@ export class ImageLoaderComponent implements OnInit {
   defaulurl: string = '/assets/images/loading.gif';
   url: string = '/assets/images/loading.gif';
   mode: string = 'hover';
+  isVideo: boolean = false;
 
   ngOnInit(): void { }
 

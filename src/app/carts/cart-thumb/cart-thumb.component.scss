@@ -1,3 +1,58 @@
+.item{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.img{
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.img img{
+    width: 100%;
+    aspect-ratio: 1/0.8;
+    object-fit: contain;
+}
+
+.details{
+    flex-grow: 2;
+}
+
+p{
+    margin-bottom: 0px;
+}
+
+.sub{
+    width: 120px;
+    text-align: right;
+}
+
+.price{
+    width: 120px;
+    text-align: right;
+}
+
+.shipping{
+    width: 120px;
+    text-align: right;
+}
+
+.action{
+    width: 30px;
+    text-align: right;
+}
+
+.delete{
+    color: gray;
+    cursor: pointer;
+}
+
 .border{
     border: solid 1px gray;
     padding-top: 10px;
@@ -25,11 +80,6 @@
 
 .open{
     color: green;
-    cursor: pointer;
-}
-
-.delete{
-    color: red;
     cursor: pointer;
 }
 

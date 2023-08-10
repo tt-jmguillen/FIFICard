@@ -1,7 +1,10 @@
 <div class="card mb-3">
     <div class="card-body text-center main-img align-middle">
-        <img class="main" [src]="url" *ngIf="url!=''" (click)="click()">
+        <img class="main" [src]="url" *ngIf="url!='' && !isVideo" (click)="click()">
+        <video *ngIf="url != ''  && isVideo" class="main w-100" controls="">
+            <source [src]="url" type="video/mp4">
+        </video>
         <img [src]="defaulurl" *ngIf="url==''">
-        <div *ngIf="isGlittered" style="width:100%;height:100%;position:absolute;background:url('https://img1.picmix.com/output/stamp/normal/9/6/4/6/1606469_f1f53.gif')"></div>
+        <div *ngIf="isGlittered && !isVideo" style="width:100%;height:100%;position:absolute;background:url('https://img1.picmix.com/output/stamp/normal/9/6/4/6/1606469_f1f53.gif')"></div>
     </div>
 </div>

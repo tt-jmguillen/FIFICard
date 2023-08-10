@@ -9,6 +9,7 @@ import { ImageService } from 'src/app/services/image.service';
 export class ImagegridViewComponent implements OnInit {
   @Input() set img(_img: string) {
     this.url = '';
+    this.isVideo = _img.includes('.mp4')
     this.loadImage(_img);
   }
   @Input() set glittered(_glittered: boolean){
@@ -27,6 +28,7 @@ export class ImagegridViewComponent implements OnInit {
   defaulurl: string = '/assets/images/loading.gif';
   url: string = '';
   isGlittered: Boolean = false;
+  isVideo: boolean = false;
 
   ngOnInit(): void {
   }

@@ -23,8 +23,6 @@ export class CartTotalComponent implements OnInit {
 
   @Input() set orders(_orders: any[]) {
     this.allOrders = _orders;
-    this.selected = JSON.parse(JSON.stringify(_orders));
-    this.calculateTotal();
   }
 
   @Input() location: 'ph' | 'us' | 'sg';
@@ -57,7 +55,12 @@ export class CartTotalComponent implements OnInit {
 
   allOrders: any[] = [];
   selected: any[] = [];
+
+  subtotal: number = 0;
   total: number = 0;
+  shipping: number = 0;
+  selectall: boolean = false;
+  itemcount: number = 0;
   initalStatus: string = '';
   isPayment: boolean = false;
   gcashUploadedFile: string = '';
@@ -92,31 +95,51 @@ export class CartTotalComponent implements OnInit {
     this.isPayment = false;
   }
 
-  async delete(id: string) {
-    let order = this.allOrders.find(x => x.id! == id);
-    let card: Card = await this.cardService.getACard(order.card_id);
+  delete(ids: string[]): Promise<void> {
+    return new Promise(async resolve => {
+      this.userService.getUser(this.uid).then(user => {
+        let cart: string[] = user.carts;
+        let ecart: string[] = user.ecarts;
+        ids.forEach(async id => {
+          let order = this.allOrders.find(x => x.id! == id);
+          let card: Card = await this.cardService.getACard(order.card_id);
 
-    if (card.type != 'ecard') {
-      this.userService.removeItemOnCart(this.uid, order.id!);
-    }
-    else {
-      this.userService.removeItemOnECart(this.uid, order.id!);
-    }
+          if (card.type != 'ecard') {
+            //await this.userService.removeItemOnCart(this.uid, order.id!);
+            cart.splice(cart.findIndex(x => x === id), 1);
+          }
+          else {
+            //await this.userService.removeItemOnECart(this.uid, order.id!);
+            ecart.splice(ecart.findIndex(x => x === id), 1);
+          }
 
-    let index = this.selected.findIndex(x => x.id! == id);
-    this.selected.splice(index, 1);
+          let index = this.selected.findIndex(x => x.id! == id);
+          this.selected.splice(index, 1);
 
-    index = this.allOrders.findIndex(x => x.id! == id);
-    this.allOrders.splice(index, 1);
+          index = this.allOrders.findIndex(x => x.id! == id);
+          this.allOrders.splice(index, 1);
+        });
+
+        if (cart.length !== user.carts.length) {
+          this.userService.updateCart(this.uid, cart);
+        }
+        if (ecart.length !== user.ecarts.length) {
+          this.userService.updateECart(this.uid, ecart);
+        }
+        resolve();
+      });
+    });
   }
 
   calculateTotal() {
-    let currentTotal: number = 0;
+    this.subtotal = 0;
+    this.shipping = 0;
+    this.total = 0;
     this.selected.forEach(item => {
-      currentTotal = currentTotal + Number(item.card_price) + (item.shipping_fee ? item.shipping_fee : 0);
+      this.subtotal = this.subtotal + Number(item.card_price);
+      this.shipping = this.shipping + Number(item.shipping_fee ? item.shipping_fee : 0);
+      this.total = this.total + Number(item.card_price) + Number(item.shipping_fee ? item.shipping_fee : 0);
     });
-
-    this.total = currentTotal;
   }
 
   getCurrency() {
@@ -159,30 +182,30 @@ export class CartTotalComponent implements OnInit {
     payment.total = this.total;
     payment.status = this.initalStatus;
 
-    this.paymentService.createPayment(payment).then(paymentId => {
-      this.userService.addPayment(this.uid, paymentId);
+    this.paymentService.createPayment(payment).then(async paymentId => {
+      await this.userService.addPayment(this.uid, paymentId);
       this.selected.forEach(async order => {
         let card = await this.cardService.getACard(order.card_id!);
 
         if (card.type != 'ecard') {
-          this.orderService.updatePaidOrder(order.id!, paymentId);
+          await this.orderService.updatePaidOrder(order.id!, paymentId);
         }
         else {
-          this.orderService.updatePaidECardOrder(order.id!, paymentId);
+          await this.orderService.updatePaidECardOrder(order.id!, paymentId);
         }
 
-        this.userService.addOrder(this.uid, order.id!);
-        this.cardService.updateCardOrder(order.card_id!, order.id!);
+        await this.userService.addOrder(this.uid, order.id!);
+        await this.cardService.updateCardOrder(order.card_id!, order.id!);
 
-        if (card.type != 'ecard') {
-          this.userService.removeItemOnCart(this.uid, order.id!);
+        if (card.type == 'ecard') {
+          await this.userService.removeItemOnECart(this.uid, order.id!);
         }
-        else{
-          this.userService.removeItemOnECart(this.uid, order.id!);
+        else {
+          await this.userService.removeItemOnCart(this.uid, order.id!);
         }
 
         if (card.type == 'ecard') {
-          this.sendECardEmail(order as OrderECard);
+          await this.sendECardEmail(order as OrderECard);
         }
 
         let index = this.selected.findIndex(x => x.id == order.id!)
@@ -261,11 +284,11 @@ export class CartTotalComponent implements OnInit {
   }
 
   toPay() {
-    if (this.total > 0){
+    if (this.total > 0) {
       this.setPayPal();
       this.isPayment = true;
     }
-    else{
+    else {
       this.saveTransaction('NOGATEWAY');
     }
   }
@@ -279,6 +302,17 @@ export class CartTotalComponent implements OnInit {
 
   payNow(gcash_payment: any) {
     this.gcashRef = this.modalService.open(gcash_payment, { ariaLabelledBy: 'modal-basic-title' });
+  }
+
+  includeAll() {
+    this.selectall = !this.selectall;
+    this.selected = this.selectall ? this.allOrders : [];
+    this.calculateTotal();
+  }
+
+  deleteAll() {
+    let ids: string[] = this.selected.map(x => x.id);
+    this.delete(ids);
   }
 
 }

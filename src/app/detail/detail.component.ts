@@ -11,6 +11,9 @@ import { environment } from 'src/environments/environment';
 import { TranslationService } from '../services/translation.service';
 import { Translation } from '../models/translation';
 import { FilterService } from '../services/filter.service';
+import { Order } from '../models/order';
+import { OrderService } from '../services/order.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-detail',
@@ -26,6 +29,8 @@ export class DetailComponent implements OnInit {
   translationService: TranslationService;
   filter: FilterService;
   priceService: PriceService;
+  orderService: OrderService;
+  userService: UserService;
   router: Router;
   title: Title;
   event: string | undefined;
@@ -37,6 +42,8 @@ export class DetailComponent implements OnInit {
 
   orderEnable: boolean = false;
 
+  uid: string;
+
   constructor(
     private _activateRoute: ActivatedRoute,
     private appComponent: AppComponent,
@@ -47,6 +54,8 @@ export class DetailComponent implements OnInit {
     private _translationService: TranslationService,
     private _filter: FilterService,
     private _priceService: PriceService,
+    private _orderService: OrderService,
+    private _userService: UserService,
     private location: Location
   ) {
     this.activateRoute = _activateRoute;
@@ -55,10 +64,15 @@ export class DetailComponent implements OnInit {
     this.translationService = _translationService;
     this.filter = _filter;
     this.priceService = _priceService;
+    this.orderService = _orderService;
+    this.userService = _userService;
     this.title = _title;
   }
 
   ngOnInit(): void {
+    const userDetails = JSON.parse(localStorage.getItem('user')!);
+    this.uid = userDetails?.uid;
+
     environment.redirect.forEach(element => {
       if (window.location.hostname.toLowerCase() == element.host.toLowerCase()) {
         this.elementEvent = element.event;
@@ -91,12 +105,33 @@ export class DetailComponent implements OnInit {
         this.appComponent.openLoginDialog(id);
       }
       else {
-        if (this.card.type != 'ecard')
-          this.router.navigate(['/order', id]);
-        else
+        if (this.card.type === 'clipart'){
+          this.addtocard();
+        }
+        else if (this.card.type === 'ecard'){
           this.router.navigate(['/ecardorder', id]);
+        }
+        else{
+          this.router.navigate(['/order', id]);
+        }
       }
     }
+  }
+
+  addtocard(){
+    let order: Order = new Order();
+    order.user_id = this.uid;
+    order.card_id = this.card.id!;
+    order.card_price = Number(this.getPrice());
+    order.shipping_fee = 0;
+    order.location = this.priceService.getLocation();
+    order.count = 1;
+    order.type = this.card.type;
+    this.orderService.createClipartOrder(order).then(id => {
+      this.userService.addItemOnCart(this.uid, id).then(() => {
+        this.router.navigate(['/cart']);
+      })
+    })
   }
 
   subscribeLanguage() {

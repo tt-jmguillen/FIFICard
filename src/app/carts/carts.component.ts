@@ -1,14 +1,6 @@
-import { CartTotalComponent } from './cart-total/cart-total.component';
-import { OrderECard } from './../models/order-ecard';
-import { EmailService } from './../services/email.service';
-import { PriceService } from './../services/price.service';
 import { OrderService } from './../services/order.service';
-import { PaymentService } from './../services/payment.service';
-import { CardService } from 'src/app/services/card.service';
 import { UserService } from 'src/app/services/user.service';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ICreateOrderRequest, IPayPalConfig, ITransactionItem } from 'ngx-paypal';
+import { Component, OnInit, AfterViewInit, DoCheck, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-carts',
@@ -16,7 +8,7 @@ import { ICreateOrderRequest, IPayPalConfig, ITransactionItem } from 'ngx-paypal
   styleUrls: ['./carts.component.scss']
 })
 
-export class CartsComponent implements OnInit, AfterViewInit {
+export class CartsComponent implements OnInit {
   userService: UserService;
   orderService: OrderService;
 
@@ -41,12 +33,12 @@ export class CartsComponent implements OnInit, AfterViewInit {
     this.uid = userDetails?.uid;
   }
 
-  ngAfterViewInit(): void {
+  ionViewDidEnter() {
     this.loadUserCard();
   }
 
   loadUserCard() {
-    this.userService.subscribeUser(this.uid).subscribe(user => {
+    this.userService.getUser(this.uid).then(user => {
       this.phOrder = [];
       this.usOrder = [];
       this.sgOrder = [];

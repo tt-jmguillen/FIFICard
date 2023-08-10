@@ -50,7 +50,7 @@
                                                 </h4>
                                             </div>
                                             <a [ngClass]="orderEnable?'order':'order disable'" mat-raised-button (click)="checkIfLoggedIn(id)" [disabled]="!orderEnable" style="display:block" disabled>
-                                                {{'card.buynow'|translate}}
+                                                {{card.type === 'clipart' ? 'Add to Cart' : 'card.buynow'|translate}}
                                             </a>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" [checked]="orderEnable" id="agreement" (change)="setEnable($event)">
