@@ -2,221 +2,142 @@
     <h2 style="font-size:0px;margin: 0;">Home Page</h2>
     <section class="section-name padding-y-sm bk-hw">
         <div class="container animate main">
-            <div class="w-100 d-flex flex-row">
-                <div style="width: 30%; padding-right: 5px;">
-                    
-                    <img src="/assets/images/fathersday/image.png" style="width:100%"  *ngIf="priceService.getLocation() == 'ph'">
-                    <img src="/assets/images/fathersday/image-us.png" style="width:100%"  *ngIf="priceService.getLocation() != 'ph'">
-                    <a [routerLink]="['/cards/event/cb2VAMGVwHJ4PHbOavIt']" class="to-link" *ngIf="priceService.getLocation() == 'ph'">
-                        <img src="/assets/images/fathersday/ph-gift.png" style="width:100%; padding-top: 11px;">
-                    </a>
-                    <a [routerLink]="['/poetrycards/rI1NlE173U4xC44FQP2r']" class="to-link" *ngIf="priceService.getLocation() != 'ph'">
-                        <img src="/assets/images/fathersday/us-gift.png" style="width:100%; padding-top: 11px;">
-                    </a>
-                </div>
-                <div style="width: 70%; padding-left: 5px; position: relative;">
-                    <img src="/assets/images/fathersday/banner.png" style="width:100%">
-                    <div style="height: 10%; width: 49%; position: absolute; left: 6%; bottom: 2%; cursor: pointer;" [routerLink]="['/cards/event/rI1NlE173U4xC44FQP2r']"></div>
-                    <div style="height: 53%; width: 19%; position: absolute; left: 3%; bottom: 32%; cursor: pointer; transform: rotate(-4deg);" [routerLink]="['/card/YkLBj7BmakpzEyIxNaLn']"></div>
-                    <div style="height: 42%; width: 15%; position: absolute; left: 23%; bottom: 29%; cursor: pointer; transform: rotate(-4deg);" [routerLink]="['/card/HMRSVeQqA7NawslVni9K']"></div>
-                    <div style="height: 57%; width: 22%; position: absolute; left: 40%; bottom: 28%; cursor: pointer; transform: rotate(6deg);" [routerLink]="['/card/HHQFcNfQlLEtL2gSRrnv']"></div>
-                </div>
-            </div>
-            <br><br>
-            <!-- <div class="row">
-                <div class="col-md-12" style="position: relative;">
-                    <img src="/assets/images/fathersday/send-ecard.png" style="width:100%">
-                    <div style="height: 12%; width: 26%; position: absolute; left: 6%; bottom: 59%; cursor: pointer;" [routerLink]="['/e-cards/events/WlXTXJsUASQU7xuyXcp1']"></div>
-                    <div style="height: 38%; width: 27%; position: absolute; left: 6.4%; bottom: 7%; cursor: pointer;">
-                        <app-ecard-image-grid id="AXiPvoFtoriCinaV9hem"></app-ecard-image-grid>
-                    </div>
-                </div>
-            </div> -->
+
             <div class="row">
                 <div class="col-md-12" style="position: relative;">
-                    <img src="/assets/images/clipart/c-banners.png" style="width:100%">
-                    <div style="height: 50%; width: 13.5%; position: absolute; left: 2.2%; bottom: 5%; cursor: pointer;" [routerLink]="['/poetry']"></div>
-                    <div style="height: 50%; width: 13.5%; position: absolute; left: 18.2%; bottom: 5%; cursor: pointer;" [routerLink]="['/signandsend']"></div>
-                    <div style="height: 50%; width: 13.5%; position: absolute; left: 35.2%; bottom: 5%; cursor: pointer;" [routerLink]="['/e-cards']"></div>
-                    <div style="height: 50%; width: 13.5%; position: absolute; left: 51%; bottom: 5%; cursor: pointer;" [routerLink]="['/postcards']"></div>
-                    <div style="height: 50%; width: 13.5%; position: absolute; left: 67.5%; bottom: 6%; cursor: pointer;" [routerLink]="['/stickers']"></div>
-                    <div style="height: 50%; width: 13.5%; position: absolute; left: 84%; bottom: 6%; cursor: pointer;" [routerLink]="['/cliparts']"></div>
+                    <img src="/assets/images/bday2/banner-1-min.png" style="width:100%">
+                    <div style="height: 11%; width: 20%; position: absolute; left: 26%; bottom: 2.5%; cursor: pointer;"
+                        [routerLink]="['/cards/event/dGiyJX4go7yPhCJNJN4P']"></div>
+                    <div style="height: 11%; width: 23%; position: absolute; left: 47%; bottom: 2.5%; cursor: pointer;"
+                        [routerLink]="['/poetrycards/dGiyJX4go7yPhCJNJN4P']"></div>
+                    <div style="height: 52%; width: 14%; position: absolute; left: 26.6%; bottom: 20%; cursor: pointer; transform: rotate(-4deg);"
+                        [routerLink]="['/card/Klt7mSmRjQpsIqH4u5KS']"></div>
+                    <div style="height: 47%; width: 12.8%; position: absolute; left: 41%; bottom: 20%; cursor: pointer; transform: rotate(-4deg);"
+                        [routerLink]="['/card/Bfpij5w6qKeXusgh5CwV']"></div>
+                    <div style="height: 55%; width: 14.5%; position: absolute; left: 54.5%; bottom: 18%; cursor: pointer; transform: rotate(6deg);"
+                        [routerLink]="['/card/mugRbIKG9giDU4O26MLh']"></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12" style="position: relative;">
-                    <img src="/assets/images/mothersday/birthday.jpg" style="width:100%">
-                    <div style="height: 11%; width: 20%; position: absolute; left: 27%; bottom: 2.5%; cursor: pointer;" [routerLink]="['/cards/event/dGiyJX4go7yPhCJNJN4P']"></div>
-                    <div style="height: 11%; width: 20%; position: absolute; left: 49%; bottom: 2.5%; cursor: pointer;" [routerLink]="['/e-cards/events/AptWe6SUrtzFj18nr21c']"></div>
-                    <div style="height: 52%; width: 14%; position: absolute; left: 26.6%; bottom: 20%; cursor: pointer; transform: rotate(-4deg);" [routerLink]="['/card/Klt7mSmRjQpsIqH4u5KS']"></div>
-                    <div style="height: 47%; width: 12.8%; position: absolute; left: 41%; bottom: 20%; cursor: pointer; transform: rotate(-4deg);" [routerLink]="['/card/Bfpij5w6qKeXusgh5CwV']"></div>
-                    <div style="height: 55%; width: 14.5%; position: absolute; left: 54.5%; bottom: 18%; cursor: pointer; transform: rotate(6deg);" [routerLink]="['/card/mugRbIKG9giDU4O26MLh']"></div>
+                    <img src="/assets/images/bday2/banner-2-min.gif" style="width:100%">
+                    <div style="height: 23.5%; width: 33%; position: absolute;left: 14.5%;bottom: 2.5%; cursor: pointer;"
+                        [routerLink]="['/gifts']"></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12" style="position: relative;">
-                    <img src="/assets/images/valentines/v2/header-2-min.png">
-                    <img src="/assets/images/mothersday/graduate-banner.jpg">
-                    <div style="height: 9.5%; width: 33%; position: absolute; left: 38.4%; bottom: 28.5%; cursor: pointer;" [routerLink]="['/cards/event/7TrEt1o2415ST4CU7sy7']"></div>
-                    <!--
-                        /card/Ipm0KTgyDgCD8QRABnUl
-                        <a [routerLink]="['/cards/event/7TrEt1o2415ST4CU7sy7']" class="to-link">
-                            <img src="/assets/images/bday/3.png">
-                        </a>
-                    -->
-                 </div>
+                    <img src="/assets/images/bday2/banner-3-min.png" style="width:100%" title="categories"
+                        alt="categories">
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 5.7%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/poetry']"></div>
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 23.7%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/signandsend']"></div>
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 41.7%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/postcards']"></div>
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 59.7%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/stickers']"></div>
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 78.7%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/gifts']"></div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="position: relative;">
+                    <img src="/assets/images/bday2/banner-4-min.png" style="width:100%">
 
-                <!-- <div>
-                <div class="val-bk">
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <img src="/assets/images/valentines/greet-your-love-min.png">
-                            <br /><br />
-                        </div>
-                        <div class="col-md-5">
-                            <a [routerLink]="['/cards/events/Valentine\'s Day']" class="to-link">
-                                <img src="/assets/images/valentines/shop-cards-min.png">
-                            </a>
-                        </div>
-                        <div class="col-md-2">
-                            <br /><br />
-                            <img src="/assets/images/valentines/heart-min.png">
-                        </div>
-                        <div class="col-md-5">
-
-                            <a [routerLink]="['/cards/events/Gifts for Valentines day']" class="to-link">
-                                <img src="/assets/images/valentines/click-here-min.png">
-                            </a>
-                        </div>
-                    </div>
+                    <div style="height: 9.5%; width: 26%;position: absolute;left: 3.5%;bottom: 6.5%; cursor: pointer;"
+                        [routerLink]="['/cards/event/amCqsD3n7zq5N6OyvD8m']"></div>
+                    <div style="height: 52.5%;width: 14%;position: absolute; left: 32%; bottom: 27.5%;cursor: pointer; transform: rotate(-4deg);"
+                        [routerLink]="['/card/A0s5ML1aCuKq8DpqZMTk']"></div>
+                    <div style="height: 41.5%;width: 11%;position: absolute;left: 46.2%;bottom: 29.5%;cursor: pointer;transform: rotate(-4deg);"
+                        [routerLink]="['/card/ZztJIO8TeJwiScZ52d7y']"></div>
+                    <div style="height: 55.5%; width: 15%;position: absolute;left: 59%;bottom: 27.5%;cursor: pointer;transform: rotate(6deg);"
+                        [routerLink]="['/card/iebvUv46F9iFWHKHVjT5']"></div>
+                    <div style="height: 8.5%;width: 20.5%;position: absolute; bottom: 4.5%;left: 35.5%;cursor: pointer"
+                        [routerLink]="['/events']"></div>
+                    <div style="height: 8.5%;width: 18.5%;position: absolute;bottom: 5.5%;left: 58.5%;cursor: pointer"
+                        [routerLink]="['/poetry']"></div>
                 </div>
-                <br />
-                <a [routerLink]="['/valentines/greetings']" class="to-link"><img
-                        src="/assets/images/valentines/editted-min.png"></a>
-            </div> -->
-                <div>
-                    <div class="row">
-                        <!-- <div class="col-md-12">
+            </div>
+            <div>
+                <div class="row">
+
+                    <!-- <div class="col-md-12">
                         <br />
-                        <h2 class="text-center cus-text-title">{{'home.featuredtitle'|translate}}</h2>
-                    </div>
-
+                        <h2 class="text-center cus-text-title">{{'home.featuredcategories'|translate}}</h2>
+                    </div> -->
                     <div class="col-md-12">
-                        <app-home-featured caption="Valentine's Day" homeCardEvent="Valentine's Day"
+                        <img src="/assets/images/bday2/cat-min.png">
+                    </div>
+                    <div class="col-md-12">
+                        <app-home-featured caption="Wedding" homeCardEvent="Wedding" [limit]="100"></app-home-featured>
+                    </div>
+                    <div class="col-md-12">
+                        <app-home-featured caption="Anniversary" homeCardEvent="Anniversary"
                             [limit]="100"></app-home-featured>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div [routerLink]="['/signandsendpage']" class="to-link"> <img
-                                    src="/assets/images/valentines/v2/p-sns-1-min.png" style="width:100%"></div>
-                            <br /> <br />
-                        </div>
-                        <div class="col-md-6">
-                            <div [routerLink]="['/signandsendpage']" class="to-link"> <img
-                                    src="/assets/images/valentines/v2/p-pc-2-min.png" style="width:100%"></div>
-                            <br /> <br />
-                        </div>
+                    <div class="col-md-12">
+                        <app-home-featured caption="Sympathy" homeCardEvent="Sympathy"
+                            [limit]="100"></app-home-featured>
+                    </div>
+                    <div class="col-md-12">
+                        <app-home-featured caption="Thank You" homeCardEvent="Thank You"
+                            [limit]="100"></app-home-featured>
+                    </div>
+                    <!-- <div class="col-md-12">
+                        <app-home-featured caption="Sympathy" homeCardEvent="Sympathy"
+                            [limit]="100"></app-home-featured>
                     </div> -->
-                        <!-- <div class="col-md-12">
-                        <div><img src="/assets/images/newyear/4.png"></div>
-                        <br /> <br />
+                    <div class="col-md-12">
+                        <app-home-featured caption="Pet Cards" homeCardEvent="Pet" [limit]="100"></app-home-featured>
                     </div>
-                    <br /> -->
-
-                        <div class="col-md-12 sns-no-label">
-                            <!-- <div [routerLink]="['/signandsendpage']" class="to-link"> <img src="/assets/images/hw/sign-and-send-02.png" style="width:100%"></div>
+                    <div class="col-md-12">
+                        <img src="/assets/images/bday2/4-min.png">
+                    </div>
+                   
+                    <div class="col-md-12 sns-no-label">
+                        <!-- <div [routerLink]="['/signandsendpage']" class="to-link"> <img src="/assets/images/hw/sign-and-send-02.png" style="width:100%"></div>
                         <br /> <br />-->
-                            <app-home-featured caption="Sign and Send" [ids]="['FUmF8oMnhmpO9WgkziZN','GaHUF8E482lLIIebNPrY','JEiZgBQumVFDDyfxlJ24','JLpujLChwAf7CAay9HAx','UP19y5cwfVJByXTlmWQG','IPp9QMwawzBFgtgTxDQ1','gktcGJN6v6ROGUJSrMAU','xFG9kBmBv8sUgwvTWHVM','0PndLlvpXe3V46zHT5RY','2dH8qe9kgc7aN7pHSp4a','4Wz5Qqoa7yYpU0DfIlXA','5KIsabJ3spJSkOmbZLVD','Bfpij5w6qKeXusgh5CwV','QCqK7J0gEmm6sf2gznDj','1e3HY8oyjU0CwsZWqpoK','Gj9DQKqN3krzeVVhJRHb','OqiMLF73ek3TBE2PNPq6','cJXDwCuwCisW1vg24CsP','Ae11kuzI272NDJ159FwT','Tt7wE47yUOCBczValj3b','mqu9kvb4AdF8WwL9TAvA','qbQIVVGWv6LD0V1kPfkR','YM0LKWPou3NXAIAARtGR','6JHecB0o2wkJmYbKXCj8']"></app-home-featured>
+                        <app-home-featured caption="Sign and Send"
+                            [ids]="['FUmF8oMnhmpO9WgkziZN','GaHUF8E482lLIIebNPrY','JEiZgBQumVFDDyfxlJ24','JLpujLChwAf7CAay9HAx','UP19y5cwfVJByXTlmWQG','IPp9QMwawzBFgtgTxDQ1','gktcGJN6v6ROGUJSrMAU','xFG9kBmBv8sUgwvTWHVM','0PndLlvpXe3V46zHT5RY','2dH8qe9kgc7aN7pHSp4a','4Wz5Qqoa7yYpU0DfIlXA','5KIsabJ3spJSkOmbZLVD','Bfpij5w6qKeXusgh5CwV','QCqK7J0gEmm6sf2gznDj','1e3HY8oyjU0CwsZWqpoK','Gj9DQKqN3krzeVVhJRHb','OqiMLF73ek3TBE2PNPq6','cJXDwCuwCisW1vg24CsP','Ae11kuzI272NDJ159FwT','Tt7wE47yUOCBczValj3b','mqu9kvb4AdF8WwL9TAvA','qbQIVVGWv6LD0V1kPfkR','YM0LKWPou3NXAIAARtGR','6JHecB0o2wkJmYbKXCj8']"></app-home-featured>
 
-                        </div>
-                        <div class="col-md-12">
-                            <br />
-                            <h2 class="text-center cus-text-title">{{'home.featuredcategories'|translate}}</h2>
-                        </div>
-                        <div class="col-md-12">
-                            <app-home-featured caption="Mother's Day" homeCardEvent="Mother's Day" [limit]="100"></app-home-featured>
-                        </div>
-                        <div class="col-md-12">
-                            <app-home-featured caption="Anniversary" homeCardEvent="Anniversary" [limit]="100"></app-home-featured>
-                        </div>
-                        <div class="col-md-12">
-                            <app-home-featured caption="Sympathy" homeCardEvent="Sympathy" [limit]="100"></app-home-featured>
-                        </div>
-                        <div class="col-md-12">
-                            <app-home-featured caption="Pet Cards" homeCardEvent="Pet" [limit]="100"></app-home-featured>
-                        </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-12" style="position: relative;">
-                        <img src="/assets/images/mothersday/signandsend.jpg" style="width:100%">
-                        <div style="height: 10%; width: 32%; position: absolute; left: 9%; bottom: 0%; cursor: pointer;" [routerLink]="['/signandsend']"></div>
-                        <div style="height: 10%; width: 20%; position: absolute; left: 53%; bottom: 0%; cursor: pointer;" [routerLink]="['/signandsendpage']"></div>
+                        <img src="/assets/images/bday2/5-min.png">
+                        <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 9.2%;cursor: pointer" [routerLink]="['/cards/event/cb2VAMGVwHJ4PHbOavIt']"></div>
+                         <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 30.2%;cursor: pointer" [routerLink]="['/cards/event/daRI7IEuBx3kyESw7H9M']"></div>
+                         <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 50.2%;cursor: pointer" [routerLink]="['/cards/event/iygJoAg2bgoIDodDYfH3']"></div>
+                         <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 71.5%;cursor: pointer" [routerLink]="['/gifts']"></div>
                     </div>
                 </div>
-
-                <div>
-                    <img src="/assets/images/valentines/v2/t-1-min.png" class="img-fluid cursor w100">
-                    <br /><br />
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-12" style="position: relative;">
+                    <img src="/assets/images/mothersday/signandsend.jpg" style="width:100%">
+                    <div style="height: 10%; width: 32%; position: absolute; left: 9%; bottom: 0%; cursor: pointer;"
+                        [routerLink]="['/signandsend']"></div>
+                    <div style="height: 10%; width: 20%; position: absolute; left: 53%; bottom: 0%; cursor: pointer;"
+                        [routerLink]="['/signandsendpage']"></div>
                 </div>
-                <div class="col-md-12">
-                    <!-- caption="BEST SELLER CARDS" -->
-                    <app-home-bestseller></app-home-bestseller>
-                </div>
-                <div>
-                    <img src="/assets/images/valentines/v2/t-2-min.png" class="img-fluid cursor w100">
-                    <br /><br />
-                </div>
-                <!-- <div>
+            </div> -->
+            
+            <div>
                 <div class="row">
                     <div class="col-md-12">
+                        <img src="/assets/images/bday2/6-min.png"
+                            *ngIf="priceService.getLocation() == 'ph'" class="img-fluid " style="width:100%">
+                        <img src="/assets/images/bday2/6-min.png"
+                            *ngIf="priceService.getLocation() != 'ph'" class="img-fluid " style="width:100%">
                         <br /> <br />
-                        <a [routerLink]="['/gifts']"><img src="/assets/images/valentines/6.png"
-                                class="img-fluid to-link"></a>
-                        <br /> <br />
+                        <!-- <img src="/assets/images/valentines/v2/2-min.png" class="img-fluid cursor" style="width:100%"
+                            [routerLink]="['/stickers']">
+                        <br /> <br /> -->
                     </div>
-                </div>
-            </div> -->
-
-                <div class="col-md-12">
-                    <!-- caption="BEST SELLER GIFTS" -->
-                    <!-- <app-home-bestseller
-                    [ids]="['TWHYSqWcfejKR4ISqgkJ','RKAwStKSVltG6PgSrhKr','65R0tzljmfUbHTJ2oLDI','Ca4O3n9XhgEycwsQSeCQ','U7dYbkrpzv1kRopldrTG','WyloWUTIwkIUkoKhAMQA','pOxaKCkomN6vvqXsWq32','Bt8IoYIQLVjsm5qf0yes']"></app-home-bestseller> -->
-                    <app-home-bestseller [ids]="['2X3ni7P5BqGPU1UbBpwq','Euxi0KuwUQuzBvN29vEo','q7d8sezaICMch9CxdDKm','JKoqEQ373txpRG6e9u4r']"></app-home-bestseller>
-
-                </div>
-                <!-- <div>
-                <div class="row">
-                    <div class="col-md-3 col-12">
-                        <img src="/assets/images/valentines/val-2.png"
-                            [routerLink]="['/cards/events/Gifts for Graduation']" class="img-fluid cursor"
-                            style="width:100%">
-                        <br /><br />
-                    </div>
-                    <div class="col-md-9 col-m12">
-                        <img src="/assets/images/valentines/val-1.png" [routerLink]="['/cards/events/Graduation']"
-                            class="img-fluid cursor">
-                        <br /><br />
-                    </div>
-                </div>
-            </div> -->
-
-                <div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <img src="/assets/images/valentines/v2/bottom-banner-min.png" *ngIf="priceService.getLocation() == 'ph'" class="img-fluid " style="width:100%">
-                            <img src="/assets/images/valentines/v2/bottom-banner-min-us.png" *ngIf="priceService.getLocation() != 'ph'" class="img-fluid " style="width:100%">
-                            <br /> <br />
-                            <img src="/assets/images/valentines/v2/2-min.png" class="img-fluid cursor" style="width:100%" [routerLink]="['/stickers']">
-                            <br /> <br />
-                        </div>
-                    </div>
-
                 </div>
 
             </div>
+
+        </div>
     </section>
     <app-footer></app-footer>
 </ion-content>
