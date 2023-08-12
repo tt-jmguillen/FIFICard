@@ -18,14 +18,14 @@
                         [routerLink]="['/card/mugRbIKG9giDU4O26MLh']"></div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="priceService.getLocation() == 'ph'">
                 <div class="col-md-12" style="position: relative;">
                     <img src="/assets/images/bday2/banner-2-min.gif" style="width:100%">
                     <div style="height: 23.5%; width: 33%; position: absolute;left: 14.5%;bottom: 2.5%; cursor: pointer;"
                         [routerLink]="['/gifts']"></div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="priceService.getLocation() == 'ph'">
                 <div class="col-md-12" style="position: relative;">
                     <img src="/assets/images/bday2/banner-3-min.png" style="width:100%" title="categories"
                         alt="categories">
@@ -39,6 +39,20 @@
                         [routerLink]="['/stickers']"></div>
                     <div style="height: 54%; width: 15.5%; position: absolute;left: 78.7%;bottom: 26%; cursor: pointer;"
                         [routerLink]="['/gifts']"></div>
+                </div>
+            </div>
+            <div class="row" *ngIf="priceService.getLocation() != 'ph'">
+                <div class="col-md-12" style="position: relative;">
+                    <img src="/assets/images/bday2/us/banner-3-min.png" style="width:100%" title="categories"
+                        alt="categories">
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 13.3%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/poetry']"></div>
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 31.2%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/signandsend']"></div>
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 49.5%;;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/postcards']"></div>
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 67.5%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/stickers']"></div>
                 </div>
             </div>
             <div class="row">
@@ -126,7 +140,7 @@
                     <div class="col-md-12">
                         <img src="/assets/images/bday2/6-min.png"
                             *ngIf="priceService.getLocation() == 'ph'" class="img-fluid " style="width:100%">
-                        <img src="/assets/images/bday2/6-min.png"
+                        <img src="/assets/images/bday2/us/banner-4-min.png"
                             *ngIf="priceService.getLocation() != 'ph'" class="img-fluid " style="width:100%">
                         <br /> <br />
                         <!-- <img src="/assets/images/valentines/v2/2-min.png" class="img-fluid cursor" style="width:100%"
