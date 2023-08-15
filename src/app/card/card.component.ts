@@ -11,13 +11,10 @@ import { CardService } from '../services/card.service';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  @Input() set id(_id: string) {
-    this.loadCard(_id);
-  }
+  @Input() card: Card;
 
   service: CardService;
   priceService: PriceService;
-  card?: Card;
   bundles: Bundle[] = [];
   imageURL: string = '';
 
@@ -29,7 +26,12 @@ export class CardComponent implements OnInit {
     this.priceService = _priceService;
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.loadImage(this.card.id!);
+      if (this.card.type == 'postcard') {
+        this.getBundles(this.card.id!);
+      }
+  }
 
   loadCard(_id: string) {
     this.service.getCard(_id).subscribe(val => {

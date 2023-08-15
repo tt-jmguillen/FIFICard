@@ -6,7 +6,7 @@
 
 <div *ngIf="!norecords">
   <!-- style="display: flex;" -->
-  <div style="text-align: right;">
+  <div style="text-align: left;">
     <ngb-rating [(rate)]="currentRate" [starTemplate]="t" [readonly]="true" [max]=5></ngb-rating>
     <div>({{currentRate.toFixed(2)}}/{{rateCount}}) Reviews</div>
   </div>

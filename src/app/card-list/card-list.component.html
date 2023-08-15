@@ -55,7 +55,7 @@
 </div>
 <div class="row pb-5">
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-6 pb-2 mb-2" *ngFor="let card of displayCards">
-        <app-card [id]="card.id!" *ngIf="['card','gift','sticker','postcard'].includes(card.type)"></app-card>
+        <app-card [card]="card" *ngIf="['card','gift','sticker','postcard'].includes(card.type)"></app-card>
         <app-ecard [card]="card" *ngIf="card.type == 'ecard'"></app-ecard>
         <app-clipart-card [clipart]="card" *ngIf="card.type == 'clipart'"></app-clipart-card>
     </div>
