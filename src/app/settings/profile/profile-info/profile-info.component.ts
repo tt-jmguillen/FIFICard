@@ -32,7 +32,7 @@ export class ProfileInfoComponent implements OnInit {
       lastname: ['', [Validators.required, Validators.pattern(/^[A-Za-z0-9 ]*$/)]],
       email: ['', [Validators.required, Validators.email]],
       gender: ['', [Validators.required]],
-      contact: ['', [Validators.required, Validators.pattern(/^[0-9 +]*$/)]],
+      contact: ['', [Validators.required]],
       month: ['', [Validators.required]],
       day: [Number(0), [Validators.required, Validators.min(1), Validators.max(31)]],
       year: [Number(0), [Validators.required, Validators.min(1950), Validators.max((new Date).getFullYear())]]
@@ -122,5 +122,14 @@ export class ProfileInfoComponent implements OnInit {
 
   controls() {
     return this.form.controls;
+  }
+
+  changePhone(e: any){
+    if ((e.charCode >= 48) && (e.charCode <= 57)) return true;
+    else if (e.charCode === 45) return true;
+    else if (e.charCode === 40) return true;
+    else if (e.charCode === 41) return true;
+    else if (e.charCode === 32) return true;
+    else return false;
   }
 }

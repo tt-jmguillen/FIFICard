@@ -26,7 +26,7 @@
 
             <div class="mb-3 col-4">
                 <label>* {{'profile.contact'|translate}}</label>
-                <input type="number" class="form-control" placeholder="{{'profile.contact'|translate}}" formControlName="contact" readonly="{{isEdit? '': 'readonly'}}" [ngClass]="{ 'is-invalid': submitted && controls()['contact'].errors}">
+                <input type="text" class="form-control" placeholder="{{'profile.contact'|translate}}" formControlName="contact" readonly="{{isEdit? '': 'readonly'}}" [ngClass]="{ 'is-invalid': submitted && controls()['contact'].errors}" (keypress)="changePhone($event)">
             </div>
             <div class="mb-3 col-4">
                 <label>* {{'profile.email'|translate}}</label>
