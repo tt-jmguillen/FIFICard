@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Card } from 'src/app/models/card';
 import { CardService } from 'src/app/services/card.service';
+import { ImageService } from 'src/app/services/image.service';
 import { environment } from 'src/environments/environment';
 
 class Batch {
@@ -22,14 +23,17 @@ export class SuggestionListComponent implements OnInit {
   @Input() card: Card;
 
   service: CardService;
+  imageService: ImageService;
   batches: Batch[] = [];
   isMobile: boolean;
 
   constructor(
     private _service: CardService,
+    private _imageService: ImageService,
     private config: NgbCarouselConfig
   ) {
     this.service = _service;
+    this.imageService = _imageService;
     config.interval = 7000;
     config.wrap = true;
     config.pauseOnHover = true;
@@ -97,10 +101,10 @@ export class SuggestionListComponent implements OnInit {
 
   getAvailableURL(image: string): Promise<string> {
     return new Promise((resolve, rejects) => {
-      this.service.getImageURL(image + environment.imageSize.medium).then(url => {
+      this.imageService.getImageURL(image + environment.imageSize.medium).then(url => {
         resolve(url);
       }).catch(err => {
-        this.service.getImageURL(image).then(url => {
+        this.imageService.getImageURL(image).then(url => {
           resolve(url);
         }).catch(err => {
         })

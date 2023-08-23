@@ -1,6 +1,7 @@
 import { CardService } from './../../services/card.service';
 import { Component, OnInit } from '@angular/core';
 import { Card } from 'src/app/models/card';
+import { ImageService } from 'src/app/services/image.service';
 import { environment } from 'src/environments/environment';
 
 class SelectedCard {
@@ -21,15 +22,18 @@ class SelectedCard {
 
 export class GraduationGreetingsComponent implements OnInit {
   cardService: CardService
+  imageService: ImageService;
   line1: SelectedCard[] = [];
   line2: SelectedCard[] = [];
   line3: SelectedCard[] = [];
   line4: SelectedCard[] = [];
 
   constructor(
-    _cardService: CardService
+    _cardService: CardService,
+    _imageService: ImageService
   ) {
     this.cardService = _cardService;
+    this.imageService = _imageService;
   }
 
   ngOnInit(): void {
@@ -70,25 +74,9 @@ export class GraduationGreetingsComponent implements OnInit {
 
   loadImage(card: SelectedCard) {
     this.cardService.getPrimaryImage(card.id!).then(img => {
-      this.getAvailableURL(img).then(url => {
+      this.imageService.getImageURL(img).then(url => {
         card.url = url;
       })
-    });
-  }
-
-  getAvailableURL(image: string): Promise<string> {
-    return new Promise((resolve) => {
-      this.cardService.getImageURL(image + environment.imageSize.xlarge).then(url => {
-        resolve(url);
-      }).catch(err => {
-        this.cardService.getImageURL(image + environment.imageSize.large).then(url => {
-          resolve(url);
-        }).catch(err => {
-          this.cardService.getImageURL(image).then(url => {
-            resolve(url);
-          }).catch(err => { });
-        });
-      });
     });
   }
 

@@ -2,6 +2,7 @@ import { Card } from './../../models/card';
 import { CardService } from 'src/app/services/card.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-halloween-card',
@@ -12,11 +13,14 @@ export class HalloweenCardComponent implements OnInit {
   @Input() id: string;
 
   service: CardService;
+  imageService: ImageService;
 
   constructor(
-    _service: CardService
+    _service: CardService,
+    _imageService: ImageService
   ) {
     this.service = _service;
+    this.imageService = _imageService;
   }
 
   title: string = '';
@@ -43,10 +47,10 @@ export class HalloweenCardComponent implements OnInit {
 
   getimage(image: string): Promise<string> {
     return new Promise((resolve, rejects) => {
-      this.service.getImageURL(image + environment.imageSize.medium).then(url => {
+      this.imageService.getImageURL(image + environment.imageSize.medium).then(url => {
         resolve(url);
       }).catch(err => {
-        this.service.getImageURL(image).then(url => {
+        this.imageService.getImageURL(image).then(url => {
           resolve(url);
         });
       });

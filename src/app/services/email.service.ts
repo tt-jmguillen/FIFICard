@@ -7,6 +7,7 @@ import { addDoc, collection, Firestore } from '@angular/fire/firestore';
 import { Order } from '../models/order';
 import { Storage } from '@angular/fire/storage';
 import { OrderECard } from '../models/order-ecard';
+import { ImageService } from './image.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,18 +17,21 @@ export class EmailService {
   cardService: CardService;
   priceService: PriceService;
   settingService: SettingService;
+  imageService: ImageService;
 
   constructor(
     private _store: Firestore,
     private _storage: Storage,
     private _cardService: CardService,
     private _priceService: PriceService,
-    private _settingService: SettingService
+    private _settingService: SettingService,
+    private _imageService: ImageService
   ) {
     this.store = _store;
     this.cardService = _cardService
     this.priceService = _priceService;
     this.settingService = _settingService;
+    this.imageService = _imageService
   }
 
   private async generateHTML(order: Order, url: string): Promise<string> {
@@ -81,7 +85,7 @@ export class EmailService {
 
   sendOrderEmail(order: Order) {
     this.getCard(order.card_id!).then(primary => {
-      this.cardService.getImageURL(primary).then(url => {
+      this.imageService.getImageURL(primary).then(url => {
         this.generateHTML(order, url).then(html => {
           const data = collection(this.store, 'mail')
           addDoc(data, {

@@ -80,16 +80,6 @@ export class CartThumbComponent implements OnInit {
     })
   }
 
-  getAvailableURL(image: string) {
-    this.cardService.getImageURL(image).then(url => {
-      this.url = url;
-    }).catch(err => {
-      this.cardService.getImageURL(image).then(url => {
-        this.url = url;
-      }).catch(err => { });
-    });
-  }
-
   updateInclude() {
     this.selected = !this.mark;
     this.changeInclude.emit([this.order.id!, this.mark]);

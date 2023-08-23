@@ -396,10 +396,6 @@ export class CardService {
     });
   }
 
-  async getImageURL(path: string): Promise<string> {
-    const fileRef = ref(this.storage, path);
-    return getDownloadURL(fileRef)
-  }
 
   async addRating(id: string, rating: Rating): Promise<string> {
     return new Promise(resolve => {

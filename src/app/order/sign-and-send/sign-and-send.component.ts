@@ -7,6 +7,7 @@ import { CardService } from 'src/app/services/card.service';
 import { FilterService } from 'src/app/services/filter.service';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { exit } from 'process';
+import { ImageService } from 'src/app/services/image.service';
 
 class Item {
   public image: string;
@@ -108,6 +109,7 @@ export class SignAndSendComponent implements OnInit {
   orderService: OrderService;
   router: Router;
   filerService: FilterService;
+  imageService: ImageService;
   modalService: NgbModal;
   modalRef: NgbModalRef;
 
@@ -154,6 +156,7 @@ export class SignAndSendComponent implements OnInit {
     private _orderService: OrderService,
     private _router: Router,
     private _filerService: FilterService,
+    private _imageService: ImageService,
     private _modalService: NgbModal
   ) {
     this.activateRoute = _activateRoute;
@@ -161,6 +164,7 @@ export class SignAndSendComponent implements OnInit {
     this.orderService = _orderService;
     this.router = _router;
     this.filerService = _filerService;
+    this.imageService = _imageService;
     this.modalService = _modalService;
   }
 
@@ -216,7 +220,7 @@ export class SignAndSendComponent implements OnInit {
       });
 
       this.urls.forEach(async url => {
-        url.url = await this.service.getImageURL(url.image);
+        url.url = await this.imageService.getImageURL(url.image);
         if (!this.focusURL) {
           this.updateFocusImage(url);
         }
@@ -242,7 +246,7 @@ export class SignAndSendComponent implements OnInit {
         }
 
         this.urls.forEach(async url => {
-          url.url = await this.service.getImageURL(url.image);
+          url.url = await this.imageService.getImageURL(url.image);
           if (!this.focusURL) {
             this.updateFocusImage(url);
           }

@@ -81,7 +81,7 @@ export class ProfileOrderThumbComponent implements OnInit {
   }
 
   getImage(image: string) {
-    this.cardService.getImageURL(image).then(value => {
+    this.imageService.getImageURL(image).then(value => {
       this.image = value;
     });
   }

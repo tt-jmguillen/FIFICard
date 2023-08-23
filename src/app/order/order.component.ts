@@ -31,6 +31,7 @@ import { Bundle } from '../models/bundle';
 import usaddressdata from '../../assets/address/us.json';
 import phaddressdata from '../../assets/address/ph.json';
 import { PHAddress } from '../models/phaddress';
+import { ImageService } from '../services/image.service';
 
 @Component({
   selector: 'app-order',
@@ -64,6 +65,7 @@ export class OrderComponent implements OnInit {
   shippingService: ShippingService;
   settingService: SettingService;
   priceService: PriceService;
+  imageService: ImageService;
   modalService: NgbModal;
   router: Router;
 
@@ -138,6 +140,7 @@ export class OrderComponent implements OnInit {
     _modalService: NgbModal,
     _filter: FilterService,
     _priceService: PriceService,
+    _imageService: ImageService,
     _router: Router,
     private loc: Location,
     private _emailService: EmailService,
@@ -157,6 +160,7 @@ export class OrderComponent implements OnInit {
     this.settingService = _settingService;
     this.modalService = _modalService;
     this.priceService = _priceService;
+    this.imageService = _imageService;
     this.filter = _filter;
     this.router = _router;
     this.emailService = _emailService;
@@ -494,10 +498,10 @@ export class OrderComponent implements OnInit {
 
   getAvailableURL(image: string): Promise<string> {
     return new Promise((resolve) => {
-      this.cardService.getImageURL(image + environment.imageSize.medium).then(url => {
+      this.imageService.getImageURL(image + environment.imageSize.medium).then(url => {
         resolve(url);
       }).catch(err => {
-        this.cardService.getImageURL(image).then(url => {
+        this.imageService.getImageURL(image).then(url => {
           resolve(url);
         }).catch(err => { });
       });

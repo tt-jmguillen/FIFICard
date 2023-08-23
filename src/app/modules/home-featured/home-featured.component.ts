@@ -5,6 +5,7 @@ import { configFromSession } from '@ionic/core';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Card } from 'src/app/models/card';
 import { CardService } from 'src/app/services/card.service';
+import { ImageService } from 'src/app/services/image.service';
 import { environment } from 'src/environments/environment';
 
 class Batch {
@@ -32,6 +33,7 @@ export class HomeFeaturedComponent implements OnInit {
 
   service: CardService;
   priceService: PriceService;
+  imageService: ImageService;
   cards: Card[] = [];
   batches: Batch[] = [];
   isMobile: boolean;
@@ -39,10 +41,12 @@ export class HomeFeaturedComponent implements OnInit {
   constructor(
     private _service: CardService,
     private _priceService: PriceService,
+    private _imageService: ImageService,
     private config: NgbCarouselConfig
   ) {
     this.service = _service;
     this.priceService = _priceService;
+    this.imageService = _imageService;
     config.interval = 8000;
     config.wrap = true;
     config.pauseOnHover = false;
@@ -119,10 +123,10 @@ export class HomeFeaturedComponent implements OnInit {
 
   getAvailableURL(image: string): Promise<string> {
     return new Promise((resolve, rejects) => {
-      this.service.getImageURL(image + environment.imageSize.medium).then(url => {
+      this.imageService.getImageURL(image + environment.imageSize.medium).then(url => {
         resolve(url);
       }).catch(err => {
-        this.service.getImageURL(image).then(url => {
+        this.imageService.getImageURL(image).then(url => {
           resolve(url);
         });
       });

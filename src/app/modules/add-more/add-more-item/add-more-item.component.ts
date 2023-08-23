@@ -2,6 +2,7 @@ import { PriceService } from './../../../services/price.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Card } from 'src/app/models/card';
 import { CardService } from 'src/app/services/card.service';
+import { ImageService } from 'src/app/services/image.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -16,13 +17,16 @@ export class AddMoreItemComponent implements OnInit {
 
   service: CardService;
   priceService: PriceService;
+  imageService: ImageService;
 
   constructor(
     _service: CardService,
-    _priceService: PriceService
+    _priceService: PriceService,
+    _imageService: ImageService
   ) {
     this.service = _service;
     this.priceService = _priceService;
+    this.imageService = _imageService;
   }
 
 
@@ -48,10 +52,10 @@ export class AddMoreItemComponent implements OnInit {
 
   getAvailableURL(image: string): Promise<string> {
     return new Promise((resolve) => {
-      this.service.getImageURL(image + environment.imageSize.medium).then(url => {
+      this.imageService.getImageURL(image + environment.imageSize.medium).then(url => {
         resolve(url);
       }).catch(err => {
-        this.service.getImageURL(image).then(url => {
+        this.imageService.getImageURL(image).then(url => {
           resolve(url);
         }).catch(err => { });
       });

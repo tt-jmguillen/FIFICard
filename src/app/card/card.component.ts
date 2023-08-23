@@ -4,6 +4,7 @@ import { environment } from './../../environments/environment';
 import { Card } from './../models/card';
 import { Component, Input, OnInit } from '@angular/core';
 import { CardService } from '../services/card.service';
+import { ImageService } from '../services/image.service';
 
 @Component({
   selector: 'app-card',
@@ -15,22 +16,25 @@ export class CardComponent implements OnInit {
 
   service: CardService;
   priceService: PriceService;
+  imageService: ImageService;
   bundles: Bundle[] = [];
   imageURL: string = '';
 
   constructor(
     private _service: CardService,
-    private _priceService: PriceService
+    private _priceService: PriceService,
+    private _imageService: ImageService
   ) {
     this.service = _service
     this.priceService = _priceService;
+    this.imageService = _imageService;
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.loadImage(this.card.id!);
-      if (this.card.type == 'postcard') {
-        this.getBundles(this.card.id!);
-      }
+    if (this.card.type == 'postcard') {
+      this.getBundles(this.card.id!);
+    }
   }
 
   loadCard(_id: string) {
@@ -50,26 +54,9 @@ export class CardComponent implements OnInit {
   }
 
   getImage(image: string) {
-    this.getAvailableURL(image).then(url => {
+    this.imageService.getImageURL(image).then(url => {
       this.imageURL = url;
     });
-  }
-
-  getAvailableURL(image: string): Promise<string> {
-    return new Promise((resolve) => {
-      this.service.getImageURL(image + environment.imageSize.xlarge).then(url => {
-        resolve(url);
-      }).catch(err => {
-        this.service.getImageURL(image + environment.imageSize.large).then(url => {
-          resolve(url);
-        }).catch(err => {
-          this.service.getImageURL(image).then(url => {
-            resolve(url);
-          }).catch(err => { });
-        });
-      });
-    });
-
   }
 
   getStickerLink(): string {

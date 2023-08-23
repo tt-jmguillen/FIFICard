@@ -19,13 +19,6 @@
                     </header>
                 </div>
             </div>
-            <!--
-            <div class="row" *ngIf="loading">
-                <div class="col-md-12 my-2">
-                    <mat-progress-bar mode="indeterminate" value=100></mat-progress-bar>
-                </div>
-            </div>
-            -->
             <app-card-list *ngIf="(search === undefined) && (cards.length > 0)" [priority]="priority" [cards]="cards" [recipient]="recipient!" [mode]="type"></app-card-list>
             <app-search-list *ngIf="(search !== undefined) && (cards.length > 0)" [cards]="cards"></app-search-list>
         </div>
