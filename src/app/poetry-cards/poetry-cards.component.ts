@@ -4,6 +4,7 @@ import { PriceService } from './../services/price.service';
 import { CardService } from './../services/card.service';
 import { EventService } from './../services/event.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-poetry-cards',
@@ -16,23 +17,25 @@ export class PoetryCardsComponent implements OnInit {
   service: EventService;
   cardService: CardService;
   priceService: PriceService;
+  loadingController: LoadingController;
 
   constructor(
     _activateRoute: ActivatedRoute,
     _def: ChangeDetectorRef,
     _service: EventService,
     _cardService: CardService,
-    _priceService: PriceService
-  ) { 
+    _priceService: PriceService,
+    _loadingController: LoadingController
+  ) {
     this.activateRoute = _activateRoute;
     this.def = _def;
     this.service = _service;
     this.cardService = _cardService;
     this.priceService = _priceService;
+    this.loadingController = _loadingController;
   }
 
   caption: string = '';
-  loading: boolean = false;
   cards: Card[] = [];
 
   ngOnInit(): void {
@@ -47,12 +50,19 @@ export class PoetryCardsComponent implements OnInit {
     })
   }
 
-  loadCards(event: string){
-    this.loading = true;
-    this.cardService.getPoetryCardsByEvent(event).then(cards => {
-      this.cards = cards;
-      this.loading = false;
-    })
+  async loadCards(event: string) {
+    let loading: HTMLIonLoadingElement;
+    loading = await this.loadingController.create({
+      message: 'Loading Poetry Cards...'
+    });
+    await loading.present();
+
+    try {
+      this.cards = await this.cardService.getPoetryCardsByEvent(event);
+    }
+    finally {
+      await loading.dismiss();
+    }
   }
 
 }

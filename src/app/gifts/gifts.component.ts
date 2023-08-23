@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../services/event.service';
 import { Event } from '../models/event';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-gifts',
@@ -12,13 +13,16 @@ import { Event } from '../models/event';
 export class GiftsComponent implements OnInit {
   service: EventService;
   priceService: PriceService;
+  loadingController: LoadingController;
 
   constructor(
     _service: EventService,
-    _priceService: PriceService
+    _priceService: PriceService,
+    _loadingController: LoadingController
   ) {
     this.service = _service;
-    this.priceService = _priceService
+    this.priceService = _priceService;
+    this.loadingController = _loadingController;
   }
 
   categories: Event[] = [];
@@ -37,37 +41,67 @@ export class GiftsComponent implements OnInit {
     this.mode = mode;
   }
 
-  loadCategory() {
-    this.service.getByTag('Shop by Category').then(events => {
+  async loadCategory() {
+    let loading: HTMLIonLoadingElement;
+    loading = await this.loadingController.create({
+      message: 'Loading Categories...'
+    });
+    await loading.present();
+
+    try {
+      let events: Event[] = await this.service.getByTag('Shop by Category')
       events.forEach(event => {
         if (event.thumbnail) {
           this.categories.push(event);
         }
       })
       this.categories = this.sort(this.categories);
-    });
+    }
+    finally {
+      await loading.dismiss();
+    }
   }
 
-  loadRecipient() {
-    this.service.getByTag('Shop by Recipient').then(events => {
+  async loadRecipient() {
+    let loading: HTMLIonLoadingElement;
+    loading = await this.loadingController.create({
+      message: 'Loading Recipients...'
+    });
+    await loading.present();
+
+    try {
+      let events: Event[] = await this.service.getByTag('Shop by Recipient')
       events.forEach(event => {
         if (event.thumbnail) {
           this.recipients.push(event);
         }
       })
       this.recipients = this.sort(this.recipients);
-    });
+    }
+    finally {
+      await loading.dismiss();
+    }
   }
 
-  loadEvent() {
-    this.service.getByTag('Shop by Event').then(events => {
+  async loadEvent() {
+    let loading: HTMLIonLoadingElement;
+    loading = await this.loadingController.create({
+      message: 'Loading Events...'
+    });
+    await loading.present();
+
+    try {
+      let events: Event[] = await this.service.getByTag('Shop by Event');
       events.forEach(event => {
         if (event.thumbnail != '') {
           this.events.push(event);
         }
       })
       this.events = this.sort(this.events);
-    });
+    }
+    finally {
+      await loading.dismiss();
+    }
   }
 
   sort(events: Event[]): Event[] {

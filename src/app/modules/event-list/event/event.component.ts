@@ -11,7 +11,7 @@ import { Event } from '../../../models/event';
 export class EventComponent implements OnInit {
   @Input() event: Event;
   @Input() type: 'card' | 'signandsend' = 'card';
-  @Input() checkrequire: boolean = true;
+  @Input() checkrequire: boolean = false;
 
   service: CardService;
   imageService: ImageService;

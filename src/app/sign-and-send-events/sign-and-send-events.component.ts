@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../services/event.service';
 import { Event } from '../models/event';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-sign-and-send-events',
@@ -12,13 +13,16 @@ import { Event } from '../models/event';
 export class SignAndSendEventsComponent implements OnInit {
   service: EventService;
   priceService: PriceService;
+  loadingController: LoadingController;
 
   constructor(
     _service: EventService,
-    _priceService: PriceService
+    _priceService: PriceService,
+    _loadingController: LoadingController
   ) {
     this.service = _service;
     this.priceService = _priceService;
+    this.loadingController = _loadingController
   }
 
   occassions: Event[] = [];
@@ -28,11 +32,21 @@ export class SignAndSendEventsComponent implements OnInit {
     this.loadevents();
   }
 
-  loadevents() {
-    this.service.getEventSignAndSend().then(events => {
+  async loadevents() {
+    let loading: HTMLIonLoadingElement;
+    loading = await this.loadingController.create({
+      message: 'Loading Events...'
+    });
+    await loading.present();
+
+    try {
+      let events: Event[] = await this.service.getEventSignAndSend();
       this.events = this.sort(events.filter(x => x.tag == 'Events'));
       this.occassions = this.sort(events.filter(x => x.tag == 'Occasions'));
-    });
+    }
+    finally {
+      await loading.dismiss();
+    }
   }
 
   sort(events: Event[]): Event[] {

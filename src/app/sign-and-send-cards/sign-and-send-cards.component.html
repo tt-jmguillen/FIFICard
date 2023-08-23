@@ -20,12 +20,6 @@
                         <h3 class="section-title mb-0">{{caption}}</h3>
                     </header>
                 </div>
-
-                <div class="row" *ngIf="loading">
-                    <div class="col-md-12">
-                        <mat-progress-bar mode="indeterminate" value=100></mat-progress-bar>
-                    </div>
-                </div>
                 <app-card-list [footer]="false" *ngIf="cards.length > 0" [cards]="cards" mode="card"></app-card-list>
             </div>
             <div class="row">

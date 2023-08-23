@@ -2,6 +2,7 @@ import { PriceService } from './../services/price.service';
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../services/event.service';
 import { Event } from '../models/event';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-events',
@@ -11,27 +12,39 @@ import { Event } from '../models/event';
 export class EventsComponent implements OnInit {
   service: EventService;
   priceService: PriceService;
+  loadingController: LoadingController;
 
   constructor(
     _service: EventService,
-    _priceService: PriceService
+    _priceService: PriceService,
+    _loadingController: LoadingController
   ) {
     this.service = _service;
     this.priceService = _priceService;
+    this.loadingController = _loadingController;
   }
 
   occassions: Event[] = [];
   events: Event[] = [];
+  loading: HTMLIonLoadingElement;
 
   ngOnInit(): void {
     this.loadevents();
   }
 
-  loadevents() {
-    this.service.getEventCard().then(events => {
-      this.events = this.sort(events.filter(x => x.tag == 'Events'))
-      this.occassions = this.sort(events.filter(x => x.tag == 'Occasions'))
-    })
+  async loadevents() {
+    this.loading = await this.loadingController.create({
+      message: 'Loading Events...'
+    });
+    await this.loading.present();
+    let events: Event[] = await this.service.getEventCard();
+    try {
+      this.events = this.sort(events.filter(x => x.tag == 'Events'));
+      this.occassions = this.sort(events.filter(x => x.tag == 'Occasions'));
+    }
+    finally {
+      await this.loading.dismiss();
+    }
   }
 
   sort(events: Event[]): Event[] {

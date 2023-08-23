@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { PriceService } from './../services/price.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-stickers-cards',
@@ -18,6 +19,7 @@ export class StickersCardsComponent implements OnInit {
   priceService: PriceService;
   eventService: EventService;
   cardService: CardService;
+  loadingController: LoadingController;
 
   constructor(
     _title: Title,
@@ -25,7 +27,8 @@ export class StickersCardsComponent implements OnInit {
     _def: ChangeDetectorRef,
     _priceService: PriceService,
     _eventService: EventService,
-    _cardService: CardService
+    _cardService: CardService,
+    _loadingController: LoadingController
   ) {
     this.title = _title;
     this.activateRoute = _activateRoute;
@@ -33,10 +36,10 @@ export class StickersCardsComponent implements OnInit {
     this.priceService = _priceService;
     this.eventService = _eventService;
     this.cardService = _cardService;
+    this.loadingController = _loadingController
   }
 
   caption: string = '';
-  loading: boolean = false;
   cards: Card[] = [];
   categories: string[] = [];
 
@@ -49,32 +52,56 @@ export class StickersCardsComponent implements OnInit {
           this.loadCards(event.name!);
         })
       }
-      else{
+      else {
         this.loadAllCards();
         this.loadCategories();
       }
     })
   }
 
-  loadCards(event: string) {
-    this.loading = true;
-    this.cardService.getCardsByTypeAndEvent('sticker', event).then(cards => {
-      this.cards = cards;
-      this.loading = false;
-    })
+  async loadCards(event: string) {
+    let loading: HTMLIonLoadingElement;
+    loading = await this.loadingController.create({
+      message: 'Loading Cards...'
+    });
+    await loading.present();
+
+    try {
+      this.cards = await this.cardService.getCardsByTypeAndEvent('sticker', event);
+    }
+    finally {
+      await loading.dismiss();
+    }
   }
 
-  loadAllCards(){
-    this.loading = true;
-    this.cardService.getCardsByType('sticker').then(cards => {
-      this.cards = cards;
-      this.loading = false;
-    })
+  async loadAllCards() {
+    let loading: HTMLIonLoadingElement;
+    loading = await this.loadingController.create({
+      message: 'Loading Cards...'
+    });
+    await loading.present();
+
+    try {
+      this.cards = await this.cardService.getCardsByType('sticker');
+    }
+    finally {
+      await loading.dismiss();
+    }
   }
 
-  loadCategories(){
-    this.eventService.getEventSticker().then(events => {
+  async loadCategories() {
+    let loading: HTMLIonLoadingElement;
+    loading = await this.loadingController.create({
+      message: 'Loading Categories...'
+    });
+    await loading.present();
+
+    try {
+      let events = await this.eventService.getEventSticker();
       this.categories = events.map(x => x.name!);
-    })
+    }
+    finally {
+      await loading.dismiss();
+    }
   }
 }

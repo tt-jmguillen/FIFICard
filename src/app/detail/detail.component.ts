@@ -14,6 +14,7 @@ import { FilterService } from '../services/filter.service';
 import { Order } from '../models/order';
 import { OrderService } from '../services/order.service';
 import { UserService } from '../services/user.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-detail',
@@ -31,6 +32,7 @@ export class DetailComponent implements OnInit {
   priceService: PriceService;
   orderService: OrderService;
   userService: UserService;
+  loadingController: LoadingController;
   router: Router;
   title: Title;
   event: string | undefined;
@@ -56,6 +58,7 @@ export class DetailComponent implements OnInit {
     private _priceService: PriceService,
     private _orderService: OrderService,
     private _userService: UserService,
+    private _loadingController: LoadingController,
     private location: Location
   ) {
     this.activateRoute = _activateRoute;
@@ -66,6 +69,7 @@ export class DetailComponent implements OnInit {
     this.priceService = _priceService;
     this.orderService = _orderService;
     this.userService = _userService;
+    this.loadingController = _loadingController;
     this.title = _title;
   }
 
@@ -85,17 +89,22 @@ export class DetailComponent implements OnInit {
     });
   }
 
-  loadCard() {
-    this.service.getCard(this.id!).subscribe(data => {
-      this.card! = data;
+  async loadCard() {
+    let loading: HTMLIonLoadingElement;
+    loading = await this.loadingController.create({
+      message: 'Loading Card...'
+    });
+    await loading.present();
+
+    try {
+      this.card = await this.service.getACard(this.id!);
       this.event = this.card!.event;
       this.title.setTitle(this.card?.name!);
       this.description = this.card.description!;
-
-      this.getTranslation(this.card.id!);
-      this.subscribeLanguage();
-      this.subscribeTranslation(this.card.id!);
-    });
+    }
+    finally {
+      await loading.dismiss();
+    }
   }
 
   checkIfLoggedIn(id: any): void {
@@ -105,20 +114,20 @@ export class DetailComponent implements OnInit {
         this.appComponent.openLoginDialog(id);
       }
       else {
-        if (this.card.type === 'clipart'){
+        if (this.card.type === 'clipart') {
           this.addtocard();
         }
-        else if (this.card.type === 'ecard'){
+        else if (this.card.type === 'ecard') {
           this.router.navigate(['/ecardorder', id]);
         }
-        else{
+        else {
           this.router.navigate(['/order', id]);
         }
       }
     }
   }
 
-  addtocard(){
+  addtocard() {
     let order: Order = new Order();
     order.user_id = this.uid;
     order.card_id = this.card.id!;

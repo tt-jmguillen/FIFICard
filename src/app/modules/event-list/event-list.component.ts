@@ -9,10 +9,9 @@ import { Event } from '../../models/event';
 })
 export class EventListComponent implements OnInit {
   @Input() set events(_event: Event[]) {
-    this.loadEventList(_event);
+    this.eventlist = _event;
   }
   @Input() type: 'card' | 'signandsend' = 'card';
-  @Input() showalways: boolean = true;
 
   service: CardService;
 
@@ -23,39 +22,7 @@ export class EventListComponent implements OnInit {
   }
 
   eventlist: Event[] = [];
-  tempEvent: Event[] = [];
 
   ngOnInit(): void {
   }
-
-  loadEventList(_event: Event[]) {
-    if (this.showalways) {
-      this.eventlist = _event;
-    }
-    else {
-      this.tempEvent = _event;
-      this.check(0);
-    }
-  }
-
-  check(index: number) {
-    if (this.tempEvent[index]) {
-
-      if (this.type == 'card') {
-        this.service.getCardsByEvent(this.tempEvent[index].name!).then(cards => {
-          if (cards.length > 0)
-            this.eventlist.push(this.tempEvent[index]);
-        });
-      }
-      else {
-        this.service.getSignAndSendByEvent(this.tempEvent[index].name!).then(cards => {
-          if (cards.length > 0)
-            this.eventlist.push(this.tempEvent[index]);
-        });
-      }
-
-      this.check(index + 1);
-    }
-  }
-
 }

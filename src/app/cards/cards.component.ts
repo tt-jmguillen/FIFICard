@@ -1,3 +1,4 @@
+import { LoadingController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { ImageService } from 'src/app/services/image.service';
 import { FilterService } from './../services/filter.service';
@@ -9,6 +10,7 @@ import { RecipientService } from '../services/recipient.service';
 import { EventService } from '../services/event.service';
 import { Title } from '@angular/platform-browser';
 import { Location } from '@angular/common';
+import { Event } from '../models/event';
 
 export class EventSetting {
   public event: string;
@@ -43,11 +45,12 @@ export class CardsComponent implements OnInit {
   serviceRecipient: RecipientService;
   activateRoute: ActivatedRoute;
   def: ChangeDetectorRef;
+  loadingController: LoadingController;
 
   cards: Card[] = [];
-  loading: boolean = true;
+  //loading: boolean = true;
 
-  type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' | 'clipart'= 'card';
+  type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' | 'clipart' = 'card';
   priority: string = '';
 
   constructor(
@@ -59,6 +62,7 @@ export class CardsComponent implements OnInit {
     private _serviceRecipient: RecipientService,
     private _activateRoute: ActivatedRoute,
     private _def: ChangeDetectorRef,
+    private _loadingController: LoadingController,
     private location: Location
   ) {
     this.title = _title;
@@ -67,92 +71,103 @@ export class CardsComponent implements OnInit {
     this.imageService = _imageService;
     this.filterService = _filterService;
     this.serviceRecipient = _serviceRecipient;
+    this.loadingController = _loadingController;
     this.activateRoute = _activateRoute;
     this.def = _def;
   }
 
   ngOnInit(): void {
     this.activateRoute.params.subscribe(params => {
-
       this.id = params['id'];
       this.event = params['event'];
       this.search = params['search'];
       this.recipient = params['recipient'];
 
+      this.load();
+    });
+  }
+
+  async load() {
+    let loading: HTMLIonLoadingElement;
+    loading = await this.loadingController.create({
+      message: 'Loading Events...'
+    });
+    await loading.present();
+
+    try {
       if (this.id) {
-        this.eventService.getById(this.id).then(event => {
-          this.event = event.name!;
-          this.title.setTitle(this.event);
-          this.caption = this.event;
-          this.def.detectChanges();
+        let event: Event = await this.eventService.getById(this.id);
+        this.event = event.name!;
+        this.title.setTitle(this.event);
+        this.caption = this.event;
+        this.def.detectChanges();
 
-          if (environment.priority.find(x => x.event == this.id!))
-            this.priority = environment.priority.find(x => x.event == this.id!)!.card;
+        if (environment.priority.find(x => x.event == this.id!))
+          this.priority = environment.priority.find(x => x.event == this.id!)!.card;
 
-          if (event.banner != undefined) {
-            this.imageService.getImageURL(event.banner).then(img => {
-              this.banner = img;
-            });
-          }
+        if (event.banner != undefined) {
+          this.imageService.getImageURL(event.banner).then(img => {
+            this.banner = img;
+          });
+        }
 
-          if (event.isECard && event.isECard == true) {
-            this.type = 'ecard';
-          }
-          else if (event.isPostcard && event.isPostcard == true) {
-            this.type = 'postcard';
-          }
-          else if (event.isSticker && event.isSticker == true) {
-            this.type = 'sticker';
-          }
-          else if (event.isGift && event.isGift == true) {
-            this.type = 'gift';
-          }
+        if (event.isECard && event.isECard == true) {
+          this.type = 'ecard';
+        }
+        else if (event.isPostcard && event.isPostcard == true) {
+          this.type = 'postcard';
+        }
+        else if (event.isSticker && event.isSticker == true) {
+          this.type = 'sticker';
+        }
+        else if (event.isGift && event.isGift == true) {
+          this.type = 'gift';
+        }
 
-          this.getCards(this.type, this.event!);
-        })
+        this.getCards(this.type, this.event!);
       }
       else {
         if (this.event) {
           this.title.setTitle(this.event);
           this.caption = this.event;
 
-          this.eventService.getByName(this.event!).then(events => {
-            if (events.length > 0) {
-              if (events[0].banner != undefined) {
-                this.imageService.getImageURL(events[0].banner).then(img => {
-                  this.banner = img;
-                });
-              }
-
-              if (events[0].isECard && events[0].isECard == true) {
-                this.type = 'ecard';
-              }
-              else if (events[0].isPostcard && events[0].isPostcard == true) {
-                this.type = 'postcard';
-              }
-              else if (events[0].isSticker && events[0].isSticker == true) {
-                this.type = 'sticker';
-              }
-              else if (events[0].isGift && events[0].isGift == true) {
-                this.type = 'gift';
-              }
+          let events: Event[] = await this.eventService.getByName(this.event!);
+          if (events.length > 0) {
+            if (events[0].banner != undefined) {
+              this.banner = await this.imageService.getImageURL(events[0].banner);
             }
-          });
-        }
 
-        if ((this.event) && (this.event! != 'All')) {
-          this.getCardsForEvent(this.event!);
-        }
-        else if ((this.search) && (this.search != '')) {
-          this.title.setTitle('Fibei Greetings');
-          this.getSearchCard(this.search);
-        }
-        else {
-          this.title.setTitle('Fibei Greetings');
-          this.getAllCards();
+            if (events[0].isECard && events[0].isECard == true) {
+              this.type = 'ecard';
+            }
+            else if (events[0].isPostcard && events[0].isPostcard == true) {
+              this.type = 'postcard';
+            }
+            else if (events[0].isSticker && events[0].isSticker == true) {
+              this.type = 'sticker';
+            }
+            else if (events[0].isGift && events[0].isGift == true) {
+              this.type = 'gift';
+            }
+          }
         }
       }
-    });
+    }
+    finally {
+      await loading.dismiss();
+    }
+
+    if ((this.event) && (this.event! != 'All')) {
+      this.getCardsForEvent(this.event!);
+    }
+    else if ((this.search) && (this.search != '')) {
+      this.title.setTitle('Fibei Greetings');
+      this.getSearchCard(this.search);
+    }
+    else {
+      this.title.setTitle('Fibei Greetings');
+      this.getAllCards();
+    }
   }
 
   replaceAll(value: string): string {
@@ -162,49 +177,67 @@ export class CardsComponent implements OnInit {
     return newValue.toLocaleLowerCase();
   }
 
-  getAllCards() {
-    this.loading = true;
-    this.service.getCards().then(data => {
-      this.loading = false;
-      this.cards = data;
-    }).catch(err => {
-      this.loading = false;
+  async getAllCards() {
+    let loading: HTMLIonLoadingElement;
+    loading = await this.loadingController.create({
+      message: 'Loading Cards...'
     });
+    await loading.present();
+
+    try {
+      this.cards = await this.service.getCards();
+    }
+    finally {
+      await loading.dismiss();
+    }
   }
 
-  getCards(type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' | 'clipart', event: string) {
-    this.loading = true;
-    this.service.getCardsByTypeAndEvent(type, event).then(data => {
-      this.loading = false;
-      this.cards = data;
-    }).catch(err => {
-      this.loading = false;
+  async getCards(type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' | 'clipart', event: string) {
+    let loading: HTMLIonLoadingElement;
+    loading = await this.loadingController.create({
+      message: 'Loading Cards...'
     });
+    await loading.present();
+
+    try {
+      this.cards = await this.service.getCardsByTypeAndEvent(type, event);
+    }
+    finally {
+      await loading.dismiss();
+    }
   }
 
-  getCardsForEvent(event: string) {
-    this.loading = true;
-    this.service.getCardsByEvent(event).then(data => {
-      this.loading = false;
-      this.cards = data;
-    }).catch(err => {
-      this.loading = false;
+  async getCardsForEvent(event: string) {
+    let loading: HTMLIonLoadingElement;
+    loading = await this.loadingController.create({
+      message: 'Loading Cards...'
     });
+    await loading.present();
+
+    try {
+      this.cards = await this.service.getCardsByEvent(event);
+    }
+    finally {
+      await loading.dismiss();
+    }
   }
 
-  getSearchCard(search: string) {
-    this.caption! = "Searching: " + this.search;
-    this.loading = true;
-    this.cards = [];
-    this.doSearch(search).then(data => {
-      this.loading = false;
-      this.caption! = "Search: " + this.search;
-      this.cards = data;
-    }).catch(err => {
-      this.loading = false;
-      this.caption! = "Search: " + this.search + " - No Record Found";
+  async getSearchCard(search: string) {
+    let loading: HTMLIonLoadingElement;
+    loading = await this.loadingController.create({
+      message: 'Searching...'
+    });
+    await loading.present();
+
+    try {
       this.cards = [];
-    })
+      this.cards = await this.doSearch(search);
+      if (this.cards.length > 0) this.caption! = "Search: " + this.search;
+      else this.caption! = "Search: " + this.search + " - No Record Found";
+    }
+    finally {
+      await loading.dismiss();
+    }
   }
 
   doSearch(search: string): Promise<Card[]> {
@@ -224,7 +257,7 @@ export class CardsComponent implements OnInit {
           this.service.getSearchCards('search_description', value).then(data => {
             resolve(data);
           }).catch(e => {
-            rejects('No Records Found');
+            resolve([]);
           });
         });
       });
