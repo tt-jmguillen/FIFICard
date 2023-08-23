@@ -8,10 +8,12 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./image-loader.component.scss']
 })
 export class ImageLoaderComponent implements OnInit {
-  @Input() set img(img: string) {
-    this.image = img;
-    this.isVideo = this.image.includes('.mp4')
-    this.loadImage();
+  @Input() set img(_img: string) {
+    if (_img && _img !== '') {
+      this.image = _img;
+      this.isVideo = this.image.includes('.mp4')
+      this.loadImage();
+    }
   }
 
   @Input() set size(size: number) {
@@ -41,29 +43,8 @@ export class ImageLoaderComponent implements OnInit {
   ngOnInit(): void { }
 
   loadImage() {
-    this.url = this.defaulurl;
-
     if (this.image) {
-      let imagefull = this.image;
-
-      if (this.default == 4)
-        imagefull = this.image + environment.imageSize.xlarge;
-      else if (this.default == 3)
-        imagefull = this.image + environment.imageSize.large;
-      else if (this.default == 2)
-        imagefull = this.image + environment.imageSize.medium;
-      else if (this.default == 1)
-        imagefull = this.image + environment.imageSize.small
-      else
-        imagefull = this.image;
-
-      this.service.getImageURL(imagefull).then(url => {
-        this.url = url;
-      }).catch(err => {
-        if (imagefull != this.image) {
-          this.service.getImageURL(this.image).then(url => this.url = url);
-        }
-      })
+      this.url = this.image;
     }
   }
 

@@ -42,14 +42,12 @@ export class ImageService {
       let images: ImageCache[] = await this.getCacheImage();
       let image = images.find(x => x.id === path)
       if (image) {
-        console.log('0', path, image.value);
         resolve(image.value);
       }
       else {
         const fileRef = ref(this.storage, path);
         let value = await getDownloadURL(fileRef);
         this.setAddImageToCache({ id: path, value: value });
-        console.log('1', path, value);
         resolve(value);
       }
     });

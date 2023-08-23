@@ -99,7 +99,7 @@ export class ImagegridComponent implements OnInit {
   }
 
   changeImage(url: string) {
-    let index: number = this.itemImages.findIndex(x => x.url == url);
+    let index: number = this.itemImages.findIndex(x => x.image == url);
     this.selectedimage = this.itemImages[index];
   }
 
