@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-5 col-12">
+    <div class="col-md-5 col-12" style="padding-top:8px">
       <div class="progress-bar-span">
         <span>5&#9733;&nbsp;&nbsp;</span>
         <mat-progress-bar class="my-bar" mode="determinate" value={{calculateRate(rate5)}}></mat-progress-bar>
@@ -51,7 +51,7 @@
     <p style="font-size: 150%; text-align: center;" *ngIf="!isLogIn"><b>{{'card.customerreview'|translate}}</b></p>
     <div>
       <div class="col-lg-12 col-sm-12" style="display: flex;">
-        <div class="center-content" style="padding-left: 45%;" *ngIf="!isLogIn">
+        <div style="text-align: center;margin:auto" *ngIf="!isLogIn">
           <button mat-raised-button (click)="writeReviewDialog(confimation)">
             {{'card.writeareview'|translate}}
           </button>

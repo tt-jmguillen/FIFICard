@@ -1,5 +1,5 @@
 <ion-content>
-     <h2 style="font-size:0px;margin: 0;">Poetry Cards</h2>
+    <h2 style="font-size:0px;margin: 0;">Poetry Cards</h2>
     <section class="section-name padding-y-sm bk-hw">
         <div class="container animate main">
             <div class="row text-center">
@@ -8,30 +8,33 @@
                     <br />
                 </div>
             </div>
-            <br/><br/>
+            <br /><br />
             <div class="row">
                 <div class="col-md-3 col-6">
-                    <br/>
+                    <br />
                     <img src="/assets/images/featured/poetry/title.png">
                 </div>
                 <div class="col-md-3 col-6">
-                    <a [routerLink]="['/poetrycards/5tx9z163Jql77mBmvHls']" class="to-link"> <img src="/assets/images/category/cc-ty.png" alt="Thank you" title="Thank you"></a>
+                    <a [routerLink]="['/poetrycards/5tx9z163Jql77mBmvHls']" class="to-link"> <img
+                            src="/assets/images/category/cc-ty.png" alt="Thank you" title="Thank you"></a>
                 </div>
                 <div class="col-md-3 col-6">
-                    <a [routerLink]="['/poetrycards/dGiyJX4go7yPhCJNJN4P']" class="to-link"> <img src="/assets/images/category/cc-bday.png" alt="birthday" title="birthday"></a>
+                    <a [routerLink]="['/poetrycards/dGiyJX4go7yPhCJNJN4P']" class="to-link"> <img
+                            src="/assets/images/category/cc-bday.png" alt="birthday" title="birthday"></a>
                 </div>
                 <div class="col-md-3 col-6">
-                    <a [routerLink]="['/poetrycards/aRQdu4FYb4rASkDhbQmZ']" class="to-link">  <img src="/assets/images/category/cc-wedding.png" alt="wedding" title="wedding"></a>
+                    <a [routerLink]="['/poetrycards/aRQdu4FYb4rASkDhbQmZ']" class="to-link"> <img
+                            src="/assets/images/category/cc-wedding.png" alt="wedding" title="wedding"></a>
                 </div>
             </div>
             <div class="row bg-white py-3">
                 <div class="col-12 my-2"></div>
-                 <div class="col-12 ">
+                <div class="col-12 ">
                     <!--<a class="btn-featured" *ngIf="featured" [routerLink]="['/poetrycards/' + featured.id]">
                         <img src="/assets/images/poetry/featured-category.jpg" class="img-fluid">
                     </a>-->
                     <img src="/assets/images/poetry/other.jpg" class="img-fluid">
-                </div> 
+                </div>
                 <div class="col-md-12  my-auto">
                     <div class="row">
                         <div class="col-md-3" *ngFor="let event of events">
@@ -48,14 +51,14 @@
                 </div>
             </div>
             <div class="row bg-white pt-4">
-                <div class="col-3 ps-4 ms-4">
+                <div class="col-12 ps-4 ms-4">
                     <h1 class="cus-text-title m-0" style="text-transform: none">Occasions</h1>
                 </div>
             </div>
             <div class="row bg-white pt-4 justify-content-md-center">
-                <div class="col-10">
+                <div class="col-md-10 col-12">
                     <div class="row text-center">
-                        <div class="col-md-6 px-4" *ngFor="let event of occasions">
+                        <div class="col-6 col-md-6 px-4" *ngFor="let event of occasions">
                             <a class="btn-category" [routerLink]="['/poetrycards/' + event.id]">
                                 {{event.name}}
                             </a>
@@ -64,14 +67,14 @@
                 </div>
             </div>
             <div class="row bg-white py-4">
-                <div class="col-3 ps-4 ms-4">
+                <div class="col-12 ps-4 ms-4">
                     <h1 class="cus-text-title m-0" style="text-transform: none">Specialty Card</h1>
                 </div>
             </div>
             <div class="row bg-white py-4 justify-content-md-center">
-                <div class="col-10">
+                <div class="col-md-10 col-12">
                     <div class="row text-center">
-                        <div class="col-md-4 ps-4 pe-4" *ngFor="let event of specialty">
+                        <div class=" col-6 col-md-4 ps-4 pe-4" *ngFor="let event of specialty">
                             <a class="btn-category" [routerLink]="['/poetrycards/' + event.id]">
                                 {{event.name}}
                             </a>
@@ -83,26 +86,30 @@
                 <div class="col-md-12 mb-4">
                     <img src="assets/images/banner/select/title.png">
                 </div>
-                <div class="col-md-3">
+                <div class="col-3">
                     <a [routerLink]="['/poetry']"><img src="assets/images/banner/select/p-1.png"></a>
                 </div>
-                <div class="col-md-3">
+                <div class="col-3">
                     <a [routerLink]="['/e-cards']"><img src="assets/images/banner/select/p-2.png"></a>
                 </div>
-                <div class="col-md-3">
+                <div class="col-3">
                     <a [routerLink]="['/postcards']"><img src="assets/images/banner/select/p-3.png"></a>
                 </div>
-                <div class="col-md-3">
-                    <br /><br />
+                <div class="col-3">
+                    <div class="d-none d-sm-block">
+                        <br /><br />
+                    </div>
                     <img src="assets/images/banner/select/p-4.png">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <br/> <br/>
-                    <a [routerLink]="['/gifts']" *ngIf="priceService.getLocation() == 'ph'"> <img src="assets/images/banner/shop-gifts.png"></a>
-                    <a [routerLink]="['/e-cards']" *ngIf="priceService.getLocation() != 'ph'"> <img src="assets/images/banner/shop-ecards.png"></a>
-                   <br/> <br/>
+                    <br /> <br />
+                    <a [routerLink]="['/gifts']" *ngIf="priceService.getLocation() == 'ph'"> <img
+                            src="assets/images/banner/shop-gifts.png"></a>
+                    <a [routerLink]="['/e-cards']" *ngIf="priceService.getLocation() != 'ph'"> <img
+                            src="assets/images/banner/shop-ecards.png"></a>
+                    <br /> <br />
                     <img src="assets/images/banner/fs-free.png" *ngIf="priceService.getLocation() == 'ph'">
                     <img src="assets/images/banner/fs-free-us.png" *ngIf="priceService.getLocation() != 'ph'">
                 </div>
