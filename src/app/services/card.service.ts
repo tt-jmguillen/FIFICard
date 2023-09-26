@@ -149,12 +149,13 @@ export class CardService {
     });
   }
 
-  getCardsByTypeAndEvent(_type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' | 'clipart',_event: string): Promise<Card[]> {
+  getCardsByTypeAndEvent(_type: 'card' | 'gift' | 'sticker' | 'postcard' | 'ecard' | 'clipart', _event: string): Promise<Card[]> {
     return new Promise((resolve) => {
       this.db.collection('cards', ref => ref
-        .where('type', "==", _type)
+        .where('events', "array-contains", _event)
         .where('active', "==", true)
-        .where('events', "array-contains", _event)).get().subscribe(data => {
+        .where('type', "==", _type)
+      ).get().subscribe(data => {
           if (!data.empty) {
             let cards: Card[] = [];
             data.forEach(doc => {

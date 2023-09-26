@@ -126,37 +126,43 @@ export class CardsComponent implements OnInit {
 
         this.getCards(this.type, this.event!);
       }
-      else {
-        if (this.event) {
-          this.title.setTitle(this.event);
-          this.caption = this.event;
+      else if (this.event) {
+        this.title.setTitle(this.event);
+        this.caption = this.event;
 
-          let events: Event[] = await this.eventService.getByName(this.event!);
-          if (events.length > 0) {
-            if (events[0].banner != undefined) {
-              this.banner = await this.imageService.getImageURL(events[0].banner);
-            }
+        let events: Event[] = await this.eventService.getByName(this.event!);
+        if (events.length > 0) {
+          if (events[0].banner != undefined) {
+            this.banner = await this.imageService.getImageURL(events[0].banner);
+          }
 
-            if (events[0].isECard && events[0].isECard == true) {
-              this.type = 'ecard';
-            }
-            else if (events[0].isPostcard && events[0].isPostcard == true) {
-              this.type = 'postcard';
-            }
-            else if (events[0].isSticker && events[0].isSticker == true) {
-              this.type = 'sticker';
-            }
-            else if (events[0].isGift && events[0].isGift == true) {
-              this.type = 'gift';
-            }
+          if (events[0].isECard && events[0].isECard == true) {
+            this.type = 'ecard';
+          }
+          else if (events[0].isPostcard && events[0].isPostcard == true) {
+            this.type = 'postcard';
+          }
+          else if (events[0].isSticker && events[0].isSticker == true) {
+            this.type = 'sticker';
+          }
+          else if (events[0].isGift && events[0].isGift == true) {
+            this.type = 'gift';
           }
         }
+      }
+      else if ((this.search) && (this.search != '')) {
+        this.title.setTitle('Fibei Greetings');
+        this.getSearchCard(this.search);
+      }
+      else {
+        this.title.setTitle('Fibei Greetings');
+        this.getAllCards();
       }
     }
     finally {
       await loading.dismiss();
     }
-
+    /*
     if ((this.event) && (this.event! != 'All')) {
       this.getCardsForEvent(this.event!);
     }
@@ -168,6 +174,7 @@ export class CardsComponent implements OnInit {
       this.title.setTitle('Fibei Greetings');
       this.getAllCards();
     }
+    */
   }
 
   replaceAll(value: string): string {
