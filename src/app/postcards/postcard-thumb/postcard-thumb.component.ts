@@ -25,6 +25,7 @@ export class PostcardThumbComponent implements OnInit {
     this.cardService = _cardService;
   }
 
+  id: string = '';
   img: string = '';
   enable: boolean = false;
 
@@ -34,6 +35,7 @@ export class PostcardThumbComponent implements OnInit {
 
   loadevent() {
     this.service.getByName(this.eventname).then(event => {
+      this.id = event[0].id!;
       this.imageService.getImageURL(event[0].thumbnail).then(img => {
         this.img = img;
       });
@@ -48,6 +50,6 @@ export class PostcardThumbComponent implements OnInit {
   }
 
   geturl(): string {
-    return '/cards/events/' + this.eventname;
+    return '/cards/event/' + this.id;
   }
 }
