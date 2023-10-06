@@ -2,6 +2,7 @@ import { CardService } from './../../services/card.service';
 import { ImageService } from './../../services/image.service';
 import { EventService } from './../../services/event.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { Event } from 'src/app/models/event';
 
 @Component({
   selector: 'app-postcard-thumb',
@@ -34,9 +35,10 @@ export class PostcardThumbComponent implements OnInit {
   }
 
   loadevent() {
-    this.service.getByName(this.eventname).then(event => {
-      this.id = event[0].id!;
-      this.imageService.getImageURL(event[0].thumbnail).then(img => {
+    this.service.getByName(this.eventname).then(events => {
+      let event: Event = events.find(x => x.isPostcard === true)!;
+      this.id = event.id!;
+      this.imageService.getImageURL(event.thumbnail).then(img => {
         this.img = img;
       });
       this.checkAvailability();
@@ -44,7 +46,7 @@ export class PostcardThumbComponent implements OnInit {
   }
 
   checkAvailability() {
-    this.cardService.getCardsByEvent(this.eventname).then(cards => {
+    this.cardService.getCardsByTypeAndEvent('postcard', this.eventname).then(cards => {
       this.enable = cards.length > 0;
     })
   }
