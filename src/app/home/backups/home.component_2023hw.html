@@ -2,34 +2,32 @@
     <h2 style="font-size:0px;margin: 0;">Home Page</h2>
     <section class="section-name padding-y-sm bk-hw">
         <div class="container animate main">
+
             <div class="row">
                 <div class="col-md-12" style="position: relative;">
-                    <img src="/assets/images/2023/hw/homepage/01-min.png" style="width:100%" alt="hw01" title="hw01">
-                    <div style="height: 11%; width: 26.5%; position: absolute;left: 23%; bottom: 19.5%; cursor: pointer;"
-                     [routerLink]="['/events']"></div>
-                    <div style="height: 11%;width: 26.5%; position: absolute;left: 50.5%;bottom: 19.5%;cursor: pointer;"
-                        [routerLink]="['/poetry']"></div>
-
-                    <div style="height: 52%;width: 14%;position: absolute;left: 13.6%;bottom: 33%;cursor: pointer; transform: rotate(-4deg);"
-                        [routerLink]="['/card/2naZ5hR7r3avjlBNrpAU']"></div>
-                    <div style="    height: 40%; width: 10.8%; position: absolute; left: 28%;bottom: 36%;cursor: pointer; transform: rotate(-4deg);"
-                        [routerLink]="['/card/17qZs9hDay42JCQfsVj7']"></div>
-                    <div style="height: 42%;width: 11.5%; position: absolute;left: 56.5%; bottom: 33%; cursor: pointer; transform: rotate(-4deg);"
-                        [routerLink]="['/card/2AEIb48FFsCWKUg7PO4o']"></div>
-                        <div style="height: 54%; width: 15.5%;position: absolute;left: 68.5%; bottom: 32%;cursor: pointer; transform: rotate(6deg);"
-                        [routerLink]="['/card/4liXq9vTU46ughCfOosg']"></div>
+                    <img src="/assets/images/bday2/banner-1-min.png" style="width:100%">
+                    <div style="height: 11%; width: 20%; position: absolute; left: 26%; bottom: 2.5%; cursor: pointer;"
+                        [routerLink]="['/cards/event/dGiyJX4go7yPhCJNJN4P']"></div>
+                    <div style="height: 11%; width: 23%; position: absolute; left: 47%; bottom: 2.5%; cursor: pointer;"
+                        [routerLink]="['/poetrycards/dGiyJX4go7yPhCJNJN4P']"></div>
+                    <div style="height: 52%; width: 14%; position: absolute; left: 26.6%; bottom: 20%; cursor: pointer; transform: rotate(-4deg);"
+                        [routerLink]="['/card/Klt7mSmRjQpsIqH4u5KS']"></div>
+                    <div style="height: 47%; width: 12.8%; position: absolute; left: 41%; bottom: 20%; cursor: pointer; transform: rotate(-4deg);"
+                        [routerLink]="['/card/Bfpij5w6qKeXusgh5CwV']"></div>
+                    <div style="height: 55%; width: 14.5%; position: absolute; left: 54.5%; bottom: 18%; cursor: pointer; transform: rotate(6deg);"
+                        [routerLink]="['/card/mugRbIKG9giDU4O26MLh']"></div>
                 </div>
             </div>
             <div class="row" *ngIf="priceService.getLocation() == 'ph'">
                 <div class="col-md-12" style="position: relative;">
-                    <img src="/assets/images/2023/hw/homepage/02-min.png" style="width:100%" alt="hw02" title="hw02">
-                    <div style="height: 23.5%; width: 38%; position: absolute;left: 7.5%;bottom: 2.5%; cursor: pointer;"
+                    <img src="/assets/images/bday2/banner-2-min.gif" style="width:100%">
+                    <div style="height: 23.5%; width: 33%; position: absolute;left: 14.5%;bottom: 2.5%; cursor: pointer;"
                         [routerLink]="['/gifts']"></div>
                 </div>
             </div>
             <div class="row" *ngIf="priceService.getLocation() == 'ph'">
                 <div class="col-md-12" style="position: relative;">
-                    <img src="/assets/images/2023/hw/homepage/03-min.png" style="width:100%" title="categories"
+                    <img src="/assets/images/bday2/banner-3-min.png" style="width:100%" title="categories"
                         alt="categories">
                     <div style="height: 54%; width: 15.5%; position: absolute;left: 5.7%;bottom: 26%; cursor: pointer;"
                         [routerLink]="['/poetry']"></div>
@@ -43,7 +41,6 @@
                         [routerLink]="['/gifts']"></div>
                 </div>
             </div>
-
             <div class="row" *ngIf="priceService.getLocation() != 'ph'">
                 <div class="col-md-12" style="position: relative;">
                     <img src="/assets/images/bday2/us/banner-3-min.png" style="width:100%" title="categories"
@@ -60,29 +57,20 @@
             </div>
             <div class="row">
                 <div class="col-md-12" style="position: relative;">
-                    <img src="/assets/images/2023/hw/homepage/04-min.png" style="width:100%" alt="hw04" title="hw04">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12" style="position: relative;">
-                    <img src="/assets/images/2023/hw/homepage/05-min.png" style="width:100%" alt="hw05" title="hw05">
-                    <div style="height: 100%;
-                    width: 49%;
-                    position: absolute;
-                    left: 0;
-                    bottom: 0;
-                    cursor: pointer;" [routerLink]="['/cards/event/A9hXPgJP4YIjJTYusiSS']"></div>
-                    <div style="height: 100%;
-                width: 51%;
-                position: absolute;
-                right: 0;
-                bottom: 0;
-                cursor: pointer;" [routerLink]="['/cards/event/5tx9z163Jql77mBmvHls']"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12" style="position: relative;">
-                    <img src="/assets/images/2023/hw/homepage/06-min.png" style="width:100%" alt="hw06" title="hw06">
+                    <img src="/assets/images/bday2/banner-4-min.png" style="width:100%">
+
+                    <div style="height: 9.5%; width: 26%;position: absolute;left: 3.5%;bottom: 6.5%; cursor: pointer;"
+                        [routerLink]="['/cards/event/amCqsD3n7zq5N6OyvD8m']"></div>
+                    <div style="height: 52.5%;width: 14%;position: absolute; left: 32%; bottom: 27.5%;cursor: pointer; transform: rotate(-4deg);"
+                        [routerLink]="['/card/A0s5ML1aCuKq8DpqZMTk']"></div>
+                    <div style="height: 41.5%;width: 11%;position: absolute;left: 46.2%;bottom: 29.5%;cursor: pointer;transform: rotate(-4deg);"
+                        [routerLink]="['/card/ZztJIO8TeJwiScZ52d7y']"></div>
+                    <div style="height: 55.5%; width: 15%;position: absolute;left: 59%;bottom: 27.5%;cursor: pointer;transform: rotate(6deg);"
+                        [routerLink]="['/card/iebvUv46F9iFWHKHVjT5']"></div>
+                    <div style="height: 8.5%;width: 20.5%;position: absolute; bottom: 4.5%;left: 35.5%;cursor: pointer"
+                        [routerLink]="['/events']"></div>
+                    <div style="height: 8.5%;width: 18.5%;position: absolute;bottom: 5.5%;left: 58.5%;cursor: pointer"
+                        [routerLink]="['/poetry']"></div>
                 </div>
             </div>
             <div>
@@ -92,7 +80,9 @@
                         <br />
                         <h2 class="text-center cus-text-title">{{'home.featuredcategories'|translate}}</h2>
                     </div> -->
-
+                    <div class="col-md-12">
+                        <img src="/assets/images/bday2/cat-min.png">
+                    </div>
                     <div class="col-md-12">
                         <app-home-featured caption="Wedding" homeCardEvent="Wedding" [limit]="100"></app-home-featured>
                     </div>
@@ -116,9 +106,9 @@
                         <app-home-featured caption="Pet Cards" homeCardEvent="Pet" [limit]="100"></app-home-featured>
                     </div>
                     <div class="col-md-12">
-                        <img src="/assets/images/2023/hw/homepage/07-min.png" alt="hw06" title="hw06">
+                        <img src="/assets/images/bday2/4-min.png">
                     </div>
-
+                   
                     <div class="col-md-12 sns-no-label">
                         <!-- <div [routerLink]="['/signandsendpage']" class="to-link"> <img src="/assets/images/hw/sign-and-send-02.png" style="width:100%"></div>
                         <br /> <br />-->
@@ -127,15 +117,11 @@
 
                     </div>
                     <div class="col-md-12" style="position: relative;">
-                        <img src="/assets/images/2023/hw/homepage/08-min.png">
-                        <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 9.2%;cursor: pointer"
-                            [routerLink]="['/cards/event/cb2VAMGVwHJ4PHbOavIt']"></div>
-                        <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 30.2%;cursor: pointer"
-                            [routerLink]="['/cards/event/daRI7IEuBx3kyESw7H9M']"></div>
-                        <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 50.2%;cursor: pointer"
-                            [routerLink]="['/cards/event/iygJoAg2bgoIDodDYfH3']"></div>
-                        <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 71.5%;cursor: pointer"
-                            [routerLink]="['/gifts']"></div>
+                        <img src="/assets/images/bday2/5-min.png">
+                        <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 9.2%;cursor: pointer" [routerLink]="['/cards/event/cb2VAMGVwHJ4PHbOavIt']"></div>
+                         <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 30.2%;cursor: pointer" [routerLink]="['/cards/event/daRI7IEuBx3kyESw7H9M']"></div>
+                         <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 50.2%;cursor: pointer" [routerLink]="['/cards/event/iygJoAg2bgoIDodDYfH3']"></div>
+                         <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 71.5%;cursor: pointer" [routerLink]="['/gifts']"></div>
                     </div>
                 </div>
             </div>
@@ -148,14 +134,14 @@
                         [routerLink]="['/signandsendpage']"></div>
                 </div>
             </div> -->
-
+            
             <div>
                 <div class="row">
                     <div class="col-md-12">
-                        <img src="/assets/images/2023/hw/homepage/09-min.png" *ngIf="priceService.getLocation() == 'ph'"
-                            class="img-fluid " style="width:100%">
-                        <img src="/assets/images/bday2/us/banner-4-min.png" *ngIf="priceService.getLocation() != 'ph'"
-                            class="img-fluid " style="width:100%">
+                        <img src="/assets/images/bday2/6-min.png"
+                            *ngIf="priceService.getLocation() == 'ph'" class="img-fluid " style="width:100%">
+                        <img src="/assets/images/bday2/us/banner-4-min.png"
+                            *ngIf="priceService.getLocation() != 'ph'" class="img-fluid " style="width:100%">
                         <br /> <br />
                         <!-- <img src="/assets/images/valentines/v2/2-min.png" class="img-fluid cursor" style="width:100%"
                             [routerLink]="['/stickers']">
