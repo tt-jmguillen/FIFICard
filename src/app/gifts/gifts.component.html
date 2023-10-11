@@ -5,7 +5,7 @@
         <div class="container animate main">
             <div class="row">
                 <div class="col-md-12">
-                    <img src="/assets/images/gift/banner.png" class="img-fluid">
+                    <img src="/assets/images/2023/hw/banner/g-01-min.png" class="img-fluid">
                     <br /><br />
                 </div>
             </div>
@@ -28,6 +28,36 @@
             <app-gift-events *ngIf="mode=='Event'" [events]="events">
             </app-gift-events>
             <div class="row">
+                <div class="col-md-12 mb-4">
+                    <img src="/assets/images/2023/hw/more-with-fb.png">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="position: relative">
+                    <img src="/assets/images/2023/hw/check.png">
+                    <div style="height: 67%;width: 21%; position: absolute; left: 5%; bottom: 0%;cursor: pointer;"
+                        [routerLink]="['/poetry']"></div>
+                    <div style="height: 67%;width: 21%; position: absolute; left: 27.5%; bottom: 0%;cursor: pointer;"
+                        [routerLink]="['/postcards']"></div>
+                    <div style="height: 67%;width: 21%; position: absolute; left: 49.5%; bottom: 0%;cursor: pointer;"
+                        [routerLink]="['/signandsend']"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="position: relative">
+                    <img src="/assets/images/2023/hw/two.png">
+                    <a href="https://fibeidigicards.com/home"
+                        style="height: 100%;width: 50%; position: absolute; left: 0%; bottom: 0%;cursor: pointer;"
+                        target="_blank"></a>
+                    <div style="height: 100%;width: 50%; position: absolute; right: 0%; bottom: 0%;cursor: pointer;"
+                        [routerLink]="['/gifts']"></div>
+                </div>
+                <div class="col-md-12">
+                    <img src="/assets/images/2023/hw/homepage/09-min.png">
+                </div>
+            </div>
+            <!-- <div class="row">
                 <div class="col-md-12 mb-4">
                     <img src="assets/images/banner/select/title.png">
                 </div>
@@ -54,7 +84,7 @@
                     <br /> <br />
                     <img src="assets/images/banner/fs.png" *ngIf="priceService.getLocation() == 'ph'">
                 </div>
-            </div>
+            </div> -->
         </div>
 
     </section>
