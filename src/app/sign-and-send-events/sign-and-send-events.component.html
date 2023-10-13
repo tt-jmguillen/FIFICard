@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12" style="position: relative">
+                <div class="col-md-12" style="position: relative" *ngIf="priceService.getLocation() == 'ph'">
                     <img src="/assets/images/2023/hw/two.png">
                     <a href="https://fibeidigicards.com/home"
                         style="height: 100%;width: 50%; position: absolute; left: 0%; bottom: 0%;cursor: pointer;"

@@ -188,7 +188,7 @@
                             [ids]="['FUmF8oMnhmpO9WgkziZN','GaHUF8E482lLIIebNPrY','JEiZgBQumVFDDyfxlJ24','JLpujLChwAf7CAay9HAx','UP19y5cwfVJByXTlmWQG','IPp9QMwawzBFgtgTxDQ1','gktcGJN6v6ROGUJSrMAU','xFG9kBmBv8sUgwvTWHVM','0PndLlvpXe3V46zHT5RY','2dH8qe9kgc7aN7pHSp4a','4Wz5Qqoa7yYpU0DfIlXA','5KIsabJ3spJSkOmbZLVD','Bfpij5w6qKeXusgh5CwV','QCqK7J0gEmm6sf2gznDj','1e3HY8oyjU0CwsZWqpoK','Gj9DQKqN3krzeVVhJRHb','OqiMLF73ek3TBE2PNPq6','cJXDwCuwCisW1vg24CsP','Ae11kuzI272NDJ159FwT','Tt7wE47yUOCBczValj3b','mqu9kvb4AdF8WwL9TAvA','qbQIVVGWv6LD0V1kPfkR','YM0LKWPou3NXAIAARtGR','6JHecB0o2wkJmYbKXCj8']"></app-home-featured>
 
                     </div>
-                    <div class="col-md-12" style="position: relative;">
+                    <div class="col-md-12" style="position: relative;" *ngIf="priceService.getLocation() == 'ph'">
                         <img src="/assets/images/2023/hw/homepage/08-min.png">
                         <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 9.2%;cursor: pointer"
                             [routerLink]="['/cards/event/cb2VAMGVwHJ4PHbOavIt']"></div>
@@ -198,6 +198,9 @@
                             [routerLink]="['/cards/event/iygJoAg2bgoIDodDYfH3']"></div>
                         <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 71.5%;cursor: pointer"
                             [routerLink]="['/gifts']"></div>
+                    </div>
+                    <div class="col-md-12" *ngIf="priceService.getLocation() != 'ph'">
+                        <img src="/assets/images/2023/hw/f-home.png"  [routerLink]="['/gifts']">
                     </div>
                 </div>
             </div>
