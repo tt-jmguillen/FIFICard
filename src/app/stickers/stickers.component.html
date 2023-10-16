@@ -89,7 +89,11 @@
                         [routerLink]="['/gifts']"></div>
                 </div>
                 <div class="col-md-12">
-                    <img src="/assets/images/2023/hw/homepage/09-min.png">
+                    <img src="/assets/images/2023/hw/09-min.png" *ngIf="priceService.getLocation() == 'ph'"
+                        class="img-fluid " style="width:100%">
+                    <img src="/assets/images/2023/hw/09-usa-min.png" *ngIf="priceService.getLocation() != 'ph'"
+                        class="img-fluid " style="width:100%">
+                    <br /> <br />
                 </div>
             </div>
             <!-- <div class="row text-center">

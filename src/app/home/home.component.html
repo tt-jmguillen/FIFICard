@@ -27,7 +27,7 @@
                         [routerLink]="['/gifts']"></div>
                 </div>
             </div>
-            <div class="row" *ngIf="priceService.getLocation() == 'ph'">
+            <div class="row">
                 <div class="col-md-12" style="position: relative;">
                     <img src="/assets/images/2023/hw/homepage/03-min.png" style="width:100%" title="categories"
                         alt="categories">
@@ -44,7 +44,7 @@
                 </div>
             </div>
 
-            <div class="row" *ngIf="priceService.getLocation() != 'ph'">
+            <!-- <div class="row" *ngIf="priceService.getLocation() != 'ph'">
                 <div class="col-md-12" style="position: relative;">
                     <img src="/assets/images/bday2/us/banner-3-min.png" style="width:100%" title="categories"
                         alt="categories">
@@ -57,7 +57,7 @@
                     <div style="height: 54%; width: 15.5%; position: absolute;left: 67.5%;bottom: 26%; cursor: pointer;"
                         [routerLink]="['/stickers']"></div>
                 </div>
-            </div>
+            </div> -->
             <div class="row">
                 <div class="col-md-12" style="position: relative;">
                     <img src="/assets/images/2023/hw/homepage/04-min.png" style="width:100%" alt="hw04" title="hw04">
@@ -199,8 +199,8 @@
                         <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 71.5%;cursor: pointer"
                             [routerLink]="['/gifts']"></div>
                     </div>
-                    <div class="col-md-12" *ngIf="priceService.getLocation() != 'ph'">
-                        <img src="/assets/images/2023/hw/f-home.png"  [routerLink]="['/gifts']">
+                    <div class="col-md-12" *ngIf="priceService.getLocation() == 'ph'" >
+                        <img src="/assets/images/2023/hw/f-home.png"  [routerLink]="['/stickercards']" class="cursor">
                     </div>
                 </div>
             </div>
@@ -217,14 +217,11 @@
             <div>
                 <div class="row">
                     <div class="col-md-12">
-                        <img src="/assets/images/2023/hw/homepage/09-min.png" *ngIf="priceService.getLocation() == 'ph'"
+                        <img src="/assets/images/2023/hw/09-min.png" *ngIf="priceService.getLocation() == 'ph'"
                             class="img-fluid " style="width:100%">
-                        <img src="/assets/images/bday2/us/banner-4-min.png" *ngIf="priceService.getLocation() != 'ph'"
+                        <img src="/assets/images/2023/hw/09-usa-min.png" *ngIf="priceService.getLocation() != 'ph'"
                             class="img-fluid " style="width:100%">
                         <br /> <br />
-                        <!-- <img src="/assets/images/valentines/v2/2-min.png" class="img-fluid cursor" style="width:100%"
-                            [routerLink]="['/stickers']">
-                        <br /> <br /> -->
                     </div>
                 </div>
 

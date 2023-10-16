@@ -69,9 +69,13 @@
                     <div style="height: 100%;width: 50%; position: absolute; right: 0%; bottom: 0%;cursor: pointer;"
                         [routerLink]="['/postcards']"></div>
                 </div>
-                <div class="col-md-12">
-                    <img src="/assets/images/2023/hw/homepage/09-min.png">
-                </div>
+                    <div class="col-md-12">
+                        <img src="/assets/images/2023/hw/09-min.png" *ngIf="priceService.getLocation() == 'ph'"
+                            class="img-fluid " style="width:100%">
+                        <img src="/assets/images/2023/hw/09-usa-min.png" *ngIf="priceService.getLocation() != 'ph'"
+                            class="img-fluid " style="width:100%">
+                        <br /> <br />
+                    </div>
             </div>
             <!-- <div class="row">
 
