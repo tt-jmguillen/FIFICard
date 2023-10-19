@@ -319,7 +319,7 @@ export class OrderComponent implements OnInit {
 
   loadImage(id: string) {
     this.cardService.getPrimaryImage(id).then(image => {
-      this.getAvailableURL(image).then(url => {
+      this.imageService.getImageURL(image).then(url => {
         this.primaryImageURL = url;
       });
     })
@@ -494,18 +494,6 @@ export class OrderComponent implements OnInit {
   receiveSignAndSendPhoto(signAndSendPhotoDetails: SignAndSendPhotoDetails[]) {
     this.SignAndSendPhoto = signAndSendPhotoDetails;
     this.isWithSignAndSend = (this.SignAndSend.length > 0) || (this.SignAndSendPhoto.length > 0);
-  }
-
-  getAvailableURL(image: string): Promise<string> {
-    return new Promise((resolve) => {
-      this.imageService.getImageURL(image + environment.imageSize.medium).then(url => {
-        resolve(url);
-      }).catch(err => {
-        this.imageService.getImageURL(image).then(url => {
-          resolve(url);
-        }).catch(err => { });
-      });
-    });
   }
 
   keepShopping() {

@@ -42,13 +42,13 @@
                     <button class="btn btn-primary btn-block w-100" [disabled]="selected.length == 0" (click)="toPay()">To Pay {{priceService.locationSign(location)}} {{this.total.toFixed(2)}}</button>
                 </div>
             </div>
-            <div class="row total" *ngIf="location == 'ph' && isPayment == true">
-                <div class="col-12 px-2 py-2">
-                    <button class="btn btn-success btn-block w-100" [disabled]="total == 0" (click)="payNow(gcash_payment)">{{'cart.payviagcash'|translate}}</button>
+            <div class="row pt-4" *ngIf="location == 'ph' && isPayment == true">
+                <div class="col-12">
+                    <button class="btn btn-warning btn-block w-100" [disabled]="total == 0" (click)="payNow(gcash_payment)">{{'cart.payviagcash'|translate}}</button>
                 </div>
             </div>
-            <div class="row total" *ngIf="isPayment == true">
-                <div class="col-12 px-2 py-1">
+            <div class="row pt-2" *ngIf="isPayment == true">
+                <div class="col-12">
                     <!--
                     <ngx-paypal [config]="payPalConfig"></ngx-paypal>
                     -->

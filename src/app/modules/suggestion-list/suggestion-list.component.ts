@@ -99,19 +99,6 @@ export class SuggestionListComponent implements OnInit {
     }
   }
 
-  getAvailableURL(image: string): Promise<string> {
-    return new Promise((resolve, rejects) => {
-      this.imageService.getImageURL(image + environment.imageSize.medium).then(url => {
-        resolve(url);
-      }).catch(err => {
-        this.imageService.getImageURL(image).then(url => {
-          resolve(url);
-        }).catch(err => {
-        })
-      });
-    });
-  }
-
   loadBatch(list: Card[]) {
     let newList: Card[] = list;
     let index: number = newList.findIndex(x => x.id == this.card.id);

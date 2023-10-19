@@ -13,6 +13,7 @@ import { PriceService } from './../../services/price.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ImageService } from 'src/app/services/image.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { User } from 'src/app/models/user';
 
 
 @Component({
@@ -106,37 +107,24 @@ export class CartTotalComponent implements OnInit {
 
   delete(ids: string[]): Promise<void> {
     return new Promise(async resolve => {
-      this.userService.getUser(this.uid).then(user => {
-        let cart: string[] = user.carts;
-        let ecart: string[] = user.ecarts;
-        ids.forEach(async id => {
-          let order = this.allOrders.find(x => x.id! == id);
-          let card: Card = await this.cardService.getACard(order.card_id);
+      let user: User = await this.userService.getUser(this.uid);
+      let cart: string[] = user.carts;
+      let ecart: string[] = user.ecarts;
 
-          if (card.type != 'ecard') {
-            //await this.userService.removeItemOnCart(this.uid, order.id!);
-            cart.splice(cart.findIndex(x => x === id), 1);
-          }
-          else {
-            //await this.userService.removeItemOnECart(this.uid, order.id!);
-            ecart.splice(ecart.findIndex(x => x === id), 1);
-          }
+      for await (const id of ids){
+        let order = this.allOrders.find(x => x.id! == id);
+        let card: Card = await this.cardService.getACard(order.card_id);
+        
+        if (card.type != 'ecard') cart.splice(cart.findIndex(x => x === id), 1);
+        else ecart.splice(ecart.findIndex(x => x === id), 1);
+        
+        this.selected.splice(this.selected.findIndex(x => x.id! == id), 1);
+        
+        this.allOrders.splice(this.allOrders.findIndex(x => x.id! == id), 1);
+      }
 
-          let index = this.selected.findIndex(x => x.id! == id);
-          this.selected.splice(index, 1);
-
-          index = this.allOrders.findIndex(x => x.id! == id);
-          this.allOrders.splice(index, 1);
-        });
-
-        if (cart.length !== user.carts.length) {
-          this.userService.updateCart(this.uid, cart);
-        }
-        if (ecart.length !== user.ecarts.length) {
-          this.userService.updateECart(this.uid, ecart);
-        }
-        resolve();
-      });
+      await this.userService.updateCart(this.uid, cart);
+      await this.userService.updateECart(this.uid, ecart);
     });
   }
 
@@ -333,11 +321,25 @@ export class CartTotalComponent implements OnInit {
             description: card.description,
             images: [url]
           },
-          currency: this.location == 'us' ? "USD" : "SGD",
-          unit_amount: Number(item.card_price)
+          currency: this.getCurrency(),
+          unit_amount: Number(item.card_price).toFixed(2).replace(".", "")
         },
         quantity: (item.count ? item.count : 1).toString()
       })
+
+      if (item.shipping_fee){
+        lineitems.push({
+          price_data: {
+            product_data: {
+              name: "Shipping Fee",
+              description: "Shipping Fee for " + card.name,
+            },
+            currency: this.getCurrency(),
+            unit_amount: Number(item.shipping_fee).toFixed(2).replace(".", "")
+          },
+          quantity: "1"
+        })
+      }
     }
 
     let user = await this.userService.getUser(this.uid)

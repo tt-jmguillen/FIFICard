@@ -63,24 +63,12 @@ export class HomeBestsellerComponent implements OnInit {
 
   getImage(card: Card) {
     this.service.getPrimaryImage(card.id!).then(image => {
-      this.getAvailableURL(image).then(url => {
+      this.imageService.getImageURL(image).then(url => {
         this.randomBestsellerCards.forEach(value => {
           if (card.id == value.id) {
             card.imageUrl = url;
           }
         })
-      });
-    });
-  }
-
-  getAvailableURL(image: string): Promise<string> {
-    return new Promise((resolve, rejects) => {
-      this.imageService.getImageURL(image + environment.imageSize.medium).then(url => {
-        resolve(url);
-      }).catch(err => {
-        this.imageService.getImageURL(image).then(url => {
-          resolve(url);
-        });
       });
     });
   }

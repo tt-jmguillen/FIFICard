@@ -184,7 +184,7 @@
                             </div>
                         </div>
                         <!--PH and US Address-->
-                        <div class="col-12 mb-2" *ngIf="location != 'ph'">
+                        <div class="col-12 mb-2" *ngIf="['sg'].includes(location)">
                             <label class="form-label">* Complete Address</label>
                             <textarea class="form-control" placeholder="Complete Address" rows="5" formControlName="address" [ngClass]="{ 'is-invalid': submitted && controls()['address'].errors}"></textarea>
                             <div *ngIf="submitted && controls()['address'].errors" class="invalid-feedback">

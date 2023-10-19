@@ -45,20 +45,8 @@ export class AddMoreItemComponent implements OnInit {
   }
 
   getImage(image: string) {
-    this.getAvailableURL(image).then(url => {
+    this.imageService.getImageURL(image).then(url => {
       this.imageURL = url;
-    });
-  }
-
-  getAvailableURL(image: string): Promise<string> {
-    return new Promise((resolve) => {
-      this.imageService.getImageURL(image + environment.imageSize.medium).then(url => {
-        resolve(url);
-      }).catch(err => {
-        this.imageService.getImageURL(image).then(url => {
-          resolve(url);
-        }).catch(err => { });
-      });
     });
   }
 
