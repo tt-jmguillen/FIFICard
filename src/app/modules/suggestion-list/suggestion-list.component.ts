@@ -85,14 +85,14 @@ export class SuggestionListComponent implements OnInit {
     if (card.type == 'ecard') {
       this.service.getECardImages(card.id!).then(images => {
         let preview = images.find(x => x.title == 'preview')!;
-        this.getAvailableURL(preview.url).then(url => {
+        this.imageService.getImageURL(preview.url).then(url => {
           card.imageUrl = url;
         });
       })
     }
     else {
       this.service.getPrimaryImage(card.id!).then(image => {
-        this.getAvailableURL(image).then(url => {
+        this.imageService.getImageURL(image).then(url => {
           card.imageUrl = url;
         });
       });

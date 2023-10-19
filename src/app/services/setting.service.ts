@@ -1,59 +1,47 @@
-import { doc, Firestore, docData } from '@angular/fire/firestore';
+import { doc, Firestore, docData, collection, getDocsFromServer, query, where } from '@angular/fire/firestore';
 import { Cardtype, TypeUpgrade } from './../models/cardtype';
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingService {
   store: Firestore;
-  db: AngularFirestore;
 
   constructor(
-    private _store: Firestore,
-    private _db: AngularFirestore
+    _store: Firestore
   ) {
     this.store = _store;
-    this.db = _db;
   }
 
   getCardType(): Promise<Cardtype[]> {
-    return new Promise((resolve, rejects) => {
-      this.db.collection('cardtype').get().subscribe(data => {
-        if (!data.empty) {
-          let types: Cardtype[] = [];
-          data.forEach(doc => {
-            let type: Cardtype = doc.data() as Cardtype;
-            type.id = doc.id;
-            types.push(type);
-          });
-          resolve(types);
-        }
-        else {
-          rejects("No types found.");
-        }
-      });
+    return new Promise((resolve) => {
+      const col = collection(this.store, 'cardtype');
+      getDocsFromServer(col).then(docs => {
+        let types: Cardtype[] = [];
+        docs.forEach(doc => {
+          let type: Cardtype = doc.data() as Cardtype;
+          type.id = doc.id;
+          types.push(type);
+        })
+        resolve(types);
+      })
     });
   }
 
   getUpgrade(): Promise<TypeUpgrade[]> {
     return new Promise((resolve, rejects) => {
-      this.db.collection('cardtypeupgrade', ref => ref
-        .where('active', "==", true)).get().subscribe(data => {
-          if (!data.empty) {
-            let types: TypeUpgrade[] = [];
-            data.forEach(doc => {
-              let type: TypeUpgrade = doc.data() as TypeUpgrade;
-              type.id = doc.id;
-              types.push(type);
-            });
-            resolve(types);
-          }
-          else {
-            rejects("No upgrade found.");
-          }
-        });
+      const col = collection(this.store, 'cardtypeupgrade');
+      const q = query(col, where('active', "==", true))
+      getDocsFromServer(col).then(docs => {
+        let types: TypeUpgrade[] = [];
+        docs.forEach(doc => {
+          let type: TypeUpgrade = doc.data() as TypeUpgrade;
+          type.id = doc.id;
+          types.push(type);
+        })
+        resolve(types);
+      })
     });
   }
 

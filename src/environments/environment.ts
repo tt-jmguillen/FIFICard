@@ -1,11 +1,12 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
   production: false,
   paypalCurrency: 'PHP',
   paypalClientId: 'AQW1wB3h__RDiIOYHpk_1QLpcrPT5sH0GBWemRc3ycpVohV-dqzNwWtSDuvsaUcVH3Ipam9zwYlNy_nB',
+  stripe: {
+    enable: true,
+    publishKey: "pk_test_04NqaZryqxUuqCsGYdsSAXgT00Ro4Gy5kx",
+    secretKey: "sk_test_51FPpNZCwtCGHnjTln7DmBVNvoaZOEVW1VexB4NIt9C0rYqT2SthuqbSjbUM8RYgYnyhatDEJZcVzKAyF4Kz6FFCy00WCZLSbOz"
+  },
   firebase: {
     projectId: 'fifi-greetings',
     appId: '1:592228815811:web:ae07898d9c86884e7d2376',
@@ -14,13 +15,6 @@ export const environment = {
     authDomain: 'fifi-greetings.firebaseapp.com',
     messagingSenderId: '592228815811',
     measurementId: "G-BN0LKLNJY2"
-    /*apiKey: "AIzaSyD-M5TcXBiZel7mlv8sK9J6qdAdACQIiZE",
-    authDomain: "fificard-staging.firebaseapp.com",
-    databaseURL: "https://fificard-staging-default-rtdb.firebaseio.com",
-    projectId: "fificard-staging",
-    storageBucket: "fificard-staging.appspot.com",
-    messagingSenderId: "536378676158",
-    appId: "1:536378676158:web:758439956a634973215fef"*/
   },
   imageSize: {
     small: "_74x100",
@@ -30,7 +24,6 @@ export const environment = {
   },
   redirect: [
     {
-      // host: "localhost",
       host: "fibeimothersday.com",
       main: "/mother",
       logo: "/assets/images/logo_fibiemothersday.png",
@@ -143,12 +136,3 @@ export const environment = {
     { event: 'zFjI8UkNyrqhkQe8cUif', card: 'ijzCYZ0eE80GhtDtTAfi' }
   ]
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.

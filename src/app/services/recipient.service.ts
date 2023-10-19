@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, collectionData, doc, docData, Firestore, orderBy } from '@angular/fire/firestore';
-import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
+import { collection, doc, docData, Firestore, getDocsFromServer, onSnapshot, DocumentSnapshot } from '@angular/fire/firestore';
 import { query, where } from '@firebase/firestore';
 import { Observable } from 'rxjs';
 import { Recipient } from '../models/recipient';
@@ -10,32 +9,45 @@ import { Recipient } from '../models/recipient';
 })
 export class RecipientService {
   store: Firestore;
-  storage: Storage;
 
-  constructor(private _store: Firestore,
-    private _storage: Storage) {
+  constructor(
+    _store: Firestore
+  ) {
     this.store = _store;
-    this.storage = _storage;
   }
 
   getRecipients(): Promise<Recipient[]> {
     return new Promise((resolve, rejects) => {
-      let data = collection(this.store, 'recipients');
-      let qry = query(data, where('active', "==", true));
-      (collectionData(qry, { idField: 'id' }) as Observable<Recipient[]>).subscribe(
-        recipients => resolve(recipients.sort(function (a, b) {
+      const col = collection(this.store, 'recipients');
+      const q = query(col, where('active', "==", true))
+      getDocsFromServer(q).then(docs => {
+        let recipients: Recipient[] = [];
+        docs.forEach(doc => {
+          let recipient: Recipient = doc.data() as Recipient;
+          recipient.id = doc.id;
+          recipients.push(recipient);
+        });
+        resolve(recipients.sort(function (a, b) {
           if (a.name > b.name) return 1;
           if (a.name < b.name) return -1;
           return 0;
-        })),
-        err => rejects(err)
-      );
+        }));
+      })
     });
   }
 
   getRecipient(id: string): Observable<Recipient> {
-    const data = doc(this.store, 'recipients/' + id);
-    return docData(data, { idField: 'id' }) as Observable<Recipient>;
+    return new Observable(subscribe => {
+      onSnapshot(doc(this.store, 'recipients/' + id), (snap) => {
+        if ((snap as DocumentSnapshot).data()) {
+          let recipient = (snap as DocumentSnapshot).data() as Recipient;
+          recipient.id = (snap as DocumentSnapshot).id;
+          subscribe.next(recipient);
+        } else {
+          subscribe.next(undefined);
+        }
+      });
+    })
   }
 
 }

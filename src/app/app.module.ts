@@ -140,6 +140,7 @@ import { SearchListingComponent } from './search-list/search-listing/search-list
 import { ClipartComponent } from './clipart/clipart.component';
 import { ClipartCardComponent } from './clipart-card/clipart-card.component';
 import { ReadmoreComponent } from './modules/readmore/readmore.component';
+import { CartConfirmComponent } from './carts/cart-confirm/cart-confirm.component';
 
 @NgModule({
   declarations: [
@@ -253,7 +254,8 @@ import { ReadmoreComponent } from './modules/readmore/readmore.component';
     SearchListingComponent,
     ClipartComponent,
     ClipartCardComponent,
-    ReadmoreComponent
+    ReadmoreComponent,
+    CartConfirmComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { collection, collectionData, doc, docData, Firestore, orderBy, where } from '@angular/fire/firestore';
 import { query } from '@firebase/firestore';
 import { Observable } from 'rxjs';
 import { Event } from '../models/event';
+import { Firestore, collection, doc, getDocFromServer, getDocsFromServer, orderBy, where } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -11,39 +11,50 @@ export class EventService {
   store: Firestore;
 
   constructor(
-    private _store: Firestore
+    _store: Firestore
   ) {
     this.store = _store;
   }
 
   getById(id: string): Promise<Event> {
     return new Promise((resolve) => {
-      const data = doc(this.store, 'events/' + id);
-      (docData(data, { idField: 'id' }) as Observable<Event>).subscribe(event => {
+      getDocFromServer(doc(this.store, 'events/' + id)).then(doc => {
+        let event: Event = doc.data() as Event;
+        event.id = doc.id;
         resolve(event);
-      });
+      })
     });
   }
 
   getByName(event: string): Promise<Event[]> {
     return new Promise((resolve, rejects) => {
-      let data = collection(this.store, 'events');
-      let qry = query(data, where('name', '==', event));
-      (collectionData(qry, { idField: 'id' }) as Observable<Event[]>).subscribe(
-        events => resolve(events),
-        err => rejects(err)
-      );
+      const col = collection(this.store, 'events');
+      const q = query(col, where('name', '==', event))
+      getDocsFromServer(q).then(docs => {
+        let events: Event[] = [];
+        docs.forEach(doc => {
+          let event: Event = doc.data() as Event;
+          event.id = doc.id;
+          events.push(event);
+        })
+        resolve(events);
+      })
     });
   }
 
   getEvents(): Promise<Event[]> {
     return new Promise((resolve, rejects) => {
-      let data = collection(this.store, 'events');
-      let qry = query(data, orderBy('name', 'asc'));
-      (collectionData(qry, { idField: 'id' }) as Observable<Event[]>).subscribe(
-        events => resolve(events),
-        err => rejects(err)
-      );
+      const col = collection(this.store, 'events');
+      const q = query(col, orderBy('name', 'asc'))
+      getDocsFromServer(q).then(docs => {
+        let events: Event[] = [];
+        docs.forEach(doc => {
+          let event: Event = doc.data() as Event;
+          event.id = doc.id;
+          events.push(event);
+        })
+        resolve(events);
+      })
     });
   }
 
@@ -51,11 +62,11 @@ export class EventService {
     return new Promise((resolve, rejects) => {
       this.getEvents().then(events => {
         resolve(events.filter(x => x.active! == true)
-                      .filter(x => x.isGift! == false)
-                      .filter(x => x.isSticker! == false)
-                      .filter(x => x.isSignAndSend! == false)
-                      .filter(x => (x.isPostcard! ? x.isPostcard : false) == false)
-                      .filter(x => (x.isECard! ? x.isECard : false) == false));
+          .filter(x => x.isGift! == false)
+          .filter(x => x.isSticker! == false)
+          .filter(x => x.isSignAndSend! == false)
+          .filter(x => (x.isPostcard! ? x.isPostcard : false) == false)
+          .filter(x => (x.isECard! ? x.isECard : false) == false));
       })
     })
   }
@@ -120,12 +131,17 @@ export class EventService {
 
   getByTag(tag: string): Promise<Event[]> {
     return new Promise((resolve, rejects) => {
-      let data = collection(this.store, 'events');
-      let qry = query(data, where('tag', '==', tag), where('active', '==', true));
-      (collectionData(qry, { idField: 'id' }) as Observable<Event[]>).subscribe(
-        events => resolve(events),
-        err => rejects(err)
-      );
+      const col = collection(this.store, 'events');
+      let q = query(col, where('tag', '==', tag), where('active', '==', true));
+      getDocsFromServer(q).then(docs => {
+        let events: Event[] = [];
+        docs.forEach(doc => {
+          let event: Event = doc.data() as Event;
+          event.id = doc.id;
+          events.push(event);
+        })
+        resolve(events);
+      })
     });
   }
 }

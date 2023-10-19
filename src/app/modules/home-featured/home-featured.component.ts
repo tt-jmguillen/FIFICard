@@ -39,10 +39,10 @@ export class HomeFeaturedComponent implements OnInit {
   isMobile: boolean;
 
   constructor(
-    private _service: CardService,
-    private _priceService: PriceService,
-    private _imageService: ImageService,
-    private config: NgbCarouselConfig
+    _service: CardService,
+    _priceService: PriceService,
+    _imageService: ImageService,
+    config: NgbCarouselConfig
   ) {
     this.service = _service;
     this.priceService = _priceService;

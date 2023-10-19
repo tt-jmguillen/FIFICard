@@ -3,10 +3,8 @@ import { ECardComment } from './../models/comment';
 import { environment } from './../../environments/environment.prod';
 import { SignAndSendDetails, SignAndSendPhotoDetails } from './../models/sign-and-send-details';
 import { Injectable } from '@angular/core';
-import { collection, Firestore, doc, addDoc, docData, updateDoc, serverTimestamp, collectionData } from '@angular/fire/firestore';
-import { Storage } from '@angular/fire/storage';
+import { collection, Firestore, doc, addDoc, docData, updateDoc, serverTimestamp, getDocFromServer, onSnapshot, DocumentSnapshot, getDocsFromServer, query, orderBy, Timestamp } from '@angular/fire/firestore';
 import { Order } from '../models/order';
-import { Timestamp } from "@angular/fire/firestore";
 import { Observable } from 'rxjs';
 import { OrderECard } from '../models/order-ecard';
 
@@ -14,18 +12,12 @@ import { OrderECard } from '../models/order-ecard';
   providedIn: 'root'
 })
 export class OrderService {
-  storage: Storage;
   store: Firestore;
-  db: AngularFirestore;
 
   constructor(
-    private _storage: Storage,
-    private _store: Firestore,
-    private _db: AngularFirestore
+    _store: Firestore
   ) {
-    this.storage = _storage;
     this.store = _store;
-    this.db = _db;
   }
 
   async createOrder(order: Order): Promise<string> {
@@ -58,7 +50,7 @@ export class OrderService {
         shipping_fee: order.shipping_fee,
         type: order.type,
         bundle: order.bundle,
-        created: Timestamp.now()
+        created: serverTimestamp()
       }).then(docRef => {
         resolve(docRef.id);
       }).catch(reason => {
@@ -96,7 +88,7 @@ export class OrderService {
       shipping_fee: order.shipping_fee,
       type: order.type,
       bundle: order.bundle,
-      modified: Timestamp.now()
+      modified: serverTimestamp()
     })
   }
 
@@ -139,7 +131,7 @@ export class OrderService {
         isPaid: false,
         count: order.count,
         shipping_fee: order.shipping_fee,
-        created: Timestamp.now()
+        created: serverTimestamp()
       }).then(docRef => {
         resolve(docRef.id);
       }).catch(reason => {
@@ -160,7 +152,7 @@ export class OrderService {
         count: order.count,
         shipping_fee: order.shipping_fee,
         type: order.type,
-        created: Timestamp.now()
+        created: serverTimestamp()
       }).then(docRef => {
         resolve(docRef.id);
       }).catch(reason => {
@@ -171,30 +163,41 @@ export class OrderService {
 
   async getOrder(id: string): Promise<Order> {
     return new Promise((resolve) => {
-      const data = doc(this.store, 'orders/' + id);
-      (docData(data, { idField: 'id' }) as Observable<Order>).subscribe(order => {
+      getDocFromServer(doc(this.store, 'orders/' + id)).then(doc => {
+        let order: Order = doc.data() as Order;
+        order.id = doc.id;
         resolve(order);
-      });
+      })
     });
   }
 
   async getECardOrder(id: string): Promise<OrderECard> {
     return new Promise((resolve) => {
-      const data = doc(this.store, 'ecard-orders/' + id);
-      (docData(data, { idField: 'id' }) as Observable<OrderECard>).subscribe(order => {
+      getDocFromServer(doc(this.store, 'ecard-orders/' + id)).then(doc => {
+        let order: OrderECard = doc.data() as OrderECard;
+        order.id = doc.id;
         resolve(order);
       });
     });
   }
 
   subscribeOrder(id: string): Observable<Order> {
-    const data = doc(this.store, 'orders/' + id);
-    return docData(data, { idField: 'id' }) as Observable<Order>;
+    return new Observable(subscribe => {
+      onSnapshot(doc(this.store, 'orders/' + id), (snap) => {
+        if ((snap as DocumentSnapshot).data()) {
+          let order = (snap as DocumentSnapshot).data() as Order;
+          order.id = (snap as DocumentSnapshot).id;
+          subscribe.next(order);
+        } else {
+          subscribe.next(undefined);
+        }
+      });
+    });
   }
 
-  updatePaidOrder(id: string, paymentId: string) {
+  updatePaidOrder(id: string, paymentId: string): Promise<void> {
     const data = doc(this.store, 'orders/' + id);
-    updateDoc(data, {
+    return updateDoc(data, {
       isPaid: true,
       paymentId: paymentId
     });
@@ -210,15 +213,15 @@ export class OrderService {
     });
   }
 
-  updatePaidECardOrder(id: string, paymentId: string) {
+  updatePaidECardOrder(id: string, paymentId: string): Promise<void> {
     const data = doc(this.store, 'ecard-orders/' + id);
-    updateDoc(data, {
+    return updateDoc(data, {
       isPaid: true,
       paymentId: paymentId
     });
   }
 
-  addSignAndSend(orderId: string, sign: SignAndSendDetails) {
+  addSignAndSend(orderId: string, sign: SignAndSendDetails): Promise<Order> {
     return new Promise((resolve, rejects) => {
       const data = collection(this.store, 'orders/' + orderId + '/signandsend')
       addDoc(data, {
@@ -235,7 +238,7 @@ export class OrderService {
         alignment: sign.alignment,
         color: sign.color
       }).then(docRef => {
-        const data = docData(docRef, { idField: 'id' }) as Observable<SignAndSendDetails>;
+        const data = docData(docRef, { idField: 'id' }) as Observable<Order>;
         data.subscribe(doc => {
           resolve(doc);
         });
@@ -245,14 +248,18 @@ export class OrderService {
     });
   }
 
-  getSignAndSend(orderId: string): Promise<SignAndSendDetails[]>
-  {
+  getSignAndSend(orderId: string): Promise<SignAndSendDetails[]> {
     return new Promise((resolve) => {
-      let data = collection(this.store, 'orders/' + orderId + '/signandsend');
-      (collectionData(data, { idField: 'id' }) as Observable<SignAndSendDetails[]>).subscribe(
-        signAndSendDetails => resolve(signAndSendDetails),
-        err => resolve([])
-      );
+      const col = collection(this.store, 'orders/' + orderId + '/signandsend');
+      getDocsFromServer(col).then(docs => {
+        let details: SignAndSendDetails[] = [];
+        docs.forEach(doc => {
+          let detail: SignAndSendDetails = doc.data() as SignAndSendDetails;
+          detail.id = doc.id;
+          details.push(detail);
+        })
+        resolve(details);
+      })
     });
   }
 
@@ -281,27 +288,31 @@ export class OrderService {
     });
   }
 
-  getSignAndSendPhoto(orderId: string): Promise<SignAndSendPhotoDetails[]>
-  {
+  getSignAndSendPhoto(orderId: string): Promise<SignAndSendPhotoDetails[]> {
     return new Promise((resolve) => {
-      let data = collection(this.store, 'orders/' + orderId + '/signandsend');
-      (collectionData(data, { idField: 'id' }) as Observable<SignAndSendPhotoDetails[]>).subscribe(
-        signAndSendPhotoDetails => resolve(signAndSendPhotoDetails),
-        err => resolve([])
-      );
+      const col = collection(this.store, 'orders/' + orderId + '/signandsendphoto');
+      getDocsFromServer(col).then(docs => {
+        let details: SignAndSendPhotoDetails[] = [];
+        docs.forEach(doc => {
+          let detail: SignAndSendPhotoDetails = doc.data() as SignAndSendPhotoDetails;
+          detail.id = doc.id;
+          details.push(detail);
+        })
+        resolve(details);
+      })
     });
   }
 
-  updateECardSent(id: string, sentid: string) {
+  updateECardSent(id: string, sentid: string): Promise<void> {
     const data = doc(this.store, 'ecard-orders/' + id);
-    updateDoc(data, {
+    return updateDoc(data, {
       sentid: sentid
     });
   }
 
-  updateECardConfirm(id: string, confirmid: string) {
+  updateECardConfirm(id: string, confirmid: string): Promise<void>  {
     const data = doc(this.store, 'ecard-orders/' + id);
-    updateDoc(data, {
+    return updateDoc(data, {
       confirmid: confirmid
     });
   }
@@ -316,30 +327,30 @@ export class OrderService {
     });
   }
 
-  updateECardOpened(id: string, openedid: string) {
+  updateECardOpened(id: string, openedid: string): Promise<void>  {
     const data = doc(this.store, 'ecard-orders/' + id);
-    updateDoc(data, {
+    return updateDoc(data, {
       openedid: openedid
     });
   }
 
   getComments(id: string): Promise<ECardComment[]> {
     return new Promise((resolve) => {
-      this.db.collection('ecard-orders').doc(id).collection('comments', ref => ref.orderBy('created', 'asc')).get().subscribe(data => {
-        if (!data.empty) {
-          let comments: ECardComment[] = [];
-          data.forEach(doc => {
-            let comment: ECardComment = doc.data() as ECardComment;
-            comment.id = doc.id;
-            comments.push(comment);
-          });
-          resolve(comments);
-        }
-      });
+      const col = collection(this.store, 'ecard-orders/' + id + '/comments');
+      const q = query(col, orderBy("created", "asc"))
+      getDocsFromServer(q).then(docs => {
+        let comments: ECardComment[] = [];
+        docs.forEach(doc => {
+          let comment: ECardComment = doc.data() as ECardComment;
+          comment.id = doc.id;
+          comments.push(comment);
+        })
+        resolve(comments);
+      })
     });
   }
 
-  addComment(id: string, comment: ECardComment): Promise<ECardComment>{
+  addComment(id: string, comment: ECardComment): Promise<ECardComment> {
     return new Promise((resolve) => {
       const data = collection(this.store, 'ecard-orders/' + id + '/comments')
       addDoc(data, {
@@ -348,7 +359,7 @@ export class OrderService {
         fontcolor: comment.fontcolor,
         fontsize: comment.fontsize,
         user: comment.user,
-        created: Timestamp.now()
+        created: serverTimestamp()
       }).then(docRef => {
         (docData(docRef, { idField: 'id' }) as Observable<ECardComment>).subscribe(comment => {
           resolve(comment);

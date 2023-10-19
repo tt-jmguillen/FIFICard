@@ -37,19 +37,26 @@
                 <div class="col-6">Total:</div>
                 <div class="col-6 text-end"><strong class="total">{{priceService.locationSign(location)}} {{total | number:'1.2-2'}}</strong></div>
             </div>
-            <div class="row pt-4">
+            <div class="row pt-4" *ngIf="isPayment == false">
                 <div class="col-12">
                     <button class="btn btn-primary btn-block w-100" [disabled]="selected.length == 0" (click)="toPay()">To Pay {{priceService.locationSign(location)}} {{this.total.toFixed(2)}}</button>
                 </div>
             </div>
             <div class="row total" *ngIf="location == 'ph' && isPayment == true">
-                <div class="col-12 px-0 py-2">
-                    <button class="btn btn-primary btn-block w-100" [disabled]="total == 0" (click)="payNow(gcash_payment)">{{'cart.payviagcash'|translate}}</button>
+                <div class="col-12 px-2 py-2">
+                    <button class="btn btn-success btn-block w-100" [disabled]="total == 0" (click)="payNow(gcash_payment)">{{'cart.payviagcash'|translate}}</button>
                 </div>
             </div>
             <div class="row total" *ngIf="isPayment == true">
-                <div class="col-12 px-0 py-1">
+                <div class="col-12 px-2 py-1">
+                    <!--
                     <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                    -->
+                    <button class="btn btn-success btn-block w-100" [disabled]="total == 0 || stripeProcess" (click)="payStripe()">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="stripeProcess"></span>
+                        <span class="ps-2" *ngIf="stripeProcess">Loading...</span>
+                        <span *ngIf="!stripeProcess">Pay via Stripe</span>
+                    </button>
                 </div>
             </div>
         </div>

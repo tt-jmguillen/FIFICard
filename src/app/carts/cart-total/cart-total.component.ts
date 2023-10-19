@@ -11,6 +11,8 @@ import { IPayPalConfig, ITransactionItem, ICreateOrderRequest } from 'ngx-paypal
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { PriceService } from './../../services/price.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { ImageService } from 'src/app/services/image.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 
 @Component({
@@ -33,6 +35,8 @@ export class CartTotalComponent implements OnInit {
   userService: UserService;
   orderService: OrderService;
   emailService: EmailService;
+  imageService: ImageService;
+  storageService: StorageService;
   modalService: NgbModal;
 
   constructor(
@@ -42,6 +46,8 @@ export class CartTotalComponent implements OnInit {
     _userService: UserService,
     _orderService: OrderService,
     _emailService: EmailService,
+    _imageService: ImageService,
+    _storageService: StorageService,
     _modalService: NgbModal
   ) {
     this.priceService = _priceService;
@@ -50,6 +56,8 @@ export class CartTotalComponent implements OnInit {
     this.userService = _userService;
     this.orderService = _orderService;
     this.emailService = _emailService;
+    this.imageService = _imageService;
+    this.storageService = _storageService;
     this.modalService = _modalService;
   }
 
@@ -69,6 +77,7 @@ export class CartTotalComponent implements OnInit {
   payPalPayerEmail: string = '';
   gcashRef: NgbModalRef;
   payPalConfig?: IPayPalConfig;
+  stripeProcess: boolean = false;
 
   ngOnInit(): void {
     this.paymentService.getInitial().then(status => this.initalStatus = status);
@@ -302,6 +311,47 @@ export class CartTotalComponent implements OnInit {
 
   payNow(gcash_payment: any) {
     this.gcashRef = this.modalService.open(gcash_payment, { ariaLabelledBy: 'modal-basic-title' });
+  }
+
+  async payStripe() {
+    this.stripeProcess = true;
+
+    this.storageService.saveItems(this.selected);
+    
+    const stripe = require('stripe')(environment.stripe.secretKey);
+    let lineitems: any[] = [];
+
+    for await (const item of this.selected){
+      let card: Card = await this.cardService.getACard(item.card_id!);
+      let image: string = await this.cardService.getPrimaryImage(item.card_id!);
+      let url: string = await this.imageService.getImageURL(image);
+
+      lineitems.push({
+        price_data: {
+          product_data: {
+            name: card.name,
+            description: card.description,
+            images: [url]
+          },
+          currency: this.location == 'us' ? "USD" : "SGD",
+          unit_amount: Number(item.card_price)
+        },
+        quantity: (item.count ? item.count : 1).toString()
+      })
+    }
+
+    let user = await this.userService.getUser(this.uid)
+    const paymentcheckout = await stripe.checkout.sessions.create({
+      line_items: lineitems,
+      mode: 'payment',
+      success_url: window.location.origin + '/confirm/{CHECKOUT_SESSION_ID}',
+      cancel_url: window.location.origin + '/cart',
+      client_reference_id: user.id,
+      customer_email: user.email
+    });
+    let url = paymentcheckout.url;
+    this.stripeProcess = false;
+    window.location.href = url;
   }
 
   includeAll() {

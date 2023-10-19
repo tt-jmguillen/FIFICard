@@ -1,10 +1,10 @@
 import { Payment } from './../models/payment';
-import { collectionData, docData, Firestore } from '@angular/fire/firestore';
+import { collection, collectionData, doc, docData, Firestore, getDocsFromServer, orderBy, query } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { ref, Storage, uploadBytes, UploadResult } from '@angular/fire/storage';
-import { addDoc, collection, doc, query, Timestamp, where } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { Status } from '../models/status';
+import { addDoc, getDocFromServer, serverTimestamp } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -38,20 +38,35 @@ export class PaymentService {
 
   async getInitial(): Promise<string>{
     return new Promise((resolve, rejects) => {
-      let data = collection(this.store, 'status');
-      let qry = query(data, where('initial', "==", true));
-      let colData = collectionData(qry, { idField: 'id' }) as Observable<Status[]>;
-      colData.subscribe(statuses => {
-        if (statuses.length > 0)
-          resolve(statuses[0].name);
-        else
+      const col = collection(this.store, 'status');
+      const q = query(col, orderBy("order", "asc"))
+      getDocsFromServer(q).then(docs => {
+        if (docs.empty === false){
+          docs.forEach(doc => {
+            let status: Status = doc.data() as Status;
+            resolve(status.name)
+          })
+        }
+        else{
           resolve("New");
-      });
+        }
+      })
     });
   }
 
   async createPayment(payment: Payment): Promise<string>{
     return new Promise((resolve) => {
+      let details = null;
+      if (payment.stripe) {
+        details = {
+          id: payment.stripe.id,
+          type: payment.stripe.type,
+          brand: payment.stripe.brand,
+          amount: payment.stripe.amount,
+          last4: payment.stripe.last4 ,
+        }
+      }
+
       const data = collection(this.store, 'payments')
       addDoc(data, {
         user_id: payment.userId,
@@ -63,7 +78,8 @@ export class PaymentService {
         payerId: payment.payerId?payment.payerId:"",
         payerEmail: payment.payerEmail?payment.payerEmail:"",
         status: payment.status,
-        created: Timestamp.now()
+        created: serverTimestamp(),
+        stripe: details
       }).then(docRef => {
         resolve(docRef.id);
       });
@@ -72,10 +88,11 @@ export class PaymentService {
 
   getPayment(id: string): Promise<Payment> {
     return new Promise((resolve) => {
-      const data = doc(this.store, 'payments/' + id);
-      (docData(data, { idField: 'id' }) as Observable<Payment>).subscribe(payment => {
+      getDocFromServer(doc(this.store, 'payments/' + id)).then(doc => {
+        let payment: Payment = doc.data() as Payment;
+        payment.id = doc.id;
         resolve(payment);
-      });
+      })
     });
   }
   

@@ -12,4 +12,14 @@ export class Payment {
     public payerEmail: string;
     public status: string;
     public created: Timestamp;
+    public stripe: StripeDetails | null;
+}
+
+export class StripeDetails {
+    public id: string;
+    public type: string;
+    public brand: string;
+    public amount: number;
+    public last4: string;
+
 }

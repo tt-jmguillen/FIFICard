@@ -1,54 +1,47 @@
 import { Fee } from './../models/fee';
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Firestore, collection, getDocsFromServer, query, where } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShippingService {
-  db: AngularFirestore;
+  store: Firestore;
 
   constructor(
-    private _db: AngularFirestore
+    _store: Firestore
   ) { 
-    this.db = _db;
+    this.store = _store;
   }
 
   getShippingFees(): Promise<Fee[]>{
     return new Promise((resolve, rejects) => {
-      this.db.collection('shippingfee').get().subscribe(data => {
-        if (!data.empty) {
-          let fees: Fee[] = []
-          data.forEach(doc => {
-            let fee: Fee = doc.data() as Fee;
-            fee.id = doc.id;
-            fees.push(fee);
-          });
-          resolve(fees);
-        }
-        else {
-          rejects("No shipping fees found.");
-        }
-      });
+      const col = collection(this.store, 'shippingfee');
+      getDocsFromServer(col).then(docs => {
+        let fees: Fee[] = [];
+        docs.forEach(doc => {
+          let fee: Fee = doc.data() as Fee;
+          fee.id = doc.id;
+          fees.push(fee);
+        })
+        resolve(fees);
+      })
     });
   }
 
   getShippingFee(type: string): Promise<Fee> {
     return new Promise((resolve, rejects) => {
-      this.db.collection('shippingfee', ref => ref
-        .where('name', "==", type)
-      ).get().subscribe(data => {
-        if (!data.empty) {
-          data.forEach(doc => {
-            let fee: Fee = doc.data() as Fee;
-            fee.id = doc.id;
-            resolve(fee);
-          });
-        }
-        else {
-          rejects("No shipping fees found.");
-        }
-      });
+      const col = collection(this.store, 'shippingfee');
+      const q = query(col, where('name', "==", type))
+      getDocsFromServer(col).then(docs => {
+        let fees: Fee[] = [];
+        docs.forEach(doc => {
+          let fee: Fee = doc.data() as Fee;
+          fee.id = doc.id;
+          fees.push(fee);
+        })
+        resolve(fees[0]!);
+      })
     });
   }
 }

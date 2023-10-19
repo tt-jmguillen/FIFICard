@@ -2,6 +2,11 @@ export const environment = {
   production: true,
   paypalCurrency: 'PHP',
   paypalClientId: 'AQW1wB3h__RDiIOYHpk_1QLpcrPT5sH0GBWemRc3ycpVohV-dqzNwWtSDuvsaUcVH3Ipam9zwYlNy_nB',
+  stripe: {
+    enable: true,
+    publishKey: "pk_test_04NqaZryqxUuqCsGYdsSAXgT00Ro4Gy5kx",
+    secretKey: "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"
+  },
   firebase: {
     projectId: 'fifi-greetings',
     appId: '1:592228815811:web:ae07898d9c86884e7d2376',
