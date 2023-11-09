@@ -69,7 +69,7 @@ export class PaymentService {
 
       const data = collection(this.store, 'payments')
       addDoc(data, {
-        user_id: payment.userId,
+        user_id: payment.user_id,
         gateway: payment.gateway,
         orders: payment.orders,
         total: Number(payment.total),

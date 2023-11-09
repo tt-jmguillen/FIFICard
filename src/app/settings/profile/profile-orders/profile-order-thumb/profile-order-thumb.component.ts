@@ -13,13 +13,14 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class ProfileOrderThumbComponent implements OnInit {
   @Input() id: string;
+
   orderService: OrderService;
   cardService: CardService;
   imageService: ImageService;
 
-  order: Order;
-  ecardOrder: OrderECard;
-  card: Card;
+  order: Order | undefined = undefined;
+  ecardOrder: OrderECard | undefined = undefined;
+  card: Card | undefined = undefined;
   image: string = '';
   total: number;
 
@@ -37,53 +38,50 @@ export class ProfileOrderThumbComponent implements OnInit {
     this.getOrder(this.id);
   }
 
-  getOrder(id: string) {
-    this.orderService.getOrder(id).then(order => {
-      if (order) {
-        this.order = order;
-        if (!this.order.bundle)
-          this.total = this.order.card_price! * this.order.count!;
-        else
-          this.total = this.order.card_price!;
-        this.getCard(this.order.card_id!);
-      }
-      else {
-        this.orderService.getECardOrder(id).then(order => {
-          this.ecardOrder = order;
-          this.total = this.ecardOrder.card_price! * 1;
-          this.getCard(this.ecardOrder.card_id!);
-        })
-      }
-    })
+  async getOrder(id: string) {
+    let order: Order = await this.orderService.getOrder(id);
+    if (order) {
+      this.order = order;
+      if (!this.order.bundle) this.total = this.order.card_price! * this.order.count!;
+      else this.total = this.order.card_price!;
+      await this.getCard(this.order.card_id!);
+    }
+
+    let orderECard: OrderECard = await this.orderService.getECardOrder(id);
+    if (orderECard) {
+      this.ecardOrder = orderECard;
+      this.total = this.ecardOrder.card_price! * 1;
+      await this.getCard(this.ecardOrder.card_id!);
+    }
   }
 
-  getCard(id: string) {
-    this.cardService.getACard(id).then(card => {
-      this.card = card;
-      if (card.type != 'ecard')
-        this.loadimage(this.card.id!);
-      else
-        this.loadecard(this.card.id!);
-    });
+  async getCard(id: string) {
+    let card: Card = await this.cardService.getACard(id);
+    this.card = card;
+    console.log(card);
+    if (card.type !== 'ecard') this.loadimage(this.card.id!);
+    else this.loadecard(this.card.id!);
   }
 
   loadimage(id: string) {
-    this.cardService.getPrimaryImage(id).then(image => {
-      this.getImage(image);
-    })
+    this.cardService.getPrimaryImage(id).then(image => this.getImage(image));
   }
 
-  loadecard(id: string){
+  loadecard(id: string) {
     this.cardService.getECardImages(id).then(images => {
-      let preview = images.find(x => x.title == 'preview')!;
+      let preview = images.find(x => x.title === 'preview')!;
       this.getImage(preview.url);
     })
   }
 
   getImage(image: string) {
-    this.imageService.getImageURL(image).then(value => {
-      this.image = value;
-    });
+    this.imageService.getImageURL(image).then(value => this.image = value);
+  }
+
+  getSign(order: Order | OrderECard){
+    if (order.location == 'us') return '$';
+    else if (order.location == 'sg') return 'S$';
+    else return '₱';
   }
 
 }

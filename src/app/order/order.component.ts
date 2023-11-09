@@ -32,6 +32,8 @@ import usaddressdata from '../../assets/address/us.json';
 import phaddressdata from '../../assets/address/ph.json';
 import { PHAddress } from '../models/phaddress';
 import { ImageService } from '../services/image.service';
+import { Address } from '../models/address';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-order',
@@ -68,6 +70,7 @@ export class OrderComponent implements OnInit {
   imageService: ImageService;
   modalService: NgbModal;
   router: Router;
+  loadingController: LoadingController;
 
   addMore: AddMore[] = [];
 
@@ -123,6 +126,8 @@ export class OrderComponent implements OnInit {
   usAddress: USAddress[] = usaddressdata as unknown as USAddress[]; 
   usAddresses: string[];
 
+  loading: HTMLIonLoadingElement;
+
   constructor(
     _title: Title,
     _def: ChangeDetectorRef,
@@ -142,6 +147,7 @@ export class OrderComponent implements OnInit {
     _priceService: PriceService,
     _imageService: ImageService,
     _router: Router,
+    _loadingController: LoadingController,
     private loc: Location,
     private _emailService: EmailService,
   ) {
@@ -164,6 +170,7 @@ export class OrderComponent implements OnInit {
     this.filter = _filter;
     this.router = _router;
     this.emailService = _emailService;
+    this.loadingController = _loadingController;
   }
 
   ngOnInit(): void {
@@ -335,33 +342,43 @@ export class OrderComponent implements OnInit {
     })
   }
 
-  loadUserProfile() {
-    if (this.user.firstname && this.user.lastname) {
-      this.form.controls['sender_name'].patchValue(this.user.firstname + ' ' + this.user.lastname);
-    }
-    if (this.user.email) {
-      this.form.controls['sender_email'].patchValue(this.user.email);
-    }
-    if (this.user.contact) {
-      this.form.controls['sender_phone'].patchValue(this.user.contact);
-    }
-    if ((this.priceService.location == 'ph') && this.user.address) {
-      this.addressService.getAddress(this.user.address).then(address => {
-        this.form.controls['address1'].patchValue(address.address);
-        this.form.controls['address2'].patchValue(address.address2);
-        this.form.controls['province'].patchValue(address.province);
-        this.form.controls['city'].patchValue(address.city);
-        this.form.controls['country'].patchValue(address.country);
-        this.form.controls['postcode'].patchValue(address.postcode);
-        this.province = address.province;
-        this.updateCity(address.province);
-        this.getFeeAmount(address.province!, this.card!.events!).then(amount => {
-          this.shippingfee = Number(amount);
+  async loadUserProfile() {
+    this.loading = await this.loadingController.create({
+      message: 'Getting Profile Information'
+    });
+
+    this.loading.present();
+    try {
+      if (this.user.firstname && this.user.lastname) {
+        this.form.controls['sender_name'].patchValue(this.user.firstname + ' ' + this.user.lastname);
+      }
+      if (this.user.email) {
+        this.form.controls['sender_email'].patchValue(this.user.email);
+      }
+      if (this.user.contact) {
+        this.form.controls['sender_phone'].patchValue(this.user.contact);
+      }
+      if ((this.priceService.location == 'ph') && this.user.address) {
+        let address: Address = await this.addressService.getAddress(this.user.address);
+        if (address) {
+          this.form.controls['address1'].patchValue(address.address);
+          this.form.controls['address2'].patchValue(address.address2);
+          this.form.controls['province'].patchValue(address.province);
+          this.form.controls['city'].patchValue(address.city);
+          this.form.controls['country'].patchValue(address.country);
+          this.form.controls['postcode'].patchValue(address.postcode);
+          this.province = address.province;
+          this.updateCity(address.province);
+          let amount: number = await this.getFeeAmount(address.province!, this.card!.events!);
+          this.shippingfee = amount;
           this.computeTotal();
-        });
-      });
+        }
+      }
+      this.isUserProfileLoaded = true;
     }
-    this.isUserProfileLoaded = true;
+    finally {
+      this.loading.dismiss();
+    }
   }
 
   generateFullAddress(order: Order): string {
@@ -618,7 +635,7 @@ export class OrderComponent implements OnInit {
           }
         }
         else {
-          rejects("Not enough parameter");
+          rejects(0);
         }
       }
       else {

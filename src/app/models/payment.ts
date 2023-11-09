@@ -2,7 +2,8 @@ import { Timestamp } from '@angular/fire/firestore';
 
 export class Payment {
     public id?: string;
-    public userId: string;
+    public code: string;
+    public user_id: string;
     public gateway: string;
     public orders: string[];
     public total: number;

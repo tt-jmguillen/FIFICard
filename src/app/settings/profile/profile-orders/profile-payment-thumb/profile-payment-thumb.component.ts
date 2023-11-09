@@ -8,10 +8,8 @@ import { PaymentService } from 'src/app/services/payment.service';
   styleUrls: ['./profile-payment-thumb.component.scss']
 })
 export class ProfilePaymentThumbComponent implements OnInit {
-  @Input() id: string;
+  @Input() payment: Payment;
   paymentService: PaymentService;
-
-  payment: Payment;
 
   constructor(
     _paymentService: PaymentService
@@ -20,7 +18,7 @@ export class ProfilePaymentThumbComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPayment(this.id);
+    this.getPayment(this.payment.id!);
   }
 
   getPayment(id: string) {

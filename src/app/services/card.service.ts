@@ -339,18 +339,9 @@ export class CardService {
     });
   }
 
-  async updateCardOrder(id: string, orderId: string): Promise<void> {
-    return new Promise(async (resolve) => {
-      let card: Card = await this.getACard(id);
-      let orders: string[] = card.orders;
-      if (orders == undefined) orders = [];
-      if (orders.find(x => x == orderId) === undefined) {
-        orders.push(orderId);
-        return updateDoc(doc(this.store, 'cards/' + id), {
-          'orders': orders
-        });
-      }
-      else resolve();
+  async updateCardOrder(id: string, orders: string[]): Promise<void> {
+    return updateDoc(doc(this.store, 'cards/' + id), {
+      'orders': orders
     });
   }
 

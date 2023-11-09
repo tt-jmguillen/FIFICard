@@ -175,7 +175,7 @@ export class OrderService {
     return new Promise((resolve) => {
       getDocFromServer(doc(this.store, 'ecard-orders/' + id)).then(doc => {
         let order: OrderECard = doc.data() as OrderECard;
-        order.id = doc.id;
+        if (order) order.id = doc.id;
         resolve(order);
       });
     });

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { error } from 'console';
 import { OrderECard } from 'src/app/models/order-ecard';
 import { Payment, StripeDetails } from 'src/app/models/payment';
 import { CardService } from 'src/app/services/card.service';
@@ -70,11 +71,15 @@ export class CartConfirmComponent implements OnInit {
       this.loading.present();
       let id: string = params['id'];
 
+      console.log(id);
+
       const userDetails = JSON.parse(localStorage.getItem('user')!);
       let uid = userDetails!.uid;
 
       let selected: any[] = this.storageService.getItems();
       let status = await this.paymentService.getInitial();
+
+      console.log(selected );
 
       const stripe = require('stripe')(environment.stripe.secretKey);
       const session = await stripe.checkout.sessions.retrieve(id);
@@ -88,32 +93,50 @@ export class CartConfirmComponent implements OnInit {
       stripeDetails.amount = Number(paymentIntent.amount) / 100,
       stripeDetails.last4 = paymentMethod.card ? paymentMethod.card.last4 : '';
 
+      console.log(stripeDetails);
+
       let items: string[] = selected.map(x => x.id!);
       
       let payment: Payment = new Payment();
-      payment.userId = uid;
+      payment.user_id = uid;
       payment.orders = items;
       payment.gateway = 'Stripe';
       payment.stripe = stripeDetails;
       payment.total = stripeDetails.amount;
       payment.status = status;
 
+      console.log(payment);
+
       let paymentId = await this.paymentService.createPayment(payment);
       await this.userService.addPayment(uid, paymentId);
 
-      for await (const item of selected){
-        let card = await this.cardService.getACard(item.card_id!);
-        
-        if (card.type != 'ecard') await this.orderService.updatePaidOrder(item.id!, paymentId);
-        else await this.orderService.updatePaidECardOrder(item.id!, paymentId);
-        
-        await this.userService.addOrder(uid, item.id!);
-        await this.cardService.updateCardOrder(item.card_id!, item.id!);
-        
-        if (card.type == 'ecard') await this.userService.removeItemOnECart(uid, item.id!);
-        else await this.userService.removeItemOnCart(uid, item.id!);
+      console.log(paymentId);
 
-        if (card.type == 'ecard') await this.sendECardEmail(item as OrderECard);
+      for await (const item of selected){
+        try {
+          let card = await this.cardService.getACard(item.card_id!);
+          
+          if (card.type !== 'ecard') await this.orderService.updatePaidOrder(item.id!, paymentId);
+          else await this.orderService.updatePaidECardOrder(item.id!, paymentId);
+          
+          await this.userService.addOrder(uid, item.id!);
+
+          let orders: string[] = [];
+          if (card.orders) {
+            orders = card.orders;
+            orders.push(item.id!);
+          } 
+          else orders = [item.id!];
+          await this.cardService.updateCardOrder(item.card_id!, orders);
+          
+          if (card.type === 'ecard') await this.userService.removeItemOnECart(uid, item.id!);
+          else await this.userService.removeItemOnCart(uid, item.id!);
+
+          if (card.type === 'ecard') this.sendECardEmail(item as OrderECard);
+        }
+        catch(error) {
+          console.log(error)
+        }
       }
       this.storageService.clearItems();
       this.loading.dismiss();

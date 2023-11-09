@@ -111,15 +111,15 @@ export class CartTotalComponent implements OnInit {
       let cart: string[] = user.carts;
       let ecart: string[] = user.ecarts;
 
-      for await (const id of ids){
+      for await (const id of ids) {
         let order = this.allOrders.find(x => x.id! == id);
         let card: Card = await this.cardService.getACard(order.card_id);
-        
+
         if (card.type != 'ecard') cart.splice(cart.findIndex(x => x === id), 1);
         else ecart.splice(ecart.findIndex(x => x === id), 1);
-        
+
         this.selected.splice(this.selected.findIndex(x => x.id! == id), 1);
-        
+
         this.allOrders.splice(this.allOrders.findIndex(x => x.id! == id), 1);
       }
 
@@ -164,7 +164,7 @@ export class CartTotalComponent implements OnInit {
     let items: string[] = this.selected.map(x => x.id!);
 
     let payment: Payment = new Payment();
-    payment.userId = this.uid;
+    payment.user_id = this.uid;
     payment.orders = items;
     payment.gateway = gateway;
 
@@ -192,7 +192,14 @@ export class CartTotalComponent implements OnInit {
         }
 
         await this.userService.addOrder(this.uid, order.id!);
-        await this.cardService.updateCardOrder(order.card_id!, order.id!);
+
+        let orders: string[] = [];
+        if (card.orders) {
+          orders = card.orders;
+          orders.push(order.id!);
+        }
+        else orders = [order.id!];
+        await this.cardService.updateCardOrder(order.card_id!, orders);
 
         if (card.type == 'ecard') {
           await this.userService.removeItemOnECart(this.uid, order.id!);
@@ -302,14 +309,15 @@ export class CartTotalComponent implements OnInit {
   }
 
   async payStripe() {
+    console.log(environment.stripe.secretKey)
     this.stripeProcess = true;
 
     this.storageService.saveItems(this.selected);
-    
+
     const stripe = require('stripe')(environment.stripe.secretKey);
     let lineitems: any[] = [];
 
-    for await (const item of this.selected){
+    for await (const item of this.selected) {
       let card: Card = await this.cardService.getACard(item.card_id!);
       let image: string = await this.cardService.getPrimaryImage(item.card_id!);
       let url: string = await this.imageService.getImageURL(image);
@@ -327,7 +335,7 @@ export class CartTotalComponent implements OnInit {
         quantity: (item.count ? item.count : 1).toString()
       })
 
-      if (item.shipping_fee){
+      if (item.shipping_fee) {
         lineitems.push({
           price_data: {
             product_data: {

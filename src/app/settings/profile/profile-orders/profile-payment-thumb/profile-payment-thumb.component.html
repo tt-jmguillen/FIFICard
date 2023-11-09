@@ -1,13 +1,15 @@
-<div *ngIf="payment">
-    <app-profile-order-thumb  *ngFor="let order of payment.orders" [id]="order"></app-profile-order-thumb>
-</div>
-<div class="row border-bottom py-2" *ngIf="payment">
-    <div class="col-1"></div>
-    <div class="col-10">
-        <span>{{'profile.gateway'|translate}}: <strong>{{payment.gateway}}</strong></span><br/>
-        <span>{{'profile.status'|translate}}: <strong>{{payment.status}}</strong></span>
+<app-profile-order-thumb  *ngFor="let order of payment.orders" [id]="order"></app-profile-order-thumb>
+<div class="row px-3 py-2">
+    <div class="col-11">
+        <p class="mb-0">Payment Gateway: <strong>{{payment.gateway}}</strong></p>
+        <p class="mb-0" *ngIf="payment.stripe && payment.stripe !== null">Stripe Details: <strong>{{payment.stripe.type.toUpperCase()}}/{{payment.stripe.brand.toUpperCase()}}</strong></p>
+        <p class="mb-0" *ngIf="payment.stripe && payment.stripe !== null">Last 4 Digit: <strong>{{payment.stripe.last4}}</strong></p>
+        <p class="mb-0">Status: <strong>{{payment.status}}</strong></p>
     </div>
-    <div class="col-1 text-end my-auto">
+    <div class="col-1 text-end">
         <span class="payment-value"><strong>{{payment.total | number:'1.2-2'}}</strong></span>
+    </div>
+    <div class="col-12 text-end">
+        {{payment.created.toDate().toLocaleString()}}
     </div>
 </div>

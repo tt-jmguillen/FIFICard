@@ -8,7 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Card } from 'src/app/models/card';
 import { Payment } from 'src/app/models/payment';
 
-export class UserOrder{
+export class UserOrder {
   public id: string;
   public order: Order;
   public card: Card;
@@ -21,44 +21,51 @@ export class UserOrder{
   styleUrls: ['./profile-orders.component.scss']
 })
 export class ProfileOrdersComponent implements OnInit {
-  uid: string;
-  user: User;
-  payments: string[] = [];
-
-  orders: UserOrder[] = [];
   userService: UserService;
   orderService: OrderService;
   cardService: CardService;
   paymentService: PaymentService;
 
   constructor(
-    private _userService: UserService,
-    private _orderService: OrderService,
-    private _cardService: CardService,
-    private _paymentService: PaymentService
-  ) { 
+    _userService: UserService,
+    _orderService: OrderService,
+    _cardService: CardService,
+    _paymentService: PaymentService
+  ) {
     this.userService = _userService;
     this.orderService = _orderService;
     this.cardService = _cardService;
     this.paymentService = _paymentService;
   }
 
+  uid: string;
+  user: User;
+  payments: Payment[] = [];
+  orders: UserOrder[] = [];
+  start: string = "";
+
   ngOnInit(): void {
-    const userDetails = JSON.parse(localStorage.getItem('user')!); 
+    const userDetails = JSON.parse(localStorage.getItem('user')!);
     this.uid = userDetails?.uid;
     this.loadUser();
   }
 
-  loadUser(){
-    this.userService.getUser(this.uid).then(user => {
+  loadUser() {
+    this.userService.getUser(this.uid).then(async user => {
       this.user = user;
-      //this.loadOrders(user.orders);
-      this.payments = user.payments;
+      let ids: string[] = user.payments.reverse();
+
+      if (user.payments.length > 0) this.start = ids[0]
+      console.log(this.start)
+
+      for await (const id of ids) {
+        let payment: Payment = await this.paymentService.getPayment(id);
+        this.payments.push(payment)
+      }
     })
   }
 
-  loadOrders(orders: string[])
-  {
+  loadOrders(orders: string[]) {
     orders.slice().reverse().forEach(id => {
       let userOrder = new UserOrder();
       userOrder.id = id;
@@ -80,27 +87,32 @@ export class ProfileOrdersComponent implements OnInit {
     });
   }
 
-  updateOrder(order: Order){
+  updateOrder(order: Order) {
     this.orders.forEach(userOrder => {
-      if (userOrder.id == order.id){
+      if (userOrder.id == order.id) {
         userOrder.order = order;
       }
     });
   }
 
-  updateCard(orderId: string, card: Card){
+  updateCard(orderId: string, card: Card) {
     this.orders.forEach(userOrder => {
-      if (userOrder.id == orderId){
+      if (userOrder.id == orderId) {
         userOrder.card = card;
       }
     });
   }
 
-  updatePayment(orderId: string, payment: Payment){
+  updatePayment(orderId: string, payment: Payment) {
     this.orders.forEach(userOrder => {
-      if (userOrder.id == orderId){
+      if (userOrder.id == orderId) {
         userOrder.payment = payment;
       }
     });
+  }
+
+  clickCollapse(id: string) {
+    if (this.start === id) this.start = ""
+    else this.start = id;
   }
 }
