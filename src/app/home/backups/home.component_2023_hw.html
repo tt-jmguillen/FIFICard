@@ -1,0 +1,233 @@
+<ion-content>
+    <h2 style="font-size:0px;margin: 0;">Home Page</h2>
+    <section class="section-name padding-y-sm bk-hw">
+        <div class="container animate main">
+            <div class="row">
+                <div class="col-md-12" style="position: relative;">
+                    <img src="/assets/images/2023/hw/homepage/01-min.png" style="width:100%" alt="hw01" title="hw01">
+                    <div style="height: 11%; width: 26.5%; position: absolute;left: 23%; bottom: 19.5%; cursor: pointer;"
+                        [routerLink]="['/events']"></div>
+                    <div style="height: 11%;width: 26.5%; position: absolute;left: 50.5%;bottom: 19.5%;cursor: pointer;"
+                        [routerLink]="['/poetry']"></div>
+
+                    <div style="height: 52%;width: 14%;position: absolute;left: 13.6%;bottom: 33%;cursor: pointer; transform: rotate(-4deg);"
+                        [routerLink]="['/card/2naZ5hR7r3avjlBNrpAU']"></div>
+                    <div style="    height: 40%; width: 10.8%; position: absolute; left: 28%;bottom: 36%;cursor: pointer; transform: rotate(-4deg);"
+                        [routerLink]="['/card/17qZs9hDay42JCQfsVj7']"></div>
+                    <div style="height: 42%;width: 11.5%; position: absolute;left: 56.5%; bottom: 33%; cursor: pointer; transform: rotate(-4deg);"
+                        [routerLink]="['/card/2AEIb48FFsCWKUg7PO4o']"></div>
+                    <div style="height: 54%; width: 15.5%;position: absolute;left: 68.5%; bottom: 32%;cursor: pointer; transform: rotate(6deg);"
+                        [routerLink]="['/card/4liXq9vTU46ughCfOosg']"></div>
+                </div>
+            </div>
+            <div class="row" *ngIf="priceService.getLocation() == 'ph'">
+                <div class="col-md-12" style="position: relative;">
+                    <img src="/assets/images/2023/hw/homepage/02-min.png" style="width:100%" alt="hw02" title="hw02">
+                    <div style="height: 23.5%; width: 38%; position: absolute;left: 7.5%;bottom: 2.5%; cursor: pointer;"
+                        [routerLink]="['/gifts']"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="position: relative;">
+                    <img src="/assets/images/2023/hw/homepage/03-min.png" style="width:100%" title="categories"
+                        alt="categories">
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 5.7%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/poetry']"></div>
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 23.7%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/signandsend']"></div>
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 41.7%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/postcards']"></div>
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 59.7%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/stickers']"></div>
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 78.7%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/gifts']"></div>
+                </div>
+            </div>
+
+            <!-- <div class="row" *ngIf="priceService.getLocation() != 'ph'">
+                <div class="col-md-12" style="position: relative;">
+                    <img src="/assets/images/bday2/us/banner-3-min.png" style="width:100%" title="categories"
+                        alt="categories">
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 13.3%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/poetry']"></div>
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 31.2%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/signandsend']"></div>
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 49.5%;;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/postcards']"></div>
+                    <div style="height: 54%; width: 15.5%; position: absolute;left: 67.5%;bottom: 26%; cursor: pointer;"
+                        [routerLink]="['/stickers']"></div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-md-12" style="position: relative;">
+                    <img src="/assets/images/2023/hw/homepage/04-min.png" style="width:100%" alt="hw04" title="hw04">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="position: relative;">
+                    <img src="/assets/images/2023/hw/homepage/05-min.png" style="width:100%" alt="hw05" title="hw05">
+
+                    <div style="height: 34%;
+                    width: 8%;
+                    position: absolute;
+                    right: 88.3%;
+                    bottom: 41%;
+                    transform: rotate(-12deg);
+                    cursor: pointer;" [routerLink]="['/card/Bfpij5w6qKeXusgh5CwV']"></div> 
+
+                    <div style="height: 41%;
+                    width: 11%;
+                    position: absolute;
+                    right: 77.3%;
+                    bottom: 32%;
+                    transform: rotate(-4deg);
+                    cursor: pointer;" [routerLink]="['/card/Klt7mSmRjQpsIqH4u5KS']"></div>
+
+                    <div style="height: 37%;
+                    width: 10%;
+                    position: absolute;
+                    right: 66.3%;
+                    bottom: 24%;
+                    transform: rotate(-4deg);
+                    cursor: pointer;" [routerLink]="['/card/mugRbIKG9giDU4O26MLh']"></div>
+
+                    <div style="height: 44%;
+                    width: 12%;
+                    position: absolute;
+                    right: 54%;
+                    bottom: 30%;
+                    transform: rotate(6deg);
+                    cursor: pointer;" [routerLink]="['/card/4TEaaSXnmTfriUnI6zMn']"></div>
+                    
+                    <div style="height: 8%;
+                    width: 18%;
+                    position: absolute;
+                    right: 66%;
+                    bottom: 9%;
+                    cursor: pointer;" [routerLink]="['/cards/event/A9hXPgJP4YIjJTYusiSS']"></div>
+
+                    <!-- THANK YOU -->
+                    <div style="height: 35%;
+                     width: 10%;
+                     position: absolute;
+                     right: 39%;
+                     bottom: 19%;
+                      cursor: pointer;" [routerLink]="['/card/OxYX9CUN7sk5hxb5VjzK']"></div>
+
+                    <div style="height: 35%;
+                     width: 10%;
+                     position: absolute;
+                     right: 29%;
+                     bottom: 19%;" [routerLink]="['/card/0WmVZDeys7fOibF4rhkx']"></div>
+                    <div style="height: 35%;
+                     width: 10%;
+                     position: absolute;
+                     right: 19%;
+                     bottom: 19%;
+                     cursor: pointer;" [routerLink]="['/card/4zlIwcklWhpKa6O1rdn9']"></div>
+
+                    <div style="height: 54%;
+                    width: 15%;
+                    position: absolute;
+                    right: 3%;
+                    bottom: 5%;
+                    transform: rotate(18deg);
+                    cursor: pointer;" [routerLink]="['/card/L6JTWedwrbah1reAXq1j']"></div>
+
+                    <div style="height: 8%;
+                    width: 27%;
+                    position: absolute;
+                    right: 21%;
+                    bottom: 9%;
+                cursor: pointer;" [routerLink]="['/cards/event/5tx9z163Jql77mBmvHls']"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="position: relative;">
+                    <img src="/assets/images/2023/hw/homepage/06-min.png" style="width:100%" alt="hw06" title="hw06">
+                </div>
+            </div>
+            <div>
+                <div class="row">
+
+                    <!-- <div class="col-md-12">
+                        <br />
+                        <h2 class="text-center cus-text-title">{{'home.featuredcategories'|translate}}</h2>
+                    </div> -->
+
+                    <div class="col-md-12">
+                        <app-home-featured caption="Wedding" homeCardEvent="Wedding" [limit]="100"></app-home-featured>
+                    </div>
+                    <div class="col-md-12">
+                        <app-home-featured caption="Anniversary" homeCardEvent="Anniversary"
+                            [limit]="100"></app-home-featured>
+                    </div>
+                    <div class="col-md-12">
+                        <app-home-featured caption="Sympathy" homeCardEvent="Sympathy"
+                            [limit]="100"></app-home-featured>
+                    </div>
+                    <div class="col-md-12">
+                        <app-home-featured caption="Thank You" homeCardEvent="Thank You"
+                            [limit]="100"></app-home-featured>
+                    </div>
+                    <!-- <div class="col-md-12">
+                        <app-home-featured caption="Sympathy" homeCardEvent="Sympathy"
+                            [limit]="100"></app-home-featured>
+                    </div> -->
+                    <div class="col-md-12">
+                        <app-home-featured caption="Pet Cards" homeCardEvent="Pet" [limit]="100"></app-home-featured>
+                    </div>
+                    <div class="col-md-12">
+                        <img src="/assets/images/2023/hw/homepage/07-min.png" alt="hw06" title="hw06">
+                    </div>
+
+                    <div class="col-md-12 sns-no-label">
+                        <!-- <div [routerLink]="['/signandsendpage']" class="to-link"> <img src="/assets/images/hw/sign-and-send-02.png" style="width:100%"></div>
+                        <br /> <br />-->
+                        <app-home-featured caption="Sign and Send"
+                            [ids]="['FUmF8oMnhmpO9WgkziZN','GaHUF8E482lLIIebNPrY','JEiZgBQumVFDDyfxlJ24','JLpujLChwAf7CAay9HAx','UP19y5cwfVJByXTlmWQG','IPp9QMwawzBFgtgTxDQ1','gktcGJN6v6ROGUJSrMAU','xFG9kBmBv8sUgwvTWHVM','0PndLlvpXe3V46zHT5RY','2dH8qe9kgc7aN7pHSp4a','4Wz5Qqoa7yYpU0DfIlXA','5KIsabJ3spJSkOmbZLVD','Bfpij5w6qKeXusgh5CwV','QCqK7J0gEmm6sf2gznDj','1e3HY8oyjU0CwsZWqpoK','Gj9DQKqN3krzeVVhJRHb','OqiMLF73ek3TBE2PNPq6','cJXDwCuwCisW1vg24CsP','Ae11kuzI272NDJ159FwT','Tt7wE47yUOCBczValj3b','mqu9kvb4AdF8WwL9TAvA','qbQIVVGWv6LD0V1kPfkR','YM0LKWPou3NXAIAARtGR','6JHecB0o2wkJmYbKXCj8']"></app-home-featured>
+
+                    </div>
+                    <div class="col-md-12" style="position: relative;" *ngIf="priceService.getLocation() == 'ph'">
+                        <img src="/assets/images/2023/hw/homepage/08-min.png">
+                        <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 9.2%;cursor: pointer"
+                            [routerLink]="['/cards/event/cb2VAMGVwHJ4PHbOavIt']"></div>
+                        <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 30.2%;cursor: pointer"
+                            [routerLink]="['/cards/event/daRI7IEuBx3kyESw7H9M']"></div>
+                        <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 50.2%;cursor: pointer"
+                            [routerLink]="['/cards/event/iygJoAg2bgoIDodDYfH3']"></div>
+                        <div style="height: 59.5%; width: 18.5%;position: absolute;bottom: 21.5%;left: 71.5%;cursor: pointer"
+                            [routerLink]="['/gifts']"></div>
+                    </div>
+                    <div class="col-md-12" *ngIf="priceService.getLocation() == 'ph'" >
+                        <img src="/assets/images/2023/hw/f-home.png"  [routerLink]="['/stickercards']" class="cursor">
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-12" style="position: relative;">
+                    <img src="/assets/images/mothersday/signandsend.jpg" style="width:100%">
+                    <div style="height: 10%; width: 32%; position: absolute; left: 9%; bottom: 0%; cursor: pointer;"
+                        [routerLink]="['/signandsend']"></div>
+                    <div style="height: 10%; width: 20%; position: absolute; left: 53%; bottom: 0%; cursor: pointer;"
+                        [routerLink]="['/signandsendpage']"></div>
+                </div>
+            </div> -->
+
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <img src="/assets/images/2023/hw/09-min.png" *ngIf="priceService.getLocation() == 'ph'"
+                            class="img-fluid " style="width:100%">
+                        <img src="/assets/images/2023/hw/09-usa-min.png" *ngIf="priceService.getLocation() != 'ph'"
+                            class="img-fluid " style="width:100%">
+                        <br /> <br />
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>
