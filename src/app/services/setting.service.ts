@@ -49,7 +49,8 @@ export class SettingService {
     return new Promise((resolve) => {
       const docs = doc(this.store, 'settings/mail');
       docData(docs).subscribe(value => {
-        resolve( value['html']);
+        if (value) resolve( value['html']);
+        else resolve("");
       });
     });
   }

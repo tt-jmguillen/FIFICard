@@ -52,7 +52,7 @@
     "ngx-image-zoom": "^1.0.1",
     "ngx-paypal": "^9.0.0",
     "npm": "^8.17.0",
-    "rxfire": "^6.0.0",
+    "rxfire": "^6.0.3",
     "rxjs": "~7.4.0",
     "stripe": "^14.1.0",
     "timers": "^0.1.1",
