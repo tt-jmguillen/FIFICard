@@ -4,9 +4,9 @@
         <div class="container animate main">
             <div class="row">
                 <div class="col-md-12">
-                    <img src="/assets/images/2023/hw/banner/sc-01-min.png">
+                    <img src="/assets/images/2023/xmas/banner/special-min.png">
                     <br/><br/>
-                    <img src="/assets/images/2023/hw/banner/sc-02-min.png">
+                    <img src="/assets/images/2023/xmas/banner/special-s-1-min.png">
                     <br/><br/>
                 </div>
 
@@ -34,43 +34,43 @@
             </div>-->
             <div class="row">
                 <div class="col-md-12">
-                    <img src="/assets/images/2023/hw/more-with-fb.png">
+                    <img src="/assets/images/2023/xmas/banner/special-s-2-min.png">
                     <br/><br/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12" style="position: relative">
-                    <img src="/assets/images/2023/hw/check.png">
-                    <div style="height: 67%;width: 21%; position: absolute; left: 5%; bottom: 0%;cursor: pointer;"
+                    <img src="/assets/images/2023/xmas/banner/special-2-min.png">
+                    <div style="height: 67%;width: 21%; position: absolute; left: 23%; bottom: 0%;cursor: pointer;"
                         [routerLink]="['/poetry']"></div>
-                    <div style="height: 67%;width: 21%; position: absolute; left: 27.5%; bottom: 0%;cursor: pointer;"
+                    <div style="height: 67%;width: 21%; position: absolute; left: 45.5%; bottom: 0%;cursor: pointer;"
                         [routerLink]="['/postcards']"></div>
-                    <div style="height: 67%;width: 21%; position: absolute; left: 49.5%; bottom: 0%;cursor: pointer;"
+                    <div style="height: 67%;width: 21%; position: absolute; left: 68.5%; bottom: 0%;cursor: pointer;"
                         [routerLink]="['/signandsend']"></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12" style="position: relative" *ngIf="priceService.getLocation() == 'ph'">
-                    <img src="/assets/images/2023/hw/two.png">
+                    <img src="/assets/images/2023/xmas/f-special-min.png">
                     <a href="https://fibeidigicards.com/home"
                         style="height: 100%;width: 50%; position: absolute; left: 0%; bottom: 0%;cursor: pointer;"
                         target="_blank"></a>
                     <div style="height: 100%;width: 50%; position: absolute; right: 0%; bottom: 0%;cursor: pointer;"
-                        [routerLink]="['/gifts']"></div>
+                        [routerLink]="['/stickercards']"></div>
                 </div>
-                <div class="col-md-12" style="position: relative" *ngIf="priceService.getLocation() != 'ph'">
+                <!-- <div class="col-md-12" style="position: relative" *ngIf="priceService.getLocation() != 'ph'">
                     <img src="/assets/images/2023/hw/f-usa2.png">
                     <a href="https://fibeidigicards.com/home"
                         style="height: 100%;width: 50%; position: absolute; left: 0%; bottom: 0%;cursor: pointer;"
                         target="_blank"></a>
                     <div style="height: 100%;width: 50%; position: absolute; right: 0%; bottom: 0%;cursor: pointer;"
                         [routerLink]="['/postcards']"></div>
-                </div>
+                </div> -->
                 <div class="col-md-12">
-                    <img src="/assets/images/2023/hw/09-min.png" *ngIf="priceService.getLocation() == 'ph'"
+                    <img src="/assets/images/2023/xmas/delivery-min.png" *ngIf="priceService.getLocation() == 'ph'"
                         class="img-fluid " style="width:100%">
-                    <img src="/assets/images/2023/hw/09-usa-min.png" *ngIf="priceService.getLocation() != 'ph'"
-                        class="img-fluid " style="width:100%">
+                    <!-- <img src="/assets/images/2023/xmas/delivery-min.png" *ngIf="priceService.getLocation() != 'ph'"
+                        class="img-fluid " style="width:100%"> -->
                     <br /> <br />
                 </div>
             </div>
