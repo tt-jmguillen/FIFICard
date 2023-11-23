@@ -53,19 +53,19 @@
                     <div style="height: 100%;width: 50%; position: absolute; right: 0%; bottom: 0%;cursor: pointer;"
                         [routerLink]="['/postcards']"></div>
                 </div>
-                <!-- <div class="col-md-12" style="position: relative" *ngIf="priceService.getLocation() != 'ph'">
-                    <img src="/assets/images/2023/hw/f-usa2.png">
-                    <a href="https://fibeidigicards.com/home"
+                <div class="col-md-12" style="position: relative" *ngIf="priceService.getLocation() != 'ph'">
+                    <img src="/assets/images/2023/xmas/f-sns-min.png">
+                    <a [routerLink]="['/stickercards']"
                         style="height: 100%;width: 50%; position: absolute; left: 0%; bottom: 0%;cursor: pointer;"
                         target="_blank"></a>
                     <div style="height: 100%;width: 50%; position: absolute; right: 0%; bottom: 0%;cursor: pointer;"
                         [routerLink]="['/postcards']"></div>
-                </div> -->
+                </div>
                 <div class="col-md-12">
                     <img src="/assets/images/2023/xmas/delivery-min.png" *ngIf="priceService.getLocation() == 'ph'"
                         class="img-fluid " style="width:100%">
-                    <!-- <img src="/assets/images/2023/xmas/delivery-min.png" *ngIf="priceService.getLocation() != 'ph'"
-                        class="img-fluid " style="width:100%"> -->
+                   <img src="/assets/images/2023/xmas/delivery-min.png" *ngIf="priceService.getLocation() != 'ph'"
+                        class="img-fluid " style="width:100%">
                     <br /> <br />
                 </div>
             </div>
