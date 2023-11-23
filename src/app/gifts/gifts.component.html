@@ -5,8 +5,8 @@
         <div class="container animate main">
             <div class="row">
                 <div class="col-md-12">
-                    <img src="/assets/images/2023/hw/banner/g-01-min.png" class="img-fluid">
-                    <br /><br />
+                    <img src="/assets/images/2023/xmas/banner/gift-min.png" class="img-fluid">
+                    <img src="/assets/images/2023/xmas/banner/gift-1-min.png" class="img-fluid">
                 </div>
             </div>
             <br /><br />
@@ -28,67 +28,45 @@
             <app-gift-events *ngIf="mode=='Event'" [events]="events">
             </app-gift-events>
             <div class="row">
-                <div class="col-md-12 mb-4">
-                    <img src="/assets/images/2023/hw/more-with-fb.png">
+                <div class="col-md-12">
+                    <img src="/assets/images/2023/xmas/more-b1-min.png">
+                    <br /><br />
                 </div>
-
-            </div>
-            <div class="row">
                 <div class="col-md-12" style="position: relative">
-                    <img src="/assets/images/2023/hw/check.png">
-                    <div style="height: 67%;width: 21%; position: absolute; left: 5%; bottom: 0%;cursor: pointer;"
+                    <img src="/assets/images/2023/xmas/more-2-min.png">
+                    <div style="height: 67%;width: 21%; position: absolute; left: 23%; bottom: 0%;cursor: pointer;"
                         [routerLink]="['/poetry']"></div>
-                    <div style="height: 67%;width: 21%; position: absolute; left: 27.5%; bottom: 0%;cursor: pointer;"
+                    <div style="height: 67%;width: 21%; position: absolute; left: 45.5%; bottom: 0%;cursor: pointer;"
                         [routerLink]="['/postcards']"></div>
-                    <div style="height: 67%;width: 21%; position: absolute; left: 49.5%; bottom: 0%;cursor: pointer;"
+                    <div style="height: 67%;width: 21%; position: absolute; left: 68.5%; bottom: 0%;cursor: pointer;"
                         [routerLink]="['/signandsend']"></div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12" style="position: relative">
-                    <img src="/assets/images/2023/hw/two.png">
+                <div class="col-md-12" style="position: relative" *ngIf="priceService.getLocation() == 'ph'">
+                    <img src="/assets/images/2023/xmas/f-gift-min.png">
+                    <div style="height: 100%;width: 50%; position: absolute; left: 0%; bottom: 0%;cursor: pointer;"
+                    [routerLink]="['/stickercards']"></div>
+                    <div style="height: 100%;width: 50%; position: absolute; right: 0%; bottom: 0%;cursor: pointer;"
+                    [routerLink]="['/postcards']"></div>
+                   
+                </div>
+                <!-- <div class="col-md-12" style="position: relative" *ngIf="priceService.getLocation() != 'ph'">
+                    <img src="/assets/images/2023/hw/f-usa2.png">
                     <a href="https://fibeidigicards.com/home"
                         style="height: 100%;width: 50%; position: absolute; left: 0%; bottom: 0%;cursor: pointer;"
                         target="_blank"></a>
                     <div style="height: 100%;width: 50%; position: absolute; right: 0%; bottom: 0%;cursor: pointer;"
-                        [routerLink]="['/gifts']"></div>
-                </div>
-                    <div class="col-md-12">
-                        <img src="/assets/images/2023/hw/09-min.png" *ngIf="priceService.getLocation() == 'ph'"
-                            class="img-fluid " style="width:100%">
-                        <img src="/assets/images/2023/hw/09-usa-min.png" *ngIf="priceService.getLocation() != 'ph'"
-                            class="img-fluid " style="width:100%">
-                        <br /> <br />
-                    </div>
-            </div>
-            <!-- <div class="row">
-                <div class="col-md-12 mb-4">
-                    <img src="assets/images/banner/select/title.png">
-                </div>
-                <div class="col-3">
-                    <a [routerLink]="['/poetry']"><img src="assets/images/banner/select/p-1.png"></a>
-                </div>
-                <div class="col-3">
-                    <a [routerLink]="['/e-cards']"><img src="assets/images/banner/select/p-2.png"></a>
-                </div>
-                <div class="col-3">
-                    <a [routerLink]="['/postcards']"><img src="assets/images/banner/select/p-3.png"></a>
-                </div>
-                <div class="col-3">
-                    <div class="d-none d-sm-block">
-                        <br /><br />
-                    </div>
-                    <img src="assets/images/banner/select/p-4.png">
-                </div>
-            </div>
-            <div class="row">
+                        [routerLink]="['/postcards']"></div>
+                </div> -->
                 <div class="col-md-12">
+                    <img src="/assets/images/2023/xmas/delivery-min.png" *ngIf="priceService.getLocation() == 'ph'"
+                        class="img-fluid " style="width:100%">
+                    <!-- <img src="/assets/images/2023/xmas/delivery-min.png" *ngIf="priceService.getLocation() != 'ph'"
+                        class="img-fluid " style="width:100%"> -->
                     <br /> <br />
-                    <a [routerLink]="['/e-cards']"> <img src="assets/images/banner/shop-ecards.png"></a>
-                    <br /> <br />
-                    <img src="assets/images/banner/fs.png" *ngIf="priceService.getLocation() == 'ph'">
                 </div>
-            </div> -->
+            </div>
         </div>
 
     </section>
