@@ -53,8 +53,8 @@
             <div class="mb-3 col-12">
                 <label>* {{'profile.birthday'|translate}}</label>
                 <div class="input-group ">
-                    <select aria-label="Month" class="form-control" placeholder="Month" [attr.disabled]="!isEdit ? '' : null" formControlName="month" [ngClass]="{ 'is-invalid': submitted && controls()['month'].errors}">
-                        <option value=""></option>
+                    <select aria-label="Month" class="form-control" placeholder="{{'profile.month|translate}}" [attr.disabled]="!isEdit ? '' : null" formControlName="month" [ngClass]="{ 'is-invalid': submitted && controls()['month'].errors}">
+                        <option value="" disabled selected>Month</option>
                         <option value="1">{{'month.jan'|translate}}</option>
                         <option value="2">{{'month.feb'|translate}}</option>
                         <option value="3">{{'month.mar'|translate}}</option>

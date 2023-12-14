@@ -65,18 +65,18 @@
                         <a ngbDropdownToggle id="dropdownBasic1" style="cursor: pointer;text-decoration: none !important;">{{ 'menu.hi' | translate }}
                             {{getName()}}
                         </a>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dp-div">
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dp-div" style="padding:0;">
                             <p ngbDropdownItem routerLink='/profile/info' class="cursor">{{ 'menu.profile' | translate }}</p>
-                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-divider" style="margin:0;"></div>
                             <p ngbDropdownItem routerLink='/profile/comm' class="cursor">{{ 'menu.communicationpreferences' | translate }}</p>
-                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-divider" style="margin:0;"></div>
                             <p ngbDropdownItem routerLink='/profile/address' class="cursor">{{ 'menu.shippingaddress' | translate }}</p>
-                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-divider" style="margin:0;"></div>
                             <p ngbDropdownItem routerLink='/profile/list' class="cursor">{{ 'menu.mylist' | translate }}</p>
-                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-divider" style="margin:0;"></div>
                             <p ngbDropdownItem routerLink='/profile/orders' class="cursor">{{ 'menu.myorders' | translate }}</p>
-                            <div class="dropdown-divider"></div>
-                            <a ngbDropdownItem href="#" (click)="signOut()">{{ 'menu.signout' | translate }}</a>
+                            <div class="dropdown-divider" style="margin:0;"></div>
+                            <a ngbDropdownItem href="#" (click)="signOut()" style="padding:5px !important">{{ 'menu.signout' | translate }}</a>
                         </div>
                     </div>
                 </div>

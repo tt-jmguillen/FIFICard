@@ -51,8 +51,14 @@
 .text-gallery {
     color: #6b2d98;
     cursor: pointer;
+    padding: 4px 10px;
+    border: 2px solid #6b2d98;
+    display: inline-block;
+    margin: 8px;
+    border-radius: 6px;
 }
 
 .text-gallery:hover {
-    font-weight: bold;
+    color: white;
+    background-color: #6b2d98;
 }

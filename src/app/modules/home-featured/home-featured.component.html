@@ -9,16 +9,17 @@
   <div class="center-content bg-blue">
     <div class="row " ng-controller="appController">
       <div class="col-12">
-        <ngb-carousel>
+        <ngb-carousel style="padding:0 20px">
           <ng-template ngbSlide *ngFor="let batch of batches">
             <div class="row justify-content-md-center px-4">
               <div class="col-12">
-                <div class="row justify-content-md-center">
-                  <div class="col-md-2 col-6 cursor my-auto" *ngFor="let card of batch.cards" routerLink="{{'/card/' + card!.id}}">
-                    <img class="img-thumbnail" src="{{card?.imageUrl}}" title="{{card?.name}}">
-                    <p class="ellipsis">{{card?.name}}</p>
-                    <p *ngIf="withPrice">{{priceService.getSign()}} {{getPrice(card)| number:'1.2-2'}}</p>
-                  </div>
+                  <div class="row justify-content-md-center">
+                    <div class="col-md-2 col-6 cursor my-auto" *ngFor="let card of batch.cards"
+                      routerLink="{{'/card/' + card!.id}}">
+                      <img class="img-thumbnail" src="{{card?.imageUrl}}" title="{{card?.name}}">
+                      <p class="ellipsis">{{card?.name}}</p>
+                      <p *ngIf="withPrice">{{priceService.getSign()}} {{getPrice(card)| number:'1.2-2'}}</p>
+                    </div>
                 </div>
               </div>
             </div>

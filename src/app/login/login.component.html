@@ -1,6 +1,6 @@
 <div mat-dialog-content>
   <div style="text-align: right;">
-    <button mat-button (click)="onCloseClick($event)">X</button>
+    <button mat-button (click)="onCloseClick($event)" style="font-size: 20px;">X</button>
   </div>
   <mat-card-content style="border:none" class="mat-card-cus">
     <ngx-auth-firebaseui class="socials" [providers]="[this.providers.Google, this.providers.Facebook]" [guestEnabled]="false" (onSuccess)="printUser($event)" (onError)="printError($event)" (selectedTabChange)="onTabChange($event)">
@@ -12,6 +12,10 @@
   mat-icon
   {
     height: auto !important;
+  }
+ svg
+  {
+    margin-top: -16px !Important;
   }
 </style>
 <!-- </ion-content> -->
