@@ -141,6 +141,7 @@ import { ClipartComponent } from './clipart/clipart.component';
 import { ClipartCardComponent } from './clipart-card/clipart-card.component';
 import { ReadmoreComponent } from './modules/readmore/readmore.component';
 import { CartConfirmComponent } from './carts/cart-confirm/cart-confirm.component';
+import { GamesComponent } from './games/games.component';
 
 @NgModule({
   declarations: [
@@ -255,7 +256,8 @@ import { CartConfirmComponent } from './carts/cart-confirm/cart-confirm.componen
     ClipartComponent,
     ClipartCardComponent,
     ReadmoreComponent,
-    CartConfirmComponent
+    CartConfirmComponent,
+    GamesComponent
   ],
   imports: [
     BrowserModule,

@@ -49,6 +49,7 @@ import { ValentinesComponent } from './valentines/valentines.component';
 import { ValentinesGreetingsComponent } from './valentines/valentines-greetings/valentines-greetings.component';
 import { ClipartComponent } from './clipart/clipart.component';
 import { CartConfirmComponent } from './carts/cart-confirm/cart-confirm.component';
+import { GamesComponent } from './games/games.component';
 
 
 const routes: Routes = [
@@ -228,6 +229,9 @@ const routes: Routes = [
   },
   {
     path: 'email/:type/:id', component: EmailMessageComponent, title: "FibeiGreetings"
+  },
+  {
+    path: 'games', component: GamesComponent, title: "FibeiGreetings Games"
   },
 ];
 
