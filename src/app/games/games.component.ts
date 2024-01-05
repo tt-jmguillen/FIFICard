@@ -12,4 +12,7 @@ export class GamesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  goToPlaystore(): void {
+    window.open('https://play.google.com/store/apps/details?id=com.apolloswing.kepler.gp&hl=ph-en', '_blank');
+  }
 }

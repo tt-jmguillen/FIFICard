@@ -1,23 +1,91 @@
-.img-detail{
+.background {
+    background-image: url('/assets/images/games/chaotichero/background.jpg');
+    background-size: 100%;
+    background-repeat: repeat-y;
+}
+
+.img-detail {
     width: 100%;
     aspect-ratio: 493/851;
+    border: 10px solid white;
+    border-radius: 5px;
 }
 
-.downloadnow{
-    max-height: 75px;
-    margin-top: 20px;
-    margin-bottom: 10px;
+.label {
+    font-family: "Now Bold";
+    color: white;
+    font-size: 50pt;
+    margin-block: 20px;
+    text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
 }
 
-a{
-    cursor: pointer;
+.battle {
+    font-family: "Now Bold";
+    font-size: 45pt;
+    font-weight: bold;
+    position: absolute;
+    top: 16%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 0 0 3px white, 0 0 5px white;
 }
 
-.googleplay{
-    max-height: 107px;
+.formation{
+    font-family: "Now Bold";
+    color: white;
+    font-size: 45pt;
+    font-weight: bold;
+    position: absolute;
+    top: 19%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
 }
 
-.applestore{
-    max-height: 70px;
+.gamestore{
+    font-family: "Now Bold";
+    font-size: 45pt;
+    font-weight: bold;
+    position: absolute;
+    top: 62%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    text-shadow: 0 0 3px white, 0 0 5px white;
+}
+
+.link{
+    border-radius: 15px;
+    box-shadow: 0 0 3px white, 0 0 5px white;
+    margin: 20px;
+    background-color: black;
+    margin-bottom: 70px;
+}
+
+.link img{
+    margin-inline: 15px;
+    margin-block: 10px;
+    max-height: 50pt;
+}
+
+.soon {
     cursor: not-allowed;
+}
+
+.soon img{
+    opacity: 0.3;
+}
+
+.soon-label{
+    font-family: "Now Bold";
+    color: white;
+    font-size: 17pt;
+    font-weight: bold;
+    position: absolute;
+    top: 30%;
+    right: 30%;
+    transform: translate(-50%, -50%);
+    -ms-transform: rotate(17deg); /* IE 9 */
+    -webkit-transform: rotate(17deg); /* Chrome, Safari, Opera */
+    -moz-transform: rotate(17deg); /*Mozilla */
+     transform: rotate(-17deg); 
 }

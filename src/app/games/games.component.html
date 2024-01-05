@@ -1,4 +1,5 @@
-<ion-content [fullscreen]="true" >
+<ion-content [fullscreen]="true">
+  <div class="background">
     <div class="container page-main">
       <ion-row>
         <ion-col>
@@ -32,33 +33,40 @@
       </ion-row>
       <ion-row>
         <ion-col class="ion-text-center">
-          <img src="../assets/images/games/chaotichero/gameplayvideos.png" title="Chaotic Hero" class="downloadnow">
+          <label class="label">GAME PLAY VIDEOS</label>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
+          <label class="battle">Battle</label>
           <img src="../assets/images/games/chaotichero/battle.jpg" title="Chaotic Hero" class="img-detail">
         </ion-col>
         <ion-col>
+          <label class="formation">Formation</label>
           <img src="../assets/images/games/chaotichero/formation.jpg" title="Chaotic Hero" class="img-detail">
         </ion-col>
         <ion-col>
+          <label class="gamestore">Game Store</label>
           <img src="../assets/images/games/chaotichero/gamestore.jpg" title="Chaotic Hero" class="img-detail">
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="ion-text-center">
-          <img src="../assets/images/games/chaotichero/downloadnow.png" title="Chaotic Hero" class="downloadnow">
+          <label class="label">DOWNLOAD NOW</label>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="ion-text-center">
-          <a href="https://play.google.com/store/apps/details?id=com.apolloswing.kepler.gp&hl=ph-en" target="_blank">
-            <img src="../assets/images/games/google-play-badge.png" title="Chaotic Hero" class="googleplay">
-          </a>
-          <img src="../assets/images/games/apple-store-soon.png" title="Chaotic Hero" class="applestore">
+          <button class="link" (click)="goToPlaystore()">
+            <img src="../assets/images/games/googleplaystore.png" title="Chaotic Hero">
+          </button>
+          <button class="link soon">
+            <img src="../assets/images/games/appleappstore.png" title="Soon on App Store">
+            <label class="soon-label">COMING SOON</label>
+          </button>
         </ion-col>
       </ion-row>
     </div>
-    <app-footer></app-footer>
-  </ion-content>
+  </div>
+  <app-footer></app-footer>
+</ion-content>
