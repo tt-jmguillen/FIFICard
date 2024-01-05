@@ -115,4 +115,7 @@ upload-keystore.jks
 !src/assets/images/poetry/*
 !src/assets/images/fathers/*
 !src/assets/images/mothersday/*
+!src/assets/images/games/*
+!src/assets/images/games/chaotichero/*
+
 
