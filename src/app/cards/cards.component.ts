@@ -162,19 +162,6 @@ export class CardsComponent implements OnInit {
     finally {
       await loading.dismiss();
     }
-    /*
-    if ((this.event) && (this.event! != 'All')) {
-      this.getCardsForEvent(this.event!);
-    }
-    else if ((this.search) && (this.search != '')) {
-      this.title.setTitle('Fibei Greetings');
-      this.getSearchCard(this.search);
-    }
-    else {
-      this.title.setTitle('Fibei Greetings');
-      this.getAllCards();
-    }
-    */
   }
 
   replaceAll(value: string): string {
@@ -254,20 +241,21 @@ export class CardsComponent implements OnInit {
       .replace(".", " ")
       .trim();
 
-    return new Promise((resolve, rejects) => {
-      this.service.getCardsByEvent(search).then(data => {
+    return new Promise(async resolve => {
+      let data = await this.service.getCardsByEvent(search)
+      if (data.length > 0){
         resolve(data);
-      }).catch(e => {
-        this.service.getSearchCards('search_name', value).then(data => {
-          resolve(data);
-        }).catch(e => {
-          this.service.getSearchCards('search_description', value).then(data => {
-            resolve(data);
-          }).catch(e => {
-            resolve([]);
-          });
-        });
-      });
+      }
+      
+      data = await this.service.getSearchCards('search_name', value);
+      if (data.length > 0){
+        resolve(data);
+      }
+
+      data = await this.service.getSearchCards('search_description', value);
+      if (data.length > 0){
+        resolve(data);
+      }
     })
   }
 
